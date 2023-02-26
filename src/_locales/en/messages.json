@@ -1,22 +1,18 @@
 {
     "appName": {
-        "message": "Dictionary",
+        "message": "Floating Calculator",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Dictionary",
+        "message": "Calculator",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Full-featured dictionary extension",
+        "message": "A floating calculator anywhere you need it",
         "description": "The description of your extension"
     },
-    "define_cue": {
-        "message": "define",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "synonyms",
-        "description": "The search query cue for synonyms"
+    "calculator_cue": {
+        "message": "calculator",
+        "description": "The search query cue for calculator"
     }
 }

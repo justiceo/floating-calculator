@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "অভিধান",
+        "message": "ভাসমান ক্যালকুলেটর",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "অভিধান",
+        "message": "ভাসমান ক্যালকুলেটর",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "পূর্ণ বৈশিষ্ট্যযুক্ত অভিধান এক্সটেনশন",
+        "message": "আপনার যে কোনও জায়গায় ভাসমান ক্যালকুলেটর",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "সংজ্ঞায়িত",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "প্রতিশব্দ",
-        "description": "The search query cue for synonyms"
     }
 }

@@ -62,7 +62,7 @@ export class Previewr {
       return;
     }
 
-    if (event.data.application !== "dictionary") {
+    if (event.data.application !== "floating-calculator") {
       this.logger.debug(
         "Ignoring origin messsage not initiated by Better Previews"
       );
@@ -159,8 +159,8 @@ export class Previewr {
       icon: chrome.runtime.getURL("assets/logo-24x24.png"),
       x: pos.x,
       y: pos.y,
-      width: "410px",
-      height: "400px",
+      width: "655px",
+      height: "335px",
       autosize: false,
       class: ["no-max", "no-full", "no-min", "no-resize", "no-move"],
       index: await this.getMaxZIndex(),
@@ -168,14 +168,14 @@ export class Previewr {
       html: `<iframe name="${iframeName}" src="${url}"></iframe><div class="loading"><span class="bar-animation"></span></div> `,
       // url: url.href, // Update restore when you update this.
       hidden: true,
-      shadowel: "dictionary-preview-window",
+      shadowel: "floating-calculator-preview-window",
       cssurl: chrome.runtime.getURL("content-script/winbox.css"),
       framename: iframeName,
 
       onclose: () => {
         this.url = undefined;
         this.dialog = undefined;
-        document.querySelectorAll("dictionary-preview-window")?.forEach(e => e.remove());
+        document.querySelectorAll("floating-calculator-preview-window")?.forEach(e => e.remove());
       },
     };
   }
@@ -212,8 +212,8 @@ export class Previewr {
     };
     const div = document.createElement("div");
     // These dimensions need to match that of the dialog precisely.
-    div.style.width = "410px";
-    div.style.height = "400px";
+    div.style.width = "655px";
+    div.style.height = "335px";
     div.style.position = "fixed";
     div.style.visibility = "hidden";
     document.body.appendChild(div);

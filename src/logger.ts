@@ -2,10 +2,10 @@ import * as Sentry from '@sentry/browser';
 import { BrowserTracing } from "@sentry/tracing";
 
 Sentry.init({
-  dsn: 'https://b899cc8fbe2b412c82a5355e82e1842f@o526305.ingest.sentry.io/4504658475876352',
+  dsn: 'https://11fa19323b3a48d5882f26d3a98c1864@o526305.ingest.sentry.io/4504743091699712',
   integrations: [new BrowserTracing()],
   tracesSampleRate: 0.1,
-  release: 'dictionary@23.2.10',
+  release: 'floating-calculator@23.2.10',
   environment: 'DEV',
 });
 

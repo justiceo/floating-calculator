@@ -3,7 +3,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appShortName_",
-  "homepage_url": "https://github.com/justiceo/dictionary",
+  "homepage_url": "https://github.com/justiceo/floating-calculator",
   "__comment:version__": "Firefox does not support leading zeros in versions",
   "version": "23.2.19",
   "manifest_version": 3,

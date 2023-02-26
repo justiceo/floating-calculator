@@ -1,6 +1,6 @@
-# ![logo](src/assets/logo-24x24.png) Dictionary
+# ![logo](src/assets/logo-24x24.png) Floating Calculator
 
-Full-featured dictionary extension
+A floating calculator anywhere you need it
 
 Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-52.html
 
@@ -100,7 +100,7 @@ node tools/esbuild test
 
 ### Data Source considerations
 
-* Tried https://dictionaryapi.dev/, it's based on low-quality wikitionary data.
+* Tried https://floating-calculatorapi.dev/, it's based on low-quality wikitionary data.
 * Consider Oxford and Merriam Webster, rate limit issues.
 * Consider scraping definitions off of Google, this would be prone to breakage everytime their CSS rules changes (which happens often). 
 

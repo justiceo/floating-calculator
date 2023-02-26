@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "字典",
+        "message": "浮动计算器",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "字典",
+        "message": "浮动计算器",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "全功能词典扩展",
+        "message": "浮动计算器您需要的任何地方",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "定义",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "同义词",
-        "description": "The search query cue for synonyms"
     }
 }

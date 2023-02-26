@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "מילון",
+        "message": "מחשבון צף",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "מילון",
+        "message": "מחשבון צף",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "סיומת מילון מלאה",
+        "message": "מחשבון צף בכל מקום שאתה צריך אותו",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "לְהַגדִיר",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "מילים נרדפות",
-        "description": "The search query cue for synonyms"
     }
 }

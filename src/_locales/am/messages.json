@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "መዝገበ ቃላት",
+        "message": "ተንሳፋፊ ካልኩሌተር",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "መዝገበ ቃላት",
+        "message": "ተንሳፋፊ ካልኩሌተር",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "ባለሞያ መዝገበ-ቃላት ማራዘሚያ",
+        "message": "በሚፈልጉት ቦታ ተንሳፋፊ ካልኩሌተር",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "ግለጽ",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "ተመሳሳይ ቃላት",
-        "description": "The search query cue for synonyms"
     }
 }

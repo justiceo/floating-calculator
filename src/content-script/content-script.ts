@@ -112,7 +112,7 @@ class Listener {
 
   sendMessage(action: string, data: any, point: any) {
     const mssg = {
-      application: "dictionary",
+      application: "floating-calculator",
       action: action,
       data: data,
       point: point,

@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Kamusi",
+        "message": "Calculator ya kuelea",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Kamusi",
+        "message": "Calculator ya kuelea",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Upanuzi kamili wa kamusi",
+        "message": "Calculator ya kuelea mahali popote unahitaji",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "Fafanua",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "visawe",
-        "description": "The search query cue for synonyms"
     }
 }

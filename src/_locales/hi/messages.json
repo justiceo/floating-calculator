@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "शब्दकोष",
+        "message": "अस्थायी कैलकुलेटर",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "शब्दकोष",
+        "message": "अस्थायी कैलकुलेटर",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "पूर्ण-विशेषताओं वाले शब्दकोश विस्तार",
+        "message": "एक फ्लोटिंग कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "परिभाषित करना",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "समानार्थी शब्द",
-        "description": "The search query cue for synonyms"
     }
 }

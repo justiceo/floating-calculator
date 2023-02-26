@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Diccionari",
+        "message": "Calculadora flotant",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Diccionari",
+        "message": "Calculadora flotant",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Extensió de diccionari completa",
+        "message": "Una calculadora flotant a qualsevol lloc que necessiteu",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "definir",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "sinònims",
-        "description": "The search query cue for synonyms"
     }
 }

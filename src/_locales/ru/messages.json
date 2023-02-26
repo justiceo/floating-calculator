@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Словарь",
+        "message": "Плавающий калькулятор",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Словарь",
+        "message": "Плавающий калькулятор",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Полное расширение словаря",
+        "message": "Плавучий калькулятор везде, где он вам нужен",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "определять",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "синонимы",
-        "description": "The search query cue for synonyms"
     }
 }

@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "ನಿಘಂಟು",
+        "message": "ತೇಲುಕೋರ",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "ನಿಘಂಟು",
+        "message": "ತೇಲುಕೋರ",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "ಪೂರ್ಣ-ವೈಶಿಷ್ಟ್ಯದ ನಿಘಂಟು ವಿಸ್ತರಣೆ",
+        "message": "ನಿಮಗೆ ಅಗತ್ಯವಿರುವ ಎಲ್ಲಿಯಾದರೂ ತೇಲುವ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "ವಿವರಿಸು",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "ಸಮಾನಾರ್ಥಕಾರ್ಥ",
-        "description": "The search query cue for synonyms"
     }
 }

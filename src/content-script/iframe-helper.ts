@@ -80,7 +80,7 @@ export class IFrameHelper {
 
   sendMessage(message: any) {
     this.logger.debug("#sendMessage", message);
-    chrome.runtime.sendMessage({ application: "dictionary", ...message });
+    chrome.runtime.sendMessage({ application: "floating-calculator", ...message });
   }
 
   hideAllExcept(el) {

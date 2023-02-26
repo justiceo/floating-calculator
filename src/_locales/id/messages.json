@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Kamus",
+        "message": "Kalkulator mengambang",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Kamus",
+        "message": "Kalkulator mengambang",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Ekstensi kamus berfitur lengkap",
+        "message": "Kalkulator mengambang di mana saja Anda membutuhkannya",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "mendefinisikan",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "sinonim",
-        "description": "The search query cue for synonyms"
     }
 }

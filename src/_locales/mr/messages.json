@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "शब्दकोष",
+        "message": "फ्लोटिंग कॅल्क्युलेटर",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "शब्दकोष",
+        "message": "फ्लोटिंग कॅल्क्युलेटर",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "पूर्ण वैशिष्ट्यीकृत शब्दकोष विस्तार",
+        "message": "आपल्याला कोठेही फ्लोटिंग कॅल्क्युलेटर आवश्यक आहे",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "परिभाषित",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "समानार्थी शब्द",
-        "description": "The search query cue for synonyms"
     }
 }

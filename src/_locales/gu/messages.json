@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "શબ્દકોશ",
+        "message": "અસ્થાયી ગણતરીકાર",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "શબ્દકોશ",
+        "message": "અસ્થાયી ગણતરીકાર",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "પૂર્ણ-સુવિધાયુક્ત શબ્દકોશ",
+        "message": "તમને ગમે ત્યાં ફ્લોટિંગ કેલ્ક્યુલેટર",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "વ્યાખ્યા કરવી",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "મહાવરો",
-        "description": "The search query cue for synonyms"
     }
 }

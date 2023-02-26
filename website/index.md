@@ -25,8 +25,8 @@ The earlier version of the template used gulp, you can see this version in the "
 
 1. Download the repo and install dependencies (there are only dev dependencies)
 ```
-git clone http://github.com/justiceo/dictionary 
-cd dictionary  && npm install  
+git clone http://github.com/justiceo/floating-calculator 
+cd floating-calculator  && npm install  
 ```
 
 2. Install Firefox for Puppeteer.

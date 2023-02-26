@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Словник",
+        "message": "Плаваючий калькулятор",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Словник",
+        "message": "Плаваючий калькулятор",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Повнофункціональне розширення словника",
+        "message": "Плаваючий калькулятор де завгодно",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "визначати",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "синоніми",
-        "description": "The search query cue for synonyms"
     }
 }

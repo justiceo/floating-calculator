@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "നിഘണ്ടു",
+        "message": "ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "നിഘണ്ടു",
+        "message": "ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "പൂർണ്ണ-തിരഞ്ഞെടുത്ത നിഘണ്ടു വിപുലീകരണം",
+        "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "നിര്വചിക്കുക",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "പര്യായങ്ങൾ",
-        "description": "The search query cue for synonyms"
     }
 }

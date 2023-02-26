@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "قاموس",
+        "message": "حاسبة عائمة",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "قاموس",
+        "message": "آلة حاسبة عائمة",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "امتداد القاموس كامل الميزة",
+        "message": "آلة حاسبة عائمة في أي مكان تحتاجه",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "يُعرِّف",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "المرادفات",
-        "description": "The search query cue for synonyms"
     }
 }

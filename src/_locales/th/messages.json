@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "พจนานุกรม",
+        "message": "เครื่องคิดเลขลอย",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "พจนานุกรม",
+        "message": "เครื่องคิดเลขลอย",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "การขยายพจนานุกรมเต็มรูปแบบ",
+        "message": "เครื่องคิดเลขลอยได้ทุกที่ที่คุณต้องการ",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "กำหนด",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "คำพ้องความหมาย",
-        "description": "The search query cue for synonyms"
     }
 }

@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Lexikon",
+        "message": "Flytande kalkylator",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Lexikon",
+        "message": "Flytande kalkylator",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Fullständig ordboksförlängning",
+        "message": "En flytande kalkylator var du behöver den",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "definiera",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "synonymer",
-        "description": "The search query cue for synonyms"
     }
 }

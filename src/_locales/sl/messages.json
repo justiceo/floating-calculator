@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Slovar",
+        "message": "Plavajoči kalkulator",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Slovar",
+        "message": "Plavajoči kalkulator",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Popolna razširitev slovarja",
+        "message": "Plavajoči kalkulator kjer koli ga potrebujete",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "definiraj",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "sinonime",
-        "description": "The search query cue for synonyms"
     }
 }

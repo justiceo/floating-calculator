@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Slovník",
+        "message": "Plovoucí kalkulačka",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Slovník",
+        "message": "Plovoucí kalkulačka",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Plně vybavené prodloužení slovníku",
+        "message": "Plovoucí kalkulačka kdekoli ji potřebujete",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "definovat",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "Synonyma",
-        "description": "The search query cue for synonyms"
     }
 }

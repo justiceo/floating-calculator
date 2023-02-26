@@ -1,22 +1,14 @@
 {
     "appName": {
-        "message": "Vārdnīca",
+        "message": "Peldošs kalkulators",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Vārdnīca",
+        "message": "Peldošs kalkulators",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Pilna pilnā vārdnīcas pagarinājums",
+        "message": "Peldošs kalkulators visur, kur tas jums nepieciešams",
         "description": "The description of your extension"
-    },
-    "define_cue": {
-        "message": "definēt",
-        "description": "The search query cue for definition"
-    },
-    "synonyms_cue": {
-        "message": "sinonīmi",
-        "description": "The search query cue for synonyms"
     }
 }
