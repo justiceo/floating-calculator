@@ -6,14 +6,34 @@ export function getEngineConfig() {
         Google: {
             name: "Google",
             selector: "div[jscontroller=GCPuBe]",            
-            url: () => `https://www.google.com/search?q=${cue}`,
+            url: () => `https://www.google.com/search?igu=1&q=${cue}`,
             applyCss: () => {
                 const style = document.createElement("style");
                 style.textContent = `                    
                     body.srp {
                         overflow-x: hidden;
+                        overflow-y: hidden;
                         --center-width: 350px;
-                    }  
+                        --center-abs-margin: 0;
+                    }
+
+                    span[jsname=ieUz0d] {
+                        display:none;
+                    }
+
+                    .card-section {
+                        margin-top: -20px;
+                    }
+
+                    .card-section div[role=button] {
+                        height: auto;
+                        line-height: 34px;
+                        margin: 4px;
+                    }
+
+                    .card-section td > div {
+                        height: auto;
+                    }                                      
                 `;
                 document.body.appendChild(style);
 
@@ -31,7 +51,7 @@ export function getEngineConfig() {
                 const link = document.createElement("link");
                 link.rel = "stylesheet";
                 link.type = "text/css";
-                link.href = chrome.runtime.getURL("content-script/calculator.css"),
+                link.href = chrome.runtime.getURL("content-script/ddg-calculator.css"),
                 link.itemprop = "url";
                 document.body.appendChild(link);
 
