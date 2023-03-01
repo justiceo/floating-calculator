@@ -1,5 +1,5 @@
 
-const engine = "Google"
+const engine = "DuckDuckGo"
 export function getEngineConfig() {
     const cue = chrome.i18n.getMessage("calculator_cue");
     const config= {
@@ -23,6 +23,21 @@ export function getEngineConfig() {
                 });
             },
         },
+        DuckDuckGo: {
+            name: "DuckDuckGo",
+            selector: "div.calculator--wrap.tile--calculator",            
+            url: () => `https://duckduckgo.com/?q=${cue}`,
+            applyCss: () => {
+                const style = document.createElement("style");
+                style.textContent = ``;
+                document.body.appendChild(style);
+
+                // Remove links to avoid navigating away.
+                document.body.querySelectorAll("a").forEach(a => {
+                    a.parentElement?.replaceChild(document.createTextNode(a.textContent!), a);
+                });                
+            },
+        }
     }
     return config[engine];
 }

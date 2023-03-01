@@ -96,7 +96,7 @@ export class Previewr {
       case "verbose-define":
       case "toggle-calculator":
         try {
-          let newUrl = new URL(this.engineConfig["url"](message.data));
+          let newUrl = new URL(this.engineConfig["url"]());
           if (newUrl.href === this.url?.href) {
             this.logger.warn("Ignoring update of same URL", newUrl.href);
             return;
