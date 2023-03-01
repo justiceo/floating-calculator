@@ -47,7 +47,23 @@
       "matches": ["<all_urls>"]
     },
     {
-      "resources": ["content-script/winbox.css"],
+      "resources": ["assets/logo-24x24.png"],
+      "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["assets/icon-min.svg"],
+      "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["assets/icon-max.svg"],
+      "matches": ["<all_urls>"]
+    } ,
+    {
+      "resources": ["assets/icon-close.svg"],
+      "matches": ["<all_urls>"]
+    } ,
+    {
+      "resources": ["assets/icon-full.svg"],
       "matches": ["<all_urls>"]
     }       
   ],
