@@ -70,7 +70,6 @@
       "matches": ["<all_urls>"]
     }        
   ],
-  "options_page": "options-page/options.html",
   "background": {
     "service_worker": "background-script/background.js",
     "__firefox__persistent": "false"
