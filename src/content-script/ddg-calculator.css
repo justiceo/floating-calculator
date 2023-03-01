@@ -1,3 +1,18 @@
+.zci.is-active {
+    border-bottom: none; 
+    padding-bottom: 0; 
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.zci-wrap {
+    margin-top: 0;
+}
+
+.zci .cw {
+    padding: 0 0 0 0;
+}
+
 /* Typography */
 
 .zci--calculator,
@@ -341,7 +356,7 @@ input:checked+.tile__ctrl__toggle-slider:before {
     right: 0;
     left: 0;
     position: absolute;
-    display: table;
+    display: none;
     box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -496,7 +511,7 @@ input:checked+.tile__ctrl__toggle-slider:before {
 
 @media only screen and (min-width: 60em) {
     .zci--calculator .tile__calc .tile__options {
-        bottom: -1em;
+        bottom: 0;
     }
 }
 
@@ -513,10 +528,10 @@ input:checked+.tile__ctrl__toggle-slider:before {
     }
     /* default: basic tab */
     .zci--calculator .tile__calc .tile__tabs .tile__tab__sci {
-        margin-left: -295px;
+        margin-left: 0;
     }
     .zci--calculator .tile__calc .tile__display {
-        max-width: 295px;
+        max-width: 500px;
     }
     .zci--calculator .zci__main--detail {
         max-width: 43.8em;
@@ -528,10 +543,10 @@ input:checked+.tile__ctrl__toggle-slider:before {
     }
     /* show 3 tab options */
     .zci--calculator .tile__calc .tile__display__main {
-        margin-top: -0.2em;
+        margin-top: 0;
     }
     .zci--calculator .tile__calc .tile__display .tile__options {
-        margin-top: 0em;
+        margin-top: 0;
     }
     .zci--calculator .tile__calc .tile__display .tile__option {
         float: left;
@@ -550,11 +565,11 @@ input:checked+.tile__ctrl__toggle-slider:before {
 @media only screen and (max-width: 43.8em) {
 
     .zci--calculator .tile__calc .tile__display {
-        width: 50%;
+        width: 80%;
     }
 
     .zci--calculator .tile__calc .tile__calc__col {
-        width: 50%;
+        width: 40%;
     }
 
     .zci--calculator .tile__calc .tile__history {
@@ -643,7 +658,7 @@ input:checked+.tile__ctrl__toggle-slider:before {
     .is-mobile .zci--calculator .zci__body {
         padding-right: 0px;
         margin-left: 0;
-        padding-left: 1px;
+        padding-left: 0px;
     }
 }
 

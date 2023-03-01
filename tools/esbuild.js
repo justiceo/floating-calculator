@@ -242,7 +242,7 @@ class Build {
       "src/popup/popup.html": "popup/popup.html",
       "src/options-page/options.html": "options-page/options.html",
       "src/welcome": "welcome",
-      "src/content-script/calculator.css": "content-script/calculator.css",
+      "src/content-script/ddg-calculator.css": "content-script/ddg-calculator.css",
     };
 
     return new Promise((resolve, reject) => {
