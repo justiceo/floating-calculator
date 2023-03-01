@@ -28,9 +28,12 @@ export function getEngineConfig() {
             selector: "div.calculator--wrap.tile--calculator",            
             url: () => `https://duckduckgo.com/?q=${cue}`,
             applyCss: () => {
-                const style = document.createElement("style");
-                style.textContent = ``;
-                document.body.appendChild(style);
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.type = "text/css";
+                link.href = chrome.runtime.getURL("content-script/calculator.css"),
+                link.itemprop = "url";
+                document.body.appendChild(link);
 
                 // Remove links to avoid navigating away.
                 document.body.querySelectorAll("a").forEach(a => {
