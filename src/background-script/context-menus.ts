@@ -27,25 +27,21 @@ export class ContextMenu {
       chrome.runtime.reload();
     },
   };
-  DEFINE_ACTION: MenuItem = {
+  FLOATING_CALC_ACTION: MenuItem = {
     menu: {
-      id: 'define-selection',
-      title: 'Define word',
+      id: 'show-calculator',
+      title: 'Floating Calculator',
       visible: true,
-      contexts: ['selection'],
+      contexts: ['all'],
     },
-    handler: (data: chrome.contextMenus.OnClickData) => {
-      if (!data.selectionText) {
-        console.warn('No selection', data);
-        return;
-      }
-      this.sendMessage({ action: 'verbose-define', data: data.selectionText });
+    handler: (data: chrome.contextMenus.OnClickData) => {     
+      this.sendMessage({ action: 'toggle-calculator', data: "" });
     },
   };
 
   browserActionContextMenu: MenuItem[] = [
     this.RELOAD_ACTION,
-    this.DEFINE_ACTION,
+    this.FLOATING_CALC_ACTION,
   ];
 
   init = () => {
