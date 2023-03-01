@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "เครื่องคิดเลขลอย",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "เครื่องคิดเลขลอย",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "เครื่องคิดเลขลอยได้ทุกที่ที่คุณต้องการ",
+        "description": "The description of your extension"
+    }
+}

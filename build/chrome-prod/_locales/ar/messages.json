@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "حاسبة عائمة",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "آلة حاسبة عائمة",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "آلة حاسبة عائمة في أي مكان تحتاجه",
+        "description": "The description of your extension"
+    }
+}

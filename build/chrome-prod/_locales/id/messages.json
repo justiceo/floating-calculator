@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Kalkulator mengambang",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulator mengambang",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Kalkulator mengambang di mana saja Anda membutuhkannya",
+        "description": "The description of your extension"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Плаващ калкулатор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Плаващ калкулатор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плаващ калкулатор навсякъде, където се нуждаете",
+        "description": "The description of your extension"
+    }
+}

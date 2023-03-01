@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Kelluva laskin",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kelluva laskin",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Kelluva laskin missä tahansa tarvitset sitä",
+        "description": "The description of your extension"
+    }
+}

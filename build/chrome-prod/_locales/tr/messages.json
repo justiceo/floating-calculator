@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Yüzen hesap makinesi",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Yüzen hesap makinesi",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "İhtiyacınız olan herhangi bir yerde yüzen bir hesap makinesi",
+        "description": "The description of your extension"
+    }
+}

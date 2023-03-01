@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് കാൽക്കുലേറ്റർ",
+        "description": "The description of your extension"
+    }
+}

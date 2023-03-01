@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Flydende lommeregner",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Flydende lommeregner",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "En flydende lommeregner hvor som helst du har brug for det",
+        "description": "The description of your extension"
+    }
+}

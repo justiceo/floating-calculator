@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Úszó számológép",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Úszó számológép",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Úszó számológép bárhol, amire szüksége van rá",
+        "description": "The description of your extension"
+    }
+}

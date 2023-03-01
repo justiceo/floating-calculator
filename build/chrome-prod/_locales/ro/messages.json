@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Calculator plutitor",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculator plutitor",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Un calculator plutitor oriunde ai nevoie",
+        "description": "The description of your extension"
+    }
+}

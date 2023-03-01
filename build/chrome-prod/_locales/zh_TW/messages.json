@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "浮動計算器",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "浮動計算器",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "浮動計算器您需要的任何地方",
+        "description": "The description of your extension"
+    }
+}

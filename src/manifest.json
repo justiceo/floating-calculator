@@ -5,7 +5,7 @@
   "short_name": "__MSG_appShortName_",
   "homepage_url": "https://github.com/justiceo/floating-calculator",
   "__comment:version__": "Firefox does not support leading zeros in versions",
-  "version": "23.2.19",
+  "version": "23.2.28",
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",  "permissions": ["storage", "declarativeNetRequest", "contextMenus"],

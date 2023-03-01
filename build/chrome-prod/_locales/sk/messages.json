@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Kalkulačka",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulačka",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Plávajúca kalkulačka kdekoľvek ju potrebujete",
+        "description": "The description of your extension"
+    }
+}

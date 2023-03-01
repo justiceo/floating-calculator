@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Pływający kalkulator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Pływający kalkulator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Pływający kalkulator w dowolnym miejscu",
+        "description": "The description of your extension"
+    }
+}

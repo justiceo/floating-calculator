@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "フローティング計算機",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "フローティング計算機",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "あなたがそれを必要とするどこでも浮遊計算機",
+        "description": "The description of your extension"
+    }
+}

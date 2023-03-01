@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "फ्लोटिंग कॅल्क्युलेटर",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "फ्लोटिंग कॅल्क्युलेटर",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "आपल्याला कोठेही फ्लोटिंग कॅल्क्युलेटर आवश्यक आहे",
+        "description": "The description of your extension"
+    }
+}

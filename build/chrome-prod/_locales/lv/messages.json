@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Peldošs kalkulators",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Peldošs kalkulators",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Peldošs kalkulators visur, kur tas jums nepieciešams",
+        "description": "The description of your extension"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "ఫ్లోటింగ్ కాలిక్యులేటర్",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ఫ్లోటింగ్ కాలిక్యులేటర్",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "ఫ్లోటింగ్ కాలిక్యులేటర్ మీకు ఎక్కడైనా అవసరం",
+        "description": "The description of your extension"
+    }
+}

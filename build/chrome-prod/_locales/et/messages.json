@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Ujuvkalkulaator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Ujuvkalkulaator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Ujuv kalkulaator kõikjal, kus seda vajate",
+        "description": "The description of your extension"
+    }
+}

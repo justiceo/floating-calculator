@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Calculator ya kuelea",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculator ya kuelea",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Calculator ya kuelea mahali popote unahitaji",
+        "description": "The description of your extension"
+    }
+}

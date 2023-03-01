@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Calculadora flutuante",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculadora flutuante",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Uma calculadora flutuante em qualquer lugar você precisar",
+        "description": "The description of your extension"
+    }
+}

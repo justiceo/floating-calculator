@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Calcolatrice galleggiante",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calcolatrice galleggiante",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Un calcolatore galleggiante ovunque ne abbia bisogno",
+        "description": "The description of your extension"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Лебдећи калкулатор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Лебдећи калкулатор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плутајући калкулатор било где да вам треба",
+        "description": "The description of your extension"
+    }
+}

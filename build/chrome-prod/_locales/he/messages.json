@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "מחשבון צף",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "מחשבון צף",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "מחשבון צף בכל מקום שאתה צריך אותו",
+        "description": "The description of your extension"
+    }
+}

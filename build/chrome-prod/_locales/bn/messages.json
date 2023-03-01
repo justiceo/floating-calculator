@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "ভাসমান ক্যালকুলেটর",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ভাসমান ক্যালকুলেটর",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "আপনার যে কোনও জায়গায় ভাসমান ক্যালকুলেটর",
+        "description": "The description of your extension"
+    }
+}

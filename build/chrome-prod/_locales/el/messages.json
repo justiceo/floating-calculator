@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Πλωτός υπολογιστής",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Πλωτός υπολογιστής",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Μια πλωτή αριθμομηχανή οπουδήποτε το χρειάζεστε",
+        "description": "The description of your extension"
+    }
+}

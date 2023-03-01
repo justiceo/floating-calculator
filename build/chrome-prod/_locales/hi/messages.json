@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "अस्थायी कैलकुलेटर",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "अस्थायी कैलकुलेटर",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "एक फ्लोटिंग कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
+        "description": "The description of your extension"
+    }
+}

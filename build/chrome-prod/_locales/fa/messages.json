@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "ماشین حساب",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ماشین حساب",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "یک ماشین حساب شناور در هر مکانی که به آن نیاز دارید",
+        "description": "The description of your extension"
+    }
+}
