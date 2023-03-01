@@ -931,7 +931,7 @@ function addWindowListener(self, dir) {
 
       dblclick_timer = now;
 
-      if (diff < 300) {
+      if (diff < 300 && !self.dom.classList.contains("no-max")) {
         self.max ? self.restore() : self.maximize();
         return;
       }
