@@ -94,6 +94,7 @@ export class Previewr {
     switch (message.action) {
       case "define":
       case "verbose-define":
+      case "toggle-calculator":
         try {
           let newUrl = new URL(this.engineConfig["url"](message.data));
           if (newUrl.href === this.url?.href) {

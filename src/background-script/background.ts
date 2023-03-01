@@ -44,3 +44,13 @@ const onMessage = (
 }
 
 chrome.runtime.onMessage.addListener(onMessage);
+
+chrome.action.onClicked.addListener((tab:chrome.tabs.Tab) => {
+  if(!tab.id) {
+    console.error("BG: click on tab without an id", tab);
+    return;
+  }
+  chrome.tabs.sendMessage(tab.id, {action: "toggle-calculator"}, (response) => {
+    console.log("BG: received", response);
+  });
+});
