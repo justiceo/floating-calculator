@@ -170,7 +170,7 @@ export class Previewr {
       // url: url.href, // Update restore when you update this.
       hidden: true,
       shadowel: "floating-calculator-preview-window",
-      cssurl: chrome.runtime.getURL("content-script/winbox.css"),
+      cssurl: chrome.runtime.getURL("content-script/calculator.css"),
       framename: iframeName,
 
       onclose: () => {
