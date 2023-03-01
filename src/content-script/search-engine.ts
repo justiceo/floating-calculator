@@ -1,5 +1,5 @@
 
-const engine = "DuckDuckGo"
+const engine = "Google"
 export function getEngineConfig() {
     const cue = chrome.i18n.getMessage("calculator_cue");
     const config= {

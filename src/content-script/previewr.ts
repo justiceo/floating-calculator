@@ -4,7 +4,7 @@ import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";
 import { getEngineConfig } from "./search-engine";
 
-const iframeName = "essentialkit_dict_frame";
+const iframeName = "essentialkit_calc_frame";
 // Export the dialog dom
 WinBox.prototype.getDom = function () {
   return this.dom;
@@ -49,7 +49,7 @@ export class Previewr {
 
   listenForWindowMessages() {
     window.addEventListener("message", this.onMessageHandler, false);
-    document.onkeydown = this.onEscHandler;
+    document.addEventListener("keydown", this.onEscHandler)
   }
 
   onMessageHandler = (event) => {

@@ -3,7 +3,7 @@ import { getEngineConfig } from "./search-engine";
 
 // This script is executed inside the preview (i.e. document is iframe).
 export class IFrameHelper {
-  iframeName = "essentialkit_dict_frame";
+  iframeName = "essentialkit_calc_frame";
   logger = new Logger("iframe-helper");
   config = getEngineConfig();
   constructor() {
@@ -24,8 +24,7 @@ export class IFrameHelper {
     // Can't use DOMContentLoaded since DDG doesn't put definition markup in initial response.
     window.addEventListener("load", () => {
       // The DOM has already been rendered at this point.
-      this.focusDictUi();
-      this.handleMutations();
+      this.focusCalcUi();
     });
 
     window.addEventListener("unload", () => {
@@ -36,7 +35,7 @@ export class IFrameHelper {
       });
     });
 
-    document.onkeydown = (evt) => {
+    document.addEventListener("keydown", (evt) => {
       evt = evt || window.event;
       var isEscape = false;
       if ("key" in evt) {
@@ -51,7 +50,7 @@ export class IFrameHelper {
           sourceFrame: this.getFrameName(),
         });
       }
-    };
+    });
   }
 
   inIframe() {
@@ -109,7 +108,8 @@ export class IFrameHelper {
       this.hideAllExcept(el.parentElement);
     }
   }
-  focusDictUi() {
+
+  focusCalcUi() {
     let maybeDict = document.querySelectorAll(this.config.selector);
     if (maybeDict.length == 0) {
       this.logger.error("No match for selector, ", this.config.selector);
@@ -134,12 +134,4 @@ export class IFrameHelper {
     });
   }
 
-  // Mutations do not cause a page reload and may result in a jank.
-  // E.g. clicking on querySelectorAll("[data-term-for-update]") elements in definition.
-  // TODO: Use mutation observer for a more efficient mechanism to detect changes and hide them.
-  handleMutations() {
-    // setInterval(() => {
-    //   this.focusDictUi();
-    // }, 5000);
-  }
 }
