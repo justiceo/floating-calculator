@@ -4,7 +4,7 @@ A floating calculator anywhere you need it
 
 Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-52.html
 
-![Screenshot](src/assets/screenshot.png "Screenshot")
+![Screenshot](src/assets/screenshot.JPEG "Screenshot")
 
 ## Downloads
 <table cellspacing="0" cellpadding="0">
