@@ -1,14 +1,18 @@
 {
     "appName": {
-        "message": "Kalkulator mengambang",
+        "message": "Kalkulator Mengapung",
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Kalkulator mengambang",
+        "message": "Kalkulator",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "Kalkulator mengambang di mana saja Anda membutuhkannya",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "Kalkulator",
+        "description": "The search query cue for calculator"
     }
 }

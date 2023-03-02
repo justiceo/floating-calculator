@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "अस्थायी कैलकुलेटर",
+        "message": "कैलकुलेटर",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "एक फ्लोटिंग कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "कैलकुलेटर",
+        "description": "The search query cue for calculator"
     }
 }

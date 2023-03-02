@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "फ्लोटिंग कॅल्क्युलेटर",
+        "message": "कॅल्क्युलेटर",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "आपल्याला कोठेही फ्लोटिंग कॅल्क्युलेटर आवश्यक आहे",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "कॅल्क्युलेटर",
+        "description": "The search query cue for calculator"
     }
 }

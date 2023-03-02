@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Máy tính nổi",
+        "message": "Máy tính",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Một máy tính nổi ở bất cứ đâu bạn cần",
+        "message": "Một máy tính nổi ở bất cứ nơi nào bạn cần",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "máy tính",
+        "description": "The search query cue for calculator"
     }
 }

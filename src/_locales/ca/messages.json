@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Calculadora flotant",
+        "message": "Calculadora",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Una calculadora flotant a qualsevol lloc que necessiteu",
+        "message": "Una calculadora flotant en qualsevol lloc que necessiteu",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "calculadora",
+        "description": "The search query cue for calculator"
     }
 }

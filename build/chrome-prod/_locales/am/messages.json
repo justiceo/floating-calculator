@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "ተንሳፋፊ ካልኩሌተር",
+        "message": "ካልኩሌተር",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "በሚፈልጉት ቦታ ተንሳፋፊ ካልኩሌተር",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "ካልኩሌተር",
+        "description": "The search query cue for calculator"
     }
 }

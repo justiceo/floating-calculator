@@ -10,5 +10,9 @@
     "appDesc": {
         "message": "Plávajúca kalkulačka kdekoľvek ju potrebujete",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "kalkulačka",
+        "description": "The search query cue for calculator"
     }
 }

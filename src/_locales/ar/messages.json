@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "آلة حاسبة عائمة",
+        "message": "آلة حاسبة",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "آلة حاسبة عائمة في أي مكان تحتاجه",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "آلة حاسبة",
+        "description": "The search query cue for calculator"
     }
 }

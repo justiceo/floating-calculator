@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Schwimmender Taschenrechner",
+        "message": "Taschenrechner",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "Ein schwimmender Taschenrechner überall, wo Sie es brauchen",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "Taschenrechner",
+        "description": "The search query cue for calculator"
     }
 }

@@ -10,5 +10,9 @@
     "appDesc": {
         "message": "یک ماشین حساب شناور در هر مکانی که به آن نیاز دارید",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "ماشین حساب",
+        "description": "The search query cue for calculator"
     }
 }

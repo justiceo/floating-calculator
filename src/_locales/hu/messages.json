@@ -4,11 +4,15 @@
         "description": "The name of the extension"
     },
     "appShortName": {
-        "message": "Úszó számológép",
+        "message": "Számológép",
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
         "message": "Úszó számológép bárhol, amire szüksége van rá",
         "description": "The description of your extension"
+    },
+    "calculator_cue": {
+        "message": "számológép",
+        "description": "The search query cue for calculator"
     }
 }
