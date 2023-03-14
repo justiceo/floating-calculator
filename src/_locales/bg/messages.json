@@ -12,7 +12,7 @@
         "description": "The description of your extension"
     },
     "calculator_cue": {
-        "message": "калкулатор",
+        "message": "Калкулатор",
         "description": "The search query cue for calculator"
     }
 }

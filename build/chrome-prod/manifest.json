@@ -8,7 +8,6 @@
     "default_locale": "en",
     "author": "Justice Ogbonna",
     "permissions": [
-        "storage",
         "declarativeNetRequest",
         "contextMenus"
     ],
