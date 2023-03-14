@@ -3,7 +3,7 @@ import { ContextMenu } from "./context-menus";
 
 new ContextMenu().init();
 
-const uninstallUrl = "https://forms.gle/oRACFiJQCZW77Ssu8";
+const uninstallUrl = "https://forms.gle/iE1DgamFFEy2g2fDA";
 const welcomeUrl = chrome.runtime.getURL("welcome/welcome.html");
 
 const onInstalled = (details: chrome.runtime.InstalledDetails) => {
