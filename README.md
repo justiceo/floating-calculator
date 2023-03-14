@@ -10,7 +10,7 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 <table cellspacing="0" cellpadding="0">
   <tr style="text-align: center">
     <td valign="center">
-      <a align="center" href="https://chrome.google.com/webstore/">
+      <a align="center" href="https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn">
         <img src="src/assets/chrome-logo.png" alt="Chrome web store" width="50" />
         <p align="center">Chrome Web Store</p>
       </a>
