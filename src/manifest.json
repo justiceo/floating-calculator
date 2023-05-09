@@ -3,9 +3,9 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appShortName_",
-  "homepage_url": "https://github.com/justiceo/floating-calculator",
+  "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version__": "Firefox does not support leading zeros in versions",
-  "version": "23.2.28",
+  "version": "23.5.8",
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",  "permissions": ["declarativeNetRequest", "contextMenus"],
@@ -65,6 +65,10 @@
       "resources": ["assets/icon-close.svg"],
       "matches": ["<all_urls>"]
     } ,
+    {
+      "resources": ["content-script/*"],
+      "matches": ["<all_urls>"]
+    },
     {
       "resources": ["assets/icon-full.svg"],
       "matches": ["<all_urls>"]
