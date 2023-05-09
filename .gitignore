@@ -1,5 +1,0 @@
-node_modules/*
-extension/*
-spec/**/*.js
-dist/*
-build/*dev*
