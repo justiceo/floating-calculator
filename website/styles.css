@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+  }
+
+  .container > img {
+    margin: 50px 0 40px 0;
+  }
+
+  .container h1 {
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 41px;
+    color: #282828;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .container > p {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    color: #7B7B7B;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 24px 0;
+  }
+  
+  .button-group button {
+    background-color: #FFF;
+    border: 0.5px solid #282828;
+    color: #282828;
+    padding: 6px 44px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0 20px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  
+  .button-group #chrome {
+    background-color: #3549DE;
+    color: #FFFFFF;
+    border: #3549DE;
+    padding: 7px 44px;
+  }
+
+  .button-group button .icon {
+    display: inline-block;
+    padding: 5px 10px;
+    vertical-align: middle;
+  }
+  
+  /* video {
+    border-radius: 8px;
+  } */
+
+  .product {
+    border-radius: 8px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    color: #7B7B7B;
+    margin-top: 24px;
+    margin-bottom: 80px;
+  }
+
+  .feature {
+    padding: 18px;
+    text-align: center;
+  }
+
+  .feature img, p {
+    margin-bottom: 16px;
+  }
+
+  .feature p:first-of-type {
+    font-weight: 500;
+    color: #282828;
+  }
+
+  .six p {
+    color: #7B7B7B !important;
+  }
+
+  .author {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #7B7B7B;
+    margin-bottom: 80px;
+  }
+
+  .author a {
+    text-decoration: none;
+  }
+
+  .social-links a, footer a {
+    margin: 0 8px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    color: #000000;
+  }
+
+  footer {
+    margin: 100px 0 80px;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
