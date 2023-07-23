@@ -292,6 +292,7 @@ class Build {
       "src/content-script/content-script.css":
         "content-script/content-script.css",
       "src/welcome": "welcome",
+      "src/standalone": "standalone",
       "src/content-script/ddg-calculator.css":
         "content-script/ddg-calculator.css",
     };
