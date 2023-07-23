@@ -10,7 +10,7 @@ class Build {
   browser = "chrome";
   isProd = false;
   outDir = "build/chrome-dev";
-  maybeTask = "build";
+  maybeTask = "";
   args;
 
   testSpecs = ["spec/e2e-spec.ts"];
