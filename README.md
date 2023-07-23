@@ -44,17 +44,7 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 
 ## Features
 
-* Define words on any website, simply by highlighting them and clicking on the extension's icon.
-* Save and share definitions with others.
-* Create custom dictionaries, with words and definitions that are important to you.
-* Look up words in multiple dictionaries at once, to get a more complete picture of what a word means.
-* Hear words pronounced, so you can learn how to say them correctly.
-* See examples of how words are used in context, so you can learn how to use them correctly.
-* Translate words into other languages, so you can learn how to say them in other languages.
-* Find synonyms and antonyms of words, so you can find words that mean the same thing or the opposite thing.
-* Find related words, so you can find words that are related to the word you are looking up.
-* Find words that are commonly misspelled, so you can avoid making mistakes when you write.
-* Find words that are commonly misused, so you can use them correctly.
+* Insert a floating calculator on any webpage.
 
 ## Project setup
 
@@ -98,15 +88,5 @@ node tools/esbuild test
 3. Browse the `build/firefox-dev` directory and select the `manifest.json` file.
 
 
-### Data Source considerations
-
-* Tried https://floating-calculatorapi.dev/, it's based on low-quality wikitionary data.
-* Consider Oxford and Merriam Webster, rate limit issues.
-* Consider scraping definitions off of Google, this would be prone to breakage everytime their CSS rules changes (which happens often). 
-
-### Screenshot example queries
-* Phrase - a stitch in time saves nine.
-* Non english word. 
-* A colloquial term.
-* Plural form.
-* A rare english word with nouns and verbs etc. 
+### Other considerations
+* No options page, see context menus for options.

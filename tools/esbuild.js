@@ -130,7 +130,6 @@ class Build {
           "src/background-script/background.ts",
           "src/content-script/content-script.ts",
           "src/popup/popup.ts",
-          "src/options-page/options.js",
         ],
         bundle: true,
         minify: this.isProd,
@@ -292,7 +291,6 @@ class Build {
       "src/popup/popup.html": "popup/popup.html",
       "src/content-script/content-script.css":
         "content-script/content-script.css",
-      "src/options-page/options.html": "options-page/options.html",
       "src/welcome": "welcome",
       "src/content-script/ddg-calculator.css":
         "content-script/ddg-calculator.css",
