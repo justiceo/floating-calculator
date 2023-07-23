@@ -293,8 +293,6 @@ class Build {
         "content-script/content-script.css",
       "src/welcome": "welcome",
       "src/standalone": "standalone",
-      "src/content-script/ddg-calculator.css":
-        "content-script/ddg-calculator.css",
     };
 
     return new Promise((resolve, reject) => {

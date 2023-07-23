@@ -2,7 +2,6 @@ import { Logger } from "../logger";
 import { WinBox } from "../utils/winbox/winbox";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";
-import { getEngineConfig } from "./search-engine";
 
 const iframeName = "essentialkit_calc_frame";
 // Export the dialog dom
@@ -22,7 +21,6 @@ export class Previewr {
   logger = new Logger("previewr");
   dialog?: WinBox;
   url?: URL;
-  engineConfig = getEngineConfig();
 
   /* This function inserts an Angular custom element (web component) into the DOM. */
   init() {
@@ -96,7 +94,7 @@ export class Previewr {
       case "verbose-define":
       case "toggle-calculator":
         try {
-          let newUrl = new URL(this.engineConfig["url"]());
+          let newUrl = new URL(`chrome-extension://${chrome.i18n.getMessage("@@extension_id")}/standalone/calc.html`);
           if (newUrl.href === this.url?.href) {
             this.logger.warn("Ignoring update of same URL", newUrl.href);
             return;
@@ -147,6 +145,9 @@ export class Previewr {
       this.dialog.setUrl(url.href);
       this.dialog.move(winboxOptions.x, winboxOptions.y, /* skipUpdate= */false);
     }
+
+    this.dialog?.show();
+    this.dialog?.stopLoading();
 
     // TODO: Periodically check and update the z-index.
   }

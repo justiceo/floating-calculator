@@ -1,7 +1,6 @@
 import { Message } from "../shared";
 import { Logger } from "../logger";
 import { Previewr } from "./previewr";
-import { IFrameHelper } from "./iframe-helper";
 import "./content-script.css";
 
 class Listener {
@@ -25,9 +24,6 @@ class Listener {
                                     bottom: y + 10,
                                   } as DOMRect;
     });
-
-    const iframeHelper = new IFrameHelper();
-    iframeHelper.registerListeners();
 
     chrome.runtime.onMessage.addListener((request, sender, callback) => {
       this.logger.debug("Re-posting message for DOM: ", request);
