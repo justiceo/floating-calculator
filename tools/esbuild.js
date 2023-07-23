@@ -53,8 +53,11 @@ class Build {
       case "test":
         this.test();
         break;
-      default:
+      case "build":
         this.packageExtension().then((out) => console.log(out));
+        break;
+      default:
+        console.error("Unknown task", this.maybeTask)
     }
   }
 
@@ -127,12 +130,18 @@ class Build {
           "src/background-script/background.ts",
           "src/content-script/content-script.ts",
           "src/popup/popup.ts",
-          "src/welcome/my-element.ts",
           "src/options-page/options.js",
         ],
         bundle: true,
         minify: this.isProd,
         sourcemap: !this.isProd,
+        loader: {
+          ".txt.html": "text",
+          ".txt.css": "text",
+        },
+        banner: {
+          js: `var IS_DEV_BUILD=${!this.isProd};`
+        },
         outdir: this.outDir,
         target: ["chrome107"], // https://en.wikipedia.org/wiki/Google_Chrome_version_history
       })
@@ -225,6 +234,10 @@ class Build {
           reject();
         }
 
+        if(!icon) {
+          console.error("Error reading icon: ", src);
+        }
+
         if (this.args.icons) {
           [16, 24, 32, 48, 128].forEach((size) => {
             icon.clone()
@@ -277,6 +290,8 @@ class Build {
       "src/assets/": "assets",
       "src/_locales": "_locales",
       "src/popup/popup.html": "popup/popup.html",
+      "src/content-script/content-script.css":
+        "content-script/content-script.css",
       "src/options-page/options.html": "options-page/options.html",
       "src/welcome": "welcome",
       "src/content-script/ddg-calculator.css":
