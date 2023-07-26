@@ -1,4 +1,3 @@
-import { Message } from "../shared";
 import { Logger } from "../logger";
 import { Previewr } from "./previewr";
 import "./content-script.css";
@@ -7,6 +6,7 @@ class Listener {
   showTimeout?: number;
   logger = new Logger("content-script");
   lastMousePosition?: DOMRect;
+  previewr = new Previewr();
 
   start() {
     document.addEventListener("mousemove", (e) =>
@@ -25,35 +25,31 @@ class Listener {
                                   } as DOMRect;
     });
 
+    this.previewr.init();
+
     chrome.runtime.onMessage.addListener((request, sender, callback) => {
       this.logger.debug("Re-posting message for DOM: ", request);
       if (!request.point) {
         request.point = this.lastMousePosition;
       }
-      if(request.action === "verbose-define") {
+      if(request.action === "user-text-selection") {
         // Clear any existing selections in order to not conflict.
         window.getSelection()?.removeAllRanges();
       }
-      this.sendMessage(request.action, request.data, request.point);
+      this.handleMessage(request.action, request.data, request.point);
       callback("ok");
     });
   }
 
- 
-
-  
-
-  sendMessage(action: string, data: any, point: any) {
+  handleMessage(action: string, data: any, point: any) {
     const mssg = {
       application: "floating-calculator",
       action: action,
       data: data,
       point: point,
     };
-    this.logger.debug("Sending message: ", mssg);
-    window.postMessage(mssg, window.location.origin);
+    this.previewr.handleMessage(mssg);
   }
 }
 
 new Listener().start();
-new Previewr().init();

@@ -22,7 +22,7 @@ export class Previewr {
     }
 
     this.listenForCspError();
-    this.listenForWindowMessages();
+    document.addEventListener("keydown", this.onEscHandler)
   }
 
   listenForCspError() {
@@ -32,31 +32,6 @@ export class Previewr {
       }
       this.logger.error("CSP error", e, e.blockedURI);
     });
-  }
-
-  listenForWindowMessages() {
-    window.addEventListener("message", this.onMessageHandler, false);
-    document.addEventListener("keydown", this.onEscHandler)
-  }
-
-  onMessageHandler = (event) => {
-    if (event.origin !== window.location.origin) {
-      this.logger.debug(
-        "Ignoring message from different origin",
-        event.origin,
-        event.data
-      );
-      return;
-    }
-
-    if (event.data.application !== "floating-calculator") {
-      this.logger.debug(
-        "Ignoring origin messsage not initiated by Better Previews"
-      );
-      return;
-    }
-
-    this.handleMessage(event.data);
   }
 
   onEscHandler = (evt) => {
