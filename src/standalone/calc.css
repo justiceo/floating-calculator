@@ -1,3 +1,38 @@
-p {
-    color: red;
+body {
+  min-width: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-panel.hstack .btn {
+  width: calc(100% / 7);
+  font-size: 14px;
+}
+
+.btn-light {
+  background-color: #f1f3f4;
+}
+.btn-light.fn {
+  background-color: #dadce0;
+}
+.btn-primary.eq {
+  background-color: #4285f4;
+}
+
+input.form-control {
+  text-align: right;
+  line-height: 50px;
+  font-size: 38px;
+  resize: none;
+  margin-top: -35px;
+  padding-top: 35px;
+}
+
+.history {
+  margin-left: 15px;
+}
+.result {
+  text-align: right;
+  display: inline-block;
+  position: absolute;
+  right: 20px;
 }

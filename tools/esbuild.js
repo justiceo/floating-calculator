@@ -289,8 +289,6 @@ class Build {
       "src/assets/": "assets",
       "src/_locales": "_locales",
       "src/popup/popup.html": "popup/popup.html",
-      "src/content-script/content-script.css":
-        "content-script/content-script.css",
       "src/welcome": "welcome",
       "src/standalone": "standalone",
     };

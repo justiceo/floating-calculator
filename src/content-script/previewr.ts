@@ -162,7 +162,7 @@ export class Previewr {
       x: pos.x,
       y: pos.y,
       width: "655px",
-      height: "335px",
+      height: "375px",
       autosize: false,
       class: ["no-max", "no-full", "no-min", "no-resize", "no-move"],
       index: await this.getMaxZIndex(),
