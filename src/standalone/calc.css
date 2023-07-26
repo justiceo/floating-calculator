@@ -27,7 +27,8 @@ input.form-control {
 .history {
   margin-left: 15px;
 }
-.result {
+
+#pretext {
   text-align: right;
   display: inline-block;
   position: absolute;
