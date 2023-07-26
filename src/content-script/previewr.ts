@@ -4,17 +4,6 @@ import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";
 
 const iframeName = "essentialkit_calc_frame";
-// Export the dialog dom
-WinBox.prototype.getDom = function () {
-  return this.dom;
-};
-
-WinBox.prototype.startLoading = function () {
-  this.dom.querySelector(".loading").style.display = "block";
-};
-WinBox.prototype.stopLoading = function () {
-  this.dom.querySelector(".loading").style.display = "none";
-};
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
 export class Previewr {
@@ -90,8 +79,6 @@ export class Previewr {
   async handleMessage(message) {
     this.logger.debug("#handleMessage: ", message);
     switch (message.action) {
-      case "define":
-      case "verbose-define":
       case "toggle-calculator":
         try {
           let newUrl = new URL(`chrome-extension://${chrome.i18n.getMessage("@@extension_id")}/standalone/calc.html`);
@@ -100,27 +87,11 @@ export class Previewr {
             return;
           }
           this.url = newUrl;
-          if (this.dialog) {
-            this.dialog.startLoading();
-          }
           this.previewUrl(newUrl, message.point);
           return;
         } catch (e) {
           this.logger.log("Error creating url: ", e);
         }
-        break;
-      case "loaded-and-cleaned":
-        // TODO: Reset to actual URL in case of internal navigation within iframe.
-        // this.url = new URL(message.href);
-        this.dialog?.show();
-        this.dialog?.stopLoading();
-        break;
-      case "loaded-and-no-def":
-        // TODO: If verbose-define, show NO definition found.
-        this.dialog?.close();
-        break;
-      case "unload":
-        this.dialog?.startLoading();
         break;
       case "escape":
         this.dialog?.close();
@@ -140,16 +111,11 @@ export class Previewr {
       this.dialog = new WinBox(chrome.i18n.getMessage("appName"), winboxOptions);
     } else {
       this.logger.debug("restoring dialog");
-
-      // TODO: Also reset html to ensure load is fired.
       this.dialog.setUrl(url.href);
       this.dialog.move(winboxOptions.x, winboxOptions.y, /* skipUpdate= */false);
     }
 
     this.dialog?.show();
-    this.dialog?.stopLoading();
-
-    // TODO: Periodically check and update the z-index.
   }
 
   async getWinboxOptions(url: URL, point?: DOMRect) {
@@ -167,7 +133,7 @@ export class Previewr {
       class: ["no-max", "no-full", "no-min", "no-resize", "no-move"],
       index: await this.getMaxZIndex(),
       // Simply updating the url without changing the iframe, means the content-script doesn't get re-inserted into the frame, even though it's now out of context.
-      html: `<iframe name="${iframeName}" src="${url}"></iframe><div class="loading"><span class="bar-animation"></span></div> `,
+      html: `<iframe name="${iframeName}" src="${url}"></iframe>`,
       // url: url.href, // Update restore when you update this.
       hidden: true,
       shadowel: "floating-calculator-preview-window",
