@@ -14,9 +14,6 @@ body {
 .btn-light.fn {
   background-color: #dadce0;
 }
-.btn-primary.eq {
-  background-color: #4285f4;
-}
 
 input.form-control {
   text-align: right;

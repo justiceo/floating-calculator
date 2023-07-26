@@ -50,6 +50,11 @@ chrome.action.onClicked.addListener((tab:chrome.tabs.Tab) => {
     console.error("BG: click on tab without an id", tab);
     return;
   }
+  
+  // TODO: enable opening in new popup window? nav away?
+  // chrome.windows.create({'url': `chrome-extension://${chrome.i18n.getMessage("@@extension_id")}/standalone/calc.html`, 'type': 'popup', width: 655, height: 365}, function(window) {
+  // });
+
   chrome.tabs.sendMessage(tab.id, {action: "toggle-calculator"}, (response) => {
     console.log("BG: received", response);
   });
