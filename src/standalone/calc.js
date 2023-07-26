@@ -32,6 +32,7 @@ function handleClick(text) {
             break;
         case "AC":
             input.value = "";
+            pretext.innerText = "";
             break;
         default:
             input.value = input.value + text
