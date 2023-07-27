@@ -95,6 +95,16 @@ function handleClick(text) {
     case "ln":
       input.value += "ln(";
       break;
+    case "10x":
+      input.value += "10^";
+      break;
+    case "ex":
+      input.value += "e^";
+      break;
+    case "y√x":
+      // has to be preceeded by a number
+      input.value += "^1/";
+      break;
     default:
       input.value = input.value + text;
   }
