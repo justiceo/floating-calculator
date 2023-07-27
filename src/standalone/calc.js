@@ -53,7 +53,7 @@ function handleClick(text) {
     case "AC":
       input.value = "";
       pretext.innerText = "";
-      lastAns = ""
+      lastAns = "";
       break;
     case "Rad":
     case "Deg":
@@ -80,6 +80,15 @@ function handleClick(text) {
     case "tan":
       input.value += "tan(";
       break;
+    case "sin-1":
+      input.value += "asin(";
+      break;
+    case "cos-1":
+      input.value += "acos(";
+      break;
+    case "tan-1":
+      input.value += "atan(";
+      break;
     case "log":
       input.value += "log(";
       break;
@@ -95,5 +104,14 @@ function handleClick(text) {
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", (e) => {
     handleClick(button.innerText.trim());
+  });
+});
+
+document.querySelector("#invSwitch").addEventListener("change", (e) => {
+  document.querySelectorAll(".btn.f2").forEach((b) => {
+    e.target.checked ? b.classList.remove("d-none") : b.classList.add("d-none");
+  });
+  document.querySelectorAll(".btn.f1").forEach((b) => {
+    e.target.checked ? b.classList.add("d-none") : b.classList.remove("d-none");
   });
 });
