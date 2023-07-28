@@ -1,6 +1,7 @@
 let insectEnv = Insect.initialEnvironment;
 let lastAns = "";
 let lastInput = "";
+let history = [];
 let operators = ["+", "−", "×", "÷", "%", "!"];
 let digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -25,6 +26,7 @@ function addToHistory(time, expression, result) {
   let parent = template.parentElement;
   template = template.cloneNode(true);
   template.classList.remove("history-item-template");
+  template.classList.add("hist-item");
   template.innerHTML = template.innerHTML
     .replace("timestamp", time)
     .replace("expression", expression)
@@ -67,6 +69,11 @@ function handleClick(text) {
       let ans = evaluateInput(input.value);
       if (ans) {
         addToHistory(Date.now(), input.value, ans);
+        history.push({
+          timestamp: Date.now(),
+          expression: input.value,
+          result: ans,
+        });
         pretext.innerText = input.value + " =";
         input.value = ans;
         lastAns = ans;
@@ -148,5 +155,31 @@ document.querySelector("#invSwitch").addEventListener("change", (e) => {
   });
   document.querySelectorAll(".btn.f1").forEach((b) => {
     e.target.checked ? b.classList.add("d-none") : b.classList.remove("d-none");
+  });
+});
+
+const tabEl = document.querySelector('a[data-bs-target="#history-content"]');
+tabEl.addEventListener("show.bs.tab", (event) => {
+  if (history.length === 0) {
+    return;
+  }
+
+  document.querySelectorAll(".hist-item").forEach((i) => {
+    i.remove();
+  });
+
+  // Todo: switch to chrome.i18n @@ui_locale
+  let rtf = new Intl.RelativeTimeFormat(window.navigator.language);
+  history.forEach((h) => {
+    const timeDiff = Math.floor((h.timestamp - Date.now()) / 1000);
+    let rtime = "";
+    if (timeDiff < -3600) {
+      rtime = rtf.format(Math.floor(timeDiff/3600), "hours");
+    } else if (timeDiff < -60) {
+      rtime = rtf.format(Math.floor(timeDiff/60), "minutes");
+    } else {
+      rtime = rtf.format(timeDiff, "seconds");
+    }
+    addToHistory(rtime, h.expression, h.result);
   });
 });
