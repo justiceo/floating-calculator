@@ -20,12 +20,8 @@ input.form-control {
   line-height: 50px;
   font-size: 38px;
   resize: none;
-  margin-top: -35px;
-  padding-top: 35px;
-}
-
-.history {
-  margin-left: 15px;
+  margin-top: -5px;
+  padding-top: 30px;
 }
 
 #pretext {
@@ -33,4 +29,9 @@ input.form-control {
   display: inline-block;
   position: absolute;
   right: 20px;
+}
+
+.nav .nav-link {
+  font-size: 12px;
+  padding: 0.15rem 0.5rem
 }

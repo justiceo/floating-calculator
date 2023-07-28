@@ -12,77 +12,102 @@
 <body class="p-2 pt-3">
   <div class="vstack gap-2">
     <div class="dynamic-display">
-      <span class="history"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
-        <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
-        <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
-        <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
-      </svg></span> 
       <span id="pretext"></span>
-      <input id="text-input" class="form-control shadow-sm" rows="1" placeholder="0" eval=""></input> 
+      <input id="text-input" class="form-control shadow-sm" rows="1" placeholder="0" eval=""></input>
     </div>
     <div class="hstack gap-5 meta-controls">
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="invSwitch">
         <label class="form-check-label" for="invSwitch">Inv</label>
       </div>
-      <button class="btn btn-dark btn-sm visually-hidden">history</button>
+      <nav class="nav nav-pills">
+        <a class="nav-link active" href="#" id="keypad-tab" data-bs-toggle="tab" data-bs-target="#keypad-content"
+          type="button" role="tab" aria-controls="keypad-content" aria-selected="true">Keypad</a>
+        <a class="nav-link" href="#" id="history-tab" data-bs-toggle="tab" data-bs-target="#history-content"
+          type="button" role="tab" aria-controls="history-content" aria-selected="false">History</a>
+        <a class="nav-link" href="#" id="help-tab" data-bs-toggle="tab" data-bs-target="#help-content" type="button"
+          role="tab" aria-controls="help-content" aria-selected="false">Help</a>
+      </nav>
     </div>
-    <div class="hstack gap-1 input-panel">
-      <div class="vstack gap-1">
-        <div class="hstack gap-1">
-          <button class="btn btn-light fn f1">sin</button>
-          <button class="btn btn-light fn f2 d-none">sin<sup>-1</sup></button>
-          <button class="btn btn-light fn f1">cos</button>
-          <button class="btn btn-light fn f2 d-none">cos<sup>-1</sup></button>
-          <button class="btn btn-light fn f1">tan</button>
-          <button class="btn btn-light fn f2 d-none">tan<sup>-1</sup></button>
-          <button class="btn btn-light fn">(</button>
-          <button class="btn btn-light fn">)</button>
-          <button class="btn btn-light fn">%</button>
-          <button class="btn btn-light fn">AC</button>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="keypad-content" role="tabpanel" aria-labelledby="keypad-tab" tabindex="0">
+        <div class="hstack gap-1 input-panel">
+          <div class="vstack gap-1">
+            <div class="hstack gap-1">
+              <button class="btn btn-light fn f1">sin</button>
+              <button class="btn btn-light fn f2 d-none">sin<sup>-1</sup></button>
+              <button class="btn btn-light fn f1">cos</button>
+              <button class="btn btn-light fn f2 d-none">cos<sup>-1</sup></button>
+              <button class="btn btn-light fn f1">tan</button>
+              <button class="btn btn-light fn f2 d-none">tan<sup>-1</sup></button>
+              <button class="btn btn-light fn">(</button>
+              <button class="btn btn-light fn">)</button>
+              <button class="btn btn-light fn">%</button>
+              <button class="btn btn-light fn">AC</button>
+            </div>
+            <div class="hstack gap-1">
+              <button class="btn btn-light fn f1">log</button>
+              <button class="btn btn-light fn f2 d-none">10<sup>x</sup></button>
+              <button class="btn btn-light fn f1">ln</button>
+              <button class="btn btn-light fn f2 d-none">e<sup>x</sup></button>
+              <button class="btn btn-light fn f1">x<sup>y</sup></button>
+              <button class="btn btn-light fn f2 d-none"><sup>y</sup>√x</button>
+              <button class="btn btn-light">7</button>
+              <button class="btn btn-light">8</button>
+              <button class="btn btn-light">9</button>
+              <button class="btn btn-light fn">÷</button>
+            </div>
+            <div class="hstack gap-1">
+              <button class="btn btn-light fn">π</button>
+              <button class="btn btn-light fn">x!</button>
+              <button class="btn btn-light fn">x<sup>2</sup></button>
+              <button class="btn btn-light">4</button>
+              <button class="btn btn-light">5</button>
+              <button class="btn btn-light">6</button>
+              <button class="btn btn-light fn">×</button>
+            </div>
+            <div class="hstack gap-1">
+              <button class="btn btn-light fn">e</button>
+              <button class="btn btn-light fn">mod</button>
+              <button class="btn btn-light fn">√</button>
+              <button class="btn btn-light">1</button>
+              <button class="btn btn-light">2</button>
+              <button class="btn btn-light">3</button>
+              <button class="btn btn-light fn">−</button>
+            </div>
+            <div class="hstack gap-1">
+              <button class="btn btn-light fn">Ans</button>
+              <button class="btn btn-light fn">Rad</button>
+              <button class="btn btn-light fn">Deg</button>
+              <button class="btn btn-light">0</button>
+              <button class="btn btn-light">.</button>
+              <button class="btn btn-primary">=</button>
+              <button class="btn btn-light fn">+</button>
+            </div>
+          </div>
         </div>
-        <div class="hstack gap-1">
-          <button class="btn btn-light fn f1">log</button>
-          <button class="btn btn-light fn f2 d-none">10<sup>x</sup></button>
-          <button class="btn btn-light fn f1">ln</button>
-          <button class="btn btn-light fn f2 d-none">e<sup>x</sup></button>
-          <button class="btn btn-light fn f1">x<sup>y</sup></button>
-          <button class="btn btn-light fn f2 d-none"><sup>y</sup>√x</button>
-          <button class="btn btn-light">7</button>
-          <button class="btn btn-light">8</button>
-          <button class="btn btn-light">9</button>
-          <button class="btn btn-light fn">÷</button>
+      </div>
+      <div class="tab-pane" id="history-content" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
+        <div class="vstack gap-2 history-panel text-end">
+          <div>
+            <span style="vertical-align:bottom; font-size:12px; margin-right: 10px">● 2mins ago</span> <button
+              class="btn btn-light border border-secondary-subtle text-primary">345 + sqrt(45)</button> = <button
+              class="btn btn-light border border-secondary-subtle text-primary">5.2345</button>
+          </div>
+          <div>
+            <span style="vertical-align:bottom; font-size:12px; margin-right: 10px">● 1 hour ago</span> <button
+              class="btn btn-light border border-secondary-subtle text-primary">7567345 + log(70) - 10</button> =
+            <button class="btn btn-light border border-secondary-subtle text-primary">2.345e10</button>
+          </div>
         </div>
-        <div class="hstack gap-1">
-          <button class="btn btn-light fn">π</button>
-          <button class="btn btn-light fn">x!</button>
-          <button class="btn btn-light fn">x<sup>2</sup></button>
-          <button class="btn btn-light">4</button>
-          <button class="btn btn-light">5</button>
-          <button class="btn btn-light">6</button>
-          <button class="btn btn-light fn">×</button>
-        </div>
-        <div class="hstack gap-1">
-          <button class="btn btn-light fn">e</button>
-          <button class="btn btn-light fn">mod</button>
-          <button class="btn btn-light fn">√</button>
-          <button class="btn btn-light">1</button>
-          <button class="btn btn-light">2</button>
-          <button class="btn btn-light">3</button>
-          <button class="btn btn-light fn">−</button>
-        </div>
-        <div class="hstack gap-1">
-          <button class="btn btn-light fn">Ans</button>
-          <button class="btn btn-light fn">Rad</button>
-          <button class="btn btn-light fn">Deg</button>
-          <button class="btn btn-light">0</button>
-          <button class="btn btn-light">.</button>
-          <button class="btn btn-primary">=</button>
-          <button class="btn btn-light fn">+</button>
-        </div>
+      </div>
+      <div class="tab-pane" id="help-content" role="tabpanel" aria-labelledby="help-tab" tabindex="0">
+        help content here.
       </div>
     </div>
   </div>
+  <script src="bootstrap5.js"></script>
   <script src="insect.js"></script>
   <script src="calc.js"></script>
 </body>
