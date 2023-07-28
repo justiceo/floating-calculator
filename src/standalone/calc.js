@@ -12,6 +12,31 @@ function fmtInput(line) {
     .replaceAll("Ans", lastAns);
 }
 
+function addToHistory(time, expression, result) {
+  // TODO: Replace ans in expression.
+  console.log("adding to history", time, expression, result);
+
+  let nohistory = document.querySelector(".no-history");
+  if (nohistory && !nohistory.classList.contains("d-none")) {
+    nohistory.classList.add("d-none");
+  }
+
+  let template = document.querySelector(".history-item-template");
+  let parent = template.parentElement;
+  template = template.cloneNode(true);
+  template.classList.remove("history-item-template");
+  template.innerHTML = template.innerHTML
+    .replace("timestamp", time)
+    .replace("expression", expression)
+    .replace("result", result);
+  template.querySelectorAll("button").forEach((b) =>
+    b.addEventListener("click", (e) => {
+      document.querySelector("input#text-input").value = e.target.innerText;
+    })
+  );
+  parent.prepend(template);
+}
+
 function evaluateInput(line) {
   line = fmtInput(line);
   console.warn("evaluating line: ", line);
@@ -39,9 +64,9 @@ function handleClick(text) {
 
   switch (text) {
     case "=":
-      // Todo: update history
       let ans = evaluateInput(input.value);
       if (ans) {
+        addToHistory(Date.now(), input.value, ans);
         pretext.innerText = input.value + " =";
         input.value = ans;
         lastAns = ans;
