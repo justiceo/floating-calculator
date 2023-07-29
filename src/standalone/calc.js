@@ -149,6 +149,13 @@ document.querySelectorAll("button").forEach((button) => {
   });
 });
 
+document.querySelector('body').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleClick("=");
+  }
+});
+
 document.querySelector("#invSwitch").addEventListener("change", (e) => {
   document.querySelectorAll(".btn.f2").forEach((b) => {
     e.target.checked ? b.classList.remove("d-none") : b.classList.add("d-none");
