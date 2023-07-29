@@ -45,6 +45,9 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 ## Features
 
 * Insert a floating calculator on any webpage.
+* Using the most advanced math library under-the-hood, you can do more than the keypad allows.
+* Works for all URLs now, including file URLs (if you've granted the file permission).
+* Works offline and is extremely fast, no more dependence on Google Calculator.
 
 ## Project setup
 
@@ -90,3 +93,50 @@ node tools/esbuild test
 
 ### Other considerations
 * No options page, see context menus for options.
+
+
+### MVP release notes
+- remove window.postMessage <DONE>
+- integrate insect.js <DONE>
+- add inv controls. <DONE>
+- add open-in-window context menu to launch standalone. <DONE>
+- add open in newtab to context menu <DONE>
+- switch to mathjs (supports function overrides necessary for rad/deg)
+- Add angle config - https://mathjs.org/examples/browser/angle_configuration.html.html
+- auto redirect users to new tab with information about why extension doesn't work on certain pages.
+
+### MVP fast follow
+- history - handle scrolling contents.
+- history - handle too long expression.
+- text-input - handle too long input.
+- text-input - fix result label overflow.
+- enable hidden the keypad and controls sections (for quick expression).
+- add help control with help page.
+- add integration tests.
+
+### Post-MVP release
+- format the display with mathjax or mathjs
+- switch to typescript
+- add options tab
+  - add math formatting to input and label
+  - preseve history across invocations.
+  - precision of results
+  - mode (simple, advanced, rocket-science)
+- add unit convertion tab or button.
+- smart inputs 
+  - validating input to certain functions
+- add error notification bar.
+- add turbo mode, a row on top and another on the left.
+  - shink x2/sqrt, rad/deg, 
+  - creates room for 5 + 6 + 2 = 13 more buttons.
+- add i18n support.
+- Change AC to delete with long-press to clear.
+- Add analytics support, determine which keys are useless.
+- Support minimizing to a floating button.
+- Display persistent floating button.
+- Games
+  - How fast are you? calculator prints expression and a timer, you type the answer.
+  - How much can you remember? Guess the digits of PI, or e
+  - Prime or not prime?
+- Different skins and themes like https://codepen.io/ykadosh/details/OJNNQOz
+
