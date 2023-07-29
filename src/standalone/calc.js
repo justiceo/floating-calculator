@@ -2,6 +2,7 @@ let insectEnv = Insect.initialEnvironment;
 let lastAns = "";
 let lastInput = "";
 let history = [];
+let angle = "rad";
 let operators = ["+", "−", "×", "÷", "%", "!"];
 let digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -88,8 +89,14 @@ function handleClick(text) {
       lastAns = "";
       break;
     case "Rad":
+      angle = "rad";
+      document.querySelector(".btn.rad").disabled = true;
+      document.querySelector(".btn.deg").disabled = false;
+      break;
     case "Deg":
-      // set mode.
+      angle = "deg";
+      document.querySelector(".btn.deg").disabled = true;
+      document.querySelector(".btn.rad").disabled = false;
       break;
     case "√":
       input.value += "sqrt(";
