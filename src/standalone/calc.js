@@ -1,4 +1,3 @@
-let insectEnv = Insect.initialEnvironment;
 let lastAns = "";
 let lastInput = "";
 let history = [];
@@ -43,14 +42,17 @@ function addToHistory(time, expression, result) {
 function evaluateInput(line) {
   line = fmtInput(line);
   console.warn("evaluating line: ", line);
-  var res = Insect.repl(Insect.fmtPlain)(insectEnv)(line);
-  if (res.msgType === "error") {
-    console.error("insect:", res.msg);
+
+  let res = "";
+  try {
+    res = math.evaluate(line);
+  } catch (e) {
+    console.error("eval error:", res.msg);
     return "";
   }
-  console.info("insect res: ", res);
-  insectEnv = res.newEnv;
-  return res.msg;
+
+  console.log("res", res);
+  return res;
 }
 
 function handleClick(text) {
