@@ -30,8 +30,8 @@ describe("Browser test suite", () => {
   describe("Google homepage test", () => {
     it("should have a title", async () => {
       const page = await browser.newPage();
-      await page.goto("https://google.com");
-      expect(await page.title()).toBe("Google");
+      await page.goto("chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html");
+      expect(await page.title()).toBe("Floating Calculator");
       await page.close();
     });
 
@@ -41,7 +41,7 @@ describe("Browser test suite", () => {
      */
     it("should leave a screenshot for me to inspect", async () => {
       const page = await browser.newPage();
-      await page.goto("https://google.com");
+      await page.goto("chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html");
       await page.screenshot({ path: "src/assets/screenshot.png" });
       await page.close();
     });
