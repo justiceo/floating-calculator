@@ -18,36 +18,46 @@ interface MenuItem {
 export class ContextMenu {
   RELOAD_ACTION: MenuItem = {
     menu: {
-      id: 'reload-extension',
-      title: 'Reload Extension',
+      id: "reload-extension",
+      title: "Reload Extension",
       visible: true,
-      contexts: ['action'],
+      contexts: ["action"],
     },
     handler: (unusedInfo) => {
       chrome.runtime.reload();
     },
   };
-  FLOATING_CALC_ACTION: MenuItem = {
+  POPUP_WINDOW_ACTION: MenuItem = {
     menu: {
-      id: 'show-calculator',
-      title: 'Floating Calculator',
+      id: "show-calculator",
+      title: "Open as Popup Window",
       visible: true,
-      contexts: ['all'],
+      contexts: ["action"],
     },
-    handler: (data: chrome.contextMenus.OnClickData) => {     
-      this.sendMessage({ action: 'toggle-calculator', data: "" });
+    handler: (data: chrome.contextMenus.OnClickData) => {
+      chrome.windows.create(
+        {
+          url: `chrome-extension://${chrome.i18n.getMessage(
+            "@@extension_id"
+          )}/standalone/calc.html`,
+          type: "popup",
+          width: 655,
+          height: 365,
+        },
+        function (window) {}
+      );
     },
   };
 
   browserActionContextMenu: MenuItem[] = [
     this.RELOAD_ACTION,
-    this.FLOATING_CALC_ACTION,
+    this.POPUP_WINDOW_ACTION,
   ];
 
   init = () => {
     // Check if we can access context menus.
     if (!chrome || !chrome.contextMenus) {
-      console.warn('No access to chrome.contextMenus');
+      console.warn("No access to chrome.contextMenus");
       return;
     }
 
@@ -71,14 +81,14 @@ export class ContextMenu {
     if (menuItem) {
       menuItem.handler(info, tab);
     } else {
-      console.error('Unable to find menu item: ', info);
+      console.error("Unable to find menu item: ", info);
     }
   };
 
   sendMessage(message: any): void {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id!, message, (response) => {
-        console.debug('ack:', response);
+        console.debug("ack:", response);
       });
     });
   }
