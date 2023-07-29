@@ -1,5 +1,4 @@
 {
-
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appShortName_",
@@ -8,16 +7,8 @@
   "version": "23.5.8",
   "manifest_version": 3,
   "default_locale": "en",
-  "author": "Justice Ogbonna",  "permissions": ["declarativeNetRequest", "contextMenus"],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "assets/rules.json"
-      }
-    ]
-  },
+  "author": "Justice Ogbonna",
+  "permissions": ["contextMenus"],
   "host_permissions": ["*://*/*"],
   "action": {
     "default_icon": {
@@ -27,14 +18,16 @@
     },
     "default_title": "__MSG_appName__"
   },
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "all_frames": true,
-    "js": ["content-script/content-script.js"],
-    "css": ["content-script/content-script.css"],
-    "match_about_blank": true,
-    "run_at": "document_start"
-  }],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "js": ["content-script/content-script.js"],
+      "css": ["content-script/content-script.css"],
+      "match_about_blank": true,
+      "run_at": "document_start"
+    }
+  ],
   "icons": {
     "16": "assets/logo-16x16.png",
     "32": "assets/logo-32x32.png",
@@ -61,11 +54,11 @@
     {
       "resources": ["assets/icon-max.svg"],
       "matches": ["<all_urls>"]
-    } ,
+    },
     {
       "resources": ["assets/icon-close.svg"],
       "matches": ["<all_urls>"]
-    } ,
+    },
     {
       "resources": ["content-script/*"],
       "matches": ["<all_urls>"]
@@ -77,7 +70,7 @@
     {
       "resources": ["assets/icon-full.svg"],
       "matches": ["<all_urls>"]
-    }        
+    }
   ],
   "background": {
     "service_worker": "background-script/background.js",
@@ -85,8 +78,8 @@
   },
   "__firefox__key": "",
   "__firefox__browser_specific_settings": {
-      "gecko": {
-          "id": "no-reply@justiceo.com"
-      }
+    "gecko": {
+      "id": "no-reply@justiceo.com"
+    }
   }
 }
