@@ -29,7 +29,7 @@ export class ContextMenu {
   };
   POPUP_WINDOW_ACTION: MenuItem = {
     menu: {
-      id: "show-calculator",
+      id: "popup-calculator",
       title: "Open as Popup Window",
       visible: true,
       contexts: ["action"],
@@ -48,10 +48,29 @@ export class ContextMenu {
       );
     },
   };
+  NEW_TAB_ACTION: MenuItem = {
+    menu: {
+      id: "newtab-calculator",
+      title: "Open as New Tab",
+      visible: true,
+      contexts: ["action"],
+    },
+    handler: (data: chrome.contextMenus.OnClickData) => {
+      chrome.tabs.create({
+        url: `chrome-extension://${chrome.i18n.getMessage(
+            "@@extension_id"
+          )}/standalone/calc.html`,
+        active: true,
+      }, () => {
+        console.log("successfully created Floating Calculator tab");
+      })
+    },
+  };
 
   browserActionContextMenu: MenuItem[] = [
-    this.RELOAD_ACTION,
     this.POPUP_WINDOW_ACTION,
+    this.NEW_TAB_ACTION,
+    this.RELOAD_ACTION,
   ];
 
   init = () => {
