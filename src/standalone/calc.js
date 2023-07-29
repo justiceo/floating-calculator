@@ -150,7 +150,7 @@ function handleClick(text) {
   lastInput = text;
 }
 
-document.querySelectorAll("button").forEach((button) => {
+document.querySelectorAll("#keypad-content button").forEach((button) => {
   button.addEventListener("click", (e) => {
     handleClick(button.innerText.trim());
   });
@@ -196,4 +196,31 @@ tabEl.addEventListener("show.bs.tab", (event) => {
     }
     addToHistory(rtime, h.expression, h.result);
   });
+});
+
+// Display notice if we got to this UI due to an unsupported host.
+let query = window.location.search;
+if(query.indexOf("unsupportedHost") >=0 ) {
+  document.querySelector(".unsupported-notice").classList.remove("d-none");
+}
+
+document.querySelector(".btn.open-popup").addEventListener('click', e => {
+  chrome.windows.create(
+    {
+      url: `chrome-extension://${chrome.i18n.getMessage(
+        "@@extension_id"
+      )}/standalone/calc.html`,
+      type: "popup",
+      width: 655,
+      height: 365,
+    },
+    function (window) {
+      console.log("opened Floating Calculator in popup window.");
+    }
+  );
+  window.close();
+});
+
+document.querySelector(".btn.close-notice").addEventListener('click', e => {
+  document.querySelector(".unsupported-notice").classList.add("d-none");
 });

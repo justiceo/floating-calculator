@@ -51,6 +51,24 @@ chrome.action.onClicked.addListener((tab:chrome.tabs.Tab) => {
     return;
   }
 
+  // Check if URL is supported.
+  let url = tab.url;
+  if(!url ||
+    !url.trim() ||
+    url.startsWith("chrome-extension://") ||
+    url.startsWith("chrome://") ||
+    url.startsWith("https://chrome.google.com/webstore")) {
+      chrome.tabs.create({
+        url: `chrome-extension://${chrome.i18n.getMessage(
+            "@@extension_id"
+          )}/standalone/calc.html?unsupportedHost`,
+        active: true,
+      }, () => {
+        console.log("successfully created Floating Calculator tab for unsupported host.");
+      });
+      return;
+    }
+
   chrome.tabs.sendMessage(tab.id, {action: "toggle-calculator"}, (response) => {
     console.log("BG: received", response);
   });
