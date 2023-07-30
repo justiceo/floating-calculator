@@ -101,9 +101,11 @@ node tools/esbuild test
 - add inv controls. <DONE>
 - add open-in-window context menu to launch standalone. <DONE>
 - add open in newtab to context menu <DONE>
-- switch to mathjs (supports function overrides necessary for rad/deg)
-- Add angle config - https://mathjs.org/examples/browser/angle_configuration.html.html
-- auto redirect users to new tab with information about why extension doesn't work on certain pages.
+- switch to mathjs (supports function overrides necessary for rad/deg) <DONE>
+- Add angle config - https://mathjs.org/examples/browser/angle_configuration.html.html <DONE>
+- auto redirect users to new tab with information about why extension doesn't work on certain pages. <DONE>
+- add notice bar for info, warnings and errors. <DONE>
+- add demo to welcome page <DONE>
 
 ### MVP fast follow
 - history - handle scrolling contents.
@@ -138,5 +140,11 @@ node tools/esbuild test
   - How fast are you? calculator prints expression and a timer, you type the answer.
   - How much can you remember? Guess the digits of PI, or e
   - Prime or not prime?
+- Number facts
+  - prime
+  - Kaprekar's constant
+  - Cyclic numbers
+  - Weird number
+  - Number theory.
 - Different skins and themes like https://codepen.io/ykadosh/details/OJNNQOz
 

@@ -27,7 +27,7 @@ describe("Browser test suite", () => {
    */
 
   // Run two tests in parallel (on different pages in same browser)
-  describe("Google homepage test", () => {
+  describe("Standalone page test", () => {
     it("should have a title", async () => {
       const page = await browser.newPage();
       await page.goto("chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html");
