@@ -1,5 +1,6 @@
-let replacements = {};
+// source - https://mathjs.org/examples/browser/angle_configuration.html.html
 
+let replacements = {};
 window.angle = "deg"
 
 // create trigonometric functions replacing the input depending on angle config

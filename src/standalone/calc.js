@@ -97,11 +97,13 @@ function handleClick(text) {
       window.angle = "rad";
       document.querySelector(".btn.rad").disabled = true;
       document.querySelector(".btn.deg").disabled = false;
+      showNotification("Angles set to radians");
       break;
     case "Deg":
       window.angle = "deg";
       document.querySelector(".btn.deg").disabled = true;
       document.querySelector(".btn.rad").disabled = false;
+      showNotification("Angles set to degrees");
       break;
     case "√":
       input.value += "sqrt(";
@@ -232,3 +234,12 @@ document.querySelector(".btn.open-popup").addEventListener("click", (e) => {
 document.querySelector(".btn.close-notice").addEventListener("click", (e) => {
   document.querySelector(".unsupported-notice").classList.add("d-none");
 });
+
+function showNotification(text) {
+  const notifEl = document.querySelector(".notification");
+  notifEl.innerText = text;
+  notifEl.classList.remove('d-none');
+  setTimeout(() => {
+    notifEl.classList.add('d-none')
+  }, 1500);
+}
