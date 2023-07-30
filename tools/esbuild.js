@@ -130,6 +130,7 @@ class Build {
           "src/background-script/background.ts",
           "src/content-script/content-script.ts",
           "src/popup/popup.ts",
+          "src/welcome/welcome.ts",
         ],
         bundle: true,
         minify: this.isProd,
