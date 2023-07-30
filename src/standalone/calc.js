@@ -2,14 +2,18 @@ let lastAns = "";
 let lastInput = "";
 let history = [];
 let angle = "rad";
+let evalScope = {};
 let operators = ["+", "−", "×", "÷", "%", "!"];
 let digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 function fmtInput(line) {
   return line
-    .replaceAll("%", "pct")
-    .replaceAll("mod", "%")
     .replaceAll("−", "-")
+    .replaceAll("×", "*")
+    .replaceAll("÷", "/")
+    .replaceAll("π", "pi")
+    .replaceAll("log(", "log10(")
+    .replaceAll("ln(", "log(")
     .replaceAll("Ans", lastAns);
 }
 
@@ -45,7 +49,7 @@ function evaluateInput(line) {
 
   let res = "";
   try {
-    res = math.evaluate(line);
+    res = math.evaluate(line, evalScope);
   } catch (e) {
     console.error("eval error:", res.msg);
     return "";
@@ -142,6 +146,9 @@ function handleClick(text) {
     case "ex":
       input.value += "e^";
       break;
+    case "mod":
+      input.value += " mod ";
+      break;
     case "y√x":
       // has to be preceeded by a number
       input.value += "^1/";
@@ -158,8 +165,8 @@ document.querySelectorAll("#keypad-content button").forEach((button) => {
   });
 });
 
-document.querySelector('body').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
+document.querySelector("body").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
     e.preventDefault();
     handleClick("=");
   }
@@ -190,9 +197,9 @@ tabEl.addEventListener("show.bs.tab", (event) => {
     const timeDiff = Math.floor((h.timestamp - Date.now()) / 1000);
     let rtime = "";
     if (timeDiff < -3600) {
-      rtime = rtf.format(Math.floor(timeDiff/3600), "hours");
+      rtime = rtf.format(Math.floor(timeDiff / 3600), "hours");
     } else if (timeDiff < -60) {
-      rtime = rtf.format(Math.floor(timeDiff/60), "minutes");
+      rtime = rtf.format(Math.floor(timeDiff / 60), "minutes");
     } else {
       rtime = rtf.format(timeDiff, "seconds");
     }
@@ -202,11 +209,11 @@ tabEl.addEventListener("show.bs.tab", (event) => {
 
 // Display notice if we got to this UI due to an unsupported host.
 let query = window.location.search;
-if(query.indexOf("unsupportedHost") >=0 ) {
+if (query.indexOf("unsupportedHost") >= 0) {
   document.querySelector(".unsupported-notice").classList.remove("d-none");
 }
 
-document.querySelector(".btn.open-popup").addEventListener('click', e => {
+document.querySelector(".btn.open-popup").addEventListener("click", (e) => {
   chrome.windows.create(
     {
       url: `chrome-extension://${chrome.i18n.getMessage(
@@ -223,6 +230,6 @@ document.querySelector(".btn.open-popup").addEventListener('click', e => {
   window.close();
 });
 
-document.querySelector(".btn.close-notice").addEventListener('click', e => {
+document.querySelector(".btn.close-notice").addEventListener("click", (e) => {
   document.querySelector(".unsupported-notice").classList.add("d-none");
 });
