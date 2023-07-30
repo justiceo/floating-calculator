@@ -1,7 +1,6 @@
 let lastAns = "";
 let lastInput = "";
 let history = [];
-let angle = "rad";
 let evalScope = {};
 let operators = ["+", "−", "×", "÷", "%", "!"];
 let digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -95,12 +94,12 @@ function handleClick(text) {
       lastAns = "";
       break;
     case "Rad":
-      angle = "rad";
+      window.angle = "rad";
       document.querySelector(".btn.rad").disabled = true;
       document.querySelector(".btn.deg").disabled = false;
       break;
     case "Deg":
-      angle = "deg";
+      window.angle = "deg";
       document.querySelector(".btn.deg").disabled = true;
       document.querySelector(".btn.rad").disabled = false;
       break;
