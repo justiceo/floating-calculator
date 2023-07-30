@@ -1,1 +1,2 @@
-(()=>{document.querySelector("button")?.addEventListener("click",e=>{n()});document.querySelector("input")?.addEventListener("keypress",e=>{e.key==="Enter"&&n()});function n(){let e=document.querySelector("input")?.value;!e||chrome.tabs.query({active:!0,currentWindow:!0},t=>{if(t.length==0){console.error("Unexpected state: No active tab");return}chrome.tabs.sendMessage(t[0].id,{action:"verbose-define",data:e},r=>{console.log(r),window.close()})})}})();
+var IS_DEV_BUILD=false;
+(()=>{document.addEventListener("DOMContentLoaded",t=>{let n=`chrome-extension://${chrome.i18n.getMessage("@@extension_id")}/standalone/calc.html`,e=document.querySelector("iframe");if(!e){console.error("iframe element should be present in the popup");return}e.src=n});})();

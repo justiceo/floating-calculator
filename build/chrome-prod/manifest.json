@@ -2,24 +2,14 @@
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
     "short_name": "__MSG_appShortName_",
-    "homepage_url": "https://github.com/justiceo/floating-calculator",
-    "version": "23.2.28",
+    "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
+    "version": "23.7.30",
     "manifest_version": 3,
     "default_locale": "en",
     "author": "Justice Ogbonna",
     "permissions": [
-        "declarativeNetRequest",
         "contextMenus"
     ],
-    "declarative_net_request": {
-        "rule_resources": [
-            {
-                "id": "ruleset_1",
-                "enabled": true,
-                "path": "assets/rules.json"
-            }
-        ]
-    },
     "host_permissions": [
         "*://*/*"
     ],
@@ -34,8 +24,7 @@
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "<all_urls>"
             ],
             "all_frames": true,
             "js": [
@@ -44,6 +33,7 @@
             "css": [
                 "content-script/content-script.css"
             ],
+            "match_about_blank": true,
             "run_at": "document_start"
         }
     ],
@@ -97,6 +87,22 @@
         {
             "resources": [
                 "assets/icon-close.svg"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        },
+        {
+            "resources": [
+                "content-script/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        },
+        {
+            "resources": [
+                "standalone/calc.html"
             ],
             "matches": [
                 "<all_urls>"

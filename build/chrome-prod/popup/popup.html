@@ -6,14 +6,14 @@
   <title translate-key="appName">Floating Calculator</title>
   <link rel="stylesheet" href="popup.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="popup.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <input type="text" placeholder="Type a word" required spellcheck="false">
-    <button class="define-btn" translate-key="define_cue">Define</button>
+    <iframe name="rich-calc-frame" src="https://example.com" />
   </div>
-  <script src="popup.js"></script>
+  <!-- script tags don't work in body for popup. -->
 </body>
 
 </html>
