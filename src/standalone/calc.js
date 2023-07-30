@@ -50,7 +50,7 @@ function evaluateInput(line) {
   try {
     res = math.evaluate(line, evalScope);
   } catch (e) {
-    console.error("eval error:", res.msg);
+    showNotification(e.message)
     return "";
   }
 
@@ -73,7 +73,7 @@ function handleClick(text) {
   switch (text) {
     case "=":
       let ans = evaluateInput(input.value);
-      if (ans) {
+      if (ans !== "") {
         addToHistory(Date.now(), input.value, ans);
         history.push({
           timestamp: Date.now(),

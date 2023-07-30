@@ -2,6 +2,9 @@
 
 let replacements = {};
 window.angle = "deg"
+math.config({
+  predictable: true,
+});
 
 // create trigonometric functions replacing the input depending on angle config
 const fns1 = ["sin", "cos", "tan", "sec", "cot", "csc"];
