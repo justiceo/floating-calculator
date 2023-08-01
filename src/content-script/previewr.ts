@@ -10,7 +10,7 @@ const apis = {
     link: chrome?.runtime?.getURL,
   },
   demo: { // welcome page demo.
-    i18n: (x, y) => x,
+    i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
     link: (path) => {
       if(window.location.protocol === 'chrome-extension:') {
         return chrome.runtime.getURL(path);
@@ -22,7 +22,7 @@ const apis = {
     },
   },
   ghPage: {
-    i18n: (x, y) => x,
+    i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
     link: (path) => {
       if (window.location.host === "127.0.0.1:3000") {
         return "http://127.0.0.1:3000/website/GENERATED_" + path;
