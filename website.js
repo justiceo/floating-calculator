@@ -7905,17 +7905,27 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       link: chrome?.runtime?.getURL
     },
     demo: {
-      i18n: (x3, y3) => x3,
-      link: (path) => window.location.host + "/" + path
+      i18n: (x3, y3) => x3 === "appName" ? "Floating Calculator" : x3,
+      link: (path) => {
+        if (window.location.protocol === "chrome-extension:") {
+          return chrome.runtime.getURL(path);
+        } else if (window.location.host === "127.0.0.1:3000") {
+          return "http://127.0.0.1:3000/build/chrome-dev/" + path;
+        }
+        console.error("Invalid path");
+        return "";
+      }
     },
     ghPage: {
-      i18n: (x3, y3) => x3,
+      i18n: (x3, y3) => x3 === "appName" ? "Floating Calculator" : x3,
       link: (path) => {
         if (window.location.host === "127.0.0.1:3000") {
           return "http://127.0.0.1:3000/website/GENERATED_" + path;
         } else if (window.location.host === "floatingcalc.com") {
           return "https://floatingcalc.com/GENERATED_" + path;
         }
+        console.error("Invalid path");
+        return "";
       }
     }
   };
