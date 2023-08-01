@@ -48,6 +48,7 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 * Using the most advanced math library under-the-hood, you can do more than the keypad allows.
 * Works for all URLs now, including file URLs (if you've granted the file permission).
 * Works offline and is extremely fast, no more dependence on Google Calculator.
+* Go beyond the keypad, the display supports direct input of expressions, symbols and operators not available on the keypad.
 
 ## Project setup
 

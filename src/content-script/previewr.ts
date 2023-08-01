@@ -4,12 +4,43 @@ import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";
 
 const iframeName = "essentialkit_calc_frame";
+const apis = {
+  default: {
+    i18n: chrome?.i18n?.getMessage,
+    link: chrome?.runtime?.getURL,
+  },
+  demo: { // welcome page demo.
+    i18n: (x, y) => x,
+    link: (path) => {
+      if(window.location.protocol === 'chrome-extension:') {
+        return chrome.runtime.getURL(path);
+      } else if (window.location.host === "127.0.0.1:3000") {
+        return "http://127.0.0.1:3000/build/chrome-dev/" + path;
+      }
+      console.error("Invalid path");
+      return "";
+    },
+  },
+  ghPage: {
+    i18n: (x, y) => x,
+    link: (path) => {
+      if (window.location.host === "127.0.0.1:3000") {
+        return "http://127.0.0.1:3000/website/GENERATED_" + path;
+      } else if (window.location.host === "floatingcalc.com") {
+        return "https://floatingcalc.com/GENERATED_" + path;
+      }
+      console.error("Invalid path");
+      return "";
+    },
+  },
+};
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
 export class Previewr {
   logger = new Logger("previewr");
   dialog?: WinBox;
   url?: URL;
+  api = apis.default;
 
   /* This function inserts an Angular custom element (web component) into the DOM. */
   init() {
@@ -22,7 +53,7 @@ export class Previewr {
     }
 
     this.listenForCspError();
-    document.addEventListener("keydown", this.onEscHandler)
+    document.addEventListener("keydown", this.onEscHandler);
   }
 
   listenForCspError() {
@@ -49,14 +80,23 @@ export class Previewr {
         sourceFrame: iframeName,
       });
     }
-  }
+  };
 
   async handleMessage(message) {
     this.logger.debug("#handleMessage: ", message);
+    this.api = apis.default;
+    const mode = message.data?.mode;
+    if (mode === "demo") {
+      this.api = apis.demo;
+    } else if (mode === "ghPage") {
+      this.api = apis.ghPage;
+    }
     switch (message.action) {
       case "toggle-calculator":
         try {
-          let newUrl = new URL(`chrome-extension://${chrome.i18n.getMessage("@@extension_id")}/standalone/calc.html`);
+          let link = this.api.link("standalone/calc.html");
+          console.log("creatign url", link);
+          let newUrl = new URL(link);
           if (newUrl.href === this.url?.href) {
             this.logger.warn("Ignoring update of same URL", newUrl.href);
             return;
@@ -83,11 +123,15 @@ export class Previewr {
 
     if (!this.dialog) {
       this.logger.debug("creating new dialog with options", winboxOptions);
-      this.dialog = new WinBox(chrome.i18n.getMessage("appName"), winboxOptions);
+      this.dialog = new WinBox(this.api.i18n("appName"), winboxOptions);
     } else {
       this.logger.debug("restoring dialog");
       this.dialog.setUrl(url.href);
-      this.dialog.move(winboxOptions.x, winboxOptions.y, /* skipUpdate= */false);
+      this.dialog.move(
+        winboxOptions.x,
+        winboxOptions.y,
+        /* skipUpdate= */ false
+      );
     }
 
     this.dialog?.show();
@@ -99,7 +143,7 @@ export class Previewr {
       pos = await this.getPos(point!);
     }
     return {
-      icon: chrome.runtime.getURL("assets/logo-24x24.png"),
+      icon: this.api.link("assets/logo-24x24.png"),
       x: pos.x,
       y: pos.y,
       width: "655px",
@@ -117,7 +161,9 @@ export class Previewr {
       onclose: () => {
         this.url = undefined;
         this.dialog = undefined;
-        document.querySelectorAll("floating-calculator-preview-window")?.forEach(e => e.remove());
+        document
+          .querySelectorAll("floating-calculator-preview-window")
+          ?.forEach((e) => e.remove());
       },
     };
   }

@@ -56,6 +56,9 @@ class Build {
       case "build":
         this.packageExtension().then((out) => console.log(out));
         break;
+      case "gh-page":
+        this.buildGhPage();
+        break;
       default:
         console.error("Unknown task", this.maybeTask)
     }
@@ -143,6 +146,38 @@ class Build {
           js: `var IS_DEV_BUILD=${!this.isProd};`
         },
         outdir: this.outDir,
+        target: ["chrome107"], // https://en.wikipedia.org/wiki/Google_Chrome_version_history
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  buildGhPage() {
+    fs.cp(
+      "src/standalone",
+      "website/GENERATED_standalone",
+      { force: true, recursive: true },
+      (err) => {
+        console.error("Error copying standalone: ", err);
+      }
+    );
+    return esbuild
+      .build({
+        entryPoints: [
+          "website/website.ts",
+        ],
+        bundle: true,
+        minify: false,
+        sourcemap: false,
+        loader: {
+          ".txt.html": "text",
+          ".txt.css": "text",
+        },
+        banner: {
+          js: `var IS_DEV_BUILD=${!this.isProd};`
+        },
+        outdir: "website",
         target: ["chrome107"], // https://en.wikipedia.org/wiki/Google_Chrome_version_history
       })
       .catch((err) => {
