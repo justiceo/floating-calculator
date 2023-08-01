@@ -1,15 +1,63 @@
-/* The CSS rules in this file are automatically included in website.css */
+/* src/content-script/previewr.css */
+.winbox {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.nav-away {
+  background-size: 15px auto;
+  filter: invert(1);
+}
+.nav-back,
+.open-options {
+  background-size: 20px auto;
+  filter: invert(1);
+}
+.loading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  display: none;
+  position: relative;
+  background: white;
+  top: 0;
+}
+.bar-animation {
+  width: 50%;
+  top: 50%;
+  height: 3px;
+  background: #0055d5;
+  position: absolute;
+  transition: 1s all ease-out;
+  animation-name: loading-interminate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes loading-interminate {
+  0% {
+    left: 0;
+    width: 0;
+  }
+  50% {
+    left: 10%;
+  }
+  70% {
+    left: 60%;
+  }
+  100% {
+    left: 100%;
+    right: 0;
+  }
+}
 
+/* website/styles.css */
 * {
   margin: 0;
   padding: 0;
   border: 0;
 }
-
 body {
   font-family: "Inter", sans-serif;
 }
-
 .container {
   display: flex;
   flex-direction: column;
@@ -17,11 +65,9 @@ body {
   align-items: center;
   font-style: normal;
 }
-
 .container > img {
   margin: 50px 0 40px 0;
 }
-
 .container h1 {
   font-weight: 500;
   font-size: 34px;
@@ -30,7 +76,6 @@ body {
   margin-bottom: 24px;
   text-align: center;
 }
-
 .container > p {
   font-weight: 400;
   font-size: 22px;
@@ -38,13 +83,11 @@ body {
   text-align: center;
   color: #7b7b7b;
 }
-
 .button-group {
   display: flex;
   justify-content: center;
   margin: 20px 0 24px 0;
 }
-
 .button-group button {
   background-color: #fff;
   border: 0.5px solid #282828;
@@ -61,28 +104,20 @@ body {
   cursor: pointer;
   border-radius: 2px;
 }
-
 .button-group #chrome {
   background-color: #3549de;
   color: #ffffff;
   border: #3549de;
   padding: 7px 44px;
 }
-
 .button-group button .icon {
   display: inline-block;
   padding: 5px 10px;
   vertical-align: middle;
 }
-
-/* video {
-    border-radius: 8px;
-  } */
-
 .product {
   border-radius: 8px;
 }
-
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -96,26 +131,21 @@ body {
   margin-top: 24px;
   margin-bottom: 80px;
 }
-
 .feature {
   padding: 18px;
   text-align: center;
 }
-
 .feature img,
 p {
   margin-bottom: 16px;
 }
-
 .feature p:first-of-type {
   font-weight: 500;
   color: #282828;
 }
-
 .six p {
   color: #7b7b7b !important;
 }
-
 .author {
   font-weight: 400;
   font-size: 20px;
@@ -123,11 +153,9 @@ p {
   color: #7b7b7b;
   margin-bottom: 80px;
 }
-
 .author a {
   text-decoration: none;
 }
-
 .social-links a,
 footer a {
   margin: 0 8px;
@@ -137,11 +165,9 @@ footer a {
   line-height: 23px;
   color: #000000;
 }
-
 footer {
   margin: 100px 0 80px;
 }
-
 footer a:hover {
   text-decoration: underline;
   cursor: pointer;
