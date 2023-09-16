@@ -1,0 +1,28 @@
+theme: minima
+bool: true
+number: 12334
+array: [a,b,c,d]
+multi-line-array: 
+  - value 1
+  - value 2
+null-value: null
+undefined_value:
+date: 2022-07-01
+symbol: 😊
+
+# The fields below would be imported from package.json and manifest.json in that order.
+# They are listed here so that config_generator.js knows to look for them.
+name: 
+short_name:
+manifest_version:
+version: 
+description:
+homepage:
+author: 
+license:
+keywords: 
+homepage_url: 
+icons:
+bugs:
+funding:
+repository:
