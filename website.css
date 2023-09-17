@@ -117,7 +117,7 @@ body {
 }
 .product {
   border-radius: 8px;
-  border: 8px solid #ccc
+  border: 8px solid #bbb;
 }
 .features {
   display: grid;

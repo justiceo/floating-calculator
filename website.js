@@ -8029,10 +8029,10 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         icon: this.api.link("assets/logo-24x24.png"),
         x: pos.x,
         y: pos.y,
-        width: "655px",
-        height: "375px",
+        width: "440px",
+        height: "360px",
         autosize: false,
-        class: ["no-max", "no-full", "no-min", "no-resize", "no-move"],
+        class: ["no-max", "no-full", "no-min", "no-move"],
         index: await this.getMaxZIndex(),
         html: `<iframe name="${iframeName}" src="${url}"></iframe>`,
         hidden: true,
@@ -8072,7 +8072,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       };
       const div = document.createElement("div");
       div.style.width = "655px";
-      div.style.height = "335px";
+      div.style.height = "360px";
       div.style.position = "fixed";
       div.style.visibility = "hidden";
       document.body.appendChild(div);
