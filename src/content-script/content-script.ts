@@ -9,20 +9,19 @@ class Listener {
   previewr = new Previewr();
 
   start() {
-    document.addEventListener("mousemove", (e) =>
-      {
-        // Make top space for popup.
-        const y = e.y < 20 ? 20 : e.y;
-        this.lastMousePosition = {
-                                    width: 10,
-                                    height: 10,
-                                    x: e.x,
-                                    y: y,
-                                    left: e.x,
-                                    top: y,
-                                    right: e.x + 10,
-                                    bottom: y + 10,
-                                  } as DOMRect;
+    document.addEventListener("mousemove", (e) => {
+      // Make top space for popup.
+      const y = e.y < 20 ? 20 : e.y;
+      this.lastMousePosition = {
+        width: 10,
+        height: 10,
+        x: e.x,
+        y: y,
+        left: e.x,
+        top: y,
+        right: e.x + 10,
+        bottom: y + 10,
+      } as DOMRect;
     });
 
     this.previewr.init();
@@ -32,7 +31,7 @@ class Listener {
       if (!request.point) {
         request.point = this.lastMousePosition;
       }
-      if(request.action === "user-text-selection") {
+      if (request.action === "user-text-selection") {
         // Clear any existing selections in order to not conflict.
         window.getSelection()?.removeAllRanges();
       }
@@ -52,4 +51,6 @@ class Listener {
   }
 }
 
-new Listener().start();
+if (self === top) { // only execute in the top frame.
+  new Listener().start();
+}
