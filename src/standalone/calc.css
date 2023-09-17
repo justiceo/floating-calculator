@@ -1,11 +1,54 @@
+html {
+  height: 100%;
+}
+
 body {
-  min-width: 500px;
+  display: flex;
+  height: 100%;
+  min-width: 300px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+  resize: both;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  padding: 0.7em 0.5em 0.7em;
+}
+
+.dynamic-display, .meta-controls, .tab-content {
+  height: auto;
+  flex-basis: auto;
+}
+
+.dynamic-display {
+  position: relative;
+  flex: 1.5
+}
+
+.meta-controls {
+  position: relative;
+  flex: 0
+}
+
+.tab-content {
+  flex: 7
+}
+
+.dynamic-display input, .tab-pane, .input-panel {
+  height: 100%;
+}
+
+.input-panel .hstack {
+  flex: 1
 }
 
 .input-panel.hstack .btn {
   width: calc(100% / 7);
   font-size: 14px;
+  height: 100%;
 }
 
 .btn-light {

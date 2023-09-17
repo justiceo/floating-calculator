@@ -147,9 +147,9 @@ export class Previewr {
       x: pos.x,
       y: pos.y,
       width: "655px",
-      height: "375px",
+      height: "400px",
       autosize: false,
-      class: ["no-max", "no-full", "no-min", "no-resize", "no-move"],
+      class: ["no-max", "no-full", "no-min", "no-move"],
       index: await this.getMaxZIndex(),
       // Simply updating the url without changing the iframe, means the content-script doesn't get re-inserted into the frame, even though it's now out of context.
       html: `<iframe name="${iframeName}" src="${url}"></iframe>`,
@@ -201,7 +201,7 @@ export class Previewr {
     const div = document.createElement("div");
     // These dimensions need to match that of the dialog precisely.
     div.style.width = "655px";
-    div.style.height = "335px";
+    div.style.height = "360px";
     div.style.position = "fixed";
     div.style.visibility = "hidden";
     document.body.appendChild(div);
