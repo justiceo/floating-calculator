@@ -81,7 +81,7 @@ function handleClick(text) {
           result: ans,
         });
         pretext.innerText = input.value + " =";
-        input.value = ans;
+        setInput(input, ans)
         lastAns = ans;
         input.classList.remove("border-danger");
       } else {
@@ -168,6 +168,13 @@ function insertValue(input, text) {
   input.setSelectionRange(caretPos + text.length, caretPos + text.length);
 }
 
+function setInput(input, text) {
+  input.value = text;
+  input.focus({ focusVisible: true });
+  // Hack to force caret at the end of input.
+  setTimeout(() => { input.selectionStart = input.selectionEnd = 10000; }, 0);
+}
+
 function showNotification(text, duration = 1500) {
   const notifEl = document.querySelector(".notification");
   notifEl.innerText = text;
@@ -186,12 +193,15 @@ function checkDocumentFocus() {
       document.querySelector("#text-input").focus({ focusVisible: true });
     }
   } else {
-    if(isInactive) {
+    if (isInactive) {
       return; // prevent repetitively showing the notification.
     }
     isInactive = true;
     document.querySelector("body").style.background = "#eee";
-    showNotification("Inactive: click anywhere in calculator to activate", 3000);
+    showNotification(
+      "Inactive: click anywhere in calculator to activate",
+      3000
+    );
   }
 }
 
