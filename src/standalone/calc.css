@@ -5,7 +5,7 @@ html {
 body {
   display: flex;
   height: 100%;
-  min-width: 300px;
+  min-width: 100px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -18,31 +18,35 @@ body {
   padding: 0.7em 0.5em 0.7em;
 }
 
-.dynamic-display, .meta-controls, .tab-content {
+.dynamic-display,
+.meta-controls,
+.tab-content {
   height: auto;
   flex-basis: auto;
 }
 
 .dynamic-display {
   position: relative;
-  flex: 1.5
+  flex: 1.5;
 }
 
 .meta-controls {
   position: relative;
-  flex: 0
+  flex: 0;
 }
 
 .tab-content {
-  flex: 7
+  flex: 7;
 }
 
-.dynamic-display input, .tab-pane, .input-panel {
+.dynamic-display input,
+.tab-pane,
+.input-panel {
   height: 100%;
 }
 
 .input-panel .hstack {
-  flex: 1
+  flex: 1;
 }
 
 .input-panel.hstack .btn {
@@ -91,7 +95,8 @@ input.form-control {
   padding: 0.15rem 0.5rem;
 }
 
-#history-content, #help-content {
+#history-content,
+#help-content {
   background: #f1f1f1;
   padding: 20px;
   border-radius: 10px;
@@ -103,4 +108,14 @@ input.form-control {
 
 .notice {
   border-radius: 5px;
+}
+
+@media (max-width: 250px) {
+  .input-panel.hstack .btn:not(.f1, .f2):nth-child(-n + 3),
+  .input-panel.hstack .btn:is(.f1, .f2):nth-child(-n + 6) {
+    display: none;
+  }
+  .input-panel.hstack .btn {
+    width: calc(100% / 4);
+  }
 }
