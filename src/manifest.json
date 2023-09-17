@@ -4,7 +4,7 @@
   "short_name": "__MSG_appShortName_",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version__": "Firefox does not support leading zeros in versions",
-  "version": "23.7.30",
+  "version": "23.9.17",
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",
