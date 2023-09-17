@@ -81,6 +81,7 @@ body {
 
 .product {
   border-radius: 8px;
+  border: 8px solid #bbb;
 }
 
 .features {
