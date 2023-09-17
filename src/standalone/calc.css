@@ -53,6 +53,8 @@ body {
   width: calc(100% / 7);
   font-size: 14px;
   height: 100%;
+  padding: 0;
+  line-height: 1;
 }
 
 .btn-light {
