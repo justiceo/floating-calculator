@@ -7,6 +7,7 @@ body {
   height: 100%;
   min-width: 100px;
   font-family: Arial, Helvetica, sans-serif;
+  container-type: size;
 }
 
 .main {
@@ -51,7 +52,6 @@ body {
 
 .input-panel.hstack .btn {
   width: calc(100% / 7);
-  font-size: 14px;
   height: 100%;
   padding: 0;
   line-height: 1;
@@ -65,7 +65,6 @@ body {
 }
 
 .meta-controls .notification {
-  font-size: 14px;
   border-radius: 5px;
   padding: 0.15rem 0.5rem;
   position: absolute;
@@ -93,7 +92,6 @@ input.form-control {
 }
 
 .nav .nav-link {
-  font-size: 12px;
   padding: 0.15rem 0.5rem;
 }
 
@@ -119,5 +117,40 @@ input.form-control {
   }
   .input-panel.hstack .btn {
     width: calc(100% / 4);
+  }
+}
+
+/* Tracking font-sizes separately to monitor responsiveness */
+.main {
+  font-size: 12px;
+} /* resets base 16px */
+.form-check {
+  font-size: 14px;
+}
+.input-panel.hstack .btn {
+  font-size: 14px;
+}
+
+@container (max-width: 350px) {
+  .main {
+    font-size: 10px;
+  } /* resets base 16px */
+  .form-check {
+    font-size: 12px;
+  }
+  .input-panel.hstack .btn {
+    font-size: 12px;
+  }
+  .nav .nav-link {
+    padding: 0.15rem 0.5rem;
+  }
+
+  input.form-control {
+    text-align: right;
+    line-height: 40px;
+    font-size: 28px;
+    resize: none;
+    margin-top: -5px;
+    padding-top: 30px;
   }
 }
