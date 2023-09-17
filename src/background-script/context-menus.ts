@@ -41,8 +41,8 @@ export class ContextMenu {
             "@@extension_id"
           )}/standalone/calc.html`,
           type: "popup",
-          width: 655,
-          height: 365,
+          width: 440,
+          height: 360,
         },
         function (window) {}
       );
