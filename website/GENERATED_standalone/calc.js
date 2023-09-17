@@ -1,5 +1,5 @@
 let lastAns = "";
-let lastInput = "";
+let prevInput = "";
 let history = [];
 let evalScope = {};
 let operators = ["+", "−", "×", "÷", "%", "!"];
@@ -50,7 +50,7 @@ function evaluateInput(line) {
   try {
     res = math.evaluate(line, evalScope);
   } catch (e) {
-    showNotification(e.message)
+    showNotification(e.message);
     return "";
   }
 
@@ -65,7 +65,7 @@ function handleClick(text) {
   let input = document.querySelector("input#text-input");
   let pretext = document.querySelector("span#pretext");
 
-  if (lastInput === "=" && !isOperator && text !== "=") {
+  if (prevInput === "=" && !isOperator && text !== "=") {
     pretext.innerText = "Ans = " + lastAns;
     input.value = "";
   }
@@ -81,7 +81,7 @@ function handleClick(text) {
           result: ans,
         });
         pretext.innerText = input.value + " =";
-        input.value = ans;
+        setInput(input, ans)
         lastAns = ans;
         input.classList.remove("border-danger");
       } else {
@@ -106,59 +106,109 @@ function handleClick(text) {
       showNotification("Angles set to degrees");
       break;
     case "√":
-      input.value += "sqrt(";
+      insertValue(input, "sqrt(");
       break;
     case "x!":
-      input.value += "!";
+      insertValue(input, "!");
       break;
     case "xy":
-      input.value += "^";
+      insertValue(input, "^");
       break;
     case "x2":
-      input.value += "^2";
+      insertValue(input, "^2");
       break;
     case "sin":
-      input.value += "sin(";
+      insertValue(input, "sin(");
       break;
     case "cos":
-      input.value += "cos(";
+      insertValue(input, "cos(");
       break;
     case "tan":
-      input.value += "tan(";
+      insertValue(input, "tan(");
       break;
     case "sin-1":
-      input.value += "asin(";
+      insertValue(input, "asin(");
       break;
     case "cos-1":
-      input.value += "acos(";
+      insertValue(input, "acos(");
       break;
     case "tan-1":
-      input.value += "atan(";
+      insertValue(input, "atan(");
       break;
     case "log":
-      input.value += "log(";
+      insertValue(input, "log(");
       break;
     case "ln":
-      input.value += "ln(";
+      insertValue(input, "ln(");
       break;
     case "10x":
-      input.value += "10^";
+      insertValue(input, "10^");
       break;
     case "ex":
-      input.value += "e^";
+      insertValue(input, "e^");
       break;
     case "mod":
-      input.value += " mod ";
+      insertValue(input, " mod ");
       break;
     case "y√x":
       // has to be preceeded by a number
-      input.value += "^1/";
+      insertValue(input, "^1/");
       break;
     default:
-      input.value = input.value + text;
+      insertValue(input, text);
   }
-  lastInput = text;
+  prevInput = text;
 }
+
+function insertValue(input, text) {
+  const caretPos = input.selectionStart;
+  input.value =
+    input.value.slice(0, caretPos) + text + input.value.slice(caretPos);
+  input.focus({ focusVisible: true });
+  input.setSelectionRange(caretPos + text.length, caretPos + text.length);
+}
+
+function setInput(input, text) {
+  input.value = text;
+  input.focus({ focusVisible: true });
+  // Hack to force caret at the end of input.
+  setTimeout(() => { input.selectionStart = input.selectionEnd = 10000; }, 0);
+}
+
+function showNotification(text, duration = 1500) {
+  const notifEl = document.querySelector(".notification");
+  notifEl.innerText = text;
+  notifEl.classList.remove("d-none");
+  setTimeout(() => {
+    notifEl.classList.add("d-none");
+  }, duration);
+}
+
+let isInactive = null;
+function checkDocumentFocus() {
+  if (document.hasFocus()) {
+    isInactive = false;
+    document.querySelector("body").style.background = "white";
+    if (document.querySelector("#text-input") !== document.activeElement) {
+      document.querySelector("#text-input").focus({ focusVisible: true });
+    }
+  } else {
+    if (isInactive) {
+      return; // prevent repetitively showing the notification.
+    }
+    isInactive = true;
+    document.querySelector("body").style.background = "#eee";
+    // TODO: Consider reducing the opacity as well.
+    showNotification(
+      "Inactive: click anywhere in calculator to activate",
+      3000
+    );
+  }
+}
+
+// Alternatives considered to setInterval include listening to "focusin" and "focusout".
+// Cannot listen to "focus" and "blur" events directly on document.
+setInterval(checkDocumentFocus, 300);
 
 document.querySelectorAll("#keypad-content button").forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -234,12 +284,3 @@ document.querySelector(".btn.open-popup").addEventListener("click", (e) => {
 document.querySelector(".btn.close-notice").addEventListener("click", (e) => {
   document.querySelector(".unsupported-notice").classList.add("d-none");
 });
-
-function showNotification(text) {
-  const notifEl = document.querySelector(".notification");
-  notifEl.innerText = text;
-  notifEl.classList.remove('d-none');
-  setTimeout(() => {
-    notifEl.classList.add('d-none')
-  }, 1500);
-}
