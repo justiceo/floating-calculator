@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Плаващ калкулатор",
+        "message": "Плаващ научен калкулатор",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,11 +8,11 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Плаващ калкулатор навсякъде, където се нуждаете",
+        "message": "Плаващ научен калкулатор навсякъде, където се нуждаете",
         "description": "The description of your extension"
     },
     "calculator_cue": {
-        "message": "Калкулатор",
+        "message": "калкулатор",
         "description": "The search query cue for calculator"
     }
 }

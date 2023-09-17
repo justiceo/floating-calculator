@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Floating Calculator",
+        "message": "Floating Scientific Calculator",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "A floating calculator anywhere you need it",
+        "message": "A floating scientific calculator anywhere you need it",
         "description": "The description of your extension"
     },
     "calculator_cue": {

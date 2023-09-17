@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Plovoucí kalkulačka",
+        "message": "Plovoucí vědecká kalkulačka",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Plovoucí kalkulačka kdekoli ji potřebujete",
+        "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
         "description": "The description of your extension"
     },
     "calculator_cue": {

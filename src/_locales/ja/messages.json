@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "フローティング計算機",
+        "message": "フローティング科学計算機",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "あなたがそれを必要とするどこでも浮遊計算機",
+        "message": "あなたがそれを必要とするどこでも浮かぶ科学的計算機",
         "description": "The description of your extension"
     },
     "calculator_cue": {

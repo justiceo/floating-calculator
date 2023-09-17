@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Úszó számológép",
+        "message": "Úszó tudományos számológép",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Úszó számológép bárhol, amire szüksége van rá",
+        "message": "Úszó tudományos számológép bárhol, ahol szüksége van rá",
         "description": "The description of your extension"
     },
     "calculator_cue": {

@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Schwimmender Taschenrechner",
+        "message": "Schwimmender wissenschaftlicher Taschenrechner",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Ein schwimmender Taschenrechner überall, wo Sie es brauchen",
+        "message": "Ein schwebender wissenschaftlicher Taschenrechner überall, wo Sie es brauchen",
         "description": "The description of your extension"
     },
     "calculator_cue": {

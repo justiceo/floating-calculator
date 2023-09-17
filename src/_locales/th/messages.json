@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "เครื่องคิดเลขลอย",
+        "message": "เครื่องคิดเลขวิทยาศาสตร์ลอย",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "เครื่องคิดเลขลอยได้ทุกที่ที่คุณต้องการ",
+        "message": "เครื่องคิดเลขทางวิทยาศาสตร์ลอยได้ทุกที่ที่คุณต้องการ",
         "description": "The description of your extension"
     },
     "calculator_cue": {

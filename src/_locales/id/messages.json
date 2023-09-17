@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Kalkulator mengambang",
+        "message": "Kalkulator Ilmiah Mengambang",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Kalkulator mengambang di mana saja Anda membutuhkannya",
+        "message": "Kalkulator ilmiah mengambang di mana pun Anda membutuhkannya",
         "description": "The description of your extension"
     },
     "calculator_cue": {

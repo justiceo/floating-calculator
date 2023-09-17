@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "மிதக்கும் கால்குலேட்டர்",
+        "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் கால்குலேட்டர்",
+        "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
         "description": "The description of your extension"
     },
     "calculator_cue": {

@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "ভাসমান ক্যালকুলেটর",
+        "message": "ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "আপনার যে কোনও জায়গায় ভাসমান ক্যালকুলেটর",
+        "message": "আপনার যে কোনও জায়গায় ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
         "description": "The description of your extension"
     },
     "calculator_cue": {
