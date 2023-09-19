@@ -198,6 +198,7 @@ function checkDocumentFocus() {
     }
     isInactive = true;
     document.querySelector("body").style.background = "#eee";
+    // TODO: Consider reducing the opacity as well.
     showNotification(
       "Inactive: click anywhere in calculator to activate",
       3000

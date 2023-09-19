@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "Plutajući kalkulator",
+        "message": "Plutajući znanstveni kalkulator",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "Plutajući kalkulator bilo gdje vam zatreba",
+        "message": "Plutajući znanstveni kalkulator bilo gdje vam zatreba",
         "description": "The description of your extension"
     },
     "calculator_cue": {

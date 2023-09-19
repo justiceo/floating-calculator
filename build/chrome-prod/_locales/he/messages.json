@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "מחשבון צף",
+        "message": "מחשבון מדעי צף",
         "description": "The name of the extension"
     },
     "appShortName": {
@@ -8,7 +8,7 @@
         "description": "The short-version name of the extension name"
     },
     "appDesc": {
-        "message": "מחשבון צף בכל מקום שאתה צריך אותו",
+        "message": "מחשבון מדעי צף בכל מקום שאתה זקוק לו",
         "description": "The description of your extension"
     },
     "calculator_cue": {
