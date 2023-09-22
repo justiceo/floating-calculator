@@ -173,3 +173,7 @@ footer a:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+.container #landing-demo {
+  box-shadow: 5px 5px 5px 5px #ccc;
+  border-radius: 8px;
+}
