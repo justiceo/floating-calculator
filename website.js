@@ -64,6 +64,143 @@ var IS_DEV_BUILD=true;
       return false;
     }
   }
+  function isVueViewModel(wat) {
+    return !!(typeof wat === "object" && wat !== null && (wat.__isVue || wat._isVue));
+  }
+
+  // node_modules/@sentry/utils/esm/string.js
+  function truncate(str, max2 = 0) {
+    if (typeof str !== "string" || max2 === 0) {
+      return str;
+    }
+    return str.length <= max2 ? str : `${str.slice(0, max2)}...`;
+  }
+  function safeJoin(input, delimiter) {
+    if (!Array.isArray(input)) {
+      return "";
+    }
+    const output = [];
+    for (let i = 0; i < input.length; i++) {
+      const value = input[i];
+      try {
+        if (isVueViewModel(value)) {
+          output.push("[VueViewModel]");
+        } else {
+          output.push(String(value));
+        }
+      } catch (e) {
+        output.push("[value cannot be serialized]");
+      }
+    }
+    return output.join(delimiter);
+  }
+  function isMatchingPattern(value, pattern, requireExactStringMatch = false) {
+    if (!isString(value)) {
+      return false;
+    }
+    if (isRegExp(pattern)) {
+      return pattern.test(value);
+    }
+    if (isString(pattern)) {
+      return requireExactStringMatch ? value === pattern : value.includes(pattern);
+    }
+    return false;
+  }
+  function stringMatchesSomePattern(testString, patterns = [], requireExactStringMatch = false) {
+    return patterns.some((pattern) => isMatchingPattern(testString, pattern, requireExactStringMatch));
+  }
+
+  // node_modules/@sentry/utils/esm/aggregate-errors.js
+  function applyAggregateErrorsToEvent(exceptionFromErrorImplementation, parser, maxValueLimit = 250, key, limit, event, hint) {
+    if (!event.exception || !event.exception.values || !hint || !isInstanceOf(hint.originalException, Error)) {
+      return;
+    }
+    const originalException = event.exception.values.length > 0 ? event.exception.values[event.exception.values.length - 1] : void 0;
+    if (originalException) {
+      event.exception.values = truncateAggregateExceptions(
+        aggregateExceptionsFromError(
+          exceptionFromErrorImplementation,
+          parser,
+          limit,
+          hint.originalException,
+          key,
+          event.exception.values,
+          originalException,
+          0
+        ),
+        maxValueLimit
+      );
+    }
+  }
+  function aggregateExceptionsFromError(exceptionFromErrorImplementation, parser, limit, error, key, prevExceptions, exception, exceptionId) {
+    if (prevExceptions.length >= limit + 1) {
+      return prevExceptions;
+    }
+    let newExceptions = [...prevExceptions];
+    if (isInstanceOf(error[key], Error)) {
+      applyExceptionGroupFieldsForParentException(exception, exceptionId);
+      const newException = exceptionFromErrorImplementation(parser, error[key]);
+      const newExceptionId = newExceptions.length;
+      applyExceptionGroupFieldsForChildException(newException, key, newExceptionId, exceptionId);
+      newExceptions = aggregateExceptionsFromError(
+        exceptionFromErrorImplementation,
+        parser,
+        limit,
+        error[key],
+        key,
+        [newException, ...newExceptions],
+        newException,
+        newExceptionId
+      );
+    }
+    if (Array.isArray(error.errors)) {
+      error.errors.forEach((childError, i) => {
+        if (isInstanceOf(childError, Error)) {
+          applyExceptionGroupFieldsForParentException(exception, exceptionId);
+          const newException = exceptionFromErrorImplementation(parser, childError);
+          const newExceptionId = newExceptions.length;
+          applyExceptionGroupFieldsForChildException(newException, `errors[${i}]`, newExceptionId, exceptionId);
+          newExceptions = aggregateExceptionsFromError(
+            exceptionFromErrorImplementation,
+            parser,
+            limit,
+            childError,
+            key,
+            [newException, ...newExceptions],
+            newException,
+            newExceptionId
+          );
+        }
+      });
+    }
+    return newExceptions;
+  }
+  function applyExceptionGroupFieldsForParentException(exception, exceptionId) {
+    exception.mechanism = exception.mechanism || { type: "generic", handled: true };
+    exception.mechanism = {
+      ...exception.mechanism,
+      is_exception_group: true,
+      exception_id: exceptionId
+    };
+  }
+  function applyExceptionGroupFieldsForChildException(exception, source, exceptionId, parentId) {
+    exception.mechanism = exception.mechanism || { type: "generic", handled: true };
+    exception.mechanism = {
+      ...exception.mechanism,
+      type: "chained",
+      source,
+      exception_id: exceptionId,
+      parent_id: parentId
+    };
+  }
+  function truncateAggregateExceptions(exceptions, maxValueLength) {
+    return exceptions.map((exception) => {
+      if (exception.value) {
+        exception.value = truncate(exception.value, maxValueLength);
+      }
+      return exception;
+    });
+  }
 
   // node_modules/@sentry/utils/esm/worldwide.js
   function isGlobalObj(obj) {
@@ -118,7 +255,7 @@ var IS_DEV_BUILD=true;
     let classes;
     let key;
     let attr;
-    let i3;
+    let i;
     if (!elem || !elem.tagName) {
       return "";
     }
@@ -135,14 +272,14 @@ var IS_DEV_BUILD=true;
       className = elem.className;
       if (className && isString(className)) {
         classes = className.split(/\s+/);
-        for (i3 = 0; i3 < classes.length; i3++) {
-          out.push(`.${classes[i3]}`);
+        for (i = 0; i < classes.length; i++) {
+          out.push(`.${classes[i]}`);
         }
       }
     }
     const allowedAttrs = ["aria-label", "type", "name", "title", "alt"];
-    for (i3 = 0; i3 < allowedAttrs.length; i3++) {
-      key = allowedAttrs[i3];
+    for (i = 0; i < allowedAttrs.length; i++) {
+      key = allowedAttrs[i];
       attr = elem.getAttribute(key);
       if (attr) {
         out.push(`[${key}="${attr}"]`);
@@ -164,107 +301,27 @@ var IS_DEV_BUILD=true;
     return null;
   }
 
-  // node_modules/@sentry/utils/esm/error.js
-  var SentryError = class extends Error {
-    constructor(message, logLevel = "warn") {
-      super(message);
-      this.message = message;
-      this.name = new.target.prototype.constructor.name;
-      Object.setPrototypeOf(this, new.target.prototype);
-      this.logLevel = logLevel;
-    }
-  };
-
-  // node_modules/@sentry/utils/esm/dsn.js
-  var DSN_REGEX = /^(?:(\w+):)\/\/(?:(\w+)(?::(\w+)?)?@)([\w.-]+)(?::(\d+))?\/(.+)/;
-  function isValidProtocol(protocol) {
-    return protocol === "http" || protocol === "https";
-  }
-  function dsnToString(dsn, withPassword = false) {
-    const { host, path, pass, port, projectId, protocol, publicKey } = dsn;
-    return `${protocol}://${publicKey}${withPassword && pass ? `:${pass}` : ""}@${host}${port ? `:${port}` : ""}/${path ? `${path}/` : path}${projectId}`;
-  }
-  function dsnFromString(str) {
-    const match = DSN_REGEX.exec(str);
-    if (!match) {
-      throw new SentryError(`Invalid Sentry Dsn: ${str}`);
-    }
-    const [protocol, publicKey, pass = "", host, port = "", lastPath] = match.slice(1);
-    let path = "";
-    let projectId = lastPath;
-    const split = projectId.split("/");
-    if (split.length > 1) {
-      path = split.slice(0, -1).join("/");
-      projectId = split.pop();
-    }
-    if (projectId) {
-      const projectMatch = projectId.match(/^\d+/);
-      if (projectMatch) {
-        projectId = projectMatch[0];
-      }
-    }
-    return dsnFromComponents({ host, pass, path, projectId, port, protocol, publicKey });
-  }
-  function dsnFromComponents(components) {
-    return {
-      protocol: components.protocol,
-      publicKey: components.publicKey || "",
-      pass: components.pass || "",
-      host: components.host,
-      port: components.port || "",
-      path: components.path || "",
-      projectId: components.projectId
-    };
-  }
-  function validateDsn(dsn) {
-    if (!(typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__)) {
-      return;
-    }
-    const { port, projectId, protocol } = dsn;
-    const requiredComponents = ["protocol", "publicKey", "host", "projectId"];
-    requiredComponents.forEach((component) => {
-      if (!dsn[component]) {
-        throw new SentryError(`Invalid Sentry Dsn: ${component} missing`);
-      }
-    });
-    if (!projectId.match(/^\d+$/)) {
-      throw new SentryError(`Invalid Sentry Dsn: Invalid projectId ${projectId}`);
-    }
-    if (!isValidProtocol(protocol)) {
-      throw new SentryError(`Invalid Sentry Dsn: Invalid protocol ${protocol}`);
-    }
-    if (port && isNaN(parseInt(port, 10))) {
-      throw new SentryError(`Invalid Sentry Dsn: Invalid port ${port}`);
-    }
-    return true;
-  }
-  function makeDsn(from) {
-    const components = typeof from === "string" ? dsnFromString(from) : dsnFromComponents(from);
-    validateDsn(components);
-    return components;
-  }
-
   // node_modules/@sentry/utils/esm/logger.js
   var PREFIX = "Sentry Logger ";
   var CONSOLE_LEVELS = ["debug", "info", "warn", "error", "log", "assert", "trace"];
+  var originalConsoleMethods = {};
   function consoleSandbox(callback) {
     if (!("console" in GLOBAL_OBJ)) {
       return callback();
     }
-    const originalConsole = GLOBAL_OBJ.console;
-    const wrappedLevels = {};
-    CONSOLE_LEVELS.forEach((level) => {
-      const originalWrappedFunc = originalConsole[level] && originalConsole[level].__sentry_original__;
-      if (level in originalConsole && originalWrappedFunc) {
-        wrappedLevels[level] = originalConsole[level];
-        originalConsole[level] = originalWrappedFunc;
-      }
+    const console2 = GLOBAL_OBJ.console;
+    const wrappedFuncs = {};
+    const wrappedLevels = Object.keys(originalConsoleMethods);
+    wrappedLevels.forEach((level) => {
+      const originalConsoleMethod = originalConsoleMethods[level];
+      wrappedFuncs[level] = console2[level];
+      console2[level] = originalConsoleMethod;
     });
     try {
       return callback();
     } finally {
-      Object.keys(wrappedLevels).forEach((level) => {
-        originalConsole[level] = wrappedLevels[level];
+      wrappedLevels.forEach((level) => {
+        console2[level] = wrappedFuncs[level];
       });
     }
   }
@@ -295,50 +352,98 @@ var IS_DEV_BUILD=true;
     }
     return logger2;
   }
-  var logger;
-  if (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) {
-    logger = getGlobalSingleton("logger", makeLogger);
-  } else {
-    logger = makeLogger();
-  }
+  var logger = makeLogger();
 
-  // node_modules/@sentry/utils/esm/string.js
-  function truncate(str, max = 0) {
-    if (typeof str !== "string" || max === 0) {
-      return str;
-    }
-    return str.length <= max ? str : `${str.slice(0, max)}...`;
+  // node_modules/@sentry/utils/esm/dsn.js
+  var DSN_REGEX = /^(?:(\w+):)\/\/(?:(\w+)(?::(\w+)?)?@)([\w.-]+)(?::(\d+))?\/(.+)/;
+  function isValidProtocol(protocol) {
+    return protocol === "http" || protocol === "https";
   }
-  function safeJoin(input, delimiter) {
-    if (!Array.isArray(input)) {
-      return "";
+  function dsnToString(dsn, withPassword = false) {
+    const { host, path, pass, port, projectId, protocol, publicKey } = dsn;
+    return `${protocol}://${publicKey}${withPassword && pass ? `:${pass}` : ""}@${host}${port ? `:${port}` : ""}/${path ? `${path}/` : path}${projectId}`;
+  }
+  function dsnFromString(str) {
+    const match = DSN_REGEX.exec(str);
+    if (!match) {
+      console.error(`Invalid Sentry Dsn: ${str}`);
+      return void 0;
     }
-    const output = [];
-    for (let i3 = 0; i3 < input.length; i3++) {
-      const value = input[i3];
-      try {
-        output.push(String(value));
-      } catch (e2) {
-        output.push("[value cannot be serialized]");
+    const [protocol, publicKey, pass = "", host, port = "", lastPath] = match.slice(1);
+    let path = "";
+    let projectId = lastPath;
+    const split = projectId.split("/");
+    if (split.length > 1) {
+      path = split.slice(0, -1).join("/");
+      projectId = split.pop();
+    }
+    if (projectId) {
+      const projectMatch = projectId.match(/^\d+/);
+      if (projectMatch) {
+        projectId = projectMatch[0];
       }
     }
-    return output.join(delimiter);
+    return dsnFromComponents({ host, pass, path, projectId, port, protocol, publicKey });
   }
-  function isMatchingPattern(value, pattern, requireExactStringMatch = false) {
-    if (!isString(value)) {
+  function dsnFromComponents(components) {
+    return {
+      protocol: components.protocol,
+      publicKey: components.publicKey || "",
+      pass: components.pass || "",
+      host: components.host,
+      port: components.port || "",
+      path: components.path || "",
+      projectId: components.projectId
+    };
+  }
+  function validateDsn(dsn) {
+    if (!(typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__)) {
+      return true;
+    }
+    const { port, projectId, protocol } = dsn;
+    const requiredComponents = ["protocol", "publicKey", "host", "projectId"];
+    const hasMissingRequiredComponent = requiredComponents.find((component) => {
+      if (!dsn[component]) {
+        logger.error(`Invalid Sentry Dsn: ${component} missing`);
+        return true;
+      }
+      return false;
+    });
+    if (hasMissingRequiredComponent) {
       return false;
     }
-    if (isRegExp(pattern)) {
-      return pattern.test(value);
+    if (!projectId.match(/^\d+$/)) {
+      logger.error(`Invalid Sentry Dsn: Invalid projectId ${projectId}`);
+      return false;
     }
-    if (isString(pattern)) {
-      return requireExactStringMatch ? value === pattern : value.includes(pattern);
+    if (!isValidProtocol(protocol)) {
+      logger.error(`Invalid Sentry Dsn: Invalid protocol ${protocol}`);
+      return false;
     }
-    return false;
+    if (port && isNaN(parseInt(port, 10))) {
+      logger.error(`Invalid Sentry Dsn: Invalid port ${port}`);
+      return false;
+    }
+    return true;
   }
-  function stringMatchesSomePattern(testString, patterns = [], requireExactStringMatch = false) {
-    return patterns.some((pattern) => isMatchingPattern(testString, pattern, requireExactStringMatch));
+  function makeDsn(from) {
+    const components = typeof from === "string" ? dsnFromString(from) : dsnFromComponents(from);
+    if (!components || !validateDsn(components)) {
+      return void 0;
+    }
+    return components;
   }
+
+  // node_modules/@sentry/utils/esm/error.js
+  var SentryError = class extends Error {
+    constructor(message, logLevel = "warn") {
+      super(message);
+      this.message = message;
+      this.name = new.target.prototype.constructor.name;
+      Object.setPrototypeOf(this, new.target.prototype);
+      this.logLevel = logLevel;
+    }
+  };
 
   // node_modules/@sentry/utils/esm/object.js
   function fill(source, name, replacementFactory) {
@@ -348,24 +453,28 @@ var IS_DEV_BUILD=true;
     const original = source[name];
     const wrapped = replacementFactory(original);
     if (typeof wrapped === "function") {
-      try {
-        markFunctionWrapped(wrapped, original);
-      } catch (_Oo) {
-      }
+      markFunctionWrapped(wrapped, original);
     }
     source[name] = wrapped;
   }
   function addNonEnumerableProperty(obj, name, value) {
-    Object.defineProperty(obj, name, {
-      value,
-      writable: true,
-      configurable: true
-    });
+    try {
+      Object.defineProperty(obj, name, {
+        value,
+        writable: true,
+        configurable: true
+      });
+    } catch (o_O) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Failed to add non-enumerable property "${name}" to object`, obj);
+    }
   }
   function markFunctionWrapped(wrapped, original) {
-    const proto = original.prototype || {};
-    wrapped.prototype = original.prototype = proto;
-    addNonEnumerableProperty(wrapped, "__sentry_original__", original);
+    try {
+      const proto = original.prototype || {};
+      wrapped.prototype = original.prototype = proto;
+      addNonEnumerableProperty(wrapped, "__sentry_original__", original);
+    } catch (o_O) {
+    }
   }
   function getOriginalFunction(func) {
     return func.__sentry_original__;
@@ -472,48 +581,32 @@ var IS_DEV_BUILD=true;
   }
 
   // node_modules/@sentry/utils/esm/stacktrace.js
-  var STACKTRACE_LIMIT = 50;
-  var debugIdParserCache = /* @__PURE__ */ new Map();
+  var STACKTRACE_FRAME_LIMIT = 50;
+  var WEBPACK_ERROR_REGEXP = /\(error: (.*)\)/;
+  var STRIP_FRAME_REGEXP = /captureMessage|captureException/;
   function createStackParser(...parsers) {
-    const sortedParsers = parsers.sort((a3, b3) => a3[0] - b3[0]).map((p3) => p3[1]);
+    const sortedParsers = parsers.sort((a, b) => a[0] - b[0]).map((p) => p[1]);
     return (stack, skipFirst = 0) => {
       const frames = [];
-      for (const parser of sortedParsers) {
-        let debugIdCache = debugIdParserCache.get(parser);
-        if (!debugIdCache) {
-          debugIdCache = /* @__PURE__ */ new Map();
-          debugIdParserCache.set(parser, debugIdCache);
-        }
-        const debugIdMap = GLOBAL_OBJ._sentryDebugIds;
-        if (debugIdMap) {
-          Object.keys(debugIdMap).forEach((debugIdStackTrace) => {
-            debugIdStackTrace.split("\n").forEach((line) => {
-              const frame = parser(line);
-              if (frame && frame.filename) {
-                debugIdCache.set(frame.filename, debugIdMap[debugIdStackTrace]);
-              }
-            });
-          });
-        }
-      }
-      for (const line of stack.split("\n").slice(skipFirst)) {
+      const lines = stack.split("\n");
+      for (let i = skipFirst; i < lines.length; i++) {
+        const line = lines[i];
         if (line.length > 1024) {
           continue;
         }
-        const cleanedLine = line.replace(/\(error: (.*)\)/, "$1");
+        const cleanedLine = WEBPACK_ERROR_REGEXP.test(line) ? line.replace(WEBPACK_ERROR_REGEXP, "$1") : line;
+        if (cleanedLine.match(/\S*Error: /)) {
+          continue;
+        }
         for (const parser of sortedParsers) {
           const frame = parser(cleanedLine);
           if (frame) {
-            const debugIdCache = debugIdParserCache.get(parser);
-            if (debugIdCache && frame.filename) {
-              const cachedDebugId = debugIdCache.get(frame.filename);
-              if (cachedDebugId) {
-                frame.debug_id = cachedDebugId;
-              }
-            }
             frames.push(frame);
             break;
           }
+        }
+        if (frames.length >= STACKTRACE_FRAME_LIMIT) {
+          break;
         }
       }
       return stripSentryFramesAndReverse(frames);
@@ -529,20 +622,22 @@ var IS_DEV_BUILD=true;
     if (!stack.length) {
       return [];
     }
-    let localStack = stack;
-    const firstFrameFunction = localStack[0].function || "";
-    const lastFrameFunction = localStack[localStack.length - 1].function || "";
-    if (firstFrameFunction.indexOf("captureMessage") !== -1 || firstFrameFunction.indexOf("captureException") !== -1) {
-      localStack = localStack.slice(1);
+    const localStack = Array.from(stack);
+    if (/sentryWrapped/.test(localStack[localStack.length - 1].function || "")) {
+      localStack.pop();
     }
-    if (lastFrameFunction.indexOf("sentryWrapped") !== -1) {
-      localStack = localStack.slice(0, -1);
+    localStack.reverse();
+    if (STRIP_FRAME_REGEXP.test(localStack[localStack.length - 1].function || "")) {
+      localStack.pop();
+      if (STRIP_FRAME_REGEXP.test(localStack[localStack.length - 1].function || "")) {
+        localStack.pop();
+      }
     }
-    return localStack.slice(0, STACKTRACE_LIMIT).map((frame) => ({
+    return localStack.slice(0, STACKTRACE_FRAME_LIMIT).map((frame) => ({
       ...frame,
-      filename: frame.filename || localStack[0].filename,
+      filename: frame.filename || localStack[localStack.length - 1].filename,
       function: frame.function || "?"
-    })).reverse();
+    }));
   }
   var defaultFunctionName = "<anonymous>";
   function getFunctionName(fn) {
@@ -551,7 +646,7 @@ var IS_DEV_BUILD=true;
         return defaultFunctionName;
       }
       return fn.name || defaultFunctionName;
-    } catch (e2) {
+    } catch (e) {
       return defaultFunctionName;
     }
   }
@@ -567,7 +662,7 @@ var IS_DEV_BUILD=true;
       new Request("http://www.example.com");
       new Response();
       return true;
-    } catch (e2) {
+    } catch (e) {
       return false;
     }
   }
@@ -598,15 +693,19 @@ var IS_DEV_BUILD=true;
     }
     return result;
   }
+
+  // node_modules/@sentry/utils/esm/vendor/supportsHistory.js
+  var WINDOW3 = getGlobalObject();
   function supportsHistory() {
-    const chrome3 = WINDOW2.chrome;
+    const chrome3 = WINDOW3.chrome;
     const isChromePackagedApp = chrome3 && chrome3.app && chrome3.app.runtime;
-    const hasHistoryApi = "history" in WINDOW2 && !!WINDOW2.history.pushState && !!WINDOW2.history.replaceState;
+    const hasHistoryApi = "history" in WINDOW3 && !!WINDOW3.history.pushState && !!WINDOW3.history.replaceState;
     return !isChromePackagedApp && hasHistoryApi;
   }
 
   // node_modules/@sentry/utils/esm/instrument.js
-  var WINDOW3 = getGlobalObject();
+  var WINDOW4 = getGlobalObject();
+  var SENTRY_XHR_DATA_KEY = "__sentry_xhr_v2__";
   var handlers = {};
   var instrumented = {};
   function instrument(type) {
@@ -653,31 +752,31 @@ var IS_DEV_BUILD=true;
     for (const handler of handlers[type] || []) {
       try {
         handler(data);
-      } catch (e2) {
+      } catch (e) {
         (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error(
           `Error while triggering instrumentation handler.
 Type: ${type}
 Name: ${getFunctionName(handler)}
 Error:`,
-          e2
+          e
         );
       }
     }
   }
   function instrumentConsole() {
-    if (!("console" in WINDOW3)) {
+    if (!("console" in GLOBAL_OBJ)) {
       return;
     }
     CONSOLE_LEVELS.forEach(function(level) {
-      if (!(level in WINDOW3.console)) {
+      if (!(level in GLOBAL_OBJ.console)) {
         return;
       }
-      fill(WINDOW3.console, level, function(originalConsoleMethod) {
+      fill(GLOBAL_OBJ.console, level, function(originalConsoleMethod) {
+        originalConsoleMethods[level] = originalConsoleMethod;
         return function(...args) {
           triggerHandlers("console", { args, level });
-          if (originalConsoleMethod) {
-            originalConsoleMethod.apply(WINDOW3.console, args);
-          }
+          const log = originalConsoleMethods[level];
+          log && log.apply(GLOBAL_OBJ.console, args);
         };
       });
     });
@@ -686,20 +785,21 @@ Error:`,
     if (!supportsNativeFetch()) {
       return;
     }
-    fill(WINDOW3, "fetch", function(originalFetch) {
+    fill(GLOBAL_OBJ, "fetch", function(originalFetch) {
       return function(...args) {
+        const { method, url } = parseFetchArgs(args);
         const handlerData = {
           args,
           fetchData: {
-            method: getFetchMethod(args),
-            url: getFetchUrl(args)
+            method,
+            url
           },
           startTimestamp: Date.now()
         };
         triggerHandlers("fetch", {
           ...handlerData
         });
-        return originalFetch.apply(WINDOW3, args).then(
+        return originalFetch.apply(GLOBAL_OBJ, args).then(
           (response) => {
             triggerHandlers("fetch", {
               ...handlerData,
@@ -720,71 +820,103 @@ Error:`,
       };
     });
   }
-  function getFetchMethod(fetchArgs = []) {
-    if ("Request" in WINDOW3 && isInstanceOf(fetchArgs[0], Request) && fetchArgs[0].method) {
-      return String(fetchArgs[0].method).toUpperCase();
-    }
-    if (fetchArgs[1] && fetchArgs[1].method) {
-      return String(fetchArgs[1].method).toUpperCase();
-    }
-    return "GET";
+  function hasProp(obj, prop) {
+    return !!obj && typeof obj === "object" && !!obj[prop];
   }
-  function getFetchUrl(fetchArgs = []) {
-    if (typeof fetchArgs[0] === "string") {
-      return fetchArgs[0];
+  function getUrlFromResource(resource) {
+    if (typeof resource === "string") {
+      return resource;
     }
-    if ("Request" in WINDOW3 && isInstanceOf(fetchArgs[0], Request)) {
-      return fetchArgs[0].url;
+    if (!resource) {
+      return "";
     }
-    return String(fetchArgs[0]);
+    if (hasProp(resource, "url")) {
+      return resource.url;
+    }
+    if (resource.toString) {
+      return resource.toString();
+    }
+    return "";
+  }
+  function parseFetchArgs(fetchArgs) {
+    if (fetchArgs.length === 0) {
+      return { method: "GET", url: "" };
+    }
+    if (fetchArgs.length === 2) {
+      const [url, options] = fetchArgs;
+      return {
+        url: getUrlFromResource(url),
+        method: hasProp(options, "method") ? String(options.method).toUpperCase() : "GET"
+      };
+    }
+    const arg = fetchArgs[0];
+    return {
+      url: getUrlFromResource(arg),
+      method: hasProp(arg, "method") ? String(arg.method).toUpperCase() : "GET"
+    };
   }
   function instrumentXHR() {
-    if (!("XMLHttpRequest" in WINDOW3)) {
+    if (!WINDOW4.XMLHttpRequest) {
       return;
     }
     const xhrproto = XMLHttpRequest.prototype;
     fill(xhrproto, "open", function(originalOpen) {
       return function(...args) {
-        const xhr = this;
         const url = args[1];
-        const xhrInfo = xhr.__sentry_xhr__ = {
+        const xhrInfo = this[SENTRY_XHR_DATA_KEY] = {
           method: isString(args[0]) ? args[0].toUpperCase() : args[0],
-          url: args[1]
+          url: args[1],
+          request_headers: {}
         };
         if (isString(url) && xhrInfo.method === "POST" && url.match(/sentry_key/)) {
-          xhr.__sentry_own_request__ = true;
+          this.__sentry_own_request__ = true;
         }
-        const onreadystatechangeHandler = function() {
-          if (xhr.readyState === 4) {
+        const onreadystatechangeHandler = () => {
+          const xhrInfo2 = this[SENTRY_XHR_DATA_KEY];
+          if (!xhrInfo2) {
+            return;
+          }
+          if (this.readyState === 4) {
             try {
-              xhrInfo.status_code = xhr.status;
-            } catch (e2) {
+              xhrInfo2.status_code = this.status;
+            } catch (e) {
             }
             triggerHandlers("xhr", {
               args,
               endTimestamp: Date.now(),
               startTimestamp: Date.now(),
-              xhr
+              xhr: this
             });
           }
         };
-        if ("onreadystatechange" in xhr && typeof xhr.onreadystatechange === "function") {
-          fill(xhr, "onreadystatechange", function(original) {
+        if ("onreadystatechange" in this && typeof this.onreadystatechange === "function") {
+          fill(this, "onreadystatechange", function(original) {
             return function(...readyStateArgs) {
               onreadystatechangeHandler();
-              return original.apply(xhr, readyStateArgs);
+              return original.apply(this, readyStateArgs);
             };
           });
         } else {
-          xhr.addEventListener("readystatechange", onreadystatechangeHandler);
+          this.addEventListener("readystatechange", onreadystatechangeHandler);
         }
-        return originalOpen.apply(xhr, args);
+        fill(this, "setRequestHeader", function(original) {
+          return function(...setRequestHeaderArgs) {
+            const [header, value] = setRequestHeaderArgs;
+            const xhrInfo2 = this[SENTRY_XHR_DATA_KEY];
+            if (xhrInfo2) {
+              xhrInfo2.request_headers[header.toLowerCase()] = value;
+            }
+            return original.apply(this, setRequestHeaderArgs);
+          };
+        });
+        return originalOpen.apply(this, args);
       };
     });
     fill(xhrproto, "send", function(originalSend) {
       return function(...args) {
-        if (this.__sentry_xhr__ && args[0] !== void 0) {
-          this.__sentry_xhr__.body = args[0];
+        const sentryXhrData = this[SENTRY_XHR_DATA_KEY];
+        if (sentryXhrData && args[0] !== void 0) {
+          sentryXhrData.body = args[0];
         }
         triggerHandlers("xhr", {
           args,
@@ -800,9 +932,9 @@ Error:`,
     if (!supportsHistory()) {
       return;
     }
-    const oldOnPopState = WINDOW3.onpopstate;
-    WINDOW3.onpopstate = function(...args) {
-      const to = WINDOW3.location.href;
+    const oldOnPopState = WINDOW4.onpopstate;
+    WINDOW4.onpopstate = function(...args) {
+      const to = WINDOW4.location.href;
       const from = lastHref;
       lastHref = to;
       triggerHandlers("history", {
@@ -831,8 +963,8 @@ Error:`,
         return originalHistoryFunction.apply(this, args);
       };
     }
-    fill(WINDOW3.history, "pushState", historyReplacementFunction);
-    fill(WINDOW3.history, "replaceState", historyReplacementFunction);
+    fill(WINDOW4.history, "pushState", historyReplacementFunction);
+    fill(WINDOW4.history, "replaceState", historyReplacementFunction);
   }
   var debounceDuration = 1e3;
   var debounceTimerID;
@@ -848,7 +980,7 @@ Error:`,
       if (previous.target !== current.target) {
         return true;
       }
-    } catch (e2) {
+    } catch (e) {
     }
     return false;
   }
@@ -864,7 +996,7 @@ Error:`,
       if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
         return false;
       }
-    } catch (e2) {
+    } catch (e) {
     }
     return true;
   }
@@ -893,21 +1025,21 @@ Error:`,
         lastCapturedEvent = event;
       }
       clearTimeout(debounceTimerID);
-      debounceTimerID = WINDOW3.setTimeout(() => {
+      debounceTimerID = WINDOW4.setTimeout(() => {
         debounceTimerID = void 0;
       }, debounceDuration);
     };
   }
   function instrumentDOM() {
-    if (!("document" in WINDOW3)) {
+    if (!WINDOW4.document) {
       return;
     }
     const triggerDOMHandler = triggerHandlers.bind(null, "dom");
     const globalDOMEventHandler = makeDOMEventHandler(triggerDOMHandler, true);
-    WINDOW3.document.addEventListener("click", globalDOMEventHandler, false);
-    WINDOW3.document.addEventListener("keypress", globalDOMEventHandler, false);
+    WINDOW4.document.addEventListener("click", globalDOMEventHandler, false);
+    WINDOW4.document.addEventListener("keypress", globalDOMEventHandler, false);
     ["EventTarget", "Node"].forEach((target) => {
-      const proto = WINDOW3[target] && WINDOW3[target].prototype;
+      const proto = WINDOW4[target] && WINDOW4[target].prototype;
       if (!proto || !proto.hasOwnProperty || !proto.hasOwnProperty("addEventListener")) {
         return;
       }
@@ -924,7 +1056,7 @@ Error:`,
                 originalAddEventListener.call(this, type, handler, options);
               }
               handlerForType.refCount++;
-            } catch (e2) {
+            } catch (e) {
             }
           }
           return originalAddEventListener.call(this, type, listener, options);
@@ -951,7 +1083,7 @@ Error:`,
                     delete el.__sentry_instrumentation_handlers__;
                   }
                 }
-              } catch (e2) {
+              } catch (e) {
               }
             }
             return originalRemoveEventListener.call(this, type, listener, options);
@@ -962,8 +1094,8 @@ Error:`,
   }
   var _oldOnErrorHandler = null;
   function instrumentError() {
-    _oldOnErrorHandler = WINDOW3.onerror;
-    WINDOW3.onerror = function(msg, url, line, column, error) {
+    _oldOnErrorHandler = WINDOW4.onerror;
+    WINDOW4.onerror = function(msg, url, line, column, error) {
       triggerHandlers("error", {
         column,
         error,
@@ -971,22 +1103,24 @@ Error:`,
         msg,
         url
       });
-      if (_oldOnErrorHandler) {
+      if (_oldOnErrorHandler && !_oldOnErrorHandler.__SENTRY_LOADER__) {
         return _oldOnErrorHandler.apply(this, arguments);
       }
       return false;
     };
+    WINDOW4.onerror.__SENTRY_INSTRUMENTED__ = true;
   }
   var _oldOnUnhandledRejectionHandler = null;
   function instrumentUnhandledRejection() {
-    _oldOnUnhandledRejectionHandler = WINDOW3.onunhandledrejection;
-    WINDOW3.onunhandledrejection = function(e2) {
-      triggerHandlers("unhandledrejection", e2);
-      if (_oldOnUnhandledRejectionHandler) {
+    _oldOnUnhandledRejectionHandler = WINDOW4.onunhandledrejection;
+    WINDOW4.onunhandledrejection = function(e) {
+      triggerHandlers("unhandledrejection", e);
+      if (_oldOnUnhandledRejectionHandler && !_oldOnUnhandledRejectionHandler.__SENTRY_LOADER__) {
         return _oldOnUnhandledRejectionHandler.apply(this, arguments);
       }
       return true;
     };
+    WINDOW4.onunhandledrejection.__SENTRY_INSTRUMENTED__ = true;
   }
 
   // node_modules/@sentry/utils/esm/memo.js
@@ -1001,8 +1135,8 @@ Error:`,
         inner.add(obj);
         return false;
       }
-      for (let i3 = 0; i3 < inner.length; i3++) {
-        const value = inner[i3];
+      for (let i = 0; i < inner.length; i++) {
+        const value = inner[i];
         if (value === obj) {
           return true;
         }
@@ -1014,9 +1148,9 @@ Error:`,
       if (hasWeakSet) {
         inner.delete(obj);
       } else {
-        for (let i3 = 0; i3 < inner.length; i3++) {
-          if (inner[i3] === obj) {
-            inner.splice(i3, 1);
+        for (let i = 0; i < inner.length; i++) {
+          if (inner[i] === obj) {
+            inner.splice(i, 1);
             break;
           }
         }
@@ -1029,13 +1163,19 @@ Error:`,
   function uuid4() {
     const gbl = GLOBAL_OBJ;
     const crypto = gbl.crypto || gbl.msCrypto;
-    if (crypto && crypto.randomUUID) {
-      return crypto.randomUUID().replace(/-/g, "");
+    let getRandomByte = () => Math.random() * 16;
+    try {
+      if (crypto && crypto.randomUUID) {
+        return crypto.randomUUID().replace(/-/g, "");
+      }
+      if (crypto && crypto.getRandomValues) {
+        getRandomByte = () => crypto.getRandomValues(new Uint8Array(1))[0];
+      }
+    } catch (_) {
     }
-    const getRandomByte = crypto && crypto.getRandomValues ? () => crypto.getRandomValues(new Uint8Array(1))[0] : () => Math.random() * 16;
     return ([1e7] + 1e3 + 4e3 + 8e3 + 1e11).replace(
       /[018]/g,
-      (c3) => (c3 ^ (getRandomByte() & 15) >> c3 / 4).toString(16)
+      (c) => (c ^ (getRandomByte() & 15) >> c / 4).toString(16)
     );
   }
   function getFirstException(event) {
@@ -1112,18 +1252,18 @@ Error:`,
     let mod;
     try {
       mod = dynamicRequire(module, moduleName);
-    } catch (e2) {
+    } catch (e) {
     }
     try {
       const { cwd } = dynamicRequire(module, "process");
       mod = dynamicRequire(module, `${cwd()}/node_modules/${moduleName}`);
-    } catch (e2) {
+    } catch (e) {
     }
     return mod;
   }
 
   // node_modules/@sentry/utils/esm/normalize.js
-  function normalize(input, depth = Infinity, maxProperties = Infinity) {
+  function normalize(input, depth = 100, maxProperties = Infinity) {
     try {
       return visit("", input, depth, maxProperties);
     } catch (err) {
@@ -1139,7 +1279,7 @@ Error:`,
   }
   function visit(key, value, depth = Infinity, maxProperties = Infinity, memo = memoBuilder()) {
     const [memoize, unmemoize] = memo;
-    if (value === null || ["number", "boolean", "string"].includes(typeof value) && !isNaN2(value)) {
+    if (value == null || ["number", "boolean", "string"].includes(typeof value) && !isNaN2(value)) {
       return value;
     }
     const stringified = stringifyValue(key, value);
@@ -1149,7 +1289,8 @@ Error:`,
     if (value["__sentry_skip_normalization__"]) {
       return value;
     }
-    if (depth === 0) {
+    const remainingDepth = typeof value["__sentry_override_normalization_depth__"] === "number" ? value["__sentry_override_normalization_depth__"] : depth;
+    if (remainingDepth === 0) {
       return stringified.replace("object ", "");
     }
     if (memoize(value)) {
@@ -1159,7 +1300,7 @@ Error:`,
     if (valueWithToJSON && typeof valueWithToJSON.toJSON === "function") {
       try {
         const jsonValue = valueWithToJSON.toJSON();
-        return visit("", jsonValue, depth - 1, maxProperties, memo);
+        return visit("", jsonValue, remainingDepth - 1, maxProperties, memo);
       } catch (err) {
       }
     }
@@ -1175,7 +1316,7 @@ Error:`,
         break;
       }
       const visitValue = visitable[visitKey];
-      normalized[visitKey] = visit(visitKey, visitValue, depth - 1, maxProperties, memo);
+      normalized[visitKey] = visit(visitKey, visitValue, remainingDepth - 1, maxProperties, memo);
       numAdded++;
     }
     unmemoize(value);
@@ -1198,14 +1339,14 @@ Error:`,
       if (typeof document !== "undefined" && value === document) {
         return "[Document]";
       }
+      if (isVueViewModel(value)) {
+        return "[VueViewModel]";
+      }
       if (isSyntheticEvent(value)) {
         return "[SyntheticEvent]";
       }
       if (typeof value === "number" && value !== value) {
         return "[NaN]";
-      }
-      if (value === void 0) {
-        return "[undefined]";
       }
       if (typeof value === "function") {
         return `[Function: ${getFunctionName(value)}]`;
@@ -1216,7 +1357,11 @@ Error:`,
       if (typeof value === "bigint") {
         return `[BigInt: ${String(value)}]`;
       }
-      return `[object ${getConstructorName(value)}]`;
+      const objName = getConstructorName(value);
+      if (/^HTML(\w*)Element$/.test(objName)) {
+        return `[HTMLElement: ${objName}]`;
+      }
+      return `[object ${objName}]`;
     } catch (err) {
       return `**non-serializable** (${err})`;
     }
@@ -1253,23 +1398,17 @@ Error:`,
     });
   }
   var SyncPromise = class {
-    __init() {
-      this._state = States.PENDING;
-    }
-    __init2() {
-      this._handlers = [];
-    }
     constructor(executor) {
       SyncPromise.prototype.__init.call(this);
       SyncPromise.prototype.__init2.call(this);
       SyncPromise.prototype.__init3.call(this);
       SyncPromise.prototype.__init4.call(this);
-      SyncPromise.prototype.__init5.call(this);
-      SyncPromise.prototype.__init6.call(this);
+      this._state = States.PENDING;
+      this._handlers = [];
       try {
         executor(this._resolve, this._reject);
-      } catch (e2) {
-        this._reject(e2);
+      } catch (e) {
+        this._reject(e);
       }
     }
     then(onfulfilled, onrejected) {
@@ -1282,8 +1421,8 @@ Error:`,
             } else {
               try {
                 resolve(onfulfilled(result));
-              } catch (e2) {
-                reject(e2);
+              } catch (e) {
+                reject(e);
               }
             }
           },
@@ -1293,8 +1432,8 @@ Error:`,
             } else {
               try {
                 resolve(onrejected(reason));
-              } catch (e2) {
-                reject(e2);
+              } catch (e) {
+                reject(e);
               }
             }
           }
@@ -1333,17 +1472,17 @@ Error:`,
         });
       });
     }
-    __init3() {
+    __init() {
       this._resolve = (value) => {
         this._setResult(States.RESOLVED, value);
       };
     }
-    __init4() {
+    __init2() {
       this._reject = (reason) => {
         this._setResult(States.REJECTED, reason);
       };
     }
-    __init5() {
+    __init3() {
       this._setResult = (state, value) => {
         if (this._state !== States.PENDING) {
           return;
@@ -1357,7 +1496,7 @@ Error:`,
         this._executeHandlers();
       };
     }
-    __init6() {
+    __init4() {
       this._executeHandlers = () => {
         if (this._state === States.PENDING) {
           return;
@@ -1447,6 +1586,8 @@ Error:`,
       host: match[4],
       path: match[5],
       protocol: match[2],
+      search: query,
+      hash: fragment,
       relative: match[5] + query + fragment
     };
   }
@@ -1458,12 +1599,12 @@ Error:`,
   }
 
   // node_modules/@sentry/utils/esm/time.js
-  var WINDOW4 = getGlobalObject();
+  var WINDOW5 = getGlobalObject();
   var dateTimestampSource = {
     nowSeconds: () => Date.now() / 1e3
   };
   function getBrowserPerformance() {
-    const { performance: performance2 } = WINDOW4;
+    const { performance: performance2 } = WINDOW5;
     if (!performance2 || !performance2.now) {
       return void 0;
     }
@@ -1487,10 +1628,9 @@ Error:`,
   };
   var dateTimestampInSeconds = dateTimestampSource.nowSeconds.bind(dateTimestampSource);
   var timestampInSeconds = timestampSource.nowSeconds.bind(timestampSource);
-  var timestampWithMs = timestampInSeconds;
   var _browserPerformanceTimeOriginMode;
   var browserPerformanceTimeOrigin = (() => {
-    const { performance: performance2 } = WINDOW4;
+    const { performance: performance2 } = WINDOW5;
     if (!performance2 || !performance2.now) {
       _browserPerformanceTimeOriginMode = "none";
       return void 0;
@@ -1517,13 +1657,92 @@ Error:`,
     return dateNow;
   })();
 
+  // node_modules/@sentry/utils/esm/baggage.js
+  var BAGGAGE_HEADER_NAME = "baggage";
+  var SENTRY_BAGGAGE_KEY_PREFIX = "sentry-";
+  var SENTRY_BAGGAGE_KEY_PREFIX_REGEX = /^sentry-/;
+  var MAX_BAGGAGE_STRING_LENGTH = 8192;
+  function baggageHeaderToDynamicSamplingContext(baggageHeader) {
+    if (!isString(baggageHeader) && !Array.isArray(baggageHeader)) {
+      return void 0;
+    }
+    let baggageObject = {};
+    if (Array.isArray(baggageHeader)) {
+      baggageObject = baggageHeader.reduce((acc, curr) => {
+        const currBaggageObject = baggageHeaderToObject(curr);
+        return {
+          ...acc,
+          ...currBaggageObject
+        };
+      }, {});
+    } else {
+      if (!baggageHeader) {
+        return void 0;
+      }
+      baggageObject = baggageHeaderToObject(baggageHeader);
+    }
+    const dynamicSamplingContext = Object.entries(baggageObject).reduce((acc, [key, value]) => {
+      if (key.match(SENTRY_BAGGAGE_KEY_PREFIX_REGEX)) {
+        const nonPrefixedKey = key.slice(SENTRY_BAGGAGE_KEY_PREFIX.length);
+        acc[nonPrefixedKey] = value;
+      }
+      return acc;
+    }, {});
+    if (Object.keys(dynamicSamplingContext).length > 0) {
+      return dynamicSamplingContext;
+    } else {
+      return void 0;
+    }
+  }
+  function dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext) {
+    if (!dynamicSamplingContext) {
+      return void 0;
+    }
+    const sentryPrefixedDSC = Object.entries(dynamicSamplingContext).reduce(
+      (acc, [dscKey, dscValue]) => {
+        if (dscValue) {
+          acc[`${SENTRY_BAGGAGE_KEY_PREFIX}${dscKey}`] = dscValue;
+        }
+        return acc;
+      },
+      {}
+    );
+    return objectToBaggageHeader(sentryPrefixedDSC);
+  }
+  function baggageHeaderToObject(baggageHeader) {
+    return baggageHeader.split(",").map((baggageEntry) => baggageEntry.split("=").map((keyOrValue) => decodeURIComponent(keyOrValue.trim()))).reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+  }
+  function objectToBaggageHeader(object) {
+    if (Object.keys(object).length === 0) {
+      return void 0;
+    }
+    return Object.entries(object).reduce((baggageHeader, [objectKey, objectValue], currentIndex) => {
+      const baggageEntry = `${encodeURIComponent(objectKey)}=${encodeURIComponent(objectValue)}`;
+      const newBaggageHeader = currentIndex === 0 ? baggageEntry : `${baggageHeader},${baggageEntry}`;
+      if (newBaggageHeader.length > MAX_BAGGAGE_STRING_LENGTH) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
+          `Not adding key: ${objectKey} with val: ${objectValue} to baggage header due to exceeding baggage size limits.`
+        );
+        return baggageHeader;
+      } else {
+        return newBaggageHeader;
+      }
+    }, "");
+  }
+
   // node_modules/@sentry/utils/esm/tracing.js
   var TRACEPARENT_REGEXP = new RegExp(
     "^[ \\t]*([0-9a-f]{32})?-?([0-9a-f]{16})?-?([01])?[ \\t]*$"
   );
   function extractTraceparentData(traceparent) {
+    if (!traceparent) {
+      return void 0;
+    }
     const matches = traceparent.match(TRACEPARENT_REGEXP);
-    if (!traceparent || !matches) {
+    if (!matches) {
       return void 0;
     }
     let parentSampled;
@@ -1538,6 +1757,34 @@ Error:`,
       parentSpanId: matches[2]
     };
   }
+  function tracingContextFromHeaders(sentryTrace, baggage) {
+    const traceparentData = extractTraceparentData(sentryTrace);
+    const dynamicSamplingContext = baggageHeaderToDynamicSamplingContext(baggage);
+    const { traceId, parentSpanId, parentSampled } = traceparentData || {};
+    const propagationContext = {
+      traceId: traceId || uuid4(),
+      spanId: uuid4().substring(16),
+      sampled: parentSampled
+    };
+    if (parentSpanId) {
+      propagationContext.parentSpanId = parentSpanId;
+    }
+    if (dynamicSamplingContext) {
+      propagationContext.dsc = dynamicSamplingContext;
+    }
+    return {
+      traceparentData,
+      dynamicSamplingContext,
+      propagationContext
+    };
+  }
+  function generateSentryTraceHeader(traceId = uuid4(), spanId = uuid4().substring(16), sampled) {
+    let sampledString = "";
+    if (sampled !== void 0) {
+      sampledString = sampled ? "-1" : "-0";
+    }
+    return `${traceId}-${spanId}${sampledString}`;
+  }
 
   // node_modules/@sentry/utils/esm/envelope.js
   function createEnvelope(headers, items = []) {
@@ -1549,10 +1796,14 @@ Error:`,
   }
   function forEachEnvelopeItem(envelope, callback) {
     const envelopeItems = envelope[1];
-    envelopeItems.forEach((envelopeItem) => {
+    for (const envelopeItem of envelopeItems) {
       const envelopeItemType = envelopeItem[0].type;
-      callback(envelopeItem, envelopeItemType);
-    });
+      const result = callback(envelopeItem, envelopeItemType);
+      if (result) {
+        return true;
+      }
+    }
+    return false;
   }
   function encodeUTF8(input, textEncoder) {
     const utf8 = textEncoder || new TextEncoder();
@@ -1579,7 +1830,7 @@ ${JSON.stringify(itemHeaders)}
         let stringifiedPayload;
         try {
           stringifiedPayload = JSON.stringify(payload);
-        } catch (e2) {
+        } catch (e) {
           stringifiedPayload = JSON.stringify(normalize(payload));
         }
         append(stringifiedPayload);
@@ -1590,10 +1841,10 @@ ${JSON.stringify(itemHeaders)}
   function concatBuffers(buffers) {
     const totalLength = buffers.reduce((acc, buf) => acc + buf.length, 0);
     const merged = new Uint8Array(totalLength);
-    let offset = 0;
+    let offset2 = 0;
     for (const buffer of buffers) {
-      merged.set(buffer, offset);
-      offset += buffer.length;
+      merged.set(buffer, offset2);
+      offset2 += buffer.length;
     }
     return merged;
   }
@@ -1620,7 +1871,8 @@ ${JSON.stringify(itemHeaders)}
     user_report: "default",
     profile: "profile",
     replay_event: "replay",
-    replay_recording: "replay"
+    replay_recording: "replay",
+    check_in: "monitor"
   };
   function envelopeItemTypeToDataCategory(type) {
     return ITEM_TYPE_TO_DATA_CATEGORY_MAP[type];
@@ -1639,7 +1891,7 @@ ${JSON.stringify(itemHeaders)}
       sent_at: new Date().toISOString(),
       ...sdkInfo && { sdk: sdkInfo },
       ...!!tunnel && { dsn: dsnToString(dsn) },
-      ...event.type === "transaction" && dynamicSamplingContext && {
+      ...dynamicSamplingContext && {
         trace: dropUndefinedKeys({ ...dynamicSamplingContext })
       }
     };
@@ -1703,77 +1955,31 @@ ${JSON.stringify(itemHeaders)}
     return updatedRateLimits;
   }
 
-  // node_modules/@sentry/utils/esm/baggage.js
-  var BAGGAGE_HEADER_NAME = "baggage";
-  var SENTRY_BAGGAGE_KEY_PREFIX = "sentry-";
-  var SENTRY_BAGGAGE_KEY_PREFIX_REGEX = /^sentry-/;
-  var MAX_BAGGAGE_STRING_LENGTH = 8192;
-  function baggageHeaderToDynamicSamplingContext(baggageHeader) {
-    if (!isString(baggageHeader) && !Array.isArray(baggageHeader)) {
-      return void 0;
-    }
-    let baggageObject = {};
-    if (Array.isArray(baggageHeader)) {
-      baggageObject = baggageHeader.reduce((acc, curr) => {
-        const currBaggageObject = baggageHeaderToObject(curr);
-        return {
-          ...acc,
-          ...currBaggageObject
-        };
-      }, {});
-    } else {
-      if (!baggageHeader) {
-        return void 0;
-      }
-      baggageObject = baggageHeaderToObject(baggageHeader);
-    }
-    const dynamicSamplingContext = Object.entries(baggageObject).reduce((acc, [key, value]) => {
-      if (key.match(SENTRY_BAGGAGE_KEY_PREFIX_REGEX)) {
-        const nonPrefixedKey = key.slice(SENTRY_BAGGAGE_KEY_PREFIX.length);
-        acc[nonPrefixedKey] = value;
-      }
-      return acc;
-    }, {});
-    if (Object.keys(dynamicSamplingContext).length > 0) {
-      return dynamicSamplingContext;
-    } else {
-      return void 0;
-    }
+  // node_modules/@sentry/core/esm/constants.js
+  var DEFAULT_ENVIRONMENT = "production";
+
+  // node_modules/@sentry/core/esm/eventProcessors.js
+  function getGlobalEventProcessors() {
+    return getGlobalSingleton("globalEventProcessors", () => []);
   }
-  function dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext) {
-    const sentryPrefixedDSC = Object.entries(dynamicSamplingContext).reduce(
-      (acc, [dscKey, dscValue]) => {
-        if (dscValue) {
-          acc[`${SENTRY_BAGGAGE_KEY_PREFIX}${dscKey}`] = dscValue;
-        }
-        return acc;
-      },
-      {}
-    );
-    return objectToBaggageHeader(sentryPrefixedDSC);
+  function addGlobalEventProcessor(callback) {
+    getGlobalEventProcessors().push(callback);
   }
-  function baggageHeaderToObject(baggageHeader) {
-    return baggageHeader.split(",").map((baggageEntry) => baggageEntry.split("=").map((keyOrValue) => decodeURIComponent(keyOrValue.trim()))).reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
-  }
-  function objectToBaggageHeader(object) {
-    if (Object.keys(object).length === 0) {
-      return void 0;
-    }
-    return Object.entries(object).reduce((baggageHeader, [objectKey, objectValue], currentIndex) => {
-      const baggageEntry = `${encodeURIComponent(objectKey)}=${encodeURIComponent(objectValue)}`;
-      const newBaggageHeader = currentIndex === 0 ? baggageEntry : `${baggageHeader},${baggageEntry}`;
-      if (newBaggageHeader.length > MAX_BAGGAGE_STRING_LENGTH) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
-          `Not adding key: ${objectKey} with val: ${objectValue} to baggage header due to exceeding baggage size limits.`
-        );
-        return baggageHeader;
+  function notifyEventProcessors(processors, event, hint, index = 0) {
+    return new SyncPromise((resolve, reject) => {
+      const processor = processors[index];
+      if (event === null || typeof processor !== "function") {
+        resolve(event);
       } else {
-        return newBaggageHeader;
+        const result = processor({ ...event }, hint);
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && processor.id && result === null && logger.log(`Event processor "${processor.id}" dropped event`);
+        if (isThenable(result)) {
+          void result.then((final) => notifyEventProcessors(processors, final, hint, index + 1).then(resolve)).then(null, reject);
+        } else {
+          void notifyEventProcessors(processors, result, hint, index + 1).then(resolve).then(null, reject);
+        }
       }
-    }, "");
+    });
   }
 
   // node_modules/@sentry/core/esm/session.js
@@ -1889,6 +2095,7 @@ ${JSON.stringify(itemHeaders)}
       this._extra = {};
       this._contexts = {};
       this._sdkProcessingMetadata = {};
+      this._propagationContext = generatePropagationContext();
     }
     static clone(scope) {
       const newScope = new Scope();
@@ -1907,6 +2114,7 @@ ${JSON.stringify(itemHeaders)}
         newScope._requestSession = scope._requestSession;
         newScope._attachments = [...scope._attachments];
         newScope._sdkProcessingMetadata = { ...scope._sdkProcessingMetadata };
+        newScope._propagationContext = { ...scope._propagationContext };
       }
       return newScope;
     }
@@ -2033,6 +2241,9 @@ ${JSON.stringify(itemHeaders)}
         if (captureContext._requestSession) {
           this._requestSession = captureContext._requestSession;
         }
+        if (captureContext._propagationContext) {
+          this._propagationContext = captureContext._propagationContext;
+        }
       } else if (isPlainObject(captureContext)) {
         captureContext = captureContext;
         this._tags = { ...this._tags, ...captureContext.tags };
@@ -2049,6 +2260,9 @@ ${JSON.stringify(itemHeaders)}
         }
         if (captureContext.requestSession) {
           this._requestSession = captureContext.requestSession;
+        }
+        if (captureContext.propagationContext) {
+          this._propagationContext = captureContext.propagationContext;
         }
       }
       return this;
@@ -2067,6 +2281,7 @@ ${JSON.stringify(itemHeaders)}
       this._session = void 0;
       this._notifyScopeListeners();
       this._attachments = [];
+      this._propagationContext = generatePropagationContext();
       return this;
     }
     addBreadcrumb(breadcrumb, maxBreadcrumbs) {
@@ -2078,7 +2293,9 @@ ${JSON.stringify(itemHeaders)}
         timestamp: dateTimestampInSeconds(),
         ...breadcrumb
       };
-      this._breadcrumbs = [...this._breadcrumbs, mergedBreadcrumb].slice(-maxCrumbs);
+      const breadcrumbs = this._breadcrumbs;
+      breadcrumbs.push(mergedBreadcrumb);
+      this._breadcrumbs = breadcrumbs.length > maxCrumbs ? breadcrumbs.slice(-maxCrumbs) : breadcrumbs;
       this._notifyScopeListeners();
       return this;
     }
@@ -2122,36 +2339,42 @@ ${JSON.stringify(itemHeaders)}
       }
       if (this._span) {
         event.contexts = { trace: this._span.getTraceContext(), ...event.contexts };
-        const transactionName = this._span.transaction && this._span.transaction.name;
-        if (transactionName) {
-          event.tags = { transaction: transactionName, ...event.tags };
+        const transaction = this._span.transaction;
+        if (transaction) {
+          event.sdkProcessingMetadata = {
+            dynamicSamplingContext: transaction.getDynamicSamplingContext(),
+            ...event.sdkProcessingMetadata
+          };
+          const transactionName = transaction.name;
+          if (transactionName) {
+            event.tags = { transaction: transactionName, ...event.tags };
+          }
         }
       }
       this._applyFingerprint(event);
-      event.breadcrumbs = [...event.breadcrumbs || [], ...this._breadcrumbs];
-      event.breadcrumbs = event.breadcrumbs.length > 0 ? event.breadcrumbs : void 0;
-      event.sdkProcessingMetadata = { ...event.sdkProcessingMetadata, ...this._sdkProcessingMetadata };
-      return this._notifyEventProcessors([...getGlobalEventProcessors(), ...this._eventProcessors], event, hint);
+      const scopeBreadcrumbs = this._getBreadcrumbs();
+      const breadcrumbs = [...event.breadcrumbs || [], ...scopeBreadcrumbs];
+      event.breadcrumbs = breadcrumbs.length > 0 ? breadcrumbs : void 0;
+      event.sdkProcessingMetadata = {
+        ...event.sdkProcessingMetadata,
+        ...this._sdkProcessingMetadata,
+        propagationContext: this._propagationContext
+      };
+      return notifyEventProcessors([...getGlobalEventProcessors(), ...this._eventProcessors], event, hint);
     }
     setSDKProcessingMetadata(newData) {
       this._sdkProcessingMetadata = { ...this._sdkProcessingMetadata, ...newData };
       return this;
     }
-    _notifyEventProcessors(processors, event, hint, index = 0) {
-      return new SyncPromise((resolve, reject) => {
-        const processor = processors[index];
-        if (event === null || typeof processor !== "function") {
-          resolve(event);
-        } else {
-          const result = processor({ ...event }, hint);
-          (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && processor.id && result === null && logger.log(`Event processor "${processor.id}" dropped event`);
-          if (isThenable(result)) {
-            void result.then((final) => this._notifyEventProcessors(processors, final, hint, index + 1).then(resolve)).then(null, reject);
-          } else {
-            void this._notifyEventProcessors(processors, result, hint, index + 1).then(resolve).then(null, reject);
-          }
-        }
-      });
+    setPropagationContext(context) {
+      this._propagationContext = context;
+      return this;
+    }
+    getPropagationContext() {
+      return this._propagationContext;
+    }
+    _getBreadcrumbs() {
+      return this._breadcrumbs;
     }
     _notifyScopeListeners() {
       if (!this._notifyingListeners) {
@@ -2172,24 +2395,20 @@ ${JSON.stringify(itemHeaders)}
       }
     }
   };
-  function getGlobalEventProcessors() {
-    return getGlobalSingleton("globalEventProcessors", () => []);
-  }
-  function addGlobalEventProcessor(callback) {
-    getGlobalEventProcessors().push(callback);
+  function generatePropagationContext() {
+    return {
+      traceId: uuid4(),
+      spanId: uuid4().substring(16)
+    };
   }
 
   // node_modules/@sentry/core/esm/hub.js
   var API_VERSION = 4;
   var DEFAULT_BREADCRUMBS = 100;
   var Hub = class {
-    __init() {
-      this._stack = [{}];
-    }
     constructor(client, scope = new Scope(), _version = API_VERSION) {
       this._version = _version;
-      Hub.prototype.__init.call(this);
-      this.getStackTop().scope = scope;
+      this._stack = [{ scope }];
       if (client) {
         this.bindClient(client);
       }
@@ -2287,7 +2506,7 @@ ${JSON.stringify(itemHeaders)}
     }
     addBreadcrumb(breadcrumb, hint) {
       const { scope, client } = this.getStackTop();
-      if (!scope || !client)
+      if (!client)
         return;
       const { beforeBreadcrumb = null, maxBreadcrumbs = DEFAULT_BREADCRUMBS } = client.getOptions && client.getOptions() || {};
       if (maxBreadcrumbs <= 0)
@@ -2297,41 +2516,32 @@ ${JSON.stringify(itemHeaders)}
       const finalBreadcrumb = beforeBreadcrumb ? consoleSandbox(() => beforeBreadcrumb(mergedBreadcrumb, hint)) : mergedBreadcrumb;
       if (finalBreadcrumb === null)
         return;
+      if (client.emit) {
+        client.emit("beforeAddBreadcrumb", finalBreadcrumb, hint);
+      }
       scope.addBreadcrumb(finalBreadcrumb, maxBreadcrumbs);
     }
     setUser(user) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setUser(user);
+      this.getScope().setUser(user);
     }
     setTags(tags) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setTags(tags);
+      this.getScope().setTags(tags);
     }
     setExtras(extras) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setExtras(extras);
+      this.getScope().setExtras(extras);
     }
     setTag(key, value) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setTag(key, value);
+      this.getScope().setTag(key, value);
     }
     setExtra(key, extra) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setExtra(key, extra);
+      this.getScope().setExtra(key, extra);
     }
     setContext(name, context) {
-      const scope = this.getScope();
-      if (scope)
-        scope.setContext(name, context);
+      this.getScope().setContext(name, context);
     }
     configureScope(callback) {
       const { scope, client } = this.getStackTop();
-      if (scope && client) {
+      if (client) {
         callback(scope);
       }
     }
@@ -2355,7 +2565,21 @@ ${JSON.stringify(itemHeaders)}
       }
     }
     startTransaction(context, customSamplingContext) {
-      return this._callExtensionMethod("startTransaction", context, customSamplingContext);
+      const result = this._callExtensionMethod("startTransaction", context, customSamplingContext);
+      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && !result) {
+        const client = this.getClient();
+        if (!client) {
+          console.warn(
+            "Tracing extension 'startTransaction' is missing. You should 'init' the SDK before calling 'startTransaction'"
+          );
+        } else {
+          console.warn(`Tracing extension 'startTransaction' has not been added. Call 'addTracingExtensions' before calling 'init':
+Sentry.addTracingExtensions();
+Sentry.init({...});
+`);
+        }
+      }
+      return result;
     }
     traceHeaders() {
       return this._callExtensionMethod("traceHeaders");
@@ -2368,35 +2592,31 @@ ${JSON.stringify(itemHeaders)}
     }
     endSession() {
       const layer = this.getStackTop();
-      const scope = layer && layer.scope;
-      const session = scope && scope.getSession();
+      const scope = layer.scope;
+      const session = scope.getSession();
       if (session) {
         closeSession(session);
       }
       this._sendSessionUpdate();
-      if (scope) {
-        scope.setSession();
-      }
+      scope.setSession();
     }
     startSession(context) {
       const { scope, client } = this.getStackTop();
-      const { release, environment } = client && client.getOptions() || {};
+      const { release, environment = DEFAULT_ENVIRONMENT } = client && client.getOptions() || {};
       const { userAgent } = GLOBAL_OBJ.navigator || {};
       const session = makeSession({
         release,
         environment,
-        ...scope && { user: scope.getUser() },
+        user: scope.getUser(),
         ...userAgent && { userAgent },
         ...context
       });
-      if (scope) {
-        const currentSession = scope.getSession && scope.getSession();
-        if (currentSession && currentSession.status === "ok") {
-          updateSession(currentSession, { status: "exited" });
-        }
-        this.endSession();
-        scope.setSession(session);
+      const currentSession = scope.getSession && scope.getSession();
+      if (currentSession && currentSession.status === "ok") {
+        updateSession(currentSession, { status: "exited" });
       }
+      this.endSession();
+      scope.setSession(session);
       return session;
     }
     shouldSendDefaultPii() {
@@ -2406,13 +2626,9 @@ ${JSON.stringify(itemHeaders)}
     }
     _sendSessionUpdate() {
       const { scope, client } = this.getStackTop();
-      if (!scope)
-        return;
       const session = scope.getSession();
-      if (session) {
-        if (client && client.captureSession) {
-          client.captureSession(session);
-        }
+      if (session && client && client.captureSession) {
+        client.captureSession(session);
       }
     }
     _withClient(callback) {
@@ -2445,29 +2661,19 @@ ${JSON.stringify(itemHeaders)}
   }
   function getCurrentHub() {
     const registry = getMainCarrier();
+    if (registry.__SENTRY__ && registry.__SENTRY__.acs) {
+      const hub = registry.__SENTRY__.acs.getCurrentHub();
+      if (hub) {
+        return hub;
+      }
+    }
+    return getGlobalHub(registry);
+  }
+  function getGlobalHub(registry = getMainCarrier()) {
     if (!hasHubOnCarrier(registry) || getHubFromCarrier(registry).isOlderThan(API_VERSION)) {
       setHubOnCarrier(registry, new Hub());
     }
-    if (isNodeEnv()) {
-      return getHubFromActiveDomain(registry);
-    }
     return getHubFromCarrier(registry);
-  }
-  function getHubFromActiveDomain(registry) {
-    try {
-      const sentry = getMainCarrier().__SENTRY__;
-      const activeDomain = sentry && sentry.extensions && sentry.extensions.domain && sentry.extensions.domain.active;
-      if (!activeDomain) {
-        return getHubFromCarrier(registry);
-      }
-      if (!hasHubOnCarrier(activeDomain) || getHubFromCarrier(activeDomain).isOlderThan(API_VERSION)) {
-        const registryHubTopStack = getHubFromCarrier(registry).getStackTop();
-        setHubOnCarrier(activeDomain, new Hub(registryHubTopStack.client, Scope.clone(registryHubTopStack.scope)));
-      }
-      return getHubFromCarrier(activeDomain);
-    } catch (_Oo) {
-      return getHubFromCarrier(registry);
-    }
   }
   function hasHubOnCarrier(carrier) {
     return !!(carrier && carrier.__SENTRY__ && carrier.__SENTRY__.hub);
@@ -2481,6 +2687,761 @@ ${JSON.stringify(itemHeaders)}
     const __SENTRY__ = carrier.__SENTRY__ = carrier.__SENTRY__ || {};
     __SENTRY__.hub = hub;
     return true;
+  }
+
+  // node_modules/@sentry/core/esm/utils/hasTracingEnabled.js
+  function hasTracingEnabled(maybeOptions) {
+    if (typeof __SENTRY_TRACING__ === "boolean" && !__SENTRY_TRACING__) {
+      return false;
+    }
+    const client = getCurrentHub().getClient();
+    const options = maybeOptions || client && client.getOptions();
+    return !!options && (options.enableTracing || "tracesSampleRate" in options || "tracesSampler" in options);
+  }
+
+  // node_modules/@sentry/core/esm/tracing/utils.js
+  function getActiveTransaction(maybeHub) {
+    const hub = maybeHub || getCurrentHub();
+    const scope = hub.getScope();
+    return scope.getTransaction();
+  }
+
+  // node_modules/@sentry/core/esm/tracing/errors.js
+  var errorsInstrumented = false;
+  function registerErrorInstrumentation() {
+    if (errorsInstrumented) {
+      return;
+    }
+    errorsInstrumented = true;
+    addInstrumentationHandler("error", errorCallback);
+    addInstrumentationHandler("unhandledrejection", errorCallback);
+  }
+  function errorCallback() {
+    const activeTransaction = getActiveTransaction();
+    if (activeTransaction) {
+      const status = "internal_error";
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Transaction: ${status} -> Global error occured`);
+      activeTransaction.setStatus(status);
+    }
+  }
+  errorCallback.tag = "sentry_tracingErrorCallback";
+
+  // node_modules/@sentry/core/esm/tracing/span.js
+  var SpanRecorder = class {
+    constructor(maxlen = 1e3) {
+      this._maxlen = maxlen;
+      this.spans = [];
+    }
+    add(span) {
+      if (this.spans.length > this._maxlen) {
+        span.spanRecorder = void 0;
+      } else {
+        this.spans.push(span);
+      }
+    }
+  };
+  var Span = class {
+    constructor(spanContext = {}) {
+      this.traceId = spanContext.traceId || uuid4();
+      this.spanId = spanContext.spanId || uuid4().substring(16);
+      this.startTimestamp = spanContext.startTimestamp || timestampInSeconds();
+      this.tags = spanContext.tags || {};
+      this.data = spanContext.data || {};
+      this.instrumenter = spanContext.instrumenter || "sentry";
+      this.origin = spanContext.origin || "manual";
+      if (spanContext.parentSpanId) {
+        this.parentSpanId = spanContext.parentSpanId;
+      }
+      if ("sampled" in spanContext) {
+        this.sampled = spanContext.sampled;
+      }
+      if (spanContext.op) {
+        this.op = spanContext.op;
+      }
+      if (spanContext.description) {
+        this.description = spanContext.description;
+      }
+      if (spanContext.name) {
+        this.description = spanContext.name;
+      }
+      if (spanContext.status) {
+        this.status = spanContext.status;
+      }
+      if (spanContext.endTimestamp) {
+        this.endTimestamp = spanContext.endTimestamp;
+      }
+    }
+    get name() {
+      return this.description || "";
+    }
+    set name(name) {
+      this.setName(name);
+    }
+    startChild(spanContext) {
+      const childSpan = new Span({
+        ...spanContext,
+        parentSpanId: this.spanId,
+        sampled: this.sampled,
+        traceId: this.traceId
+      });
+      childSpan.spanRecorder = this.spanRecorder;
+      if (childSpan.spanRecorder) {
+        childSpan.spanRecorder.add(childSpan);
+      }
+      childSpan.transaction = this.transaction;
+      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && childSpan.transaction) {
+        const opStr = spanContext && spanContext.op || "< unknown op >";
+        const nameStr = childSpan.transaction.name || "< unknown name >";
+        const idStr = childSpan.transaction.spanId;
+        const logMessage = `[Tracing] Starting '${opStr}' span on transaction '${nameStr}' (${idStr}).`;
+        childSpan.transaction.metadata.spanMetadata[childSpan.spanId] = { logMessage };
+        logger.log(logMessage);
+      }
+      return childSpan;
+    }
+    setTag(key, value) {
+      this.tags = { ...this.tags, [key]: value };
+      return this;
+    }
+    setData(key, value) {
+      this.data = { ...this.data, [key]: value };
+      return this;
+    }
+    setStatus(value) {
+      this.status = value;
+      return this;
+    }
+    setHttpStatus(httpStatus) {
+      this.setTag("http.status_code", String(httpStatus));
+      this.setData("http.response.status_code", httpStatus);
+      const spanStatus = spanStatusfromHttpCode(httpStatus);
+      if (spanStatus !== "unknown_error") {
+        this.setStatus(spanStatus);
+      }
+      return this;
+    }
+    setName(name) {
+      this.description = name;
+    }
+    isSuccess() {
+      return this.status === "ok";
+    }
+    finish(endTimestamp) {
+      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && this.transaction && this.transaction.spanId !== this.spanId) {
+        const { logMessage } = this.transaction.metadata.spanMetadata[this.spanId];
+        if (logMessage) {
+          logger.log(logMessage.replace("Starting", "Finishing"));
+        }
+      }
+      this.endTimestamp = typeof endTimestamp === "number" ? endTimestamp : timestampInSeconds();
+    }
+    toTraceparent() {
+      return generateSentryTraceHeader(this.traceId, this.spanId, this.sampled);
+    }
+    toContext() {
+      return dropUndefinedKeys({
+        data: this.data,
+        description: this.description,
+        endTimestamp: this.endTimestamp,
+        op: this.op,
+        parentSpanId: this.parentSpanId,
+        sampled: this.sampled,
+        spanId: this.spanId,
+        startTimestamp: this.startTimestamp,
+        status: this.status,
+        tags: this.tags,
+        traceId: this.traceId
+      });
+    }
+    updateWithContext(spanContext) {
+      this.data = spanContext.data || {};
+      this.description = spanContext.description;
+      this.endTimestamp = spanContext.endTimestamp;
+      this.op = spanContext.op;
+      this.parentSpanId = spanContext.parentSpanId;
+      this.sampled = spanContext.sampled;
+      this.spanId = spanContext.spanId || this.spanId;
+      this.startTimestamp = spanContext.startTimestamp || this.startTimestamp;
+      this.status = spanContext.status;
+      this.tags = spanContext.tags || {};
+      this.traceId = spanContext.traceId || this.traceId;
+      return this;
+    }
+    getTraceContext() {
+      return dropUndefinedKeys({
+        data: Object.keys(this.data).length > 0 ? this.data : void 0,
+        description: this.description,
+        op: this.op,
+        parent_span_id: this.parentSpanId,
+        span_id: this.spanId,
+        status: this.status,
+        tags: Object.keys(this.tags).length > 0 ? this.tags : void 0,
+        trace_id: this.traceId
+      });
+    }
+    toJSON() {
+      return dropUndefinedKeys({
+        data: Object.keys(this.data).length > 0 ? this.data : void 0,
+        description: this.description,
+        op: this.op,
+        parent_span_id: this.parentSpanId,
+        span_id: this.spanId,
+        start_timestamp: this.startTimestamp,
+        status: this.status,
+        tags: Object.keys(this.tags).length > 0 ? this.tags : void 0,
+        timestamp: this.endTimestamp,
+        trace_id: this.traceId,
+        origin: this.origin
+      });
+    }
+  };
+  function spanStatusfromHttpCode(httpStatus) {
+    if (httpStatus < 400 && httpStatus >= 100) {
+      return "ok";
+    }
+    if (httpStatus >= 400 && httpStatus < 500) {
+      switch (httpStatus) {
+        case 401:
+          return "unauthenticated";
+        case 403:
+          return "permission_denied";
+        case 404:
+          return "not_found";
+        case 409:
+          return "already_exists";
+        case 413:
+          return "failed_precondition";
+        case 429:
+          return "resource_exhausted";
+        default:
+          return "invalid_argument";
+      }
+    }
+    if (httpStatus >= 500 && httpStatus < 600) {
+      switch (httpStatus) {
+        case 501:
+          return "unimplemented";
+        case 503:
+          return "unavailable";
+        case 504:
+          return "deadline_exceeded";
+        default:
+          return "internal_error";
+      }
+    }
+    return "unknown_error";
+  }
+
+  // node_modules/@sentry/core/esm/tracing/dynamicSamplingContext.js
+  function getDynamicSamplingContextFromClient(trace_id, client, scope) {
+    const options = client.getOptions();
+    const { publicKey: public_key } = client.getDsn() || {};
+    const { segment: user_segment } = scope && scope.getUser() || {};
+    const dsc = dropUndefinedKeys({
+      environment: options.environment || DEFAULT_ENVIRONMENT,
+      release: options.release,
+      user_segment,
+      public_key,
+      trace_id
+    });
+    client.emit && client.emit("createDsc", dsc);
+    return dsc;
+  }
+
+  // node_modules/@sentry/core/esm/tracing/transaction.js
+  var Transaction = class extends Span {
+    constructor(transactionContext, hub) {
+      super(transactionContext);
+      delete this.description;
+      this._measurements = {};
+      this._contexts = {};
+      this._hub = hub || getCurrentHub();
+      this._name = transactionContext.name || "";
+      this.metadata = {
+        source: "custom",
+        ...transactionContext.metadata,
+        spanMetadata: {}
+      };
+      this._trimEnd = transactionContext.trimEnd;
+      this.transaction = this;
+      const incomingDynamicSamplingContext = this.metadata.dynamicSamplingContext;
+      if (incomingDynamicSamplingContext) {
+        this._frozenDynamicSamplingContext = { ...incomingDynamicSamplingContext };
+      }
+    }
+    get name() {
+      return this._name;
+    }
+    set name(newName) {
+      this.setName(newName);
+    }
+    setName(name, source = "custom") {
+      this._name = name;
+      this.metadata.source = source;
+    }
+    initSpanRecorder(maxlen = 1e3) {
+      if (!this.spanRecorder) {
+        this.spanRecorder = new SpanRecorder(maxlen);
+      }
+      this.spanRecorder.add(this);
+    }
+    setContext(key, context) {
+      if (context === null) {
+        delete this._contexts[key];
+      } else {
+        this._contexts[key] = context;
+      }
+    }
+    setMeasurement(name, value, unit = "") {
+      this._measurements[name] = { value, unit };
+    }
+    setMetadata(newMetadata) {
+      this.metadata = { ...this.metadata, ...newMetadata };
+    }
+    finish(endTimestamp) {
+      if (this.endTimestamp !== void 0) {
+        return void 0;
+      }
+      if (!this.name) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Transaction has no name, falling back to `<unlabeled transaction>`.");
+        this.name = "<unlabeled transaction>";
+      }
+      super.finish(endTimestamp);
+      const client = this._hub.getClient();
+      if (client && client.emit) {
+        client.emit("finishTransaction", this);
+      }
+      if (this.sampled !== true) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] Discarding transaction because its trace was not chosen to be sampled.");
+        if (client) {
+          client.recordDroppedEvent("sample_rate", "transaction");
+        }
+        return void 0;
+      }
+      const finishedSpans = this.spanRecorder ? this.spanRecorder.spans.filter((s) => s !== this && s.endTimestamp) : [];
+      if (this._trimEnd && finishedSpans.length > 0) {
+        this.endTimestamp = finishedSpans.reduce((prev, current) => {
+          if (prev.endTimestamp && current.endTimestamp) {
+            return prev.endTimestamp > current.endTimestamp ? prev : current;
+          }
+          return prev;
+        }).endTimestamp;
+      }
+      const metadata = this.metadata;
+      const transaction = {
+        contexts: {
+          ...this._contexts,
+          trace: this.getTraceContext()
+        },
+        spans: finishedSpans,
+        start_timestamp: this.startTimestamp,
+        tags: this.tags,
+        timestamp: this.endTimestamp,
+        transaction: this.name,
+        type: "transaction",
+        sdkProcessingMetadata: {
+          ...metadata,
+          dynamicSamplingContext: this.getDynamicSamplingContext()
+        },
+        ...metadata.source && {
+          transaction_info: {
+            source: metadata.source
+          }
+        }
+      };
+      const hasMeasurements = Object.keys(this._measurements).length > 0;
+      if (hasMeasurements) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
+          "[Measurements] Adding measurements to transaction",
+          JSON.stringify(this._measurements, void 0, 2)
+        );
+        transaction.measurements = this._measurements;
+      }
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Finishing ${this.op} transaction: ${this.name}.`);
+      return this._hub.captureEvent(transaction);
+    }
+    toContext() {
+      const spanContext = super.toContext();
+      return dropUndefinedKeys({
+        ...spanContext,
+        name: this.name,
+        trimEnd: this._trimEnd
+      });
+    }
+    updateWithContext(transactionContext) {
+      super.updateWithContext(transactionContext);
+      this.name = transactionContext.name || "";
+      this._trimEnd = transactionContext.trimEnd;
+      return this;
+    }
+    getDynamicSamplingContext() {
+      if (this._frozenDynamicSamplingContext) {
+        return this._frozenDynamicSamplingContext;
+      }
+      const hub = this._hub || getCurrentHub();
+      const client = hub.getClient();
+      if (!client)
+        return {};
+      const scope = hub.getScope();
+      const dsc = getDynamicSamplingContextFromClient(this.traceId, client, scope);
+      const maybeSampleRate = this.metadata.sampleRate;
+      if (maybeSampleRate !== void 0) {
+        dsc.sample_rate = `${maybeSampleRate}`;
+      }
+      const source = this.metadata.source;
+      if (source && source !== "url") {
+        dsc.transaction = this.name;
+      }
+      if (this.sampled !== void 0) {
+        dsc.sampled = String(this.sampled);
+      }
+      return dsc;
+    }
+    setHub(hub) {
+      this._hub = hub;
+    }
+  };
+
+  // node_modules/@sentry/core/esm/tracing/idletransaction.js
+  var TRACING_DEFAULTS = {
+    idleTimeout: 1e3,
+    finalTimeout: 3e4,
+    heartbeatInterval: 5e3
+  };
+  var FINISH_REASON_TAG = "finishReason";
+  var IDLE_TRANSACTION_FINISH_REASONS = [
+    "heartbeatFailed",
+    "idleTimeout",
+    "documentHidden",
+    "finalTimeout",
+    "externalFinish",
+    "cancelled"
+  ];
+  var IdleTransactionSpanRecorder = class extends SpanRecorder {
+    constructor(_pushActivity, _popActivity, transactionSpanId, maxlen) {
+      super(maxlen);
+      this._pushActivity = _pushActivity;
+      this._popActivity = _popActivity;
+      this.transactionSpanId = transactionSpanId;
+    }
+    add(span) {
+      if (span.spanId !== this.transactionSpanId) {
+        span.finish = (endTimestamp) => {
+          span.endTimestamp = typeof endTimestamp === "number" ? endTimestamp : timestampInSeconds();
+          this._popActivity(span.spanId);
+        };
+        if (span.endTimestamp === void 0) {
+          this._pushActivity(span.spanId);
+        }
+      }
+      super.add(span);
+    }
+  };
+  var IdleTransaction = class extends Transaction {
+    constructor(transactionContext, _idleHub, _idleTimeout = TRACING_DEFAULTS.idleTimeout, _finalTimeout = TRACING_DEFAULTS.finalTimeout, _heartbeatInterval = TRACING_DEFAULTS.heartbeatInterval, _onScope = false) {
+      super(transactionContext, _idleHub);
+      this._idleHub = _idleHub;
+      this._idleTimeout = _idleTimeout;
+      this._finalTimeout = _finalTimeout;
+      this._heartbeatInterval = _heartbeatInterval;
+      this._onScope = _onScope;
+      this.activities = {};
+      this._heartbeatCounter = 0;
+      this._finished = false;
+      this._idleTimeoutCanceledPermanently = false;
+      this._beforeFinishCallbacks = [];
+      this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[4];
+      if (_onScope) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Setting idle transaction on scope. Span ID: ${this.spanId}`);
+        _idleHub.configureScope((scope) => scope.setSpan(this));
+      }
+      this._restartIdleTimeout();
+      setTimeout(() => {
+        if (!this._finished) {
+          this.setStatus("deadline_exceeded");
+          this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[3];
+          this.finish();
+        }
+      }, this._finalTimeout);
+    }
+    finish(endTimestamp = timestampInSeconds()) {
+      this._finished = true;
+      this.activities = {};
+      if (this.op === "ui.action.click") {
+        this.setTag(FINISH_REASON_TAG, this._finishReason);
+      }
+      if (this.spanRecorder) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] finishing IdleTransaction", new Date(endTimestamp * 1e3).toISOString(), this.op);
+        for (const callback of this._beforeFinishCallbacks) {
+          callback(this, endTimestamp);
+        }
+        this.spanRecorder.spans = this.spanRecorder.spans.filter((span) => {
+          if (span.spanId === this.spanId) {
+            return true;
+          }
+          if (!span.endTimestamp) {
+            span.endTimestamp = endTimestamp;
+            span.setStatus("cancelled");
+            (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] cancelling span since transaction ended early", JSON.stringify(span, void 0, 2));
+          }
+          const spanStartedBeforeTransactionFinish = span.startTimestamp < endTimestamp;
+          const timeoutWithMarginOfError = (this._finalTimeout + this._idleTimeout) / 1e3;
+          const spanEndedBeforeFinalTimeout = span.endTimestamp - this.startTimestamp < timeoutWithMarginOfError;
+          if (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) {
+            const stringifiedSpan = JSON.stringify(span, void 0, 2);
+            if (!spanStartedBeforeTransactionFinish) {
+              logger.log("[Tracing] discarding Span since it happened after Transaction was finished", stringifiedSpan);
+            } else if (!spanEndedBeforeFinalTimeout) {
+              logger.log("[Tracing] discarding Span since it finished after Transaction final timeout", stringifiedSpan);
+            }
+          }
+          return spanStartedBeforeTransactionFinish && spanEndedBeforeFinalTimeout;
+        });
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] flushing IdleTransaction");
+      } else {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] No active IdleTransaction");
+      }
+      if (this._onScope) {
+        const scope = this._idleHub.getScope();
+        if (scope.getTransaction() === this) {
+          scope.setSpan(void 0);
+        }
+      }
+      return super.finish(endTimestamp);
+    }
+    registerBeforeFinishCallback(callback) {
+      this._beforeFinishCallbacks.push(callback);
+    }
+    initSpanRecorder(maxlen) {
+      if (!this.spanRecorder) {
+        const pushActivity = (id) => {
+          if (this._finished) {
+            return;
+          }
+          this._pushActivity(id);
+        };
+        const popActivity = (id) => {
+          if (this._finished) {
+            return;
+          }
+          this._popActivity(id);
+        };
+        this.spanRecorder = new IdleTransactionSpanRecorder(pushActivity, popActivity, this.spanId, maxlen);
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("Starting heartbeat");
+        this._pingHeartbeat();
+      }
+      this.spanRecorder.add(this);
+    }
+    cancelIdleTimeout(endTimestamp, {
+      restartOnChildSpanChange
+    } = {
+      restartOnChildSpanChange: true
+    }) {
+      this._idleTimeoutCanceledPermanently = restartOnChildSpanChange === false;
+      if (this._idleTimeoutID) {
+        clearTimeout(this._idleTimeoutID);
+        this._idleTimeoutID = void 0;
+        if (Object.keys(this.activities).length === 0 && this._idleTimeoutCanceledPermanently) {
+          this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[5];
+          this.finish(endTimestamp);
+        }
+      }
+    }
+    setFinishReason(reason) {
+      this._finishReason = reason;
+    }
+    _restartIdleTimeout(endTimestamp) {
+      this.cancelIdleTimeout();
+      this._idleTimeoutID = setTimeout(() => {
+        if (!this._finished && Object.keys(this.activities).length === 0) {
+          this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[1];
+          this.finish(endTimestamp);
+        }
+      }, this._idleTimeout);
+    }
+    _pushActivity(spanId) {
+      this.cancelIdleTimeout(void 0, { restartOnChildSpanChange: !this._idleTimeoutCanceledPermanently });
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] pushActivity: ${spanId}`);
+      this.activities[spanId] = true;
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] new activities count", Object.keys(this.activities).length);
+    }
+    _popActivity(spanId) {
+      if (this.activities[spanId]) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] popActivity ${spanId}`);
+        delete this.activities[spanId];
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] new activities count", Object.keys(this.activities).length);
+      }
+      if (Object.keys(this.activities).length === 0) {
+        const endTimestamp = timestampInSeconds();
+        if (this._idleTimeoutCanceledPermanently) {
+          this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[5];
+          this.finish(endTimestamp);
+        } else {
+          this._restartIdleTimeout(endTimestamp + this._idleTimeout / 1e3);
+        }
+      }
+    }
+    _beat() {
+      if (this._finished) {
+        return;
+      }
+      const heartbeatString = Object.keys(this.activities).join("");
+      if (heartbeatString === this._prevHeartbeatString) {
+        this._heartbeatCounter++;
+      } else {
+        this._heartbeatCounter = 1;
+      }
+      this._prevHeartbeatString = heartbeatString;
+      if (this._heartbeatCounter >= 3) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] Transaction finished because of no change for 3 heart beats");
+        this.setStatus("deadline_exceeded");
+        this._finishReason = IDLE_TRANSACTION_FINISH_REASONS[0];
+        this.finish();
+      } else {
+        this._pingHeartbeat();
+      }
+    }
+    _pingHeartbeat() {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`pinging Heartbeat -> current counter: ${this._heartbeatCounter}`);
+      setTimeout(() => {
+        this._beat();
+      }, this._heartbeatInterval);
+    }
+  };
+
+  // node_modules/@sentry/core/esm/tracing/hubextensions.js
+  function traceHeaders() {
+    const scope = this.getScope();
+    const span = scope.getSpan();
+    return span ? {
+      "sentry-trace": span.toTraceparent()
+    } : {};
+  }
+  function sample(transaction, options, samplingContext) {
+    if (!hasTracingEnabled(options)) {
+      transaction.sampled = false;
+      return transaction;
+    }
+    if (transaction.sampled !== void 0) {
+      transaction.setMetadata({
+        sampleRate: Number(transaction.sampled)
+      });
+      return transaction;
+    }
+    let sampleRate;
+    if (typeof options.tracesSampler === "function") {
+      sampleRate = options.tracesSampler(samplingContext);
+      transaction.setMetadata({
+        sampleRate: Number(sampleRate)
+      });
+    } else if (samplingContext.parentSampled !== void 0) {
+      sampleRate = samplingContext.parentSampled;
+    } else if (typeof options.tracesSampleRate !== "undefined") {
+      sampleRate = options.tracesSampleRate;
+      transaction.setMetadata({
+        sampleRate: Number(sampleRate)
+      });
+    } else {
+      sampleRate = 1;
+      transaction.setMetadata({
+        sampleRate
+      });
+    }
+    if (!isValidSampleRate(sampleRate)) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("[Tracing] Discarding transaction because of invalid sample rate.");
+      transaction.sampled = false;
+      return transaction;
+    }
+    if (!sampleRate) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
+        `[Tracing] Discarding transaction because ${typeof options.tracesSampler === "function" ? "tracesSampler returned 0 or false" : "a negative sampling decision was inherited or tracesSampleRate is set to 0"}`
+      );
+      transaction.sampled = false;
+      return transaction;
+    }
+    transaction.sampled = Math.random() < sampleRate;
+    if (!transaction.sampled) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
+        `[Tracing] Discarding transaction because it's not included in the random sample (sampling rate = ${Number(
+          sampleRate
+        )})`
+      );
+      return transaction;
+    }
+    (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] starting ${transaction.op} transaction - ${transaction.name}`);
+    return transaction;
+  }
+  function isValidSampleRate(rate) {
+    if (isNaN2(rate) || !(typeof rate === "number" || typeof rate === "boolean")) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
+        `[Tracing] Given sample rate is invalid. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(
+          rate
+        )} of type ${JSON.stringify(typeof rate)}.`
+      );
+      return false;
+    }
+    if (rate < 0 || rate > 1) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(`[Tracing] Given sample rate is invalid. Sample rate must be between 0 and 1. Got ${rate}.`);
+      return false;
+    }
+    return true;
+  }
+  function _startTransaction(transactionContext, customSamplingContext) {
+    const client = this.getClient();
+    const options = client && client.getOptions() || {};
+    const configInstrumenter = options.instrumenter || "sentry";
+    const transactionInstrumenter = transactionContext.instrumenter || "sentry";
+    if (configInstrumenter !== transactionInstrumenter) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error(
+        `A transaction was started with instrumenter=\`${transactionInstrumenter}\`, but the SDK is configured with the \`${configInstrumenter}\` instrumenter.
+The transaction will not be sampled. Please use the ${configInstrumenter} instrumentation to start transactions.`
+      );
+      transactionContext.sampled = false;
+    }
+    let transaction = new Transaction(transactionContext, this);
+    transaction = sample(transaction, options, {
+      parentSampled: transactionContext.parentSampled,
+      transactionContext,
+      ...customSamplingContext
+    });
+    if (transaction.sampled) {
+      transaction.initSpanRecorder(options._experiments && options._experiments.maxSpans);
+    }
+    if (client && client.emit) {
+      client.emit("startTransaction", transaction);
+    }
+    return transaction;
+  }
+  function startIdleTransaction(hub, transactionContext, idleTimeout, finalTimeout, onScope, customSamplingContext, heartbeatInterval) {
+    const client = hub.getClient();
+    const options = client && client.getOptions() || {};
+    let transaction = new IdleTransaction(transactionContext, hub, idleTimeout, finalTimeout, heartbeatInterval, onScope);
+    transaction = sample(transaction, options, {
+      parentSampled: transactionContext.parentSampled,
+      transactionContext,
+      ...customSamplingContext
+    });
+    if (transaction.sampled) {
+      transaction.initSpanRecorder(options._experiments && options._experiments.maxSpans);
+    }
+    if (client && client.emit) {
+      client.emit("startTransaction", transaction);
+    }
+    return transaction;
+  }
+  function addTracingExtensions() {
+    const carrier = getMainCarrier();
+    if (!carrier.__SENTRY__) {
+      return;
+    }
+    carrier.__SENTRY__.extensions = carrier.__SENTRY__.extensions || {};
+    if (!carrier.__SENTRY__.extensions.startTransaction) {
+      carrier.__SENTRY__.extensions.startTransaction = _startTransaction;
+    }
+    if (!carrier.__SENTRY__.extensions.traceHeaders) {
+      carrier.__SENTRY__.extensions.traceHeaders = traceHeaders;
+    }
+    registerErrorInstrumentation();
   }
 
   // node_modules/@sentry/core/esm/exports.js
@@ -2538,7 +3499,7 @@ ${JSON.stringify(itemHeaders)}
       ...sdkInfo && { sdk: sdkInfo },
       ...!!tunnel && { dsn: dsnToString(dsn) }
     };
-    const envelopeItem = "aggregates" in session ? [{ type: "sessions" }, session] : [{ type: "session" }, session];
+    const envelopeItem = "aggregates" in session ? [{ type: "sessions" }, session] : [{ type: "session" }, session.toJSON()];
     return createEnvelope(envelopeHeaders, [envelopeItem]);
   }
   function createEventEnvelope(event, dsn, metadata, tunnel) {
@@ -2563,7 +3524,7 @@ ${JSON.stringify(itemHeaders)}
       }
       integrationsByName[name] = currentInstance;
     });
-    return Object.values(integrationsByName);
+    return Object.keys(integrationsByName).map((k) => integrationsByName[k]);
   }
   function getIntegrationsToSetup(options) {
     const defaultIntegrations2 = options.defaultIntegrations || [];
@@ -2580,42 +3541,64 @@ ${JSON.stringify(itemHeaders)}
       integrations = defaultIntegrations2;
     }
     const finalIntegrations = filterDuplicates(integrations);
-    const debugIndex = finalIntegrations.findIndex((integration) => integration.name === "Debug");
+    const debugIndex = findIndex(finalIntegrations, (integration) => integration.name === "Debug");
     if (debugIndex !== -1) {
       const [debugInstance] = finalIntegrations.splice(debugIndex, 1);
       finalIntegrations.push(debugInstance);
     }
     return finalIntegrations;
   }
-  function setupIntegrations(integrations) {
+  function setupIntegrations(client, integrations) {
     const integrationIndex = {};
     integrations.forEach((integration) => {
       if (integration) {
-        setupIntegration(integration, integrationIndex);
+        setupIntegration(client, integration, integrationIndex);
       }
     });
     return integrationIndex;
   }
-  function setupIntegration(integration, integrationIndex) {
+  function setupIntegration(client, integration, integrationIndex) {
     integrationIndex[integration.name] = integration;
     if (installedIntegrations.indexOf(integration.name) === -1) {
       integration.setupOnce(addGlobalEventProcessor, getCurrentHub);
       installedIntegrations.push(integration.name);
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Integration installed: ${integration.name}`);
     }
+    if (client.on && typeof integration.preprocessEvent === "function") {
+      const callback = integration.preprocessEvent.bind(integration);
+      client.on("preprocessEvent", (event, hint) => callback(event, hint, client));
+    }
+    if (client.addEventProcessor && typeof integration.processEvent === "function") {
+      const callback = integration.processEvent.bind(integration);
+      const processor = Object.assign((event, hint) => callback(event, hint, client), {
+        id: integration.name
+      });
+      client.addEventProcessor(processor);
+    }
+    (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Integration installed: ${integration.name}`);
+  }
+  function findIndex(arr, callback) {
+    for (let i = 0; i < arr.length; i++) {
+      if (callback(arr[i]) === true) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // node_modules/@sentry/core/esm/utils/prepareEvent.js
-  function prepareEvent(options, event, hint, scope) {
+  function prepareEvent(options, event, hint, scope, client) {
     const { normalizeDepth = 3, normalizeMaxBreadth = 1e3 } = options;
     const prepared = {
       ...event,
       event_id: event.event_id || hint.event_id || uuid4(),
       timestamp: event.timestamp || dateTimestampInSeconds()
     };
-    const integrations = hint.integrations || options.integrations.map((i3) => i3.name);
+    const integrations = hint.integrations || options.integrations.map((i) => i.name);
     applyClientOptions(prepared, options);
     applyIntegrationsMetadata(prepared, integrations);
+    if (event.type === void 0) {
+      applyDebugIds(prepared, options.stackParser);
+    }
     let finalScope = scope;
     if (hint.captureContext) {
       finalScope = Scope.clone(finalScope).update(hint.captureContext);
@@ -2631,6 +3614,11 @@ ${JSON.stringify(itemHeaders)}
       result = finalScope.applyToEvent(prepared, hint);
     }
     return result.then((evt) => {
+      return client && client.getEventProcessors ? notifyEventProcessors(client.getEventProcessors(), evt, hint) : evt;
+    }).then((evt) => {
+      if (evt) {
+        applyDebugMeta(evt);
+      }
       if (typeof normalizeDepth === "number" && normalizeDepth > 0) {
         return normalizeEvent(evt, normalizeDepth, normalizeMaxBreadth);
       }
@@ -2640,7 +3628,7 @@ ${JSON.stringify(itemHeaders)}
   function applyClientOptions(event, options) {
     const { environment, release, dist, maxValueLength = 250 } = options;
     if (!("environment" in event)) {
-      event.environment = "environment" in options ? environment : "production";
+      event.environment = "environment" in options ? environment : DEFAULT_ENVIRONMENT;
     }
     if (event.release === void 0 && release !== void 0) {
       event.release = release;
@@ -2660,6 +3648,80 @@ ${JSON.stringify(itemHeaders)}
       request.url = truncate(request.url, maxValueLength);
     }
   }
+  var debugIdStackParserCache = /* @__PURE__ */ new WeakMap();
+  function applyDebugIds(event, stackParser) {
+    const debugIdMap = GLOBAL_OBJ._sentryDebugIds;
+    if (!debugIdMap) {
+      return;
+    }
+    let debugIdStackFramesCache;
+    const cachedDebugIdStackFrameCache = debugIdStackParserCache.get(stackParser);
+    if (cachedDebugIdStackFrameCache) {
+      debugIdStackFramesCache = cachedDebugIdStackFrameCache;
+    } else {
+      debugIdStackFramesCache = /* @__PURE__ */ new Map();
+      debugIdStackParserCache.set(stackParser, debugIdStackFramesCache);
+    }
+    const filenameDebugIdMap = Object.keys(debugIdMap).reduce((acc, debugIdStackTrace) => {
+      let parsedStack;
+      const cachedParsedStack = debugIdStackFramesCache.get(debugIdStackTrace);
+      if (cachedParsedStack) {
+        parsedStack = cachedParsedStack;
+      } else {
+        parsedStack = stackParser(debugIdStackTrace);
+        debugIdStackFramesCache.set(debugIdStackTrace, parsedStack);
+      }
+      for (let i = parsedStack.length - 1; i >= 0; i--) {
+        const stackFrame = parsedStack[i];
+        if (stackFrame.filename) {
+          acc[stackFrame.filename] = debugIdMap[debugIdStackTrace];
+          break;
+        }
+      }
+      return acc;
+    }, {});
+    try {
+      event.exception.values.forEach((exception) => {
+        exception.stacktrace.frames.forEach((frame) => {
+          if (frame.filename) {
+            frame.debug_id = filenameDebugIdMap[frame.filename];
+          }
+        });
+      });
+    } catch (e) {
+    }
+  }
+  function applyDebugMeta(event) {
+    const filenameDebugIdMap = {};
+    try {
+      event.exception.values.forEach((exception) => {
+        exception.stacktrace.frames.forEach((frame) => {
+          if (frame.debug_id) {
+            if (frame.abs_path) {
+              filenameDebugIdMap[frame.abs_path] = frame.debug_id;
+            } else if (frame.filename) {
+              filenameDebugIdMap[frame.filename] = frame.debug_id;
+            }
+            delete frame.debug_id;
+          }
+        });
+      });
+    } catch (e) {
+    }
+    if (Object.keys(filenameDebugIdMap).length === 0) {
+      return;
+    }
+    event.debug_meta = event.debug_meta || {};
+    event.debug_meta.images = event.debug_meta.images || [];
+    const images = event.debug_meta.images;
+    Object.keys(filenameDebugIdMap).forEach((filename) => {
+      images.push({
+        type: "sourcemap",
+        code_file: filename,
+        debug_id: filenameDebugIdMap[filename]
+      });
+    });
+  }
   function applyIntegrationsMetadata(event, integrationNames) {
     if (integrationNames.length > 0) {
       event.sdk = event.sdk || {};
@@ -2673,10 +3735,10 @@ ${JSON.stringify(itemHeaders)}
     const normalized = {
       ...event,
       ...event.breadcrumbs && {
-        breadcrumbs: event.breadcrumbs.map((b3) => ({
-          ...b3,
-          ...b3.data && {
-            data: normalize(b3.data, depth, maxBreadth)
+        breadcrumbs: event.breadcrumbs.map((b) => ({
+          ...b,
+          ...b.data && {
+            data: normalize(b.data, depth, maxBreadth)
           }
         }))
       },
@@ -2710,34 +3772,26 @@ ${JSON.stringify(itemHeaders)}
   // node_modules/@sentry/core/esm/baseclient.js
   var ALREADY_SEEN_ERROR = "Not capturing exception because it's already been captured.";
   var BaseClient = class {
-    __init() {
-      this._integrations = {};
-    }
-    __init2() {
-      this._integrationsInitialized = false;
-    }
-    __init3() {
-      this._numProcessing = 0;
-    }
-    __init4() {
-      this._outcomes = {};
-    }
     constructor(options) {
-      BaseClient.prototype.__init.call(this);
-      BaseClient.prototype.__init2.call(this);
-      BaseClient.prototype.__init3.call(this);
-      BaseClient.prototype.__init4.call(this);
       this._options = options;
+      this._integrations = {};
+      this._integrationsInitialized = false;
+      this._numProcessing = 0;
+      this._outcomes = {};
+      this._hooks = {};
+      this._eventProcessors = [];
       if (options.dsn) {
         this._dsn = makeDsn(options.dsn);
+      } else {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("No DSN provided, client will not do anything.");
+      }
+      if (this._dsn) {
         const url = getEnvelopeEndpointWithUrlEncodedAuth(this._dsn, options);
         this._transport = options.transport({
           recordDroppedEvent: this.recordDroppedEvent.bind(this),
           ...options.transportOptions,
           url
         });
-      } else {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("No DSN provided, client will not do anything.");
       }
     }
     captureException(exception, hint, scope) {
@@ -2816,9 +3870,15 @@ ${JSON.stringify(itemHeaders)}
         return result;
       });
     }
+    getEventProcessors() {
+      return this._eventProcessors;
+    }
+    addEventProcessor(eventProcessor) {
+      this._eventProcessors.push(eventProcessor);
+    }
     setupIntegrations() {
       if (this._isEnabled() && !this._integrationsInitialized) {
-        this._integrations = setupIntegrations(this._options.integrations);
+        this._integrations = setupIntegrations(this, this._options.integrations);
         this._integrationsInitialized = true;
       }
     }
@@ -2834,9 +3894,10 @@ ${JSON.stringify(itemHeaders)}
       }
     }
     addIntegration(integration) {
-      setupIntegration(integration, this._integrations);
+      setupIntegration(this, integration, this._integrations);
     }
     sendEvent(event, hint = {}) {
+      this.emit("beforeSendEvent", event, hint);
       if (this._dsn) {
         let env = createEventEnvelope(event, this._dsn, this._options._metadata, this._options.tunnel);
         for (const attachment of hint.attachments || []) {
@@ -2848,13 +3909,16 @@ ${JSON.stringify(itemHeaders)}
             )
           );
         }
-        this._sendEnvelope(env);
+        const promise = this._sendEnvelope(env);
+        if (promise) {
+          promise.then((sendResponse) => this.emit("afterSendEvent", event, sendResponse), null);
+        }
       }
     }
     sendSession(session) {
       if (this._dsn) {
         const env = createSessionEnvelope(session, this._dsn, this._options._metadata, this._options.tunnel);
-        this._sendEnvelope(env);
+        void this._sendEnvelope(env);
       }
     }
     recordDroppedEvent(reason, category, _event) {
@@ -2862,6 +3926,17 @@ ${JSON.stringify(itemHeaders)}
         const key = `${reason}:${category}`;
         (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Adding outcome: "${key}"`);
         this._outcomes[key] = this._outcomes[key] + 1 || 1;
+      }
+    }
+    on(hook, callback) {
+      if (!this._hooks[hook]) {
+        this._hooks[hook] = [];
+      }
+      this._hooks[hook].push(callback);
+    }
+    emit(hook, ...rest) {
+      if (this._hooks[hook]) {
+        this._hooks[hook].forEach((callback) => callback(...rest));
       }
     }
     _updateSessionFromEvent(session, event) {
@@ -2915,7 +3990,31 @@ ${JSON.stringify(itemHeaders)}
       if (!hint.integrations && integrations.length > 0) {
         hint.integrations = integrations;
       }
-      return prepareEvent(options, event, hint, scope);
+      this.emit("preprocessEvent", event, hint);
+      return prepareEvent(options, event, hint, scope, this).then((evt) => {
+        if (evt === null) {
+          return evt;
+        }
+        const { propagationContext } = evt.sdkProcessingMetadata || {};
+        const trace2 = evt.contexts && evt.contexts.trace;
+        if (!trace2 && propagationContext) {
+          const { traceId: trace_id, spanId, parentSpanId, dsc } = propagationContext;
+          evt.contexts = {
+            trace: {
+              trace_id,
+              span_id: spanId,
+              parent_span_id: parentSpanId
+            },
+            ...evt.contexts
+          };
+          const dynamicSamplingContext = dsc ? dsc : getDynamicSamplingContextFromClient(trace_id, this, scope);
+          evt.sdkProcessingMetadata = {
+            dynamicSamplingContext,
+            ...evt.sdkProcessingMetadata
+          };
+        }
+        return evt;
+      });
     }
     _captureEvent(event, hint = {}, scope) {
       return this._processEvent(event, hint, scope).then(
@@ -3016,7 +4115,8 @@ Reason: ${reason}`
     }
     _sendEnvelope(envelope) {
       if (this._transport && this._dsn) {
-        this._transport.send(envelope).then(null, (reason) => {
+        this.emit("beforeEnvelope", envelope);
+        return this._transport.send(envelope).then(null, (reason) => {
           (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error("Error while sending event:", reason);
         });
       } else {
@@ -3046,8 +4146,8 @@ Reason: ${reason}`
           }
           return event;
         },
-        (e2) => {
-          throw new SentryError(`${beforeSendLabel} rejected with ${e2}`);
+        (e) => {
+          throw new SentryError(`${beforeSendLabel} rejected with ${e}`);
         }
       );
     } else if (!isPlainObject(beforeSendResult) && beforeSendResult !== null) {
@@ -3083,9 +4183,7 @@ Reason: ${reason}`
     }
     const hub = getCurrentHub();
     const scope = hub.getScope();
-    if (scope) {
-      scope.update(options.initialScope);
-    }
+    scope.update(options.initialScope);
     const client = new clientClass(options);
     hub.bindClient(client);
   }
@@ -3144,6 +4242,7 @@ Reason: ${reason}`
         }
       );
     }
+    send.__sentry__baseTransport__ = true;
     return {
       send,
       flush: flush2
@@ -3157,7 +4256,7 @@ Reason: ${reason}`
   }
 
   // node_modules/@sentry/core/esm/version.js
-  var SDK_VERSION = "7.38.0";
+  var SDK_VERSION = "7.70.0";
 
   // node_modules/@sentry/core/esm/integrations/index.js
   var integrations_exports = {};
@@ -3169,37 +4268,43 @@ Reason: ${reason}`
   // node_modules/@sentry/core/esm/integrations/functiontostring.js
   var originalFunctionToString;
   var FunctionToString = class {
-    constructor() {
-      FunctionToString.prototype.__init.call(this);
-    }
     static __initStatic() {
       this.id = "FunctionToString";
     }
-    __init() {
+    constructor() {
       this.name = FunctionToString.id;
     }
     setupOnce() {
       originalFunctionToString = Function.prototype.toString;
-      Function.prototype.toString = function(...args) {
-        const context = getOriginalFunction(this) || this;
-        return originalFunctionToString.apply(context, args);
-      };
+      try {
+        Function.prototype.toString = function(...args) {
+          const context = getOriginalFunction(this) || this;
+          return originalFunctionToString.apply(context, args);
+        };
+      } catch (e) {
+      }
     }
   };
   FunctionToString.__initStatic();
 
   // node_modules/@sentry/core/esm/integrations/inboundfilters.js
   var DEFAULT_IGNORE_ERRORS = [/^Script error\.?$/, /^Javascript error: Script error\.? on line 0$/];
+  var DEFAULT_IGNORE_TRANSACTIONS = [
+    /^.*healthcheck.*$/,
+    /^.*healthy.*$/,
+    /^.*live.*$/,
+    /^.*ready.*$/,
+    /^.*heartbeat.*$/,
+    /^.*\/health$/,
+    /^.*\/healthz$/
+  ];
   var InboundFilters = class {
     static __initStatic() {
       this.id = "InboundFilters";
     }
-    __init() {
+    constructor(options = {}) {
       this.name = InboundFilters.id;
-    }
-    constructor(_options = {}) {
-      this._options = _options;
-      InboundFilters.prototype.__init.call(this);
+      this._options = options;
     }
     setupOnce(addGlobalEventProcessor2, getCurrentHub2) {
       const eventProcess = (event) => {
@@ -3227,7 +4332,12 @@ Reason: ${reason}`
       ignoreErrors: [
         ...internalOptions.ignoreErrors || [],
         ...clientOptions.ignoreErrors || [],
-        ...DEFAULT_IGNORE_ERRORS
+        ...internalOptions.disableErrorDefaults ? [] : DEFAULT_IGNORE_ERRORS
+      ],
+      ignoreTransactions: [
+        ...internalOptions.ignoreTransactions || [],
+        ...clientOptions.ignoreTransactions || [],
+        ...internalOptions.disableTransactionDefaults ? [] : DEFAULT_IGNORE_TRANSACTIONS
       ],
       ignoreInternal: internalOptions.ignoreInternal !== void 0 ? internalOptions.ignoreInternal : true
     };
@@ -3241,6 +4351,13 @@ Event: ${getEventDescription(event)}`);
     if (_isIgnoredError(event, options.ignoreErrors)) {
       (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
         `Event dropped due to being matched by \`ignoreErrors\` option.
+Event: ${getEventDescription(event)}`
+      );
+      return true;
+    }
+    if (_isIgnoredTransaction(event, options.ignoreTransactions)) {
+      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
+        `Event dropped due to being matched by \`ignoreTransactions\` option.
 Event: ${getEventDescription(event)}`
       );
       return true;
@@ -3268,10 +4385,17 @@ Url: ${_getEventFilterUrl(event)}`
     return false;
   }
   function _isIgnoredError(event, ignoreErrors) {
-    if (!ignoreErrors || !ignoreErrors.length) {
+    if (event.type || !ignoreErrors || !ignoreErrors.length) {
       return false;
     }
     return _getPossibleEventMessages(event).some((message) => stringMatchesSomePattern(message, ignoreErrors));
+  }
+  function _isIgnoredTransaction(event, ignoreTransactions) {
+    if (event.type !== "transaction" || !ignoreTransactions || !ignoreTransactions.length) {
+      return false;
+    }
+    const name = event.transaction;
+    return name ? stringMatchesSomePattern(name, ignoreTransactions) : false;
   }
   function _isDeniedUrl(event, denyUrls) {
     if (!denyUrls || !denyUrls.length) {
@@ -3288,30 +4412,38 @@ Url: ${_getEventFilterUrl(event)}`
     return !url ? true : stringMatchesSomePattern(url, allowUrls);
   }
   function _getPossibleEventMessages(event) {
+    const possibleMessages = [];
     if (event.message) {
-      return [event.message];
+      possibleMessages.push(event.message);
     }
-    if (event.exception) {
-      try {
-        const { type = "", value = "" } = event.exception.values && event.exception.values[0] || {};
-        return [`${value}`, `${type}: ${value}`];
-      } catch (oO) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error(`Cannot extract message for event ${getEventDescription(event)}`);
-        return [];
+    let lastException;
+    try {
+      lastException = event.exception.values[event.exception.values.length - 1];
+    } catch (e) {
+    }
+    if (lastException) {
+      if (lastException.value) {
+        possibleMessages.push(lastException.value);
+        if (lastException.type) {
+          possibleMessages.push(`${lastException.type}: ${lastException.value}`);
+        }
       }
     }
-    return [];
+    if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && possibleMessages.length === 0) {
+      logger.error(`Could not extract message for event ${getEventDescription(event)}`);
+    }
+    return possibleMessages;
   }
   function _isSentryError(event) {
     try {
       return event.exception.values[0].type === "SentryError";
-    } catch (e2) {
+    } catch (e) {
     }
     return false;
   }
   function _getLastValidUrl(frames = []) {
-    for (let i3 = frames.length - 1; i3 >= 0; i3--) {
-      const frame = frames[i3];
+    for (let i = frames.length - 1; i >= 0; i--) {
+      const frame = frames[i];
       if (frame && frame.filename !== "<anonymous>" && frame.filename !== "[native code]") {
         return frame.filename || null;
       }
@@ -3323,7 +4455,7 @@ Url: ${_getEventFilterUrl(event)}`
       let frames;
       try {
         frames = event.exception.values[0].stacktrace.frames;
-      } catch (e2) {
+      } catch (e) {
       }
       return frames ? _getLastValidUrl(frames) : null;
     } catch (oO) {
@@ -3333,7 +4465,7 @@ Url: ${_getEventFilterUrl(event)}`
   }
 
   // node_modules/@sentry/browser/esm/helpers.js
-  var WINDOW5 = GLOBAL_OBJ;
+  var WINDOW6 = GLOBAL_OBJ;
   var ignoreOnError = 0;
   function shouldIgnoreOnError() {
     return ignoreOnError > 0;
@@ -3356,7 +4488,7 @@ Url: ${_getEventFilterUrl(event)}`
       if (getOriginalFunction(fn)) {
         return fn;
       }
-    } catch (e2) {
+    } catch (e) {
       return fn;
     }
     const sentryWrapped = function() {
@@ -3434,7 +4566,7 @@ Url: ${_getEventFilterUrl(event)}`
         values: [
           {
             type: isEvent(exception) ? exception.constructor.name : isUnhandledRejection ? "UnhandledRejection" : "Error",
-            value: `Non-Error ${isUnhandledRejection ? "promise rejection" : "exception"} captured with keys: ${extractExceptionKeysForMessage(exception)}`
+            value: getNonErrorObjectExceptionValue(exception, { isUnhandledRejection })
           }
         ]
       },
@@ -3462,7 +4594,7 @@ Url: ${_getEventFilterUrl(event)}`
     const popSize = getPopSize(ex);
     try {
       return stackParser(stacktrace, popSize);
-    } catch (e2) {
+    } catch (e) {
     }
     return [];
   }
@@ -3560,217 +4692,57 @@ Url: ${_getEventFilterUrl(event)}`
     }
     return event;
   }
+  function getNonErrorObjectExceptionValue(exception, { isUnhandledRejection }) {
+    const keys = extractExceptionKeysForMessage(exception);
+    const captureType = isUnhandledRejection ? "promise rejection" : "exception";
+    if (isErrorEvent(exception)) {
+      return `Event \`ErrorEvent\` captured as ${captureType} with message \`${exception.message}\``;
+    }
+    if (isEvent(exception)) {
+      const className = getObjectClassName(exception);
+      return `Event \`${className}\` (type=${exception.type}) captured as ${captureType}`;
+    }
+    return `Object captured as ${captureType} with keys: ${keys}`;
+  }
+  function getObjectClassName(obj) {
+    try {
+      const prototype = Object.getPrototypeOf(obj);
+      return prototype ? prototype.constructor.name : void 0;
+    } catch (e) {
+    }
+  }
 
-  // node_modules/@sentry/browser/esm/integrations/breadcrumbs.js
-  var MAX_ALLOWED_STRING_LENGTH = 1024;
-  var BREADCRUMB_INTEGRATION_ID = "Breadcrumbs";
-  var Breadcrumbs = class {
-    static __initStatic() {
-      this.id = BREADCRUMB_INTEGRATION_ID;
-    }
-    __init() {
-      this.name = Breadcrumbs.id;
-    }
-    constructor(options) {
-      Breadcrumbs.prototype.__init.call(this);
-      this.options = {
-        console: true,
-        dom: true,
-        fetch: true,
-        history: true,
-        sentry: true,
-        xhr: true,
-        ...options
-      };
-    }
-    setupOnce() {
-      if (this.options.console) {
-        addInstrumentationHandler("console", _consoleBreadcrumb);
-      }
-      if (this.options.dom) {
-        addInstrumentationHandler("dom", _domBreadcrumb(this.options.dom));
-      }
-      if (this.options.xhr) {
-        addInstrumentationHandler("xhr", _xhrBreadcrumb);
-      }
-      if (this.options.fetch) {
-        addInstrumentationHandler("fetch", _fetchBreadcrumb);
-      }
-      if (this.options.history) {
-        addInstrumentationHandler("history", _historyBreadcrumb);
-      }
-    }
-    addSentryBreadcrumb(event) {
-      if (this.options.sentry) {
-        getCurrentHub().addBreadcrumb(
-          {
-            category: `sentry.${event.type === "transaction" ? "transaction" : "event"}`,
-            event_id: event.event_id,
-            level: event.level,
-            message: getEventDescription(event)
-          },
-          {
-            event
-          }
-        );
-      }
-    }
-  };
-  Breadcrumbs.__initStatic();
-  function _domBreadcrumb(dom) {
-    function _innerDomBreadcrumb(handlerData) {
-      let target;
-      let keyAttrs = typeof dom === "object" ? dom.serializeAttribute : void 0;
-      let maxStringLength = typeof dom === "object" && typeof dom.maxStringLength === "number" ? dom.maxStringLength : void 0;
-      if (maxStringLength && maxStringLength > MAX_ALLOWED_STRING_LENGTH) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
-          `\`dom.maxStringLength\` cannot exceed ${MAX_ALLOWED_STRING_LENGTH}, but a value of ${maxStringLength} was configured. Sentry will use ${MAX_ALLOWED_STRING_LENGTH} instead.`
-        );
-        maxStringLength = MAX_ALLOWED_STRING_LENGTH;
-      }
-      if (typeof keyAttrs === "string") {
-        keyAttrs = [keyAttrs];
-      }
-      try {
-        target = handlerData.event.target ? htmlTreeAsString(handlerData.event.target, { keyAttrs, maxStringLength }) : htmlTreeAsString(handlerData.event, { keyAttrs, maxStringLength });
-      } catch (e2) {
-        target = "<unknown>";
-      }
-      if (target.length === 0) {
-        return;
-      }
-      getCurrentHub().addBreadcrumb(
-        {
-          category: `ui.${handlerData.name}`,
-          message: target
-        },
-        {
-          event: handlerData.event,
-          name: handlerData.name,
-          global: handlerData.global
+  // node_modules/@sentry/browser/esm/userfeedback.js
+  function createUserFeedbackEnvelope(feedback, {
+    metadata,
+    tunnel,
+    dsn
+  }) {
+    const headers = {
+      event_id: feedback.event_id,
+      sent_at: new Date().toISOString(),
+      ...metadata && metadata.sdk && {
+        sdk: {
+          name: metadata.sdk.name,
+          version: metadata.sdk.version
         }
-      );
-    }
-    return _innerDomBreadcrumb;
-  }
-  function _consoleBreadcrumb(handlerData) {
-    for (let i3 = 0; i3 < handlerData.args.length; i3++) {
-      if (handlerData.args[i3] === "ref=Ref<") {
-        handlerData.args[i3 + 1] = "viewRef";
-        break;
-      }
-    }
-    const breadcrumb = {
-      category: "console",
-      data: {
-        arguments: handlerData.args,
-        logger: "console"
       },
-      level: severityLevelFromString(handlerData.level),
-      message: safeJoin(handlerData.args, " ")
+      ...!!tunnel && !!dsn && { dsn: dsnToString(dsn) }
     };
-    if (handlerData.level === "assert") {
-      if (handlerData.args[0] === false) {
-        breadcrumb.message = `Assertion failed: ${safeJoin(handlerData.args.slice(1), " ") || "console.assert"}`;
-        breadcrumb.data.arguments = handlerData.args.slice(1);
-      } else {
-        return;
-      }
-    }
-    getCurrentHub().addBreadcrumb(breadcrumb, {
-      input: handlerData.args,
-      level: handlerData.level
-    });
+    const item = createUserFeedbackEnvelopeItem(feedback);
+    return createEnvelope(headers, [item]);
   }
-  function _xhrBreadcrumb(handlerData) {
-    if (handlerData.endTimestamp) {
-      if (handlerData.xhr.__sentry_own_request__) {
-        return;
-      }
-      const { method, url, status_code, body: body2 } = handlerData.xhr.__sentry_xhr__ || {};
-      getCurrentHub().addBreadcrumb(
-        {
-          category: "xhr",
-          data: {
-            method,
-            url,
-            status_code
-          },
-          type: "http"
-        },
-        {
-          xhr: handlerData.xhr,
-          input: body2
-        }
-      );
-      return;
-    }
-  }
-  function _fetchBreadcrumb(handlerData) {
-    if (!handlerData.endTimestamp) {
-      return;
-    }
-    if (handlerData.fetchData.url.match(/sentry_key/) && handlerData.fetchData.method === "POST") {
-      return;
-    }
-    if (handlerData.error) {
-      getCurrentHub().addBreadcrumb(
-        {
-          category: "fetch",
-          data: handlerData.fetchData,
-          level: "error",
-          type: "http"
-        },
-        {
-          data: handlerData.error,
-          input: handlerData.args
-        }
-      );
-    } else {
-      getCurrentHub().addBreadcrumb(
-        {
-          category: "fetch",
-          data: {
-            ...handlerData.fetchData,
-            status_code: handlerData.response.status
-          },
-          type: "http"
-        },
-        {
-          input: handlerData.args,
-          response: handlerData.response
-        }
-      );
-    }
-  }
-  function _historyBreadcrumb(handlerData) {
-    let from = handlerData.from;
-    let to = handlerData.to;
-    const parsedLoc = parseUrl(WINDOW5.location.href);
-    let parsedFrom = parseUrl(from);
-    const parsedTo = parseUrl(to);
-    if (!parsedFrom.path) {
-      parsedFrom = parsedLoc;
-    }
-    if (parsedLoc.protocol === parsedTo.protocol && parsedLoc.host === parsedTo.host) {
-      to = parsedTo.relative;
-    }
-    if (parsedLoc.protocol === parsedFrom.protocol && parsedLoc.host === parsedFrom.host) {
-      from = parsedFrom.relative;
-    }
-    getCurrentHub().addBreadcrumb({
-      category: "navigation",
-      data: {
-        from,
-        to
-      }
-    });
+  function createUserFeedbackEnvelopeItem(feedback) {
+    const feedbackHeaders = {
+      type: "user_report"
+    };
+    return [feedbackHeaders, feedback];
   }
 
   // node_modules/@sentry/browser/esm/client.js
   var BrowserClient = class extends BaseClient {
     constructor(options) {
-      const sdkSource = WINDOW5.SENTRY_SDK_SOURCE || getSDKSource();
+      const sdkSource = WINDOW6.SENTRY_SDK_SOURCE || getSDKSource();
       options._metadata = options._metadata || {};
       options._metadata.sdk = options._metadata.sdk || {
         name: "sentry.javascript.browser",
@@ -3783,9 +4755,9 @@ Url: ${_getEventFilterUrl(event)}`
         version: SDK_VERSION
       };
       super(options);
-      if (options.sendClientReports && WINDOW5.document) {
-        WINDOW5.document.addEventListener("visibilitychange", () => {
-          if (WINDOW5.document.visibilityState === "hidden") {
+      if (options.sendClientReports && WINDOW6.document) {
+        WINDOW6.document.addEventListener("visibilitychange", () => {
+          if (WINDOW6.document.visibilityState === "hidden") {
             this._flushOutcomes();
           }
         });
@@ -3797,12 +4769,17 @@ Url: ${_getEventFilterUrl(event)}`
     eventFromMessage(message, level = "info", hint) {
       return eventFromMessage(this._options.stackParser, message, level, hint, this._options.attachStacktrace);
     }
-    sendEvent(event, hint) {
-      const breadcrumbIntegration = this.getIntegrationById(BREADCRUMB_INTEGRATION_ID);
-      if (breadcrumbIntegration && breadcrumbIntegration.addSentryBreadcrumb) {
-        breadcrumbIntegration.addSentryBreadcrumb(event);
+    captureUserFeedback(feedback) {
+      if (!this._isEnabled()) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("SDK not enabled, will not capture user feedback.");
+        return;
       }
-      super.sendEvent(event, hint);
+      const envelope = createUserFeedbackEnvelope(feedback, {
+        metadata: this.getSdkMetadata(),
+        dsn: this.getDsn(),
+        tunnel: this.getOptions().tunnel
+      });
+      void this._sendEnvelope(envelope);
     }
     _prepareEvent(event, hint, scope) {
       event.platform = event.platform || "javascript";
@@ -3819,20 +4796,8 @@ Url: ${_getEventFilterUrl(event)}`
         return;
       }
       (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("Sending outcomes:", outcomes);
-      const url = getEnvelopeEndpointWithUrlEncodedAuth(this._dsn, this._options);
       const envelope = createClientReportEnvelope(outcomes, this._options.tunnel && dsnToString(this._dsn));
-      try {
-        const isRealNavigator = Object.prototype.toString.call(WINDOW5 && WINDOW5.navigator) === "[object Navigator]";
-        const hasSendBeacon = isRealNavigator && typeof WINDOW5.navigator.sendBeacon === "function";
-        if (hasSendBeacon && !this._options.transportOptions) {
-          const sendBeacon = WINDOW5.navigator.sendBeacon.bind(WINDOW5.navigator);
-          sendBeacon(url, serializeEnvelope(envelope));
-        } else {
-          this._sendEnvelope(envelope);
-        }
-      } catch (e2) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error(e2);
-      }
+      void this._sendEnvelope(envelope);
     }
   };
 
@@ -3842,11 +4807,11 @@ Url: ${_getEventFilterUrl(event)}`
     if (cachedFetchImpl) {
       return cachedFetchImpl;
     }
-    if (isNativeFetch(WINDOW5.fetch)) {
-      return cachedFetchImpl = WINDOW5.fetch.bind(WINDOW5);
+    if (isNativeFetch(WINDOW6.fetch)) {
+      return cachedFetchImpl = WINDOW6.fetch.bind(WINDOW6);
     }
-    const document2 = WINDOW5.document;
-    let fetchImpl = WINDOW5.fetch;
+    const document2 = WINDOW6.document;
+    let fetchImpl = WINDOW6.fetch;
     if (document2 && typeof document2.createElement === "function") {
       try {
         const sandbox = document2.createElement("iframe");
@@ -3857,11 +4822,11 @@ Url: ${_getEventFilterUrl(event)}`
           fetchImpl = contentWindow.fetch;
         }
         document2.head.removeChild(sandbox);
-      } catch (e2) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Could not create sandbox iframe for pure fetch check, bailing to window.fetch: ", e2);
+      } catch (e) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Could not create sandbox iframe for pure fetch check, bailing to window.fetch: ", e);
       }
     }
-    return cachedFetchImpl = fetchImpl.bind(WINDOW5);
+    return cachedFetchImpl = fetchImpl.bind(WINDOW6);
   }
   function clearCachedFetchImplementation() {
     cachedFetchImpl = void 0;
@@ -3869,26 +4834,37 @@ Url: ${_getEventFilterUrl(event)}`
 
   // node_modules/@sentry/browser/esm/transports/fetch.js
   function makeFetchTransport(options, nativeFetch = getNativeFetchImplementation()) {
+    let pendingBodySize = 0;
+    let pendingCount = 0;
     function makeRequest(request) {
+      const requestSize = request.body.length;
+      pendingBodySize += requestSize;
+      pendingCount++;
       const requestOptions = {
         body: request.body,
         method: "POST",
         referrerPolicy: "origin",
         headers: options.headers,
-        keepalive: request.body.length <= 65536,
+        keepalive: pendingBodySize <= 6e4 && pendingCount < 15,
         ...options.fetchOptions
       };
       try {
-        return nativeFetch(options.url, requestOptions).then((response) => ({
-          statusCode: response.status,
-          headers: {
-            "x-sentry-rate-limits": response.headers.get("X-Sentry-Rate-Limits"),
-            "retry-after": response.headers.get("Retry-After")
-          }
-        }));
-      } catch (e2) {
+        return nativeFetch(options.url, requestOptions).then((response) => {
+          pendingBodySize -= requestSize;
+          pendingCount--;
+          return {
+            statusCode: response.status,
+            headers: {
+              "x-sentry-rate-limits": response.headers.get("X-Sentry-Rate-Limits"),
+              "retry-after": response.headers.get("Retry-After")
+            }
+          };
+        });
+      } catch (e) {
         clearCachedFetchImplementation();
-        return rejectedSyncPromise(e2);
+        pendingBodySize -= requestSize;
+        pendingCount--;
+        return rejectedSyncPromise(e);
       }
     }
     return createTransport(options, makeRequest);
@@ -3932,7 +4908,6 @@ Url: ${_getEventFilterUrl(event)}`
   function createFrame(filename, func, lineno, colno) {
     const frame = {
       filename,
-      abs_path: filename,
       function: func,
       in_app: true
     };
@@ -3944,7 +4919,7 @@ Url: ${_getEventFilterUrl(event)}`
     }
     return frame;
   }
-  var chromeRegex = /^\s*at (?:(.*\).*?|.*?) ?\((?:address at )?)?(?:async )?((?:file|https?|blob|chrome-extension|address|native|eval|webpack|<anonymous>|[-a-z]+:|.*bundle|\/)?.*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i;
+  var chromeRegex = /^\s*at (?:(.+?\)(?: \[.+\])?|.*?) ?\((?:address at )?)?(?:async )?((?:<anonymous>|[-a-z]+:|.*bundle|\/)?.*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i;
   var chromeEvalRegex = /\((\S*)(?::(\d+))(?::(\d+))\)/;
   var chrome2 = (line) => {
     const parts = chromeRegex.exec(line);
@@ -3964,7 +4939,7 @@ Url: ${_getEventFilterUrl(event)}`
     return;
   };
   var chromeStackLineParser = [CHROME_PRIORITY, chrome2];
-  var geckoREgex = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)?((?:file|https?|blob|chrome|webpack|resource|moz-extension|safari-extension|safari-web-extension|capacitor)?:\/.*?|\[native code\]|[^@]*(?:bundle|\d+\.js)|\/[\w\-. /=]+)(?::(\d+))?(?::(\d+))?\s*$/i;
+  var geckoREgex = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)?((?:[-a-z]+)?:\/.*?|\[native code\]|[^@]*(?:bundle|\d+\.js)|\/[\w\-. /=]+)(?::(\d+))?(?::(\d+))?\s*$/i;
   var geckoEvalRegex = /(\S+) line (\d+)(?: > eval line \d+)* > eval/i;
   var gecko = (line) => {
     const parts = geckoREgex.exec(line);
@@ -3987,7 +4962,7 @@ Url: ${_getEventFilterUrl(event)}`
     return;
   };
   var geckoStackLineParser = [GECKO_PRIORITY, gecko];
-  var winjsRegex = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:file|ms-appx|https?|webpack|blob):.*?):(\d+)(?::(\d+))?\)?\s*$/i;
+  var winjsRegex = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:[-a-z]+):.*?):(\d+)(?::(\d+))?\)?\s*$/i;
   var winjs = (line) => {
     const parts = winjsRegex.exec(line);
     return parts ? createFrame(parts[2], parts[1] || UNKNOWN_FUNCTION, +parts[3], parts[4] ? +parts[4] : void 0) : void 0;
@@ -4009,22 +4984,16 @@ Url: ${_getEventFilterUrl(event)}`
     static __initStatic() {
       this.id = "GlobalHandlers";
     }
-    __init() {
-      this.name = GlobalHandlers.id;
-    }
-    __init2() {
-      this._installFunc = {
-        onerror: _installGlobalOnErrorHandler,
-        onunhandledrejection: _installGlobalOnUnhandledRejectionHandler
-      };
-    }
     constructor(options) {
-      GlobalHandlers.prototype.__init.call(this);
-      GlobalHandlers.prototype.__init2.call(this);
+      this.name = GlobalHandlers.id;
       this._options = {
         onerror: true,
         onunhandledrejection: true,
         ...options
+      };
+      this._installFunc = {
+        onerror: _installGlobalOnErrorHandler,
+        onunhandledrejection: _installGlobalOnUnhandledRejectionHandler
       };
     }
     setupOnce() {
@@ -4067,17 +5036,17 @@ Url: ${_getEventFilterUrl(event)}`
   function _installGlobalOnUnhandledRejectionHandler() {
     addInstrumentationHandler(
       "unhandledrejection",
-      (e2) => {
+      (e) => {
         const [hub, stackParser, attachStacktrace] = getHubAndOptions();
         if (!hub.getIntegration(GlobalHandlers)) {
           return;
         }
-        let error = e2;
+        let error = e;
         try {
-          if ("reason" in e2) {
-            error = e2.reason;
-          } else if ("detail" in e2 && "reason" in e2.detail) {
-            error = e2.detail.reason;
+          if ("reason" in e) {
+            error = e.reason;
+          } else if ("detail" in e && "reason" in e.detail) {
+            error = e.detail.reason;
           }
         } catch (_oO) {
         }
@@ -4125,8 +5094,8 @@ Url: ${_getEventFilterUrl(event)}`
     return _enhanceEventWithInitialFrame(event, url, line, column);
   }
   function _enhanceEventWithInitialFrame(event, url, line, column) {
-    const e2 = event.exception = event.exception || {};
-    const ev = e2.values = e2.values || [];
+    const e = event.exception = event.exception || {};
+    const ev = e.values = e.values || [];
     const ev0 = ev[0] = ev[0] || {};
     const ev0s = ev0.stacktrace = ev0.stacktrace || {};
     const ev0sf = ev0s.frames = ev0s.frames || [];
@@ -4173,6 +5142,7 @@ Url: ${_getEventFilterUrl(event)}`
     "Node",
     "ApplicationCache",
     "AudioTrackList",
+    "BroadcastChannel",
     "ChannelMergerNode",
     "CryptoOperation",
     "EventSource",
@@ -4188,6 +5158,7 @@ Url: ${_getEventFilterUrl(event)}`
     "Notification",
     "SVGElementInstance",
     "Screen",
+    "SharedWorker",
     "TextTrack",
     "TextTrackCue",
     "TextTrackList",
@@ -4202,11 +5173,8 @@ Url: ${_getEventFilterUrl(event)}`
     static __initStatic() {
       this.id = "TryCatch";
     }
-    __init() {
-      this.name = TryCatch.id;
-    }
     constructor(options) {
-      TryCatch.prototype.__init.call(this);
+      this.name = TryCatch.id;
       this._options = {
         XMLHttpRequest: true,
         eventTarget: true,
@@ -4218,15 +5186,15 @@ Url: ${_getEventFilterUrl(event)}`
     }
     setupOnce() {
       if (this._options.setTimeout) {
-        fill(WINDOW5, "setTimeout", _wrapTimeFunction);
+        fill(WINDOW6, "setTimeout", _wrapTimeFunction);
       }
       if (this._options.setInterval) {
-        fill(WINDOW5, "setInterval", _wrapTimeFunction);
+        fill(WINDOW6, "setInterval", _wrapTimeFunction);
       }
       if (this._options.requestAnimationFrame) {
-        fill(WINDOW5, "requestAnimationFrame", _wrapRAF);
+        fill(WINDOW6, "requestAnimationFrame", _wrapRAF);
       }
-      if (this._options.XMLHttpRequest && "XMLHttpRequest" in WINDOW5) {
+      if (this._options.XMLHttpRequest && "XMLHttpRequest" in WINDOW6) {
         fill(XMLHttpRequest.prototype, "send", _wrapXHR);
       }
       const eventTargetOption = this._options.eventTarget;
@@ -4243,7 +5211,7 @@ Url: ${_getEventFilterUrl(event)}`
       args[0] = wrap(originalCallback, {
         mechanism: {
           data: { function: getFunctionName(original) },
-          handled: true,
+          handled: false,
           type: "instrument"
         }
       });
@@ -4259,7 +5227,7 @@ Url: ${_getEventFilterUrl(event)}`
               function: "requestAnimationFrame",
               handler: getFunctionName(original)
             },
-            handled: true,
+            handled: false,
             type: "instrument"
           }
         })
@@ -4279,7 +5247,7 @@ Url: ${_getEventFilterUrl(event)}`
                   function: prop,
                   handler: getFunctionName(original)
                 },
-                handled: true,
+                handled: false,
                 type: "instrument"
               }
             };
@@ -4295,7 +5263,7 @@ Url: ${_getEventFilterUrl(event)}`
     };
   }
   function _wrapEventTarget(target) {
-    const globalObject = WINDOW5;
+    const globalObject = WINDOW6;
     const proto = globalObject[target] && globalObject[target].prototype;
     if (!proto || !proto.hasOwnProperty || !proto.hasOwnProperty("addEventListener")) {
       return;
@@ -4311,7 +5279,7 @@ Url: ${_getEventFilterUrl(event)}`
                   handler: getFunctionName(fn),
                   target
                 },
-                handled: true,
+                handled: false,
                 type: "instrument"
               }
             });
@@ -4327,7 +5295,7 @@ Url: ${_getEventFilterUrl(event)}`
                 handler: getFunctionName(fn),
                 target
               },
-              handled: true,
+              handled: false,
               type: "instrument"
             }
           }),
@@ -4346,12 +5314,226 @@ Url: ${_getEventFilterUrl(event)}`
             if (originalEventHandler) {
               originalRemoveEventListener.call(this, eventName, originalEventHandler, options);
             }
-          } catch (e2) {
+          } catch (e) {
           }
           return originalRemoveEventListener.call(this, eventName, wrappedEventHandler, options);
         };
       }
     );
+  }
+
+  // node_modules/@sentry/browser/esm/integrations/breadcrumbs.js
+  var MAX_ALLOWED_STRING_LENGTH = 1024;
+  var Breadcrumbs = class {
+    static __initStatic() {
+      this.id = "Breadcrumbs";
+    }
+    constructor(options) {
+      this.name = Breadcrumbs.id;
+      this.options = {
+        console: true,
+        dom: true,
+        fetch: true,
+        history: true,
+        sentry: true,
+        xhr: true,
+        ...options
+      };
+    }
+    setupOnce() {
+      if (this.options.console) {
+        addInstrumentationHandler("console", _consoleBreadcrumb);
+      }
+      if (this.options.dom) {
+        addInstrumentationHandler("dom", _domBreadcrumb(this.options.dom));
+      }
+      if (this.options.xhr) {
+        addInstrumentationHandler("xhr", _xhrBreadcrumb);
+      }
+      if (this.options.fetch) {
+        addInstrumentationHandler("fetch", _fetchBreadcrumb);
+      }
+      if (this.options.history) {
+        addInstrumentationHandler("history", _historyBreadcrumb);
+      }
+      if (this.options.sentry) {
+        const client = getCurrentHub().getClient();
+        client && client.on && client.on("beforeSendEvent", addSentryBreadcrumb);
+      }
+    }
+  };
+  Breadcrumbs.__initStatic();
+  function addSentryBreadcrumb(event) {
+    getCurrentHub().addBreadcrumb(
+      {
+        category: `sentry.${event.type === "transaction" ? "transaction" : "event"}`,
+        event_id: event.event_id,
+        level: event.level,
+        message: getEventDescription(event)
+      },
+      {
+        event
+      }
+    );
+  }
+  function _domBreadcrumb(dom) {
+    function _innerDomBreadcrumb(handlerData) {
+      let target;
+      let keyAttrs = typeof dom === "object" ? dom.serializeAttribute : void 0;
+      let maxStringLength = typeof dom === "object" && typeof dom.maxStringLength === "number" ? dom.maxStringLength : void 0;
+      if (maxStringLength && maxStringLength > MAX_ALLOWED_STRING_LENGTH) {
+        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
+          `\`dom.maxStringLength\` cannot exceed ${MAX_ALLOWED_STRING_LENGTH}, but a value of ${maxStringLength} was configured. Sentry will use ${MAX_ALLOWED_STRING_LENGTH} instead.`
+        );
+        maxStringLength = MAX_ALLOWED_STRING_LENGTH;
+      }
+      if (typeof keyAttrs === "string") {
+        keyAttrs = [keyAttrs];
+      }
+      try {
+        const event = handlerData.event;
+        target = _isEvent(event) ? htmlTreeAsString(event.target, { keyAttrs, maxStringLength }) : htmlTreeAsString(event, { keyAttrs, maxStringLength });
+      } catch (e) {
+        target = "<unknown>";
+      }
+      if (target.length === 0) {
+        return;
+      }
+      getCurrentHub().addBreadcrumb(
+        {
+          category: `ui.${handlerData.name}`,
+          message: target
+        },
+        {
+          event: handlerData.event,
+          name: handlerData.name,
+          global: handlerData.global
+        }
+      );
+    }
+    return _innerDomBreadcrumb;
+  }
+  function _consoleBreadcrumb(handlerData) {
+    const breadcrumb = {
+      category: "console",
+      data: {
+        arguments: handlerData.args,
+        logger: "console"
+      },
+      level: severityLevelFromString(handlerData.level),
+      message: safeJoin(handlerData.args, " ")
+    };
+    if (handlerData.level === "assert") {
+      if (handlerData.args[0] === false) {
+        breadcrumb.message = `Assertion failed: ${safeJoin(handlerData.args.slice(1), " ") || "console.assert"}`;
+        breadcrumb.data.arguments = handlerData.args.slice(1);
+      } else {
+        return;
+      }
+    }
+    getCurrentHub().addBreadcrumb(breadcrumb, {
+      input: handlerData.args,
+      level: handlerData.level
+    });
+  }
+  function _xhrBreadcrumb(handlerData) {
+    const { startTimestamp, endTimestamp } = handlerData;
+    const sentryXhrData = handlerData.xhr[SENTRY_XHR_DATA_KEY];
+    if (!startTimestamp || !endTimestamp || !sentryXhrData) {
+      return;
+    }
+    const { method, url, status_code, body: body2 } = sentryXhrData;
+    const data = {
+      method,
+      url,
+      status_code
+    };
+    const hint = {
+      xhr: handlerData.xhr,
+      input: body2,
+      startTimestamp,
+      endTimestamp
+    };
+    getCurrentHub().addBreadcrumb(
+      {
+        category: "xhr",
+        data,
+        type: "http"
+      },
+      hint
+    );
+  }
+  function _fetchBreadcrumb(handlerData) {
+    const { startTimestamp, endTimestamp } = handlerData;
+    if (!endTimestamp) {
+      return;
+    }
+    if (handlerData.fetchData.url.match(/sentry_key/) && handlerData.fetchData.method === "POST") {
+      return;
+    }
+    if (handlerData.error) {
+      const data = handlerData.fetchData;
+      const hint = {
+        data: handlerData.error,
+        input: handlerData.args,
+        startTimestamp,
+        endTimestamp
+      };
+      getCurrentHub().addBreadcrumb(
+        {
+          category: "fetch",
+          data,
+          level: "error",
+          type: "http"
+        },
+        hint
+      );
+    } else {
+      const data = {
+        ...handlerData.fetchData,
+        status_code: handlerData.response && handlerData.response.status
+      };
+      const hint = {
+        input: handlerData.args,
+        response: handlerData.response,
+        startTimestamp,
+        endTimestamp
+      };
+      getCurrentHub().addBreadcrumb(
+        {
+          category: "fetch",
+          data,
+          type: "http"
+        },
+        hint
+      );
+    }
+  }
+  function _historyBreadcrumb(handlerData) {
+    let from = handlerData.from;
+    let to = handlerData.to;
+    const parsedLoc = parseUrl(WINDOW6.location.href);
+    let parsedFrom = parseUrl(from);
+    const parsedTo = parseUrl(to);
+    if (!parsedFrom.path) {
+      parsedFrom = parsedLoc;
+    }
+    if (parsedLoc.protocol === parsedTo.protocol && parsedLoc.host === parsedTo.host) {
+      to = parsedTo.relative;
+    }
+    if (parsedLoc.protocol === parsedFrom.protocol && parsedLoc.host === parsedFrom.host) {
+      from = parsedFrom.relative;
+    }
+    getCurrentHub().addBreadcrumb({
+      category: "navigation",
+      data: {
+        from,
+        to
+      }
+    });
+  }
+  function _isEvent(event) {
+    return !!event && !!event.target;
   }
 
   // node_modules/@sentry/browser/esm/integrations/linkederrors.js
@@ -4361,62 +5543,45 @@ Url: ${_getEventFilterUrl(event)}`
     static __initStatic() {
       this.id = "LinkedErrors";
     }
-    __init() {
-      this.name = LinkedErrors.id;
-    }
     constructor(options = {}) {
-      LinkedErrors.prototype.__init.call(this);
+      this.name = LinkedErrors.id;
       this._key = options.key || DEFAULT_KEY;
       this._limit = options.limit || DEFAULT_LIMIT;
     }
     setupOnce() {
-      const client = getCurrentHub().getClient();
-      if (!client) {
-        return;
-      }
-      addGlobalEventProcessor((event, hint) => {
-        const self2 = getCurrentHub().getIntegration(LinkedErrors);
-        return self2 ? _handler(client.getOptions().stackParser, self2._key, self2._limit, event, hint) : event;
-      });
+    }
+    preprocessEvent(event, hint, client) {
+      const options = client.getOptions();
+      applyAggregateErrorsToEvent(
+        exceptionFromError,
+        options.stackParser,
+        options.maxValueLength,
+        this._key,
+        this._limit,
+        event,
+        hint
+      );
     }
   };
   LinkedErrors.__initStatic();
-  function _handler(parser, key, limit, event, hint) {
-    if (!event.exception || !event.exception.values || !hint || !isInstanceOf(hint.originalException, Error)) {
-      return event;
-    }
-    const linkedErrors = _walkErrorTree(parser, limit, hint.originalException, key);
-    event.exception.values = [...linkedErrors, ...event.exception.values];
-    return event;
-  }
-  function _walkErrorTree(parser, limit, error, key, stack = []) {
-    if (!isInstanceOf(error[key], Error) || stack.length + 1 >= limit) {
-      return stack;
-    }
-    const exception = exceptionFromError(parser, error[key]);
-    return _walkErrorTree(parser, limit, error[key], key, [exception, ...stack]);
-  }
 
   // node_modules/@sentry/browser/esm/integrations/httpcontext.js
   var HttpContext = class {
-    constructor() {
-      HttpContext.prototype.__init.call(this);
-    }
     static __initStatic() {
       this.id = "HttpContext";
     }
-    __init() {
+    constructor() {
       this.name = HttpContext.id;
     }
     setupOnce() {
       addGlobalEventProcessor((event) => {
         if (getCurrentHub().getIntegration(HttpContext)) {
-          if (!WINDOW5.navigator && !WINDOW5.location && !WINDOW5.document) {
+          if (!WINDOW6.navigator && !WINDOW6.location && !WINDOW6.document) {
             return event;
           }
-          const url = event.request && event.request.url || WINDOW5.location && WINDOW5.location.href;
-          const { referrer } = WINDOW5.document || {};
-          const { userAgent } = WINDOW5.navigator || {};
+          const url = event.request && event.request.url || WINDOW6.location && WINDOW6.location.href;
+          const { referrer } = WINDOW6.document || {};
+          const { userAgent } = WINDOW6.navigator || {};
           const headers = {
             ...event.request && event.request.headers,
             ...referrer && { Referer: referrer },
@@ -4433,13 +5598,10 @@ Url: ${_getEventFilterUrl(event)}`
 
   // node_modules/@sentry/browser/esm/integrations/dedupe.js
   var Dedupe = class {
-    constructor() {
-      Dedupe.prototype.__init.call(this);
-    }
     static __initStatic() {
       this.id = "Dedupe";
     }
-    __init() {
+    constructor() {
       this.name = Dedupe.id;
     }
     setupOnce(addGlobalEventProcessor2, getCurrentHub2) {
@@ -4529,9 +5691,9 @@ Url: ${_getEventFilterUrl(event)}`
     if (previousFrames.length !== currentFrames.length) {
       return false;
     }
-    for (let i3 = 0; i3 < previousFrames.length; i3++) {
-      const frameA = previousFrames[i3];
-      const frameB = currentFrames[i3];
+    for (let i = 0; i < previousFrames.length; i++) {
+      const frameA = previousFrames[i];
+      const frameB = currentFrames[i];
       if (frameA.filename !== frameB.filename || frameA.lineno !== frameB.lineno || frameA.colno !== frameB.colno || frameA.function !== frameB.function) {
         return false;
       }
@@ -4589,8 +5751,8 @@ Url: ${_getEventFilterUrl(event)}`
       if (typeof __SENTRY_RELEASE__ === "string") {
         options.release = __SENTRY_RELEASE__;
       }
-      if (WINDOW5.SENTRY_RELEASE && WINDOW5.SENTRY_RELEASE.id) {
-        options.release = WINDOW5.SENTRY_RELEASE.id;
+      if (WINDOW6.SENTRY_RELEASE && WINDOW6.SENTRY_RELEASE.id) {
+        options.release = WINDOW6.SENTRY_RELEASE.id;
       }
     }
     if (options.autoSessionTracking === void 0) {
@@ -4615,7 +5777,7 @@ Url: ${_getEventFilterUrl(event)}`
     hub.captureSession();
   }
   function startSessionTracking() {
-    if (typeof WINDOW5.document === "undefined") {
+    if (typeof WINDOW6.document === "undefined") {
       (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Session tracking in non-browser environment with @sentry/browser is not supported.");
       return;
     }
@@ -4642,808 +5804,15 @@ Url: ${_getEventFilterUrl(event)}`
     TryCatch: () => TryCatch
   });
 
-  // node_modules/@sentry/browser/esm/index.js
-  var windowIntegrations = {};
-  if (WINDOW5.Sentry && WINDOW5.Sentry.Integrations) {
-    windowIntegrations = WINDOW5.Sentry.Integrations;
-  }
-  var INTEGRATIONS = {
-    ...windowIntegrations,
-    ...integrations_exports,
-    ...integrations_exports2
-  };
+  // node_modules/@sentry-internal/tracing/esm/browser/types.js
+  var WINDOW7 = GLOBAL_OBJ;
 
-  // node_modules/@sentry/tracing/esm/utils.js
-  function hasTracingEnabled(maybeOptions) {
-    const client = getCurrentHub().getClient();
-    const options = maybeOptions || client && client.getOptions();
-    return !!options && ("tracesSampleRate" in options || "tracesSampler" in options);
-  }
-  function getActiveTransaction(maybeHub) {
-    const hub = maybeHub || getCurrentHub();
-    const scope = hub.getScope();
-    return scope && scope.getTransaction();
-  }
-  function msToSec(time) {
-    return time / 1e3;
-  }
-
-  // node_modules/@sentry/tracing/esm/errors.js
-  function registerErrorInstrumentation() {
-    addInstrumentationHandler("error", errorCallback);
-    addInstrumentationHandler("unhandledrejection", errorCallback);
-  }
-  function errorCallback() {
-    const activeTransaction = getActiveTransaction();
-    if (activeTransaction) {
-      const status = "internal_error";
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Transaction: ${status} -> Global error occured`);
-      activeTransaction.setStatus(status);
-    }
-  }
-
-  // node_modules/@sentry/tracing/esm/span.js
-  var SpanRecorder = class {
-    __init() {
-      this.spans = [];
-    }
-    constructor(maxlen = 1e3) {
-      SpanRecorder.prototype.__init.call(this);
-      this._maxlen = maxlen;
-    }
-    add(span) {
-      if (this.spans.length > this._maxlen) {
-        span.spanRecorder = void 0;
-      } else {
-        this.spans.push(span);
-      }
-    }
-  };
-  var Span = class {
-    __init2() {
-      this.traceId = uuid4();
-    }
-    __init3() {
-      this.spanId = uuid4().substring(16);
-    }
-    __init4() {
-      this.startTimestamp = timestampWithMs();
-    }
-    __init5() {
-      this.tags = {};
-    }
-    __init6() {
-      this.data = {};
-    }
-    __init7() {
-      this.instrumenter = "sentry";
-    }
-    constructor(spanContext) {
-      Span.prototype.__init2.call(this);
-      Span.prototype.__init3.call(this);
-      Span.prototype.__init4.call(this);
-      Span.prototype.__init5.call(this);
-      Span.prototype.__init6.call(this);
-      Span.prototype.__init7.call(this);
-      if (!spanContext) {
-        return this;
-      }
-      if (spanContext.traceId) {
-        this.traceId = spanContext.traceId;
-      }
-      if (spanContext.spanId) {
-        this.spanId = spanContext.spanId;
-      }
-      if (spanContext.parentSpanId) {
-        this.parentSpanId = spanContext.parentSpanId;
-      }
-      if ("sampled" in spanContext) {
-        this.sampled = spanContext.sampled;
-      }
-      if (spanContext.op) {
-        this.op = spanContext.op;
-      }
-      if (spanContext.description) {
-        this.description = spanContext.description;
-      }
-      if (spanContext.data) {
-        this.data = spanContext.data;
-      }
-      if (spanContext.tags) {
-        this.tags = spanContext.tags;
-      }
-      if (spanContext.status) {
-        this.status = spanContext.status;
-      }
-      if (spanContext.startTimestamp) {
-        this.startTimestamp = spanContext.startTimestamp;
-      }
-      if (spanContext.endTimestamp) {
-        this.endTimestamp = spanContext.endTimestamp;
-      }
-      if (spanContext.instrumenter) {
-        this.instrumenter = spanContext.instrumenter;
-      }
-    }
-    startChild(spanContext) {
-      const childSpan = new Span({
-        ...spanContext,
-        parentSpanId: this.spanId,
-        sampled: this.sampled,
-        traceId: this.traceId
-      });
-      childSpan.spanRecorder = this.spanRecorder;
-      if (childSpan.spanRecorder) {
-        childSpan.spanRecorder.add(childSpan);
-      }
-      childSpan.transaction = this.transaction;
-      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && childSpan.transaction) {
-        const opStr = spanContext && spanContext.op || "< unknown op >";
-        const nameStr = childSpan.transaction.name || "< unknown name >";
-        const idStr = childSpan.transaction.spanId;
-        const logMessage = `[Tracing] Starting '${opStr}' span on transaction '${nameStr}' (${idStr}).`;
-        childSpan.transaction.metadata.spanMetadata[childSpan.spanId] = { logMessage };
-        logger.log(logMessage);
-      }
-      return childSpan;
-    }
-    setTag(key, value) {
-      this.tags = { ...this.tags, [key]: value };
-      return this;
-    }
-    setData(key, value) {
-      this.data = { ...this.data, [key]: value };
-      return this;
-    }
-    setStatus(value) {
-      this.status = value;
-      return this;
-    }
-    setHttpStatus(httpStatus) {
-      this.setTag("http.status_code", String(httpStatus));
-      const spanStatus = spanStatusfromHttpCode(httpStatus);
-      if (spanStatus !== "unknown_error") {
-        this.setStatus(spanStatus);
-      }
-      return this;
-    }
-    isSuccess() {
-      return this.status === "ok";
-    }
-    finish(endTimestamp) {
-      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && this.transaction && this.transaction.spanId !== this.spanId) {
-        const { logMessage } = this.transaction.metadata.spanMetadata[this.spanId];
-        if (logMessage) {
-          logger.log(logMessage.replace("Starting", "Finishing"));
-        }
-      }
-      this.endTimestamp = typeof endTimestamp === "number" ? endTimestamp : timestampWithMs();
-    }
-    toTraceparent() {
-      let sampledString = "";
-      if (this.sampled !== void 0) {
-        sampledString = this.sampled ? "-1" : "-0";
-      }
-      return `${this.traceId}-${this.spanId}${sampledString}`;
-    }
-    toContext() {
-      return dropUndefinedKeys({
-        data: this.data,
-        description: this.description,
-        endTimestamp: this.endTimestamp,
-        op: this.op,
-        parentSpanId: this.parentSpanId,
-        sampled: this.sampled,
-        spanId: this.spanId,
-        startTimestamp: this.startTimestamp,
-        status: this.status,
-        tags: this.tags,
-        traceId: this.traceId
-      });
-    }
-    updateWithContext(spanContext) {
-      this.data = spanContext.data || {};
-      this.description = spanContext.description;
-      this.endTimestamp = spanContext.endTimestamp;
-      this.op = spanContext.op;
-      this.parentSpanId = spanContext.parentSpanId;
-      this.sampled = spanContext.sampled;
-      this.spanId = spanContext.spanId || this.spanId;
-      this.startTimestamp = spanContext.startTimestamp || this.startTimestamp;
-      this.status = spanContext.status;
-      this.tags = spanContext.tags || {};
-      this.traceId = spanContext.traceId || this.traceId;
-      return this;
-    }
-    getTraceContext() {
-      return dropUndefinedKeys({
-        data: Object.keys(this.data).length > 0 ? this.data : void 0,
-        description: this.description,
-        op: this.op,
-        parent_span_id: this.parentSpanId,
-        span_id: this.spanId,
-        status: this.status,
-        tags: Object.keys(this.tags).length > 0 ? this.tags : void 0,
-        trace_id: this.traceId
-      });
-    }
-    toJSON() {
-      return dropUndefinedKeys({
-        data: Object.keys(this.data).length > 0 ? this.data : void 0,
-        description: this.description,
-        op: this.op,
-        parent_span_id: this.parentSpanId,
-        span_id: this.spanId,
-        start_timestamp: this.startTimestamp,
-        status: this.status,
-        tags: Object.keys(this.tags).length > 0 ? this.tags : void 0,
-        timestamp: this.endTimestamp,
-        trace_id: this.traceId
-      });
-    }
-  };
-  function spanStatusfromHttpCode(httpStatus) {
-    if (httpStatus < 400 && httpStatus >= 100) {
-      return "ok";
-    }
-    if (httpStatus >= 400 && httpStatus < 500) {
-      switch (httpStatus) {
-        case 401:
-          return "unauthenticated";
-        case 403:
-          return "permission_denied";
-        case 404:
-          return "not_found";
-        case 409:
-          return "already_exists";
-        case 413:
-          return "failed_precondition";
-        case 429:
-          return "resource_exhausted";
-        default:
-          return "invalid_argument";
-      }
-    }
-    if (httpStatus >= 500 && httpStatus < 600) {
-      switch (httpStatus) {
-        case 501:
-          return "unimplemented";
-        case 503:
-          return "unavailable";
-        case 504:
-          return "deadline_exceeded";
-        default:
-          return "internal_error";
-      }
-    }
-    return "unknown_error";
-  }
-
-  // node_modules/@sentry/tracing/esm/transaction.js
-  var Transaction = class extends Span {
-    __init() {
-      this._measurements = {};
-    }
-    __init2() {
-      this._contexts = {};
-    }
-    __init3() {
-      this._frozenDynamicSamplingContext = void 0;
-    }
-    constructor(transactionContext, hub) {
-      super(transactionContext);
-      Transaction.prototype.__init.call(this);
-      Transaction.prototype.__init2.call(this);
-      Transaction.prototype.__init3.call(this);
-      this._hub = hub || getCurrentHub();
-      this._name = transactionContext.name || "";
-      this.metadata = {
-        source: "custom",
-        ...transactionContext.metadata,
-        spanMetadata: {}
-      };
-      this._trimEnd = transactionContext.trimEnd;
-      this.transaction = this;
-      const incomingDynamicSamplingContext = this.metadata.dynamicSamplingContext;
-      if (incomingDynamicSamplingContext) {
-        this._frozenDynamicSamplingContext = { ...incomingDynamicSamplingContext };
-      }
-    }
-    get name() {
-      return this._name;
-    }
-    set name(newName) {
-      this.setName(newName);
-    }
-    setName(name, source = "custom") {
-      this._name = name;
-      this.metadata.source = source;
-    }
-    initSpanRecorder(maxlen = 1e3) {
-      if (!this.spanRecorder) {
-        this.spanRecorder = new SpanRecorder(maxlen);
-      }
-      this.spanRecorder.add(this);
-    }
-    setContext(key, context) {
-      if (context === null) {
-        delete this._contexts[key];
-      } else {
-        this._contexts[key] = context;
-      }
-    }
-    setMeasurement(name, value, unit = "") {
-      this._measurements[name] = { value, unit };
-    }
-    setMetadata(newMetadata) {
-      this.metadata = { ...this.metadata, ...newMetadata };
-    }
-    finish(endTimestamp) {
-      if (this.endTimestamp !== void 0) {
-        return void 0;
-      }
-      if (!this.name) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Transaction has no name, falling back to `<unlabeled transaction>`.");
-        this.name = "<unlabeled transaction>";
-      }
-      super.finish(endTimestamp);
-      if (this.sampled !== true) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] Discarding transaction because its trace was not chosen to be sampled.");
-        const client = this._hub.getClient();
-        if (client) {
-          client.recordDroppedEvent("sample_rate", "transaction");
-        }
-        return void 0;
-      }
-      const finishedSpans = this.spanRecorder ? this.spanRecorder.spans.filter((s3) => s3 !== this && s3.endTimestamp) : [];
-      if (this._trimEnd && finishedSpans.length > 0) {
-        this.endTimestamp = finishedSpans.reduce((prev, current) => {
-          if (prev.endTimestamp && current.endTimestamp) {
-            return prev.endTimestamp > current.endTimestamp ? prev : current;
-          }
-          return prev;
-        }).endTimestamp;
-      }
-      const metadata = this.metadata;
-      const transaction = {
-        contexts: {
-          ...this._contexts,
-          trace: this.getTraceContext()
-        },
-        spans: finishedSpans,
-        start_timestamp: this.startTimestamp,
-        tags: this.tags,
-        timestamp: this.endTimestamp,
-        transaction: this.name,
-        type: "transaction",
-        sdkProcessingMetadata: {
-          ...metadata,
-          dynamicSamplingContext: this.getDynamicSamplingContext()
-        },
-        ...metadata.source && {
-          transaction_info: {
-            source: metadata.source
-          }
-        }
-      };
-      const hasMeasurements = Object.keys(this._measurements).length > 0;
-      if (hasMeasurements) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
-          "[Measurements] Adding measurements to transaction",
-          JSON.stringify(this._measurements, void 0, 2)
-        );
-        transaction.measurements = this._measurements;
-      }
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Finishing ${this.op} transaction: ${this.name}.`);
-      return this._hub.captureEvent(transaction);
-    }
-    toContext() {
-      const spanContext = super.toContext();
-      return dropUndefinedKeys({
-        ...spanContext,
-        name: this.name,
-        trimEnd: this._trimEnd
-      });
-    }
-    updateWithContext(transactionContext) {
-      super.updateWithContext(transactionContext);
-      this.name = transactionContext.name || "";
-      this._trimEnd = transactionContext.trimEnd;
-      return this;
-    }
-    getDynamicSamplingContext() {
-      if (this._frozenDynamicSamplingContext) {
-        return this._frozenDynamicSamplingContext;
-      }
-      const hub = this._hub || getCurrentHub();
-      const client = hub && hub.getClient();
-      if (!client)
-        return {};
-      const { environment, release } = client.getOptions() || {};
-      const { publicKey: public_key } = client.getDsn() || {};
-      const maybeSampleRate = this.metadata.sampleRate;
-      const sample_rate = maybeSampleRate !== void 0 ? maybeSampleRate.toString() : void 0;
-      const scope = hub.getScope();
-      const { segment: user_segment } = scope && scope.getUser() || {};
-      const source = this.metadata.source;
-      const transaction = source && source !== "url" ? this.name : void 0;
-      const dsc = dropUndefinedKeys({
-        environment,
-        release,
-        transaction,
-        user_segment,
-        public_key,
-        trace_id: this.traceId,
-        sample_rate
-      });
-      return dsc;
-    }
-  };
-
-  // node_modules/@sentry/tracing/esm/idletransaction.js
-  var DEFAULT_IDLE_TIMEOUT = 1e3;
-  var DEFAULT_FINAL_TIMEOUT = 3e4;
-  var DEFAULT_HEARTBEAT_INTERVAL = 5e3;
-  var IdleTransactionSpanRecorder = class extends SpanRecorder {
-    constructor(_pushActivity, _popActivity, transactionSpanId, maxlen) {
-      super(maxlen);
-      this._pushActivity = _pushActivity;
-      this._popActivity = _popActivity;
-      this.transactionSpanId = transactionSpanId;
-    }
-    add(span) {
-      if (span.spanId !== this.transactionSpanId) {
-        span.finish = (endTimestamp) => {
-          span.endTimestamp = typeof endTimestamp === "number" ? endTimestamp : timestampWithMs();
-          this._popActivity(span.spanId);
-        };
-        if (span.endTimestamp === void 0) {
-          this._pushActivity(span.spanId);
-        }
-      }
-      super.add(span);
-    }
-  };
-  var IdleTransaction = class extends Transaction {
-    __init() {
-      this.activities = {};
-    }
-    __init2() {
-      this._heartbeatCounter = 0;
-    }
-    __init3() {
-      this._finished = false;
-    }
-    __init4() {
-      this._beforeFinishCallbacks = [];
-    }
-    constructor(transactionContext, _idleHub, _idleTimeout = DEFAULT_IDLE_TIMEOUT, _finalTimeout = DEFAULT_FINAL_TIMEOUT, _heartbeatInterval = DEFAULT_HEARTBEAT_INTERVAL, _onScope = false) {
-      super(transactionContext, _idleHub);
-      this._idleHub = _idleHub;
-      this._idleTimeout = _idleTimeout;
-      this._finalTimeout = _finalTimeout;
-      this._heartbeatInterval = _heartbeatInterval;
-      this._onScope = _onScope;
-      IdleTransaction.prototype.__init.call(this);
-      IdleTransaction.prototype.__init2.call(this);
-      IdleTransaction.prototype.__init3.call(this);
-      IdleTransaction.prototype.__init4.call(this);
-      if (_onScope) {
-        clearActiveTransaction(_idleHub);
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`Setting idle transaction on scope. Span ID: ${this.spanId}`);
-        _idleHub.configureScope((scope) => scope.setSpan(this));
-      }
-      this._startIdleTimeout();
-      setTimeout(() => {
-        if (!this._finished) {
-          this.setStatus("deadline_exceeded");
-          this.finish();
-        }
-      }, this._finalTimeout);
-    }
-    finish(endTimestamp = timestampWithMs()) {
-      this._finished = true;
-      this.activities = {};
-      if (this.spanRecorder) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] finishing IdleTransaction", new Date(endTimestamp * 1e3).toISOString(), this.op);
-        for (const callback of this._beforeFinishCallbacks) {
-          callback(this, endTimestamp);
-        }
-        this.spanRecorder.spans = this.spanRecorder.spans.filter((span) => {
-          if (span.spanId === this.spanId) {
-            return true;
-          }
-          if (!span.endTimestamp) {
-            span.endTimestamp = endTimestamp;
-            span.setStatus("cancelled");
-            (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] cancelling span since transaction ended early", JSON.stringify(span, void 0, 2));
-          }
-          const keepSpan = span.startTimestamp < endTimestamp;
-          if (!keepSpan) {
-            (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
-              "[Tracing] discarding Span since it happened after Transaction was finished",
-              JSON.stringify(span, void 0, 2)
-            );
-          }
-          return keepSpan;
-        });
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] flushing IdleTransaction");
-      } else {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] No active IdleTransaction");
-      }
-      if (this._onScope) {
-        clearActiveTransaction(this._idleHub);
-      }
-      return super.finish(endTimestamp);
-    }
-    registerBeforeFinishCallback(callback) {
-      this._beforeFinishCallbacks.push(callback);
-    }
-    initSpanRecorder(maxlen) {
-      if (!this.spanRecorder) {
-        const pushActivity = (id) => {
-          if (this._finished) {
-            return;
-          }
-          this._pushActivity(id);
-        };
-        const popActivity = (id) => {
-          if (this._finished) {
-            return;
-          }
-          this._popActivity(id);
-        };
-        this.spanRecorder = new IdleTransactionSpanRecorder(pushActivity, popActivity, this.spanId, maxlen);
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("Starting heartbeat");
-        this._pingHeartbeat();
-      }
-      this.spanRecorder.add(this);
-    }
-    _cancelIdleTimeout() {
-      if (this._idleTimeoutID) {
-        clearTimeout(this._idleTimeoutID);
-        this._idleTimeoutID = void 0;
-      }
-    }
-    _startIdleTimeout(endTimestamp) {
-      this._cancelIdleTimeout();
-      this._idleTimeoutID = setTimeout(() => {
-        if (!this._finished && Object.keys(this.activities).length === 0) {
-          this.finish(endTimestamp);
-        }
-      }, this._idleTimeout);
-    }
-    _pushActivity(spanId) {
-      this._cancelIdleTimeout();
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] pushActivity: ${spanId}`);
-      this.activities[spanId] = true;
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] new activities count", Object.keys(this.activities).length);
-    }
-    _popActivity(spanId) {
-      if (this.activities[spanId]) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] popActivity ${spanId}`);
-        delete this.activities[spanId];
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] new activities count", Object.keys(this.activities).length);
-      }
-      if (Object.keys(this.activities).length === 0) {
-        const endTimestamp = timestampWithMs() + this._idleTimeout / 1e3;
-        this._startIdleTimeout(endTimestamp);
-      }
-    }
-    _beat() {
-      if (this._finished) {
-        return;
-      }
-      const heartbeatString = Object.keys(this.activities).join("");
-      if (heartbeatString === this._prevHeartbeatString) {
-        this._heartbeatCounter++;
-      } else {
-        this._heartbeatCounter = 1;
-      }
-      this._prevHeartbeatString = heartbeatString;
-      if (this._heartbeatCounter >= 3) {
-        (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] Transaction finished because of no change for 3 heart beats");
-        this.setStatus("deadline_exceeded");
-        this.finish();
-      } else {
-        this._pingHeartbeat();
-      }
-    }
-    _pingHeartbeat() {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`pinging Heartbeat -> current counter: ${this._heartbeatCounter}`);
-      setTimeout(() => {
-        this._beat();
-      }, this._heartbeatInterval);
-    }
-  };
-  function clearActiveTransaction(hub) {
-    const scope = hub.getScope();
-    if (scope) {
-      const transaction = scope.getTransaction();
-      if (transaction) {
-        scope.setSpan(void 0);
-      }
-    }
-  }
-
-  // node_modules/@sentry/tracing/esm/hubextensions.js
-  function traceHeaders() {
-    const scope = this.getScope();
-    if (scope) {
-      const span = scope.getSpan();
-      if (span) {
-        return {
-          "sentry-trace": span.toTraceparent()
-        };
-      }
-    }
-    return {};
-  }
-  function sample(transaction, options, samplingContext) {
-    if (!hasTracingEnabled(options)) {
-      transaction.sampled = false;
-      return transaction;
-    }
-    if (transaction.sampled !== void 0) {
-      transaction.setMetadata({
-        sampleRate: Number(transaction.sampled)
-      });
-      return transaction;
-    }
-    let sampleRate;
-    if (typeof options.tracesSampler === "function") {
-      sampleRate = options.tracesSampler(samplingContext);
-      transaction.setMetadata({
-        sampleRate: Number(sampleRate)
-      });
-    } else if (samplingContext.parentSampled !== void 0) {
-      sampleRate = samplingContext.parentSampled;
-    } else {
-      sampleRate = options.tracesSampleRate;
-      transaction.setMetadata({
-        sampleRate: Number(sampleRate)
-      });
-    }
-    if (!isValidSampleRate(sampleRate)) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("[Tracing] Discarding transaction because of invalid sample rate.");
-      transaction.sampled = false;
-      return transaction;
-    }
-    if (!sampleRate) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
-        `[Tracing] Discarding transaction because ${typeof options.tracesSampler === "function" ? "tracesSampler returned 0 or false" : "a negative sampling decision was inherited or tracesSampleRate is set to 0"}`
-      );
-      transaction.sampled = false;
-      return transaction;
-    }
-    transaction.sampled = Math.random() < sampleRate;
-    if (!transaction.sampled) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
-        `[Tracing] Discarding transaction because it's not included in the random sample (sampling rate = ${Number(
-          sampleRate
-        )})`
-      );
-      return transaction;
-    }
-    (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] starting ${transaction.op} transaction - ${transaction.name}`);
-    return transaction;
-  }
-  function isValidSampleRate(rate) {
-    if (isNaN2(rate) || !(typeof rate === "number" || typeof rate === "boolean")) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
-        `[Tracing] Given sample rate is invalid. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(
-          rate
-        )} of type ${JSON.stringify(typeof rate)}.`
-      );
-      return false;
-    }
-    if (rate < 0 || rate > 1) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(`[Tracing] Given sample rate is invalid. Sample rate must be between 0 and 1. Got ${rate}.`);
-      return false;
-    }
-    return true;
-  }
-  function _startTransaction(transactionContext, customSamplingContext) {
-    const client = this.getClient();
-    const options = client && client.getOptions() || {};
-    const configInstrumenter = options.instrumenter || "sentry";
-    const transactionInstrumenter = transactionContext.instrumenter || "sentry";
-    if (configInstrumenter !== transactionInstrumenter) {
-      (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.error(
-        `A transaction was started with instrumenter=\`${transactionInstrumenter}\`, but the SDK is configured with the \`${configInstrumenter}\` instrumenter.
-The transaction will not be sampled. Please use the ${configInstrumenter} instrumentation to start transactions.`
-      );
-      transactionContext.sampled = false;
-    }
-    let transaction = new Transaction(transactionContext, this);
-    transaction = sample(transaction, options, {
-      parentSampled: transactionContext.parentSampled,
-      transactionContext,
-      ...customSamplingContext
-    });
-    if (transaction.sampled) {
-      transaction.initSpanRecorder(options._experiments && options._experiments.maxSpans);
-    }
-    return transaction;
-  }
-  function startIdleTransaction(hub, transactionContext, idleTimeout, finalTimeout, onScope, customSamplingContext, heartbeatInterval) {
-    const client = hub.getClient();
-    const options = client && client.getOptions() || {};
-    let transaction = new IdleTransaction(transactionContext, hub, idleTimeout, finalTimeout, heartbeatInterval, onScope);
-    transaction = sample(transaction, options, {
-      parentSampled: transactionContext.parentSampled,
-      transactionContext,
-      ...customSamplingContext
-    });
-    if (transaction.sampled) {
-      transaction.initSpanRecorder(options._experiments && options._experiments.maxSpans);
-    }
-    return transaction;
-  }
-  function _addTracingExtensions() {
-    const carrier = getMainCarrier();
-    if (!carrier.__SENTRY__) {
-      return;
-    }
-    carrier.__SENTRY__.extensions = carrier.__SENTRY__.extensions || {};
-    if (!carrier.__SENTRY__.extensions.startTransaction) {
-      carrier.__SENTRY__.extensions.startTransaction = _startTransaction;
-    }
-    if (!carrier.__SENTRY__.extensions.traceHeaders) {
-      carrier.__SENTRY__.extensions.traceHeaders = traceHeaders;
-    }
-  }
-  function _autoloadDatabaseIntegrations() {
-    const carrier = getMainCarrier();
-    if (!carrier.__SENTRY__) {
-      return;
-    }
-    const packageToIntegrationMapping = {
-      mongodb() {
-        const integration = dynamicRequire(module, "./integrations/node/mongo");
-        return new integration.Mongo();
-      },
-      mongoose() {
-        const integration = dynamicRequire(module, "./integrations/node/mongo");
-        return new integration.Mongo({ mongoose: true });
-      },
-      mysql() {
-        const integration = dynamicRequire(module, "./integrations/node/mysql");
-        return new integration.Mysql();
-      },
-      pg() {
-        const integration = dynamicRequire(module, "./integrations/node/postgres");
-        return new integration.Postgres();
-      }
-    };
-    const mappedPackages = Object.keys(packageToIntegrationMapping).filter((moduleName) => !!loadModule(moduleName)).map((pkg) => {
-      try {
-        return packageToIntegrationMapping[pkg]();
-      } catch (e2) {
-        return void 0;
-      }
-    }).filter((p3) => p3);
-    if (mappedPackages.length > 0) {
-      carrier.__SENTRY__.integrations = [...carrier.__SENTRY__.integrations || [], ...mappedPackages];
-    }
-  }
-  function addExtensionMethods() {
-    _addTracingExtensions();
-    if (isNodeEnv()) {
-      _autoloadDatabaseIntegrations();
-    }
-    registerErrorInstrumentation();
-  }
-
-  // node_modules/@sentry/tracing/esm/browser/types.js
-  var WINDOW6 = GLOBAL_OBJ;
-
-  // node_modules/@sentry/tracing/esm/browser/backgroundtab.js
+  // node_modules/@sentry-internal/tracing/esm/browser/backgroundtab.js
   function registerBackgroundTabDetection() {
-    if (WINDOW6 && WINDOW6.document) {
-      WINDOW6.document.addEventListener("visibilitychange", () => {
+    if (WINDOW7 && WINDOW7.document) {
+      WINDOW7.document.addEventListener("visibilitychange", () => {
         const activeTransaction = getActiveTransaction();
-        if (WINDOW6.document.hidden && activeTransaction) {
+        if (WINDOW7.document.hidden && activeTransaction) {
           const statusType = "cancelled";
           (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(
             `[Tracing] Transaction: ${statusType} -> since tab moved to the background, op: ${activeTransaction.op}`
@@ -5460,7 +5829,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   }
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/bindReporter.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/bindReporter.js
   var bindReporter = (callback, metric, reportAllChanges) => {
     let prevValue;
     let delta;
@@ -5478,15 +5847,15 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     };
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/generateUniqueID.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/generateUniqueID.js
   var generateUniqueID = () => {
     return `v3-${Date.now()}-${Math.floor(Math.random() * (9e12 - 1)) + 1e12}`;
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/getNavigationEntry.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/getNavigationEntry.js
   var getNavigationEntryFromPerformanceTiming = () => {
-    const timing = WINDOW6.performance.timing;
-    const type = WINDOW6.performance.navigation.type;
+    const timing = WINDOW7.performance.timing;
+    const type = WINDOW7.performance.navigation.type;
     const navigationEntry = {
       entryType: "navigation",
       startTime: 0,
@@ -5500,25 +5869,25 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     return navigationEntry;
   };
   var getNavigationEntry = () => {
-    if (WINDOW6.__WEB_VITALS_POLYFILL__) {
-      return WINDOW6.performance && (performance.getEntriesByType && performance.getEntriesByType("navigation")[0] || getNavigationEntryFromPerformanceTiming());
+    if (WINDOW7.__WEB_VITALS_POLYFILL__) {
+      return WINDOW7.performance && (performance.getEntriesByType && performance.getEntriesByType("navigation")[0] || getNavigationEntryFromPerformanceTiming());
     } else {
-      return WINDOW6.performance && performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      return WINDOW7.performance && performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
     }
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/getActivationStart.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/getActivationStart.js
   var getActivationStart = () => {
     const navEntry = getNavigationEntry();
     return navEntry && navEntry.activationStart || 0;
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/initMetric.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/initMetric.js
   var initMetric = (name, value) => {
     const navEntry = getNavigationEntry();
     let navigationType = "navigate";
     if (navEntry) {
-      if (WINDOW6.document.prerendering || getActivationStart() > 0) {
+      if (WINDOW7.document.prerendering || getActivationStart() > 0) {
         navigationType = "prerender";
       } else {
         navigationType = navEntry.type.replace(/_/g, "-");
@@ -5535,7 +5904,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     };
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/observe.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/observe.js
   var observe = (type, callback, opts) => {
     try {
       if (PerformanceObserver.supportedEntryTypes.includes(type)) {
@@ -5553,15 +5922,15 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         );
         return po;
       }
-    } catch (e2) {
+    } catch (e) {
     }
     return;
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/onHidden.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/onHidden.js
   var onHidden = (cb, once) => {
     const onHiddenOrPageHide = (event) => {
-      if (event.type === "pagehide" || WINDOW6.document.visibilityState === "hidden") {
+      if (event.type === "pagehide" || WINDOW7.document.visibilityState === "hidden") {
         cb(event);
         if (once) {
           removeEventListener("visibilitychange", onHiddenOrPageHide, true);
@@ -5573,7 +5942,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     addEventListener("pagehide", onHiddenOrPageHide, true);
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/getCLS.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/getCLS.js
   var onCLS = (onReport) => {
     const metric = initMetric("CLS", 0);
     let report;
@@ -5604,17 +5973,20 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     const po = observe("layout-shift", handleEntries);
     if (po) {
       report = bindReporter(onReport, metric);
-      onHidden(() => {
+      const stopListening = () => {
         handleEntries(po.takeRecords());
         report(true);
-      });
+      };
+      onHidden(stopListening);
+      return stopListening;
     }
+    return;
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/lib/getVisibilityWatcher.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/lib/getVisibilityWatcher.js
   var firstHiddenTime = -1;
   var initHiddenTime = () => {
-    return WINDOW6.document.visibilityState === "hidden" && !WINDOW6.document.prerendering ? 0 : Infinity;
+    return WINDOW7.document.visibilityState === "hidden" && !WINDOW7.document.prerendering ? 0 : Infinity;
   };
   var trackChanges = () => {
     onHidden(({ timeStamp }) => {
@@ -5633,7 +6005,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     };
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/getFID.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/getFID.js
   var onFID = (onReport) => {
     const visibilityWatcher = getVisibilityWatcher();
     const metric = initMetric("FID");
@@ -5658,7 +6030,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   };
 
-  // node_modules/@sentry/tracing/esm/browser/web-vitals/getLCP.js
+  // node_modules/@sentry-internal/tracing/esm/browser/web-vitals/getLCP.js
   var reportedMetricIDs = {};
   var onLCP = (onReport) => {
     const visibilityWatcher = getVisibilityWatcher();
@@ -5690,10 +6062,12 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         addEventListener(type, stopListening, { once: true, capture: true });
       });
       onHidden(stopListening, true);
+      return stopListening;
     }
+    return;
   };
 
-  // node_modules/@sentry/tracing/esm/browser/metrics/utils.js
+  // node_modules/@sentry-internal/tracing/esm/browser/metrics/utils.js
   function isMeasurementValue(value) {
     return typeof value === "number" && isFinite(value);
   }
@@ -5707,9 +6081,12 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     });
   }
 
-  // node_modules/@sentry/tracing/esm/browser/metrics/index.js
+  // node_modules/@sentry-internal/tracing/esm/browser/metrics/index.js
+  function msToSec(time) {
+    return time / 1e3;
+  }
   function getBrowserPerformanceAPI() {
-    return WINDOW6 && WINDOW6.addEventListener && WINDOW6.performance;
+    return WINDOW7 && WINDOW7.addEventListener && WINDOW7.performance;
   }
   var _performanceCursor = 0;
   var _measurements = {};
@@ -5719,12 +6096,21 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     const performance2 = getBrowserPerformanceAPI();
     if (performance2 && browserPerformanceTimeOrigin) {
       if (performance2.mark) {
-        WINDOW6.performance.mark("sentry-tracing-init");
+        WINDOW7.performance.mark("sentry-tracing-init");
       }
-      _trackCLS();
-      _trackLCP();
       _trackFID();
+      const clsCallback = _trackCLS();
+      const lcpCallback = _trackLCP();
+      return () => {
+        if (clsCallback) {
+          clsCallback();
+        }
+        if (lcpCallback) {
+          lcpCallback();
+        }
+      };
     }
+    return () => void 0;
   }
   function startTrackingLongTasks() {
     const entryHandler = (entries) => {
@@ -5738,6 +6124,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         transaction.startChild({
           description: "Main UI thread blocked",
           op: "ui.long-task",
+          origin: "auto.ui.browser.metrics",
           startTimestamp: startTime,
           endTimestamp: startTime + duration
         });
@@ -5745,8 +6132,30 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     };
     observe("longtask", entryHandler);
   }
+  function startTrackingInteractions() {
+    const entryHandler = (entries) => {
+      for (const entry of entries) {
+        const transaction = getActiveTransaction();
+        if (!transaction) {
+          return;
+        }
+        if (entry.name === "click") {
+          const startTime = msToSec(browserPerformanceTimeOrigin + entry.startTime);
+          const duration = msToSec(entry.duration);
+          transaction.startChild({
+            description: htmlTreeAsString(entry.target),
+            op: `ui.interaction.${entry.name}`,
+            origin: "auto.ui.browser.metrics",
+            startTimestamp: startTime,
+            endTimestamp: startTime + duration
+          });
+        }
+      }
+    };
+    observe("event", entryHandler, { durationThreshold: 0 });
+  }
   function _trackCLS() {
-    onCLS((metric) => {
+    return onCLS((metric) => {
       const entry = metric.entries.pop();
       if (!entry) {
         return;
@@ -5757,7 +6166,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     });
   }
   function _trackLCP() {
-    onLCP((metric) => {
+    return onLCP((metric) => {
       const entry = metric.entries.pop();
       if (!entry) {
         return;
@@ -5782,7 +6191,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
   }
   function addPerformanceEntries(transaction) {
     const performance2 = getBrowserPerformanceAPI();
-    if (!performance2 || !WINDOW6.performance.getEntries || !browserPerformanceTimeOrigin) {
+    if (!performance2 || !WINDOW7.performance.getEntries || !browserPerformanceTimeOrigin) {
       return;
     }
     (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log("[Tracing] Adding & adjusting spans using Performance API");
@@ -5820,7 +6229,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
           break;
         }
         case "resource": {
-          const resourceName = entry.name.replace(WINDOW6.location.origin, "");
+          const resourceName = entry.name.replace(WINDOW7.location.origin, "");
           _addResourceSpans(transaction, entry, resourceName, startTime, duration, timeOrigin);
           break;
         }
@@ -5859,6 +6268,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
           description: "first input delay",
           endTimestamp: fidMark.value + msToSec(_measurements["fid"].value),
           op: "ui.action",
+          origin: "auto.ui.browser.metrics",
           startTimestamp: fidMark.value
         });
         delete _measurements["mark.fid"];
@@ -5886,6 +6296,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       description: entry.name,
       endTimestamp: measureEndTimestamp,
       op: entry.entryType,
+      origin: "auto.resource.browser.metrics",
       startTimestamp: measureStartTimestamp
     });
     return measureStartTimestamp;
@@ -5907,6 +6318,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
     _startChild(transaction, {
       op: "browser",
+      origin: "auto.browser.browser.metrics",
       description: description || event,
       startTimestamp: timeOrigin + msToSec(start),
       endTimestamp: timeOrigin + msToSec(end)
@@ -5915,12 +6327,14 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
   function _addRequest(transaction, entry, timeOrigin) {
     _startChild(transaction, {
       op: "browser",
+      origin: "auto.browser.browser.metrics",
       description: "request",
       startTimestamp: timeOrigin + msToSec(entry.requestStart),
       endTimestamp: timeOrigin + msToSec(entry.responseEnd)
     });
     _startChild(transaction, {
       op: "browser",
+      origin: "auto.browser.browser.metrics",
       description: "response",
       startTimestamp: timeOrigin + msToSec(entry.responseStart),
       endTimestamp: timeOrigin + msToSec(entry.responseEnd)
@@ -5932,13 +6346,13 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
     const data = {};
     if ("transferSize" in entry) {
-      data["Transfer Size"] = entry.transferSize;
+      data["http.response_transfer_size"] = entry.transferSize;
     }
     if ("encodedBodySize" in entry) {
-      data["Encoded Body Size"] = entry.encodedBodySize;
+      data["http.response_content_length"] = entry.encodedBodySize;
     }
     if ("decodedBodySize" in entry) {
-      data["Decoded Body Size"] = entry.decodedBodySize;
+      data["http.decoded_response_content_length"] = entry.decodedBodySize;
     }
     if ("renderBlockingStatus" in entry) {
       data["resource.render_blocking_status"] = entry.renderBlockingStatus;
@@ -5949,16 +6363,17 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       description: resourceName,
       endTimestamp,
       op: entry.initiatorType ? `resource.${entry.initiatorType}` : "resource.other",
+      origin: "auto.resource.browser.metrics",
       startTimestamp,
       data
     });
   }
   function _trackNavigator(transaction) {
-    const navigator2 = WINDOW6.navigator;
-    if (!navigator2) {
+    const navigator = WINDOW7.navigator;
+    if (!navigator) {
       return;
     }
-    const connection = navigator2.connection;
+    const connection = navigator.connection;
     if (connection) {
       if (connection.effectiveType) {
         transaction.setTag("effectiveConnectionType", connection.effectiveType);
@@ -5970,11 +6385,11 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         _measurements["connection.rtt"] = { value: connection.rtt, unit: "millisecond" };
       }
     }
-    if (isMeasurementValue(navigator2.deviceMemory)) {
-      transaction.setTag("deviceMemory", `${navigator2.deviceMemory} GB`);
+    if (isMeasurementValue(navigator.deviceMemory)) {
+      transaction.setTag("deviceMemory", `${navigator.deviceMemory} GB`);
     }
-    if (isMeasurementValue(navigator2.hardwareConcurrency)) {
-      transaction.setTag("hardwareConcurrency", String(navigator2.hardwareConcurrency));
+    if (isMeasurementValue(navigator.hardwareConcurrency)) {
+      transaction.setTag("hardwareConcurrency", String(navigator.hardwareConcurrency));
     }
   }
   function _tagMetricInfo(transaction) {
@@ -5999,16 +6414,24 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   }
 
-  // node_modules/@sentry/tracing/esm/browser/request.js
-  var DEFAULT_TRACE_PROPAGATION_TARGETS = ["localhost", /^\//];
+  // node_modules/@sentry-internal/tracing/esm/browser/request.js
+  var DEFAULT_TRACE_PROPAGATION_TARGETS = ["localhost", /^\/(?!\/)/];
   var defaultRequestInstrumentationOptions = {
     traceFetch: true,
     traceXHR: true,
+    enableHTTPTimings: true,
     tracingOrigins: DEFAULT_TRACE_PROPAGATION_TARGETS,
     tracePropagationTargets: DEFAULT_TRACE_PROPAGATION_TARGETS
   };
   function instrumentOutgoingRequests(_options) {
-    const { traceFetch, traceXHR, tracePropagationTargets, tracingOrigins, shouldCreateSpanForRequest } = {
+    const {
+      traceFetch,
+      traceXHR,
+      tracePropagationTargets,
+      tracingOrigins,
+      shouldCreateSpanForRequest,
+      enableHTTPTimings
+    } = {
       traceFetch: defaultRequestInstrumentationOptions.traceFetch,
       traceXHR: defaultRequestInstrumentationOptions.traceXHR,
       ..._options
@@ -6018,68 +6441,148 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     const spans = {};
     if (traceFetch) {
       addInstrumentationHandler("fetch", (handlerData) => {
-        fetchCallback(handlerData, shouldCreateSpan, shouldAttachHeadersWithTargets, spans);
+        const createdSpan = fetchCallback(handlerData, shouldCreateSpan, shouldAttachHeadersWithTargets, spans);
+        if (enableHTTPTimings && createdSpan) {
+          addHTTPTimings(createdSpan);
+        }
       });
     }
     if (traceXHR) {
       addInstrumentationHandler("xhr", (handlerData) => {
-        xhrCallback(handlerData, shouldCreateSpan, shouldAttachHeadersWithTargets, spans);
+        const createdSpan = xhrCallback(handlerData, shouldCreateSpan, shouldAttachHeadersWithTargets, spans);
+        if (enableHTTPTimings && createdSpan) {
+          addHTTPTimings(createdSpan);
+        }
       });
     }
+  }
+  function isPerformanceResourceTiming(entry) {
+    return entry.entryType === "resource" && "initiatorType" in entry && typeof entry.nextHopProtocol === "string" && (entry.initiatorType === "fetch" || entry.initiatorType === "xmlhttprequest");
+  }
+  function addHTTPTimings(span) {
+    const url = span.data.url;
+    const observer = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach((entry) => {
+        if (isPerformanceResourceTiming(entry) && entry.name.endsWith(url)) {
+          const spanData = resourceTimingEntryToSpanData(entry);
+          spanData.forEach((data) => span.setData(...data));
+          observer.disconnect();
+        }
+      });
+    });
+    observer.observe({
+      entryTypes: ["resource"]
+    });
+  }
+  function extractNetworkProtocol(nextHopProtocol) {
+    let name = "unknown";
+    let version = "unknown";
+    let _name = "";
+    for (const char of nextHopProtocol) {
+      if (char === "/") {
+        [name, version] = nextHopProtocol.split("/");
+        break;
+      }
+      if (!isNaN(Number(char))) {
+        name = _name === "h" ? "http" : _name;
+        version = nextHopProtocol.split(_name)[1];
+        break;
+      }
+      _name += char;
+    }
+    if (_name === nextHopProtocol) {
+      name = _name;
+    }
+    return { name, version };
+  }
+  function getAbsoluteTime(time = 0) {
+    return ((browserPerformanceTimeOrigin || performance.timeOrigin) + time) / 1e3;
+  }
+  function resourceTimingEntryToSpanData(resourceTiming) {
+    const { name, version } = extractNetworkProtocol(resourceTiming.nextHopProtocol);
+    const timingSpanData = [];
+    timingSpanData.push(["network.protocol.version", version], ["network.protocol.name", name]);
+    if (!browserPerformanceTimeOrigin) {
+      return timingSpanData;
+    }
+    return [
+      ...timingSpanData,
+      ["http.request.redirect_start", getAbsoluteTime(resourceTiming.redirectStart)],
+      ["http.request.fetch_start", getAbsoluteTime(resourceTiming.fetchStart)],
+      ["http.request.domain_lookup_start", getAbsoluteTime(resourceTiming.domainLookupStart)],
+      ["http.request.domain_lookup_end", getAbsoluteTime(resourceTiming.domainLookupEnd)],
+      ["http.request.connect_start", getAbsoluteTime(resourceTiming.connectStart)],
+      ["http.request.secure_connection_start", getAbsoluteTime(resourceTiming.secureConnectionStart)],
+      ["http.request.connection_end", getAbsoluteTime(resourceTiming.connectEnd)],
+      ["http.request.request_start", getAbsoluteTime(resourceTiming.requestStart)],
+      ["http.request.response_start", getAbsoluteTime(resourceTiming.responseStart)],
+      ["http.request.response_end", getAbsoluteTime(resourceTiming.responseEnd)]
+    ];
   }
   function shouldAttachHeaders(url, tracePropagationTargets) {
     return stringMatchesSomePattern(url, tracePropagationTargets || DEFAULT_TRACE_PROPAGATION_TARGETS);
   }
   function fetchCallback(handlerData, shouldCreateSpan, shouldAttachHeaders2, spans) {
-    if (!hasTracingEnabled() || !(handlerData.fetchData && shouldCreateSpan(handlerData.fetchData.url))) {
-      return;
+    if (!hasTracingEnabled() || !handlerData.fetchData) {
+      return void 0;
     }
-    if (handlerData.endTimestamp) {
+    const shouldCreateSpanResult = shouldCreateSpan(handlerData.fetchData.url);
+    if (handlerData.endTimestamp && shouldCreateSpanResult) {
       const spanId = handlerData.fetchData.__span;
       if (!spanId)
         return;
-      const span = spans[spanId];
-      if (span) {
+      const span2 = spans[spanId];
+      if (span2) {
         if (handlerData.response) {
-          span.setHttpStatus(handlerData.response.status);
+          span2.setHttpStatus(handlerData.response.status);
+          const contentLength = handlerData.response && handlerData.response.headers && handlerData.response.headers.get("content-length");
+          const contentLengthNum = parseInt(contentLength);
+          if (contentLengthNum > 0) {
+            span2.setData("http.response_content_length", contentLengthNum);
+          }
         } else if (handlerData.error) {
-          span.setStatus("internal_error");
+          span2.setStatus("internal_error");
         }
-        span.finish();
+        span2.finish();
         delete spans[spanId];
       }
-      return;
+      return void 0;
     }
-    const currentScope = getCurrentHub().getScope();
-    const currentSpan = currentScope && currentScope.getSpan();
-    const activeTransaction = currentSpan && currentSpan.transaction;
-    if (currentSpan && activeTransaction) {
-      const span = currentSpan.startChild({
-        data: {
-          ...handlerData.fetchData,
-          type: "fetch"
-        },
-        description: `${handlerData.fetchData.method} ${handlerData.fetchData.url}`,
-        op: "http.client"
-      });
+    const hub = getCurrentHub();
+    const scope = hub.getScope();
+    const client = hub.getClient();
+    const parentSpan = scope.getSpan();
+    const { method, url } = handlerData.fetchData;
+    const span = shouldCreateSpanResult && parentSpan ? parentSpan.startChild({
+      data: {
+        url,
+        type: "fetch",
+        "http.method": method
+      },
+      description: `${method} ${url}`,
+      op: "http.client",
+      origin: "auto.http.browser"
+    }) : void 0;
+    if (span) {
       handlerData.fetchData.__span = span.spanId;
       spans[span.spanId] = span;
+    }
+    if (shouldAttachHeaders2(handlerData.fetchData.url) && client) {
       const request = handlerData.args[0];
       handlerData.args[1] = handlerData.args[1] || {};
       const options = handlerData.args[1];
-      if (shouldAttachHeaders2(handlerData.fetchData.url)) {
-        options.headers = addTracingHeadersToFetchRequest(
-          request,
-          activeTransaction.getDynamicSamplingContext(),
-          span,
-          options
-        );
-      }
+      options.headers = addTracingHeadersToFetchRequest(request, client, scope, options, span);
     }
+    return span;
   }
-  function addTracingHeadersToFetchRequest(request, dynamicSamplingContext, span, options) {
+  function addTracingHeadersToFetchRequest(request, client, scope, options, requestSpan) {
+    const span = requestSpan || scope.getSpan();
+    const transaction = span && span.transaction;
+    const { traceId, sampled, dsc } = scope.getPropagationContext();
+    const sentryTraceHeader = span ? span.toTraceparent() : generateSentryTraceHeader(traceId, void 0, sampled);
+    const dynamicSamplingContext = transaction ? transaction.getDynamicSamplingContext() : dsc ? dsc : getDynamicSamplingContextFromClient(traceId, client, scope);
     const sentryBaggageHeader = dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext);
-    const sentryTraceHeader = span.toTraceparent();
     const headers = typeof Request !== "undefined" && isInstanceOf(request, Request) ? request.headers : options.headers;
     if (!headers) {
       return { "sentry-trace": sentryTraceHeader, baggage: sentryBaggageHeader };
@@ -6115,64 +6618,83 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   }
   function xhrCallback(handlerData, shouldCreateSpan, shouldAttachHeaders2, spans) {
-    if (!hasTracingEnabled() || handlerData.xhr && handlerData.xhr.__sentry_own_request__ || !(handlerData.xhr && handlerData.xhr.__sentry_xhr__ && shouldCreateSpan(handlerData.xhr.__sentry_xhr__.url))) {
-      return;
+    const xhr = handlerData.xhr;
+    const sentryXhrData = xhr && xhr[SENTRY_XHR_DATA_KEY];
+    if (!hasTracingEnabled() || xhr && xhr.__sentry_own_request__ || !xhr || !sentryXhrData) {
+      return void 0;
     }
-    const xhr = handlerData.xhr.__sentry_xhr__;
-    if (handlerData.endTimestamp) {
-      const spanId = handlerData.xhr.__sentry_xhr_span_id__;
+    const shouldCreateSpanResult = shouldCreateSpan(sentryXhrData.url);
+    if (handlerData.endTimestamp && shouldCreateSpanResult) {
+      const spanId = xhr.__sentry_xhr_span_id__;
       if (!spanId)
         return;
-      const span = spans[spanId];
-      if (span) {
-        span.setHttpStatus(xhr.status_code);
-        span.finish();
+      const span2 = spans[spanId];
+      if (span2) {
+        span2.setHttpStatus(sentryXhrData.status_code);
+        span2.finish();
         delete spans[spanId];
       }
-      return;
+      return void 0;
     }
-    const currentScope = getCurrentHub().getScope();
-    const currentSpan = currentScope && currentScope.getSpan();
-    const activeTransaction = currentSpan && currentSpan.transaction;
-    if (currentSpan && activeTransaction) {
-      const span = currentSpan.startChild({
-        data: {
-          ...xhr.data,
-          type: "xhr",
-          method: xhr.method,
-          url: xhr.url
-        },
-        description: `${xhr.method} ${xhr.url}`,
-        op: "http.client"
-      });
-      handlerData.xhr.__sentry_xhr_span_id__ = span.spanId;
-      spans[handlerData.xhr.__sentry_xhr_span_id__] = span;
-      if (handlerData.xhr.setRequestHeader && shouldAttachHeaders2(handlerData.xhr.__sentry_xhr__.url)) {
-        try {
-          handlerData.xhr.setRequestHeader("sentry-trace", span.toTraceparent());
-          const dynamicSamplingContext = activeTransaction.getDynamicSamplingContext();
-          const sentryBaggageHeader = dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext);
-          if (sentryBaggageHeader) {
-            handlerData.xhr.setRequestHeader(BAGGAGE_HEADER_NAME, sentryBaggageHeader);
-          }
-        } catch (_) {
-        }
+    const hub = getCurrentHub();
+    const scope = hub.getScope();
+    const parentSpan = scope.getSpan();
+    const span = shouldCreateSpanResult && parentSpan ? parentSpan.startChild({
+      data: {
+        ...sentryXhrData.data,
+        type: "xhr",
+        "http.method": sentryXhrData.method,
+        url: sentryXhrData.url
+      },
+      description: `${sentryXhrData.method} ${sentryXhrData.url}`,
+      op: "http.client",
+      origin: "auto.http.browser"
+    }) : void 0;
+    if (span) {
+      xhr.__sentry_xhr_span_id__ = span.spanId;
+      spans[xhr.__sentry_xhr_span_id__] = span;
+    }
+    if (xhr.setRequestHeader && shouldAttachHeaders2(sentryXhrData.url)) {
+      if (span) {
+        const transaction = span && span.transaction;
+        const dynamicSamplingContext = transaction && transaction.getDynamicSamplingContext();
+        const sentryBaggageHeader = dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext);
+        setHeaderOnXhr(xhr, span.toTraceparent(), sentryBaggageHeader);
+      } else {
+        const client = hub.getClient();
+        const { traceId, sampled, dsc } = scope.getPropagationContext();
+        const sentryTraceHeader = generateSentryTraceHeader(traceId, void 0, sampled);
+        const dynamicSamplingContext = dsc || (client ? getDynamicSamplingContextFromClient(traceId, client, scope) : void 0);
+        const sentryBaggageHeader = dynamicSamplingContextToSentryBaggageHeader(dynamicSamplingContext);
+        setHeaderOnXhr(xhr, sentryTraceHeader, sentryBaggageHeader);
       }
+    }
+    return span;
+  }
+  function setHeaderOnXhr(xhr, sentryTraceHeader, sentryBaggageHeader) {
+    try {
+      xhr.setRequestHeader("sentry-trace", sentryTraceHeader);
+      if (sentryBaggageHeader) {
+        xhr.setRequestHeader(BAGGAGE_HEADER_NAME, sentryBaggageHeader);
+      }
+    } catch (_) {
     }
   }
 
-  // node_modules/@sentry/tracing/esm/browser/router.js
+  // node_modules/@sentry-internal/tracing/esm/browser/router.js
   function instrumentRoutingWithDefaults(customStartTransaction, startTransactionOnPageLoad = true, startTransactionOnLocationChange = true) {
-    if (!WINDOW6 || !WINDOW6.location) {
+    if (!WINDOW7 || !WINDOW7.location) {
       (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn("Could not initialize routing instrumentation due to invalid location");
       return;
     }
-    let startingUrl = WINDOW6.location.href;
+    let startingUrl = WINDOW7.location.href;
     let activeTransaction;
     if (startTransactionOnPageLoad) {
       activeTransaction = customStartTransaction({
-        name: WINDOW6.location.pathname,
+        name: WINDOW7.location.pathname,
+        startTimestamp: browserPerformanceTimeOrigin ? browserPerformanceTimeOrigin / 1e3 : void 0,
         op: "pageload",
+        origin: "auto.pageload.browser",
         metadata: { source: "url" }
       });
     }
@@ -6189,8 +6711,9 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
             activeTransaction.finish();
           }
           activeTransaction = customStartTransaction({
-            name: WINDOW6.location.pathname,
+            name: WINDOW7.location.pathname,
             op: "navigation",
+            origin: "auto.navigation.browser",
             metadata: { source: "url" }
           });
         }
@@ -6198,12 +6721,10 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   }
 
-  // node_modules/@sentry/tracing/esm/browser/browsertracing.js
+  // node_modules/@sentry-internal/tracing/esm/browser/browsertracing.js
   var BROWSER_TRACING_INTEGRATION_ID = "BrowserTracing";
   var DEFAULT_BROWSER_TRACING_OPTIONS = {
-    idleTimeout: DEFAULT_IDLE_TIMEOUT,
-    finalTimeout: DEFAULT_FINAL_TIMEOUT,
-    heartbeatInterval: DEFAULT_HEARTBEAT_INTERVAL,
+    ...TRACING_DEFAULTS,
     markBackgroundTransactions: true,
     routingInstrumentation: instrumentRoutingWithDefaults,
     startTransactionOnLocationChange: true,
@@ -6213,11 +6734,13 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     ...defaultRequestInstrumentationOptions
   };
   var BrowserTracing = class {
-    __init() {
-      this.name = BROWSER_TRACING_INTEGRATION_ID;
-    }
     constructor(_options) {
-      BrowserTracing.prototype.__init.call(this);
+      this.name = BROWSER_TRACING_INTEGRATION_ID;
+      this._hasSetTracePropagationTargets = false;
+      addTracingExtensions();
+      if (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) {
+        this._hasSetTracePropagationTargets = !!(_options && (_options.tracePropagationTargets || _options.tracingOrigins));
+      }
       this.options = {
         ...DEFAULT_BROWSER_TRACING_OPTIONS,
         ..._options
@@ -6228,13 +6751,19 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       if (_options && !_options.tracePropagationTargets && _options.tracingOrigins) {
         this.options.tracePropagationTargets = _options.tracingOrigins;
       }
-      startTrackingWebVitals();
+      this._collectWebVitals = startTrackingWebVitals();
       if (this.options.enableLongTask) {
         startTrackingLongTasks();
+      }
+      if (this.options._experiments.enableInteractions) {
+        startTrackingInteractions();
       }
     }
     setupOnce(_, getCurrentHub2) {
       this._getCurrentHub = getCurrentHub2;
+      const hub = getCurrentHub2();
+      const client = hub.getClient();
+      const clientOptions = client && client.getOptions();
       const {
         routingInstrumentation: instrumentRouting,
         startTransactionOnLocationChange,
@@ -6242,12 +6771,23 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         markBackgroundTransactions,
         traceFetch,
         traceXHR,
-        tracePropagationTargets,
         shouldCreateSpanForRequest,
+        enableHTTPTimings,
         _experiments
       } = this.options;
+      const clientOptionsTracePropagationTargets = clientOptions && clientOptions.tracePropagationTargets;
+      const tracePropagationTargets = clientOptionsTracePropagationTargets || this.options.tracePropagationTargets;
+      if ((typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && this._hasSetTracePropagationTargets && clientOptionsTracePropagationTargets) {
+        logger.warn(
+          "[Tracing] The `tracePropagationTargets` option was set in the BrowserTracing integration and top level `Sentry.init`. The top level `Sentry.init` value is being used."
+        );
+      }
       instrumentRouting(
-        (context) => this._createRouteTransaction(context),
+        (context) => {
+          const transaction = this._createRouteTransaction(context);
+          this.options._experiments.onStartRouteTransaction && this.options._experiments.onStartRouteTransaction(transaction, context, getCurrentHub2);
+          return transaction;
+        },
         startTransactionOnPageLoad,
         startTransactionOnLocationChange
       );
@@ -6261,7 +6801,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         traceFetch,
         traceXHR,
         tracePropagationTargets,
-        shouldCreateSpanForRequest
+        shouldCreateSpanForRequest,
+        enableHTTPTimings
       });
     }
     _createRouteTransaction(context) {
@@ -6269,18 +6810,21 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(`[Tracing] Did not create ${context.op} transaction because _getCurrentHub is invalid.`);
         return void 0;
       }
+      const hub = this._getCurrentHub();
       const { beforeNavigate, idleTimeout, finalTimeout, heartbeatInterval } = this.options;
       const isPageloadTransaction = context.op === "pageload";
-      const sentryTraceMetaTagValue = isPageloadTransaction ? getMetaContent("sentry-trace") : null;
-      const baggageMetaTagValue = isPageloadTransaction ? getMetaContent("baggage") : null;
-      const traceParentData = sentryTraceMetaTagValue ? extractTraceparentData(sentryTraceMetaTagValue) : void 0;
-      const dynamicSamplingContext = baggageMetaTagValue ? baggageHeaderToDynamicSamplingContext(baggageMetaTagValue) : void 0;
+      const sentryTrace = isPageloadTransaction ? getMetaContent("sentry-trace") : "";
+      const baggage = isPageloadTransaction ? getMetaContent("baggage") : "";
+      const { traceparentData, dynamicSamplingContext, propagationContext } = tracingContextFromHeaders(
+        sentryTrace,
+        baggage
+      );
       const expandedContext = {
         ...context,
-        ...traceParentData,
+        ...traceparentData,
         metadata: {
           ...context.metadata,
-          dynamicSamplingContext: traceParentData && !dynamicSamplingContext ? {} : dynamicSamplingContext
+          dynamicSamplingContext: traceparentData && !dynamicSamplingContext ? {} : dynamicSamplingContext
         },
         trimEnd: true
       };
@@ -6293,8 +6837,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Will not send ${finalContext.op} transaction because of beforeNavigate.`);
       }
       (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.log(`[Tracing] Starting ${finalContext.op} transaction on scope`);
-      const hub = this._getCurrentHub();
-      const { location } = WINDOW6;
+      const { location } = WINDOW7;
       const idleTransaction = startIdleTransaction(
         hub,
         finalContext,
@@ -6304,7 +6847,19 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         { location },
         heartbeatInterval
       );
+      const scope = hub.getScope();
+      if (isPageloadTransaction && traceparentData) {
+        scope.setPropagationContext(propagationContext);
+      } else {
+        scope.setPropagationContext({
+          traceId: idleTransaction.traceId,
+          spanId: idleTransaction.spanId,
+          parentSpanId: idleTransaction.parentSpanId,
+          sampled: idleTransaction.sampled
+        });
+      }
       idleTransaction.registerBeforeFinishCallback((transaction) => {
+        this._collectWebVitals();
         addPerformanceEntries(transaction);
       });
       return idleTransaction;
@@ -6314,7 +6869,15 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       const registerInteractionTransaction = () => {
         const { idleTimeout, finalTimeout, heartbeatInterval } = this.options;
         const op = "ui.action.click";
+        const currentTransaction = getActiveTransaction();
+        if (currentTransaction && currentTransaction.op && ["navigation", "pageload"].includes(currentTransaction.op)) {
+          (typeof __SENTRY_DEBUG__ === "undefined" || __SENTRY_DEBUG__) && logger.warn(
+            `[Tracing] Did not create ${op} transaction because a pageload or navigation transaction is in progress.`
+          );
+          return void 0;
+        }
         if (inflightInteractionTransaction) {
+          inflightInteractionTransaction.setFinishReason("interactionInterrupted");
           inflightInteractionTransaction.finish();
           inflightInteractionTransaction = void 0;
         }
@@ -6327,7 +6890,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
           return void 0;
         }
         const hub = this._getCurrentHub();
-        const { location } = WINDOW6;
+        const { location } = WINDOW7;
         const context = {
           name: this._latestRouteName,
           op,
@@ -6353,10 +6916,64 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
   };
   function getMetaContent(metaName) {
     const metaTag = getDomElement(`meta[name=${metaName}]`);
-    return metaTag ? metaTag.getAttribute("content") : null;
+    return metaTag ? metaTag.getAttribute("content") : void 0;
   }
 
+  // node_modules/@sentry-internal/tracing/esm/extensions.js
+  function _autoloadDatabaseIntegrations() {
+    const carrier = getMainCarrier();
+    if (!carrier.__SENTRY__) {
+      return;
+    }
+    const packageToIntegrationMapping = {
+      mongodb() {
+        const integration = dynamicRequire(module, "./node/integrations/mongo");
+        return new integration.Mongo();
+      },
+      mongoose() {
+        const integration = dynamicRequire(module, "./node/integrations/mongo");
+        return new integration.Mongo();
+      },
+      mysql() {
+        const integration = dynamicRequire(module, "./node/integrations/mysql");
+        return new integration.Mysql();
+      },
+      pg() {
+        const integration = dynamicRequire(module, "./node/integrations/postgres");
+        return new integration.Postgres();
+      }
+    };
+    const mappedPackages = Object.keys(packageToIntegrationMapping).filter((moduleName) => !!loadModule(moduleName)).map((pkg) => {
+      try {
+        return packageToIntegrationMapping[pkg]();
+      } catch (e) {
+        return void 0;
+      }
+    }).filter((p) => p);
+    if (mappedPackages.length > 0) {
+      carrier.__SENTRY__.integrations = [...carrier.__SENTRY__.integrations || [], ...mappedPackages];
+    }
+  }
+  function addExtensionMethods() {
+    addTracingExtensions();
+    if (isNodeEnv()) {
+      _autoloadDatabaseIntegrations();
+    }
+  }
+
+  // node_modules/@sentry/browser/esm/index.js
+  var windowIntegrations = {};
+  if (WINDOW6.Sentry && WINDOW6.Sentry.Integrations) {
+    windowIntegrations = WINDOW6.Sentry.Integrations;
+  }
+  var INTEGRATIONS = {
+    ...windowIntegrations,
+    ...integrations_exports,
+    ...integrations_exports2
+  };
+
   // node_modules/@sentry/tracing/esm/index.js
+  var BrowserTracing2 = BrowserTracing;
   if (typeof __SENTRY_TRACING__ === "undefined" || __SENTRY_TRACING__) {
     addExtensionMethods();
   }
@@ -6364,7 +6981,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
   // src/logger.ts
   init({
     dsn: "https://11fa19323b3a48d5882f26d3a98c1864@o526305.ingest.sentry.io/4504743091699712",
-    integrations: [new BrowserTracing()],
+    integrations: [new BrowserTracing2()],
     tracesSampleRate: 0.1,
     release: "floating-calculator@23.2.10",
     environment: "DEV"
@@ -6387,11 +7004,11 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       this.internalLog(0 /* ERROR */, ...messages);
     }
     internalLog(level, ...messages) {
-      const d3 = new Date(Date.now());
+      const d = new Date(Date.now());
       const output = [
         "%c%s %s",
         "color: blue",
-        `[${d3.getHours()}:${d3.getMinutes()}:${d3.getSeconds()}]`,
+        `[${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}]`,
         this.tag,
         ...messages
       ];
@@ -6798,7 +7415,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         return new WinBox(params);
       }
       body || setup();
-      let id, index, root, tpl, title, icon, mount, html, url, shadowel, shadowdom, framename, cssurl, width, height, minwidth, minheight, maxwidth, maxheight, autosize, x3, y3, top, left, bottom, right, min, max, hidden, modal, background, border, header, classname, oncreate, onclose, onfocus, onblur, onmove, onresize, onfullscreen, onmaximize, onminimize, onrestore, onhide, onshow, onload;
+      let id, index, root, tpl, title, icon, mount, html, url, shadowel, shadowdom, framename, cssurl, width, height, minwidth, minheight, maxwidth, maxheight, autosize, x, y, top, left, bottom, right, min2, max2, hidden, modal, background, border, header, classname, oncreate, onclose, onfocus, onblur, onmove, onresize, onfullscreen, onmaximize, onminimize, onrestore, onhide, onshow, onload;
       if (params) {
         if (_title) {
           title = params;
@@ -6826,12 +7443,12 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
           maxwidth = params["maxwidth"];
           maxheight = params["maxheight"];
           autosize = params["autosize"];
-          min = params["min"];
-          max = params["max"];
+          min2 = params["min"];
+          max2 = params["max"];
           hidden = params["hidden"];
           modal = params["modal"];
-          x3 = params["x"] || (modal ? "center" : 0);
-          y3 = params["y"] || (modal ? "center" : 0);
+          x = params["x"] || (modal ? "center" : 0);
+          y = params["y"] || (modal ? "center" : 0);
           top = params["top"];
           left = params["left"];
           bottom = params["bottom"];
@@ -6916,10 +7533,10 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         width = width ? parse(width, maxwidth) : Math.max(maxwidth / 2, minwidth) | 0;
         height = height ? parse(height, maxheight) : Math.max(maxheight / 2, minheight) | 0;
       }
-      x3 = x3 ? parse(x3, viewport_w, width) : left;
-      y3 = y3 ? parse(y3, viewport_h, height) : top;
-      this.x = x3;
-      this.y = y3;
+      x = x ? parse(x, viewport_w, width) : left;
+      y = y ? parse(y, viewport_h, height) : top;
+      this.x = x;
+      this.y = y;
       this.width = width;
       this.height = height;
       this.minwidth = minwidth;
@@ -6947,9 +7564,9 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       this.onrestore = onrestore;
       this.onhide = onhide;
       this.onshow = onshow;
-      if (max) {
+      if (max2) {
         this.maximize();
-      } else if (min) {
+      } else if (min2) {
         this.minimize();
       } else {
         this.resize().move();
@@ -7175,32 +7792,32 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         last_focus = null;
       }
     }
-    move(x3, y3, _skip_update) {
-      if (!x3 && x3 !== 0) {
-        x3 = this.x;
-        y3 = this.y;
+    move(x, y, _skip_update) {
+      if (!x && x !== 0) {
+        x = this.x;
+        y = this.y;
       } else if (!_skip_update) {
-        this.x = x3 ? x3 = parse(x3, root_w - this.left - this.right, this.width) : 0;
-        this.y = y3 ? y3 = parse(y3, root_h - this.top - this.bottom, this.height) : 0;
+        this.x = x ? x = parse(x, root_w - this.left - this.right, this.width) : 0;
+        this.y = y ? y = parse(y, root_h - this.top - this.bottom, this.height) : 0;
       }
-      setStyle(this.dom, "left", x3 + "px");
-      setStyle(this.dom, "top", y3 + "px");
-      this.onmove && this.onmove(x3, y3);
+      setStyle(this.dom, "left", x + "px");
+      setStyle(this.dom, "top", y + "px");
+      this.onmove && this.onmove(x, y);
       return this;
     }
-    resize(w3, h3, _skip_update) {
-      if (!w3 && w3 !== 0) {
-        w3 = this.width;
-        h3 = this.height;
+    resize(w, h, _skip_update) {
+      if (!w && w !== 0) {
+        w = this.width;
+        h = this.height;
       } else if (!_skip_update) {
-        this.width = w3 ? w3 = parse(w3, this.maxwidth) : 0;
-        this.height = h3 ? h3 = parse(h3, this.maxheight) : 0;
-        w3 = Math.max(w3, this.minwidth);
-        h3 = Math.max(h3, this.minheight);
+        this.width = w ? w = parse(w, this.maxwidth) : 0;
+        this.height = h ? h = parse(h, this.maxheight) : 0;
+        w = Math.max(w, this.minwidth);
+        h = Math.max(h, this.minheight);
       }
-      setStyle(this.dom, "width", w3 + "px");
-      setStyle(this.dom, "height", h3 + "px");
-      this.onresize && this.onresize(w3, h3);
+      setStyle(this.dom, "width", w + "px");
+      setStyle(this.dom, "height", h + "px");
+      this.onresize && this.onresize(w, h);
       return this;
     }
     addControl(control) {
@@ -7316,8 +7933,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     const length = stack_min.length;
     const splitscreen_index = {};
     const splitscreen_length = {};
-    for (let i3 = 0, self2, key; i3 < length; i3++) {
-      self2 = stack_min[i3];
+    for (let i = 0, self2, key; i < length; i++) {
+      self2 = stack_min[i];
       key = (self2.left || self2.right) + ":" + (self2.top || self2.bottom);
       if (splitscreen_length[key]) {
         splitscreen_length[key]++;
@@ -7326,8 +7943,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         splitscreen_length[key] = 1;
       }
     }
-    for (let i3 = 0, self2, key, width; i3 < length; i3++) {
-      self2 = stack_min[i3];
+    for (let i = 0, self2, key, width; i < length; i++) {
+      self2 = stack_min[i];
       key = (self2.left || self2.right) + ":" + (self2.top || self2.bottom);
       width = Math.min(
         (root_w - self2.left - self2.right) / splitscreen_length[key],
@@ -7345,7 +7962,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     const node = getByClass(self2.dom, "wb-" + dir);
     if (!node)
       return;
-    let touch, x3, y3;
+    let touch, x, y;
     let raf_timer, raf_move, raf_resize;
     let dblclick_timer = 0;
     addListener(node, "mousedown", mousedown);
@@ -7388,8 +8005,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
           addListener(window, "mousemove", handler_mousemove);
           addListener(window, "mouseup", handler_mouseup);
         }
-        x3 = event.pageX;
-        y3 = event.pageY;
+        x = event.pageX;
+        y = event.pageY;
       }
     }
     function handler_mousemove(event) {
@@ -7399,8 +8016,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       }
       const pageX = event.pageX;
       const pageY = event.pageY;
-      const offsetX = pageX - x3;
-      const offsetY = pageY - y3;
+      const offsetX = pageX - x;
+      const offsetY = pageY - y;
       const old_w = self2.width;
       const old_h = self2.height;
       const old_x = self2.x;
@@ -7465,10 +8082,10 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         use_raf ? raf_move = true : self2.move();
       }
       if (resize_w || move_x) {
-        x3 = pageX;
+        x = pageX;
       }
       if (resize_h || move_y) {
-        y3 = pageY;
+        y = pageY;
       }
     }
     function handler_mouseup(event) {
@@ -7500,401 +8117,1050 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
     }
   }
 
-  // node_modules/@floating-ui/core/dist/floating-ui.core.browser.min.mjs
-  function t(t2) {
-    return t2.split("-")[1];
+  // node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs
+  var min = Math.min;
+  var max = Math.max;
+  var round = Math.round;
+  var createCoords = (v) => ({
+    x: v,
+    y: v
+  });
+  var oppositeSideMap = {
+    left: "right",
+    right: "left",
+    bottom: "top",
+    top: "bottom"
+  };
+  var oppositeAlignmentMap = {
+    start: "end",
+    end: "start"
+  };
+  function clamp(start, value, end) {
+    return max(start, min(value, end));
   }
-  function e(t2) {
-    return "y" === t2 ? "height" : "width";
+  function evaluate(value, param) {
+    return typeof value === "function" ? value(param) : value;
   }
-  function n(t2) {
-    return t2.split("-")[0];
+  function getSide(placement) {
+    return placement.split("-")[0];
   }
-  function o(t2) {
-    return ["top", "bottom"].includes(n(t2)) ? "x" : "y";
+  function getAlignment(placement) {
+    return placement.split("-")[1];
   }
-  function r(r3, i3, a3) {
-    let { reference: l3, floating: s3 } = r3;
-    const c3 = l3.x + l3.width / 2 - s3.width / 2, f3 = l3.y + l3.height / 2 - s3.height / 2, u3 = o(i3), m3 = e(u3), g3 = l3[m3] / 2 - s3[m3] / 2, d3 = "x" === u3;
-    let p3;
-    switch (n(i3)) {
+  function getOppositeAxis(axis) {
+    return axis === "x" ? "y" : "x";
+  }
+  function getAxisLength(axis) {
+    return axis === "y" ? "height" : "width";
+  }
+  function getSideAxis(placement) {
+    return ["top", "bottom"].includes(getSide(placement)) ? "y" : "x";
+  }
+  function getAlignmentAxis(placement) {
+    return getOppositeAxis(getSideAxis(placement));
+  }
+  function getAlignmentSides(placement, rects, rtl) {
+    if (rtl === void 0) {
+      rtl = false;
+    }
+    const alignment = getAlignment(placement);
+    const alignmentAxis = getAlignmentAxis(placement);
+    const length = getAxisLength(alignmentAxis);
+    let mainAlignmentSide = alignmentAxis === "x" ? alignment === (rtl ? "end" : "start") ? "right" : "left" : alignment === "start" ? "bottom" : "top";
+    if (rects.reference[length] > rects.floating[length]) {
+      mainAlignmentSide = getOppositePlacement(mainAlignmentSide);
+    }
+    return [mainAlignmentSide, getOppositePlacement(mainAlignmentSide)];
+  }
+  function getExpandedPlacements(placement) {
+    const oppositePlacement = getOppositePlacement(placement);
+    return [getOppositeAlignmentPlacement(placement), oppositePlacement, getOppositeAlignmentPlacement(oppositePlacement)];
+  }
+  function getOppositeAlignmentPlacement(placement) {
+    return placement.replace(/start|end/g, (alignment) => oppositeAlignmentMap[alignment]);
+  }
+  function getSideList(side, isStart, rtl) {
+    const lr = ["left", "right"];
+    const rl = ["right", "left"];
+    const tb = ["top", "bottom"];
+    const bt = ["bottom", "top"];
+    switch (side) {
       case "top":
-        p3 = { x: c3, y: l3.y - s3.height };
+      case "bottom":
+        if (rtl)
+          return isStart ? rl : lr;
+        return isStart ? lr : rl;
+      case "left":
+      case "right":
+        return isStart ? tb : bt;
+      default:
+        return [];
+    }
+  }
+  function getOppositeAxisPlacements(placement, flipAlignment, direction, rtl) {
+    const alignment = getAlignment(placement);
+    let list = getSideList(getSide(placement), direction === "start", rtl);
+    if (alignment) {
+      list = list.map((side) => side + "-" + alignment);
+      if (flipAlignment) {
+        list = list.concat(list.map(getOppositeAlignmentPlacement));
+      }
+    }
+    return list;
+  }
+  function getOppositePlacement(placement) {
+    return placement.replace(/left|right|bottom|top/g, (side) => oppositeSideMap[side]);
+  }
+  function expandPaddingObject(padding) {
+    return {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      ...padding
+    };
+  }
+  function getPaddingObject(padding) {
+    return typeof padding !== "number" ? expandPaddingObject(padding) : {
+      top: padding,
+      right: padding,
+      bottom: padding,
+      left: padding
+    };
+  }
+  function rectToClientRect(rect) {
+    return {
+      ...rect,
+      top: rect.y,
+      left: rect.x,
+      right: rect.x + rect.width,
+      bottom: rect.y + rect.height
+    };
+  }
+
+  // node_modules/@floating-ui/core/dist/floating-ui.core.mjs
+  function computeCoordsFromPlacement(_ref, placement, rtl) {
+    let {
+      reference,
+      floating
+    } = _ref;
+    const sideAxis = getSideAxis(placement);
+    const alignmentAxis = getAlignmentAxis(placement);
+    const alignLength = getAxisLength(alignmentAxis);
+    const side = getSide(placement);
+    const isVertical = sideAxis === "y";
+    const commonX = reference.x + reference.width / 2 - floating.width / 2;
+    const commonY = reference.y + reference.height / 2 - floating.height / 2;
+    const commonAlign = reference[alignLength] / 2 - floating[alignLength] / 2;
+    let coords;
+    switch (side) {
+      case "top":
+        coords = {
+          x: commonX,
+          y: reference.y - floating.height
+        };
         break;
       case "bottom":
-        p3 = { x: c3, y: l3.y + l3.height };
+        coords = {
+          x: commonX,
+          y: reference.y + reference.height
+        };
         break;
       case "right":
-        p3 = { x: l3.x + l3.width, y: f3 };
+        coords = {
+          x: reference.x + reference.width,
+          y: commonY
+        };
         break;
       case "left":
-        p3 = { x: l3.x - s3.width, y: f3 };
+        coords = {
+          x: reference.x - floating.width,
+          y: commonY
+        };
         break;
       default:
-        p3 = { x: l3.x, y: l3.y };
+        coords = {
+          x: reference.x,
+          y: reference.y
+        };
     }
-    switch (t(i3)) {
+    switch (getAlignment(placement)) {
       case "start":
-        p3[u3] -= g3 * (a3 && d3 ? -1 : 1);
+        coords[alignmentAxis] -= commonAlign * (rtl && isVertical ? -1 : 1);
         break;
       case "end":
-        p3[u3] += g3 * (a3 && d3 ? -1 : 1);
+        coords[alignmentAxis] += commonAlign * (rtl && isVertical ? -1 : 1);
+        break;
     }
-    return p3;
+    return coords;
   }
-  var i = async (t2, e2, n3) => {
-    const { placement: o3 = "bottom", strategy: i3 = "absolute", middleware: a3 = [], platform: l3 } = n3, s3 = a3.filter(Boolean), c3 = await (null == l3.isRTL ? void 0 : l3.isRTL(e2));
-    let f3 = await l3.getElementRects({ reference: t2, floating: e2, strategy: i3 }), { x: u3, y: m3 } = r(f3, o3, c3), g3 = o3, d3 = {}, p3 = 0;
-    for (let n4 = 0; n4 < s3.length; n4++) {
-      const { name: a4, fn: h3 } = s3[n4], { x: y3, y: x3, data: w3, reset: v3 } = await h3({ x: u3, y: m3, initialPlacement: o3, placement: g3, strategy: i3, middlewareData: d3, rects: f3, platform: l3, elements: { reference: t2, floating: e2 } });
-      u3 = null != y3 ? y3 : u3, m3 = null != x3 ? x3 : m3, d3 = { ...d3, [a4]: { ...d3[a4], ...w3 } }, v3 && p3 <= 50 && (p3++, "object" == typeof v3 && (v3.placement && (g3 = v3.placement), v3.rects && (f3 = true === v3.rects ? await l3.getElementRects({ reference: t2, floating: e2, strategy: i3 }) : v3.rects), { x: u3, y: m3 } = r(f3, g3, c3)), n4 = -1);
-    }
-    return { x: u3, y: m3, placement: g3, strategy: i3, middlewareData: d3 };
-  };
-  function a(t2) {
-    return "number" != typeof t2 ? function(t3) {
-      return { top: 0, right: 0, bottom: 0, left: 0, ...t3 };
-    }(t2) : { top: t2, right: t2, bottom: t2, left: t2 };
-  }
-  function l(t2) {
-    return { ...t2, top: t2.y, left: t2.x, right: t2.x + t2.width, bottom: t2.y + t2.height };
-  }
-  async function s(t2, e2) {
-    var n3;
-    void 0 === e2 && (e2 = {});
-    const { x: o3, y: r3, platform: i3, rects: s3, elements: c3, strategy: f3 } = t2, { boundary: u3 = "clippingAncestors", rootBoundary: m3 = "viewport", elementContext: g3 = "floating", altBoundary: d3 = false, padding: p3 = 0 } = e2, h3 = a(p3), y3 = c3[d3 ? "floating" === g3 ? "reference" : "floating" : g3], x3 = l(await i3.getClippingRect({ element: null == (n3 = await (null == i3.isElement ? void 0 : i3.isElement(y3))) || n3 ? y3 : y3.contextElement || await (null == i3.getDocumentElement ? void 0 : i3.getDocumentElement(c3.floating)), boundary: u3, rootBoundary: m3, strategy: f3 })), w3 = "floating" === g3 ? { ...s3.floating, x: o3, y: r3 } : s3.reference, v3 = await (null == i3.getOffsetParent ? void 0 : i3.getOffsetParent(c3.floating)), b3 = await (null == i3.isElement ? void 0 : i3.isElement(v3)) && await (null == i3.getScale ? void 0 : i3.getScale(v3)) || { x: 1, y: 1 }, R2 = l(i3.convertOffsetParentRelativeRectToViewportRelativeRect ? await i3.convertOffsetParentRelativeRectToViewportRelativeRect({ rect: w3, offsetParent: v3, strategy: f3 }) : w3);
-    return { top: (x3.top - R2.top + h3.top) / b3.y, bottom: (R2.bottom - x3.bottom + h3.bottom) / b3.y, left: (x3.left - R2.left + h3.left) / b3.x, right: (R2.right - x3.right + h3.right) / b3.x };
-  }
-  var c = Math.min;
-  var f = Math.max;
-  function u(t2, e2, n3) {
-    return f(t2, c(e2, n3));
-  }
-  var g = ["top", "right", "bottom", "left"];
-  var d = g.reduce((t2, e2) => t2.concat(e2, e2 + "-start", e2 + "-end"), []);
-  var p = { left: "right", right: "left", bottom: "top", top: "bottom" };
-  function h(t2) {
-    return t2.replace(/left|right|bottom|top/g, (t3) => p[t3]);
-  }
-  function y(n3, r3, i3) {
-    void 0 === i3 && (i3 = false);
-    const a3 = t(n3), l3 = o(n3), s3 = e(l3);
-    let c3 = "x" === l3 ? a3 === (i3 ? "end" : "start") ? "right" : "left" : "start" === a3 ? "bottom" : "top";
-    return r3.reference[s3] > r3.floating[s3] && (c3 = h(c3)), { main: c3, cross: h(c3) };
-  }
-  var x = { start: "end", end: "start" };
-  function w(t2) {
-    return t2.replace(/start|end/g, (t3) => x[t3]);
-  }
-  var b = function(e2) {
-    return void 0 === e2 && (e2 = {}), { name: "flip", options: e2, async fn(o3) {
-      var r3;
-      const { placement: i3, middlewareData: a3, rects: l3, initialPlacement: c3, platform: f3, elements: u3 } = o3, { mainAxis: m3 = true, crossAxis: g3 = true, fallbackPlacements: d3, fallbackStrategy: p3 = "bestFit", fallbackAxisSideDirection: x3 = "none", flipAlignment: v3 = true, ...b3 } = e2, R2 = n(i3), A2 = n(c3) === c3, P2 = await (null == f3.isRTL ? void 0 : f3.isRTL(u3.floating)), T3 = d3 || (A2 || !v3 ? [h(c3)] : function(t2) {
-        const e3 = h(t2);
-        return [w(t2), e3, w(e3)];
-      }(c3));
-      d3 || "none" === x3 || T3.push(...function(e3, o4, r4, i4) {
-        const a4 = t(e3);
-        let l4 = function(t2, e4, n3) {
-          const o5 = ["left", "right"], r5 = ["right", "left"], i5 = ["top", "bottom"], a5 = ["bottom", "top"];
-          switch (t2) {
-            case "top":
-            case "bottom":
-              return n3 ? e4 ? r5 : o5 : e4 ? o5 : r5;
-            case "left":
-            case "right":
-              return e4 ? i5 : a5;
-            default:
-              return [];
+  var computePosition = async (reference, floating, config) => {
+    const {
+      placement = "bottom",
+      strategy = "absolute",
+      middleware = [],
+      platform: platform2
+    } = config;
+    const validMiddleware = middleware.filter(Boolean);
+    const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(floating));
+    let rects = await platform2.getElementRects({
+      reference,
+      floating,
+      strategy
+    });
+    let {
+      x,
+      y
+    } = computeCoordsFromPlacement(rects, placement, rtl);
+    let statefulPlacement = placement;
+    let middlewareData = {};
+    let resetCount = 0;
+    for (let i = 0; i < validMiddleware.length; i++) {
+      const {
+        name,
+        fn
+      } = validMiddleware[i];
+      const {
+        x: nextX,
+        y: nextY,
+        data,
+        reset
+      } = await fn({
+        x,
+        y,
+        initialPlacement: placement,
+        placement: statefulPlacement,
+        strategy,
+        middlewareData,
+        rects,
+        platform: platform2,
+        elements: {
+          reference,
+          floating
+        }
+      });
+      x = nextX != null ? nextX : x;
+      y = nextY != null ? nextY : y;
+      middlewareData = {
+        ...middlewareData,
+        [name]: {
+          ...middlewareData[name],
+          ...data
+        }
+      };
+      if (reset && resetCount <= 50) {
+        resetCount++;
+        if (typeof reset === "object") {
+          if (reset.placement) {
+            statefulPlacement = reset.placement;
           }
-        }(n(e3), "start" === r4, i4);
-        return a4 && (l4 = l4.map((t2) => t2 + "-" + a4), o4 && (l4 = l4.concat(l4.map(w)))), l4;
-      }(c3, v3, x3, P2));
-      const O3 = [c3, ...T3], D3 = await s(o3, b3), E3 = [];
-      let L3 = (null == (r3 = a3.flip) ? void 0 : r3.overflows) || [];
-      if (m3 && E3.push(D3[R2]), g3) {
-        const { main: t2, cross: e3 } = y(i3, l3, P2);
-        E3.push(D3[t2], D3[e3]);
+          if (reset.rects) {
+            rects = reset.rects === true ? await platform2.getElementRects({
+              reference,
+              floating,
+              strategy
+            }) : reset.rects;
+          }
+          ({
+            x,
+            y
+          } = computeCoordsFromPlacement(rects, statefulPlacement, rtl));
+        }
+        i = -1;
+        continue;
       }
-      if (L3 = [...L3, { placement: i3, overflows: E3 }], !E3.every((t2) => t2 <= 0)) {
-        var k2, B;
-        const t2 = ((null == (k2 = a3.flip) ? void 0 : k2.index) || 0) + 1, e3 = O3[t2];
-        if (e3)
-          return { data: { index: t2, overflows: L3 }, reset: { placement: e3 } };
-        let n3 = null == (B = L3.filter((t3) => t3.overflows[0] <= 0).sort((t3, e4) => t3.overflows[1] - e4.overflows[1])[0]) ? void 0 : B.placement;
-        if (!n3)
-          switch (p3) {
-            case "bestFit": {
-              var C2;
-              const t3 = null == (C2 = L3.map((t4) => [t4.placement, t4.overflows.filter((t5) => t5 > 0).reduce((t5, e4) => t5 + e4, 0)]).sort((t4, e4) => t4[1] - e4[1])[0]) ? void 0 : C2[0];
-              t3 && (n3 = t3);
-              break;
+    }
+    return {
+      x,
+      y,
+      placement: statefulPlacement,
+      strategy,
+      middlewareData
+    };
+  };
+  async function detectOverflow(state, options) {
+    var _await$platform$isEle;
+    if (options === void 0) {
+      options = {};
+    }
+    const {
+      x,
+      y,
+      platform: platform2,
+      rects,
+      elements,
+      strategy
+    } = state;
+    const {
+      boundary = "clippingAncestors",
+      rootBoundary = "viewport",
+      elementContext = "floating",
+      altBoundary = false,
+      padding = 0
+    } = evaluate(options, state);
+    const paddingObject = getPaddingObject(padding);
+    const altContext = elementContext === "floating" ? "reference" : "floating";
+    const element = elements[altBoundary ? altContext : elementContext];
+    const clippingClientRect = rectToClientRect(await platform2.getClippingRect({
+      element: ((_await$platform$isEle = await (platform2.isElement == null ? void 0 : platform2.isElement(element))) != null ? _await$platform$isEle : true) ? element : element.contextElement || await (platform2.getDocumentElement == null ? void 0 : platform2.getDocumentElement(elements.floating)),
+      boundary,
+      rootBoundary,
+      strategy
+    }));
+    const rect = elementContext === "floating" ? {
+      ...rects.floating,
+      x,
+      y
+    } : rects.reference;
+    const offsetParent = await (platform2.getOffsetParent == null ? void 0 : platform2.getOffsetParent(elements.floating));
+    const offsetScale = await (platform2.isElement == null ? void 0 : platform2.isElement(offsetParent)) ? await (platform2.getScale == null ? void 0 : platform2.getScale(offsetParent)) || {
+      x: 1,
+      y: 1
+    } : {
+      x: 1,
+      y: 1
+    };
+    const elementClientRect = rectToClientRect(platform2.convertOffsetParentRelativeRectToViewportRelativeRect ? await platform2.convertOffsetParentRelativeRectToViewportRelativeRect({
+      rect,
+      offsetParent,
+      strategy
+    }) : rect);
+    return {
+      top: (clippingClientRect.top - elementClientRect.top + paddingObject.top) / offsetScale.y,
+      bottom: (elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom) / offsetScale.y,
+      left: (clippingClientRect.left - elementClientRect.left + paddingObject.left) / offsetScale.x,
+      right: (elementClientRect.right - clippingClientRect.right + paddingObject.right) / offsetScale.x
+    };
+  }
+  var flip = function(options) {
+    if (options === void 0) {
+      options = {};
+    }
+    return {
+      name: "flip",
+      options,
+      async fn(state) {
+        var _middlewareData$arrow, _middlewareData$flip;
+        const {
+          placement,
+          middlewareData,
+          rects,
+          initialPlacement,
+          platform: platform2,
+          elements
+        } = state;
+        const {
+          mainAxis: checkMainAxis = true,
+          crossAxis: checkCrossAxis = true,
+          fallbackPlacements: specifiedFallbackPlacements,
+          fallbackStrategy = "bestFit",
+          fallbackAxisSideDirection = "none",
+          flipAlignment = true,
+          ...detectOverflowOptions
+        } = evaluate(options, state);
+        if ((_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) {
+          return {};
+        }
+        const side = getSide(placement);
+        const isBasePlacement = getSide(initialPlacement) === initialPlacement;
+        const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(elements.floating));
+        const fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipAlignment ? [getOppositePlacement(initialPlacement)] : getExpandedPlacements(initialPlacement));
+        if (!specifiedFallbackPlacements && fallbackAxisSideDirection !== "none") {
+          fallbackPlacements.push(...getOppositeAxisPlacements(initialPlacement, flipAlignment, fallbackAxisSideDirection, rtl));
+        }
+        const placements2 = [initialPlacement, ...fallbackPlacements];
+        const overflow = await detectOverflow(state, detectOverflowOptions);
+        const overflows = [];
+        let overflowsData = ((_middlewareData$flip = middlewareData.flip) == null ? void 0 : _middlewareData$flip.overflows) || [];
+        if (checkMainAxis) {
+          overflows.push(overflow[side]);
+        }
+        if (checkCrossAxis) {
+          const sides2 = getAlignmentSides(placement, rects, rtl);
+          overflows.push(overflow[sides2[0]], overflow[sides2[1]]);
+        }
+        overflowsData = [...overflowsData, {
+          placement,
+          overflows
+        }];
+        if (!overflows.every((side2) => side2 <= 0)) {
+          var _middlewareData$flip2, _overflowsData$filter;
+          const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
+          const nextPlacement = placements2[nextIndex];
+          if (nextPlacement) {
+            return {
+              data: {
+                index: nextIndex,
+                overflows: overflowsData
+              },
+              reset: {
+                placement: nextPlacement
+              }
+            };
+          }
+          let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
+          if (!resetPlacement) {
+            switch (fallbackStrategy) {
+              case "bestFit": {
+                var _overflowsData$map$so;
+                const placement2 = (_overflowsData$map$so = overflowsData.map((d) => [d.placement, d.overflows.filter((overflow2) => overflow2 > 0).reduce((acc, overflow2) => acc + overflow2, 0)]).sort((a, b) => a[1] - b[1])[0]) == null ? void 0 : _overflowsData$map$so[0];
+                if (placement2) {
+                  resetPlacement = placement2;
+                }
+                break;
+              }
+              case "initialPlacement":
+                resetPlacement = initialPlacement;
+                break;
             }
-            case "initialPlacement":
-              n3 = c3;
           }
-        if (i3 !== n3)
-          return { reset: { placement: n3 } };
+          if (placement !== resetPlacement) {
+            return {
+              reset: {
+                placement: resetPlacement
+              }
+            };
+          }
+        }
+        return {};
       }
-      return {};
-    } };
+    };
   };
-  var O = function(e2) {
-    return void 0 === e2 && (e2 = 0), { name: "offset", options: e2, async fn(r3) {
-      const { x: i3, y: a3 } = r3, l3 = await async function(e3, r4) {
-        const { placement: i4, platform: a4, elements: l4 } = e3, s3 = await (null == a4.isRTL ? void 0 : a4.isRTL(l4.floating)), c3 = n(i4), f3 = t(i4), u3 = "x" === o(i4), m3 = ["left", "top"].includes(c3) ? -1 : 1, g3 = s3 && u3 ? -1 : 1, d3 = "function" == typeof r4 ? r4(e3) : r4;
-        let { mainAxis: p3, crossAxis: h3, alignmentAxis: y3 } = "number" == typeof d3 ? { mainAxis: d3, crossAxis: 0, alignmentAxis: null } : { mainAxis: 0, crossAxis: 0, alignmentAxis: null, ...d3 };
-        return f3 && "number" == typeof y3 && (h3 = "end" === f3 ? -1 * y3 : y3), u3 ? { x: h3 * g3, y: p3 * m3 } : { x: p3 * m3, y: h3 * g3 };
-      }(r3, e2);
-      return { x: i3 + l3.x, y: a3 + l3.y, data: l3 };
-    } };
-  };
-  function D(t2) {
-    return "x" === t2 ? "y" : "x";
+  async function convertValueToCoords(state, options) {
+    const {
+      placement,
+      platform: platform2,
+      elements
+    } = state;
+    const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(elements.floating));
+    const side = getSide(placement);
+    const alignment = getAlignment(placement);
+    const isVertical = getSideAxis(placement) === "y";
+    const mainAxisMulti = ["left", "top"].includes(side) ? -1 : 1;
+    const crossAxisMulti = rtl && isVertical ? -1 : 1;
+    const rawValue = evaluate(options, state);
+    let {
+      mainAxis,
+      crossAxis,
+      alignmentAxis
+    } = typeof rawValue === "number" ? {
+      mainAxis: rawValue,
+      crossAxis: 0,
+      alignmentAxis: null
+    } : {
+      mainAxis: 0,
+      crossAxis: 0,
+      alignmentAxis: null,
+      ...rawValue
+    };
+    if (alignment && typeof alignmentAxis === "number") {
+      crossAxis = alignment === "end" ? alignmentAxis * -1 : alignmentAxis;
+    }
+    return isVertical ? {
+      x: crossAxis * crossAxisMulti,
+      y: mainAxis * mainAxisMulti
+    } : {
+      x: mainAxis * mainAxisMulti,
+      y: crossAxis * crossAxisMulti
+    };
   }
-  var E = function(t2) {
-    return void 0 === t2 && (t2 = {}), { name: "shift", options: t2, async fn(e2) {
-      const { x: r3, y: i3, placement: a3 } = e2, { mainAxis: l3 = true, crossAxis: c3 = false, limiter: f3 = { fn: (t3) => {
-        let { x: e3, y: n3 } = t3;
-        return { x: e3, y: n3 };
-      } }, ...m3 } = t2, g3 = { x: r3, y: i3 }, d3 = await s(e2, m3), p3 = o(n(a3)), h3 = D(p3);
-      let y3 = g3[p3], x3 = g3[h3];
-      if (l3) {
-        const t3 = "y" === p3 ? "bottom" : "right";
-        y3 = u(y3 + d3["y" === p3 ? "top" : "left"], y3, y3 - d3[t3]);
+  var offset = function(options) {
+    if (options === void 0) {
+      options = 0;
+    }
+    return {
+      name: "offset",
+      options,
+      async fn(state) {
+        const {
+          x,
+          y
+        } = state;
+        const diffCoords = await convertValueToCoords(state, options);
+        return {
+          x: x + diffCoords.x,
+          y: y + diffCoords.y,
+          data: diffCoords
+        };
       }
-      if (c3) {
-        const t3 = "y" === h3 ? "bottom" : "right";
-        x3 = u(x3 + d3["y" === h3 ? "top" : "left"], x3, x3 - d3[t3]);
+    };
+  };
+  var shift = function(options) {
+    if (options === void 0) {
+      options = {};
+    }
+    return {
+      name: "shift",
+      options,
+      async fn(state) {
+        const {
+          x,
+          y,
+          placement
+        } = state;
+        const {
+          mainAxis: checkMainAxis = true,
+          crossAxis: checkCrossAxis = false,
+          limiter = {
+            fn: (_ref) => {
+              let {
+                x: x2,
+                y: y2
+              } = _ref;
+              return {
+                x: x2,
+                y: y2
+              };
+            }
+          },
+          ...detectOverflowOptions
+        } = evaluate(options, state);
+        const coords = {
+          x,
+          y
+        };
+        const overflow = await detectOverflow(state, detectOverflowOptions);
+        const crossAxis = getSideAxis(getSide(placement));
+        const mainAxis = getOppositeAxis(crossAxis);
+        let mainAxisCoord = coords[mainAxis];
+        let crossAxisCoord = coords[crossAxis];
+        if (checkMainAxis) {
+          const minSide = mainAxis === "y" ? "top" : "left";
+          const maxSide = mainAxis === "y" ? "bottom" : "right";
+          const min2 = mainAxisCoord + overflow[minSide];
+          const max2 = mainAxisCoord - overflow[maxSide];
+          mainAxisCoord = clamp(min2, mainAxisCoord, max2);
+        }
+        if (checkCrossAxis) {
+          const minSide = crossAxis === "y" ? "top" : "left";
+          const maxSide = crossAxis === "y" ? "bottom" : "right";
+          const min2 = crossAxisCoord + overflow[minSide];
+          const max2 = crossAxisCoord - overflow[maxSide];
+          crossAxisCoord = clamp(min2, crossAxisCoord, max2);
+        }
+        const limitedCoords = limiter.fn({
+          ...state,
+          [mainAxis]: mainAxisCoord,
+          [crossAxis]: crossAxisCoord
+        });
+        return {
+          ...limitedCoords,
+          data: {
+            x: limitedCoords.x - x,
+            y: limitedCoords.y - y
+          }
+        };
       }
-      const w3 = f3.fn({ ...e2, [p3]: y3, [h3]: x3 });
-      return { ...w3, data: { x: w3.x - r3, y: w3.y - i3 } };
-    } };
+    };
   };
 
-  // node_modules/@floating-ui/dom/dist/floating-ui.dom.browser.min.mjs
-  function n2(t2) {
-    var e2;
-    return (null == (e2 = t2.ownerDocument) ? void 0 : e2.defaultView) || window;
+  // node_modules/@floating-ui/utils/dom/dist/floating-ui.utils.dom.mjs
+  function getNodeName(node) {
+    if (isNode(node)) {
+      return (node.nodeName || "").toLowerCase();
+    }
+    return "#document";
   }
-  function o2(t2) {
-    return n2(t2).getComputedStyle(t2);
+  function getWindow(node) {
+    var _node$ownerDocument;
+    return (node == null ? void 0 : (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;
   }
-  var i2 = Math.min;
-  var r2 = Math.max;
-  var l2 = Math.round;
-  function c2(t2) {
-    const e2 = o2(t2);
-    let n3 = parseFloat(e2.width), i3 = parseFloat(e2.height);
-    const r3 = t2.offsetWidth, c3 = t2.offsetHeight, s3 = l2(n3) !== r3 || l2(i3) !== c3;
-    return s3 && (n3 = r3, i3 = c3), { width: n3, height: i3, fallback: s3 };
+  function getDocumentElement(node) {
+    var _ref;
+    return (_ref = (isNode(node) ? node.ownerDocument : node.document) || window.document) == null ? void 0 : _ref.documentElement;
   }
-  function s2(t2) {
-    return h2(t2) ? (t2.nodeName || "").toLowerCase() : "";
+  function isNode(value) {
+    return value instanceof Node || value instanceof getWindow(value).Node;
   }
-  var f2;
-  function u2() {
-    if (f2)
-      return f2;
-    const t2 = navigator.userAgentData;
-    return t2 && Array.isArray(t2.brands) ? (f2 = t2.brands.map((t3) => t3.brand + "/" + t3.version).join(" "), f2) : navigator.userAgent;
+  function isElement2(value) {
+    return value instanceof Element || value instanceof getWindow(value).Element;
   }
-  function a2(t2) {
-    return t2 instanceof n2(t2).HTMLElement;
+  function isHTMLElement(value) {
+    return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;
   }
-  function d2(t2) {
-    return t2 instanceof n2(t2).Element;
-  }
-  function h2(t2) {
-    return t2 instanceof n2(t2).Node;
-  }
-  function p2(t2) {
-    if ("undefined" == typeof ShadowRoot)
+  function isShadowRoot(value) {
+    if (typeof ShadowRoot === "undefined") {
       return false;
-    return t2 instanceof n2(t2).ShadowRoot || t2 instanceof ShadowRoot;
+    }
+    return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
   }
-  function g2(t2) {
-    const { overflow: e2, overflowX: n3, overflowY: i3, display: r3 } = o2(t2);
-    return /auto|scroll|overlay|hidden|clip/.test(e2 + i3 + n3) && !["inline", "contents"].includes(r3);
+  function isOverflowElement(element) {
+    const {
+      overflow,
+      overflowX,
+      overflowY,
+      display
+    } = getComputedStyle(element);
+    return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !["inline", "contents"].includes(display);
   }
-  function m2(t2) {
-    return ["table", "td", "th"].includes(s2(t2));
+  function isTableElement(element) {
+    return ["table", "td", "th"].includes(getNodeName(element));
   }
-  function y2(t2) {
-    const e2 = /firefox/i.test(u2()), n3 = o2(t2), i3 = n3.backdropFilter || n3.WebkitBackdropFilter;
-    return "none" !== n3.transform || "none" !== n3.perspective || !!i3 && "none" !== i3 || e2 && "filter" === n3.willChange || e2 && !!n3.filter && "none" !== n3.filter || ["transform", "perspective"].some((t3) => n3.willChange.includes(t3)) || ["paint", "layout", "strict", "content"].some((t3) => {
-      const e3 = n3.contain;
-      return null != e3 && e3.includes(t3);
+  function isContainingBlock(element) {
+    const webkit = isWebKit();
+    const css = getComputedStyle(element);
+    return css.transform !== "none" || css.perspective !== "none" || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || ["transform", "perspective", "filter"].some((value) => (css.willChange || "").includes(value)) || ["paint", "layout", "strict", "content"].some((value) => (css.contain || "").includes(value));
+  }
+  function getContainingBlock(element) {
+    let currentNode = getParentNode(element);
+    while (isHTMLElement(currentNode) && !isLastTraversableNode(currentNode)) {
+      if (isContainingBlock(currentNode)) {
+        return currentNode;
+      } else {
+        currentNode = getParentNode(currentNode);
+      }
+    }
+    return null;
+  }
+  function isWebKit() {
+    if (typeof CSS === "undefined" || !CSS.supports)
+      return false;
+    return CSS.supports("-webkit-backdrop-filter", "none");
+  }
+  function isLastTraversableNode(node) {
+    return ["html", "body", "#document"].includes(getNodeName(node));
+  }
+  function getComputedStyle(element) {
+    return getWindow(element).getComputedStyle(element);
+  }
+  function getNodeScroll(element) {
+    if (isElement2(element)) {
+      return {
+        scrollLeft: element.scrollLeft,
+        scrollTop: element.scrollTop
+      };
+    }
+    return {
+      scrollLeft: element.pageXOffset,
+      scrollTop: element.pageYOffset
+    };
+  }
+  function getParentNode(node) {
+    if (getNodeName(node) === "html") {
+      return node;
+    }
+    const result = node.assignedSlot || node.parentNode || isShadowRoot(node) && node.host || getDocumentElement(node);
+    return isShadowRoot(result) ? result.host : result;
+  }
+  function getNearestOverflowAncestor(node) {
+    const parentNode = getParentNode(node);
+    if (isLastTraversableNode(parentNode)) {
+      return node.ownerDocument ? node.ownerDocument.body : node.body;
+    }
+    if (isHTMLElement(parentNode) && isOverflowElement(parentNode)) {
+      return parentNode;
+    }
+    return getNearestOverflowAncestor(parentNode);
+  }
+  function getOverflowAncestors(node, list, traverseIframes) {
+    var _node$ownerDocument2;
+    if (list === void 0) {
+      list = [];
+    }
+    if (traverseIframes === void 0) {
+      traverseIframes = true;
+    }
+    const scrollableAncestor = getNearestOverflowAncestor(node);
+    const isBody = scrollableAncestor === ((_node$ownerDocument2 = node.ownerDocument) == null ? void 0 : _node$ownerDocument2.body);
+    const win = getWindow(scrollableAncestor);
+    if (isBody) {
+      return list.concat(win, win.visualViewport || [], isOverflowElement(scrollableAncestor) ? scrollableAncestor : [], win.frameElement && traverseIframes ? getOverflowAncestors(win.frameElement) : []);
+    }
+    return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor, [], traverseIframes));
+  }
+
+  // node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs
+  function getCssDimensions(element) {
+    const css = getComputedStyle(element);
+    let width = parseFloat(css.width) || 0;
+    let height = parseFloat(css.height) || 0;
+    const hasOffset = isHTMLElement(element);
+    const offsetWidth = hasOffset ? element.offsetWidth : width;
+    const offsetHeight = hasOffset ? element.offsetHeight : height;
+    const shouldFallback = round(width) !== offsetWidth || round(height) !== offsetHeight;
+    if (shouldFallback) {
+      width = offsetWidth;
+      height = offsetHeight;
+    }
+    return {
+      width,
+      height,
+      $: shouldFallback
+    };
+  }
+  function unwrapElement(element) {
+    return !isElement2(element) ? element.contextElement : element;
+  }
+  function getScale(element) {
+    const domElement = unwrapElement(element);
+    if (!isHTMLElement(domElement)) {
+      return createCoords(1);
+    }
+    const rect = domElement.getBoundingClientRect();
+    const {
+      width,
+      height,
+      $
+    } = getCssDimensions(domElement);
+    let x = ($ ? round(rect.width) : rect.width) / width;
+    let y = ($ ? round(rect.height) : rect.height) / height;
+    if (!x || !Number.isFinite(x)) {
+      x = 1;
+    }
+    if (!y || !Number.isFinite(y)) {
+      y = 1;
+    }
+    return {
+      x,
+      y
+    };
+  }
+  var noOffsets = /* @__PURE__ */ createCoords(0);
+  function getVisualOffsets(element) {
+    const win = getWindow(element);
+    if (!isWebKit() || !win.visualViewport) {
+      return noOffsets;
+    }
+    return {
+      x: win.visualViewport.offsetLeft,
+      y: win.visualViewport.offsetTop
+    };
+  }
+  function shouldAddVisualOffsets(element, isFixed, floatingOffsetParent) {
+    if (isFixed === void 0) {
+      isFixed = false;
+    }
+    if (!floatingOffsetParent || isFixed && floatingOffsetParent !== getWindow(element)) {
+      return false;
+    }
+    return isFixed;
+  }
+  function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetParent) {
+    if (includeScale === void 0) {
+      includeScale = false;
+    }
+    if (isFixedStrategy === void 0) {
+      isFixedStrategy = false;
+    }
+    const clientRect = element.getBoundingClientRect();
+    const domElement = unwrapElement(element);
+    let scale = createCoords(1);
+    if (includeScale) {
+      if (offsetParent) {
+        if (isElement2(offsetParent)) {
+          scale = getScale(offsetParent);
+        }
+      } else {
+        scale = getScale(element);
+      }
+    }
+    const visualOffsets = shouldAddVisualOffsets(domElement, isFixedStrategy, offsetParent) ? getVisualOffsets(domElement) : createCoords(0);
+    let x = (clientRect.left + visualOffsets.x) / scale.x;
+    let y = (clientRect.top + visualOffsets.y) / scale.y;
+    let width = clientRect.width / scale.x;
+    let height = clientRect.height / scale.y;
+    if (domElement) {
+      const win = getWindow(domElement);
+      const offsetWin = offsetParent && isElement2(offsetParent) ? getWindow(offsetParent) : offsetParent;
+      let currentIFrame = win.frameElement;
+      while (currentIFrame && offsetParent && offsetWin !== win) {
+        const iframeScale = getScale(currentIFrame);
+        const iframeRect = currentIFrame.getBoundingClientRect();
+        const css = getComputedStyle(currentIFrame);
+        const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css.paddingLeft)) * iframeScale.x;
+        const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css.paddingTop)) * iframeScale.y;
+        x *= iframeScale.x;
+        y *= iframeScale.y;
+        width *= iframeScale.x;
+        height *= iframeScale.y;
+        x += left;
+        y += top;
+        currentIFrame = getWindow(currentIFrame).frameElement;
+      }
+    }
+    return rectToClientRect({
+      width,
+      height,
+      x,
+      y
     });
   }
-  function x2() {
-    return /^((?!chrome|android).)*safari/i.test(u2());
-  }
-  function w2(t2) {
-    return ["html", "body", "#document"].includes(s2(t2));
-  }
-  function v2(t2) {
-    return d2(t2) ? t2 : t2.contextElement;
-  }
-  var b2 = { x: 1, y: 1 };
-  function L2(t2) {
-    const e2 = v2(t2);
-    if (!a2(e2))
-      return b2;
-    const n3 = e2.getBoundingClientRect(), { width: o3, height: i3, fallback: r3 } = c2(e2);
-    let s3 = (r3 ? l2(n3.width) : n3.width) / o3, f3 = (r3 ? l2(n3.height) : n3.height) / i3;
-    return s3 && Number.isFinite(s3) || (s3 = 1), f3 && Number.isFinite(f3) || (f3 = 1), { x: s3, y: f3 };
-  }
-  function E2(t2, e2, o3, i3) {
-    var r3, l3;
-    void 0 === e2 && (e2 = false), void 0 === o3 && (o3 = false);
-    const c3 = t2.getBoundingClientRect(), s3 = v2(t2);
-    let f3 = b2;
-    e2 && (i3 ? d2(i3) && (f3 = L2(i3)) : f3 = L2(t2));
-    const u3 = s3 ? n2(s3) : window, a3 = x2() && o3;
-    let h3 = (c3.left + (a3 && (null == (r3 = u3.visualViewport) ? void 0 : r3.offsetLeft) || 0)) / f3.x, p3 = (c3.top + (a3 && (null == (l3 = u3.visualViewport) ? void 0 : l3.offsetTop) || 0)) / f3.y, g3 = c3.width / f3.x, m3 = c3.height / f3.y;
-    if (s3) {
-      const t3 = n2(s3), e3 = i3 && d2(i3) ? n2(i3) : i3;
-      let o4 = t3.frameElement;
-      for (; o4 && i3 && e3 !== t3; ) {
-        const t4 = L2(o4), e4 = o4.getBoundingClientRect(), i4 = getComputedStyle(o4);
-        e4.x += (o4.clientLeft + parseFloat(i4.paddingLeft)) * t4.x, e4.y += (o4.clientTop + parseFloat(i4.paddingTop)) * t4.y, h3 *= t4.x, p3 *= t4.y, g3 *= t4.x, m3 *= t4.y, h3 += e4.x, p3 += e4.y, o4 = n2(o4).frameElement;
+  function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
+    let {
+      rect,
+      offsetParent,
+      strategy
+    } = _ref;
+    const isOffsetParentAnElement = isHTMLElement(offsetParent);
+    const documentElement = getDocumentElement(offsetParent);
+    if (offsetParent === documentElement) {
+      return rect;
+    }
+    let scroll = {
+      scrollLeft: 0,
+      scrollTop: 0
+    };
+    let scale = createCoords(1);
+    const offsets = createCoords(0);
+    if (isOffsetParentAnElement || !isOffsetParentAnElement && strategy !== "fixed") {
+      if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
+        scroll = getNodeScroll(offsetParent);
+      }
+      if (isHTMLElement(offsetParent)) {
+        const offsetRect = getBoundingClientRect(offsetParent);
+        scale = getScale(offsetParent);
+        offsets.x = offsetRect.x + offsetParent.clientLeft;
+        offsets.y = offsetRect.y + offsetParent.clientTop;
       }
     }
-    return { width: g3, height: m3, top: p3, right: h3 + g3, bottom: p3 + m3, left: h3, x: h3, y: p3 };
+    return {
+      width: rect.width * scale.x,
+      height: rect.height * scale.y,
+      x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x,
+      y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y
+    };
   }
-  function R(t2) {
-    return ((h2(t2) ? t2.ownerDocument : t2.document) || window.document).documentElement;
+  function getClientRects(element) {
+    return Array.from(element.getClientRects());
   }
-  function T2(t2) {
-    return d2(t2) ? { scrollLeft: t2.scrollLeft, scrollTop: t2.scrollTop } : { scrollLeft: t2.pageXOffset, scrollTop: t2.pageYOffset };
+  function getWindowScrollBarX(element) {
+    return getBoundingClientRect(getDocumentElement(element)).left + getNodeScroll(element).scrollLeft;
   }
-  function C(t2) {
-    return E2(R(t2)).left + T2(t2).scrollLeft;
-  }
-  function F(t2) {
-    if ("html" === s2(t2))
-      return t2;
-    const e2 = t2.assignedSlot || t2.parentNode || p2(t2) && t2.host || R(t2);
-    return p2(e2) ? e2.host : e2;
-  }
-  function W(t2) {
-    const e2 = F(t2);
-    return w2(e2) ? e2.ownerDocument.body : a2(e2) && g2(e2) ? e2 : W(e2);
-  }
-  function D2(t2, e2) {
-    var o3;
-    void 0 === e2 && (e2 = []);
-    const i3 = W(t2), r3 = i3 === (null == (o3 = t2.ownerDocument) ? void 0 : o3.body), l3 = n2(i3);
-    return r3 ? e2.concat(l3, l3.visualViewport || [], g2(i3) ? i3 : []) : e2.concat(i3, D2(i3));
-  }
-  function S(e2, i3, l3) {
-    let c3;
-    if ("viewport" === i3)
-      c3 = function(t2, e3) {
-        const o3 = n2(t2), i4 = R(t2), r3 = o3.visualViewport;
-        let l4 = i4.clientWidth, c4 = i4.clientHeight, s4 = 0, f4 = 0;
-        if (r3) {
-          l4 = r3.width, c4 = r3.height;
-          const t3 = x2();
-          (!t3 || t3 && "fixed" === e3) && (s4 = r3.offsetLeft, f4 = r3.offsetTop);
-        }
-        return { width: l4, height: c4, x: s4, y: f4 };
-      }(e2, l3);
-    else if ("document" === i3)
-      c3 = function(t2) {
-        const e3 = R(t2), n3 = T2(t2), i4 = t2.ownerDocument.body, l4 = r2(e3.scrollWidth, e3.clientWidth, i4.scrollWidth, i4.clientWidth), c4 = r2(e3.scrollHeight, e3.clientHeight, i4.scrollHeight, i4.clientHeight);
-        let s4 = -n3.scrollLeft + C(t2);
-        const f4 = -n3.scrollTop;
-        return "rtl" === o2(i4).direction && (s4 += r2(e3.clientWidth, i4.clientWidth) - l4), { width: l4, height: c4, x: s4, y: f4 };
-      }(R(e2));
-    else if (d2(i3))
-      c3 = function(t2, e3) {
-        const n3 = E2(t2, true, "fixed" === e3), o3 = n3.top + t2.clientTop, i4 = n3.left + t2.clientLeft, r3 = a2(t2) ? L2(t2) : { x: 1, y: 1 };
-        return { width: t2.clientWidth * r3.x, height: t2.clientHeight * r3.y, x: i4 * r3.x, y: o3 * r3.y };
-      }(i3, l3);
-    else {
-      const t2 = { ...i3 };
-      if (x2()) {
-        var s3, f3;
-        const o3 = n2(e2);
-        t2.x -= (null == (s3 = o3.visualViewport) ? void 0 : s3.offsetLeft) || 0, t2.y -= (null == (f3 = o3.visualViewport) ? void 0 : f3.offsetTop) || 0;
-      }
-      c3 = t2;
+  function getDocumentRect(element) {
+    const html = getDocumentElement(element);
+    const scroll = getNodeScroll(element);
+    const body2 = element.ownerDocument.body;
+    const width = max(html.scrollWidth, html.clientWidth, body2.scrollWidth, body2.clientWidth);
+    const height = max(html.scrollHeight, html.clientHeight, body2.scrollHeight, body2.clientHeight);
+    let x = -scroll.scrollLeft + getWindowScrollBarX(element);
+    const y = -scroll.scrollTop;
+    if (getComputedStyle(body2).direction === "rtl") {
+      x += max(html.clientWidth, body2.clientWidth) - width;
     }
-    return l(c3);
+    return {
+      width,
+      height,
+      x,
+      y
+    };
   }
-  function A(t2, e2) {
-    return a2(t2) && "fixed" !== o2(t2).position ? e2 ? e2(t2) : t2.offsetParent : null;
-  }
-  function H(t2, e2) {
-    const i3 = n2(t2);
-    let r3 = A(t2, e2);
-    for (; r3 && m2(r3) && "static" === o2(r3).position; )
-      r3 = A(r3, e2);
-    return r3 && ("html" === s2(r3) || "body" === s2(r3) && "static" === o2(r3).position && !y2(r3)) ? i3 : r3 || function(t3) {
-      let e3 = F(t3);
-      for (; a2(e3) && !w2(e3); ) {
-        if (y2(e3))
-          return e3;
-        e3 = F(e3);
+  function getViewportRect(element, strategy) {
+    const win = getWindow(element);
+    const html = getDocumentElement(element);
+    const visualViewport = win.visualViewport;
+    let width = html.clientWidth;
+    let height = html.clientHeight;
+    let x = 0;
+    let y = 0;
+    if (visualViewport) {
+      width = visualViewport.width;
+      height = visualViewport.height;
+      const visualViewportBased = isWebKit();
+      if (!visualViewportBased || visualViewportBased && strategy === "fixed") {
+        x = visualViewport.offsetLeft;
+        y = visualViewport.offsetTop;
       }
+    }
+    return {
+      width,
+      height,
+      x,
+      y
+    };
+  }
+  function getInnerBoundingClientRect(element, strategy) {
+    const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
+    const top = clientRect.top + element.clientTop;
+    const left = clientRect.left + element.clientLeft;
+    const scale = isHTMLElement(element) ? getScale(element) : createCoords(1);
+    const width = element.clientWidth * scale.x;
+    const height = element.clientHeight * scale.y;
+    const x = left * scale.x;
+    const y = top * scale.y;
+    return {
+      width,
+      height,
+      x,
+      y
+    };
+  }
+  function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
+    let rect;
+    if (clippingAncestor === "viewport") {
+      rect = getViewportRect(element, strategy);
+    } else if (clippingAncestor === "document") {
+      rect = getDocumentRect(getDocumentElement(element));
+    } else if (isElement2(clippingAncestor)) {
+      rect = getInnerBoundingClientRect(clippingAncestor, strategy);
+    } else {
+      const visualOffsets = getVisualOffsets(element);
+      rect = {
+        ...clippingAncestor,
+        x: clippingAncestor.x - visualOffsets.x,
+        y: clippingAncestor.y - visualOffsets.y
+      };
+    }
+    return rectToClientRect(rect);
+  }
+  function hasFixedPositionAncestor(element, stopNode) {
+    const parentNode = getParentNode(element);
+    if (parentNode === stopNode || !isElement2(parentNode) || isLastTraversableNode(parentNode)) {
+      return false;
+    }
+    return getComputedStyle(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
+  }
+  function getClippingElementAncestors(element, cache) {
+    const cachedResult = cache.get(element);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    let result = getOverflowAncestors(element, [], false).filter((el) => isElement2(el) && getNodeName(el) !== "body");
+    let currentContainingBlockComputedStyle = null;
+    const elementIsFixed = getComputedStyle(element).position === "fixed";
+    let currentNode = elementIsFixed ? getParentNode(element) : element;
+    while (isElement2(currentNode) && !isLastTraversableNode(currentNode)) {
+      const computedStyle = getComputedStyle(currentNode);
+      const currentNodeIsContaining = isContainingBlock(currentNode);
+      if (!currentNodeIsContaining && computedStyle.position === "fixed") {
+        currentContainingBlockComputedStyle = null;
+      }
+      const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+      if (shouldDropCurrentNode) {
+        result = result.filter((ancestor) => ancestor !== currentNode);
+      } else {
+        currentContainingBlockComputedStyle = computedStyle;
+      }
+      currentNode = getParentNode(currentNode);
+    }
+    cache.set(element, result);
+    return result;
+  }
+  function getClippingRect(_ref) {
+    let {
+      element,
+      boundary,
+      rootBoundary,
+      strategy
+    } = _ref;
+    const elementClippingAncestors = boundary === "clippingAncestors" ? getClippingElementAncestors(element, this._c) : [].concat(boundary);
+    const clippingAncestors = [...elementClippingAncestors, rootBoundary];
+    const firstClippingAncestor = clippingAncestors[0];
+    const clippingRect = clippingAncestors.reduce((accRect, clippingAncestor) => {
+      const rect = getClientRectFromClippingAncestor(element, clippingAncestor, strategy);
+      accRect.top = max(rect.top, accRect.top);
+      accRect.right = min(rect.right, accRect.right);
+      accRect.bottom = min(rect.bottom, accRect.bottom);
+      accRect.left = max(rect.left, accRect.left);
+      return accRect;
+    }, getClientRectFromClippingAncestor(element, firstClippingAncestor, strategy));
+    return {
+      width: clippingRect.right - clippingRect.left,
+      height: clippingRect.bottom - clippingRect.top,
+      x: clippingRect.left,
+      y: clippingRect.top
+    };
+  }
+  function getDimensions(element) {
+    return getCssDimensions(element);
+  }
+  function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
+    const isOffsetParentAnElement = isHTMLElement(offsetParent);
+    const documentElement = getDocumentElement(offsetParent);
+    const isFixed = strategy === "fixed";
+    const rect = getBoundingClientRect(element, true, isFixed, offsetParent);
+    let scroll = {
+      scrollLeft: 0,
+      scrollTop: 0
+    };
+    const offsets = createCoords(0);
+    if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+      if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
+        scroll = getNodeScroll(offsetParent);
+      }
+      if (isOffsetParentAnElement) {
+        const offsetRect = getBoundingClientRect(offsetParent, true, isFixed, offsetParent);
+        offsets.x = offsetRect.x + offsetParent.clientLeft;
+        offsets.y = offsetRect.y + offsetParent.clientTop;
+      } else if (documentElement) {
+        offsets.x = getWindowScrollBarX(documentElement);
+      }
+    }
+    return {
+      x: rect.left + scroll.scrollLeft - offsets.x,
+      y: rect.top + scroll.scrollTop - offsets.y,
+      width: rect.width,
+      height: rect.height
+    };
+  }
+  function getTrueOffsetParent(element, polyfill) {
+    if (!isHTMLElement(element) || getComputedStyle(element).position === "fixed") {
       return null;
-    }(t2) || i3;
-  }
-  function V(t2, e2, n3) {
-    const o3 = a2(e2), i3 = R(e2), r3 = E2(t2, true, "fixed" === n3, e2);
-    let l3 = { scrollLeft: 0, scrollTop: 0 };
-    const c3 = { x: 0, y: 0 };
-    if (o3 || !o3 && "fixed" !== n3)
-      if (("body" !== s2(e2) || g2(i3)) && (l3 = T2(e2)), a2(e2)) {
-        const t3 = E2(e2, true);
-        c3.x = t3.x + e2.clientLeft, c3.y = t3.y + e2.clientTop;
-      } else
-        i3 && (c3.x = C(i3));
-    return { x: r3.left + l3.scrollLeft - c3.x, y: r3.top + l3.scrollTop - c3.y, width: r3.width, height: r3.height };
-  }
-  var O2 = { getClippingRect: function(t2) {
-    let { element: e2, boundary: n3, rootBoundary: l3, strategy: c3 } = t2;
-    const f3 = "clippingAncestors" === n3 ? function(t3, e3) {
-      const n4 = e3.get(t3);
-      if (n4)
-        return n4;
-      let i3 = D2(t3).filter((t4) => d2(t4) && "body" !== s2(t4)), r3 = null;
-      const l4 = "fixed" === o2(t3).position;
-      let c4 = l4 ? F(t3) : t3;
-      for (; d2(c4) && !w2(c4); ) {
-        const t4 = o2(c4), e4 = y2(c4);
-        "fixed" === t4.position ? r3 = null : (l4 ? e4 || r3 : e4 || "static" !== t4.position || !r3 || !["absolute", "fixed"].includes(r3.position)) ? r3 = t4 : i3 = i3.filter((t5) => t5 !== c4), c4 = F(c4);
-      }
-      return e3.set(t3, i3), i3;
-    }(e2, this._c) : [].concat(n3), u3 = [...f3, l3], a3 = u3[0], h3 = u3.reduce((t3, n4) => {
-      const o3 = S(e2, n4, c3);
-      return t3.top = r2(o3.top, t3.top), t3.right = i2(o3.right, t3.right), t3.bottom = i2(o3.bottom, t3.bottom), t3.left = r2(o3.left, t3.left), t3;
-    }, S(e2, a3, c3));
-    return { width: h3.right - h3.left, height: h3.bottom - h3.top, x: h3.left, y: h3.top };
-  }, convertOffsetParentRelativeRectToViewportRelativeRect: function(t2) {
-    let { rect: e2, offsetParent: n3, strategy: o3 } = t2;
-    const i3 = a2(n3), r3 = R(n3);
-    if (n3 === r3)
-      return e2;
-    let l3 = { scrollLeft: 0, scrollTop: 0 }, c3 = { x: 1, y: 1 };
-    const f3 = { x: 0, y: 0 };
-    if ((i3 || !i3 && "fixed" !== o3) && (("body" !== s2(n3) || g2(r3)) && (l3 = T2(n3)), a2(n3))) {
-      const t3 = E2(n3);
-      c3 = L2(n3), f3.x = t3.x + n3.clientLeft, f3.y = t3.y + n3.clientTop;
     }
-    return { width: e2.width * c3.x, height: e2.height * c3.y, x: e2.x * c3.x - l3.scrollLeft * c3.x + f3.x, y: e2.y * c3.y - l3.scrollTop * c3.y + f3.y };
-  }, isElement: d2, getDimensions: function(t2) {
-    return a2(t2) ? c2(t2) : t2.getBoundingClientRect();
-  }, getOffsetParent: H, getDocumentElement: R, getScale: L2, async getElementRects(t2) {
-    let { reference: e2, floating: n3, strategy: o3 } = t2;
-    const i3 = this.getOffsetParent || H, r3 = this.getDimensions;
-    return { reference: V(e2, await i3(n3), o3), floating: { x: 0, y: 0, ...await r3(n3) } };
-  }, getClientRects: (t2) => Array.from(t2.getClientRects()), isRTL: (t2) => "rtl" === o2(t2).direction };
-  var z = (t2, n3, o3) => {
-    const i3 = /* @__PURE__ */ new Map(), r3 = { platform: O2, ...o3 }, l3 = { ...r3.platform, _c: i3 };
-    return i(t2, n3, { ...r3, platform: l3 });
+    if (polyfill) {
+      return polyfill(element);
+    }
+    return element.offsetParent;
+  }
+  function getOffsetParent(element, polyfill) {
+    const window2 = getWindow(element);
+    if (!isHTMLElement(element)) {
+      return window2;
+    }
+    let offsetParent = getTrueOffsetParent(element, polyfill);
+    while (offsetParent && isTableElement(offsetParent) && getComputedStyle(offsetParent).position === "static") {
+      offsetParent = getTrueOffsetParent(offsetParent, polyfill);
+    }
+    if (offsetParent && (getNodeName(offsetParent) === "html" || getNodeName(offsetParent) === "body" && getComputedStyle(offsetParent).position === "static" && !isContainingBlock(offsetParent))) {
+      return window2;
+    }
+    return offsetParent || getContainingBlock(element) || window2;
+  }
+  var getElementRects = async function(_ref) {
+    let {
+      reference,
+      floating,
+      strategy
+    } = _ref;
+    const getOffsetParentFn = this.getOffsetParent || getOffsetParent;
+    const getDimensionsFn = this.getDimensions;
+    return {
+      reference: getRectRelativeToOffsetParent(reference, await getOffsetParentFn(floating), strategy),
+      floating: {
+        x: 0,
+        y: 0,
+        ...await getDimensionsFn(floating)
+      }
+    };
+  };
+  function isRTL(element) {
+    return getComputedStyle(element).direction === "rtl";
+  }
+  var platform = {
+    convertOffsetParentRelativeRectToViewportRelativeRect,
+    getDocumentElement,
+    getClippingRect,
+    getOffsetParent,
+    getElementRects,
+    getClientRects,
+    getDimensions,
+    getScale,
+    isElement: isElement2,
+    isRTL
+  };
+  var computePosition2 = (reference, floating, options) => {
+    const cache = /* @__PURE__ */ new Map();
+    const mergedOptions = {
+      platform,
+      ...options
+    };
+    const platformWithCache = {
+      ...mergedOptions.platform,
+      _c: cache
+    };
+    return computePosition(reference, floating, {
+      ...mergedOptions,
+      platform: platformWithCache
+    });
   };
 
   // src/content-script/previewr.ts
@@ -7905,7 +9171,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       link: chrome?.runtime?.getURL
     },
     demo: {
-      i18n: (x3, y3) => x3 === "appName" ? "Floating Calculator" : x3,
+      i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
       link: (path) => {
         if (window.location.protocol === "chrome-extension:") {
           return chrome.runtime.getURL(path);
@@ -7917,7 +9183,7 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       }
     },
     ghPage: {
-      i18n: (x3, y3) => x3 === "appName" ? "Floating Calculator" : x3,
+      i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
       link: (path) => {
         if (window.location.host === "127.0.0.1:3000") {
           return "http://127.0.0.1:3000/website/GENERATED_" + path;
@@ -7962,11 +9228,11 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       document.addEventListener("keydown", this.onEscHandler);
     }
     listenForCspError() {
-      document.addEventListener("securitypolicyviolation", (e2) => {
+      document.addEventListener("securitypolicyviolation", (e) => {
         if (window.name !== iframeName) {
           return;
         }
-        this.logger.error("CSP error", e2, e2.blockedURI);
+        this.logger.error("CSP error", e, e.blockedURI);
       });
     }
     async handleMessage(message) {
@@ -7991,8 +9257,8 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
             this.url = newUrl;
             this.previewUrl(newUrl, message.point);
             return;
-          } catch (e2) {
-            this.logger.log("Error creating url: ", e2);
+          } catch (e) {
+            this.logger.log("Error creating url: ", e);
           }
           break;
         case "escape":
@@ -8041,27 +9307,27 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
         onclose: () => {
           this.url = void 0;
           this.dialog = void 0;
-          document.querySelectorAll("floating-calculator-preview-window")?.forEach((e2) => e2.remove());
+          document.querySelectorAll("floating-calculator-preview-window")?.forEach((e) => e.remove());
         }
       };
     }
     inIframe() {
       try {
         return window.self !== window.top;
-      } catch (e2) {
+      } catch (e) {
         return true;
       }
     }
     getMaxZIndex() {
       return new Promise((resolve) => {
-        const z2 = Math.max(
+        const z = Math.max(
           ...Array.from(
             document.querySelectorAll("body *"),
             (el) => parseFloat(window.getComputedStyle(el).zIndex)
           ).filter((zIndex) => !Number.isNaN(zIndex)),
           0
         );
-        resolve(z2);
+        resolve(z);
       });
     }
     async getPos(rect) {
@@ -8076,18 +9342,18 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
       div.style.position = "fixed";
       div.style.visibility = "hidden";
       document.body.appendChild(div);
-      return z(virtualEl, div, {
+      return computePosition2(virtualEl, div, {
         placement: "top",
         strategy: "fixed",
         middleware: [
-          O(12),
-          b(),
-          E({ padding: 5 })
+          offset(12),
+          flip(),
+          shift({ padding: 5 })
         ]
-      }).then(({ x: x3, y: y3, placement, middlewareData }) => {
+      }).then(({ x, y, placement, middlewareData }) => {
         return {
-          x: x3,
-          y: y3,
+          x,
+          y,
           placement
         };
       });
@@ -8097,23 +9363,23 @@ The transaction will not be sampled. Please use the ${configInstrumenter} instru
   // website/website.ts
   var previewr = new Previewr();
   previewr.init();
-  window.addEventListener("load", (e2) => {
+  window.addEventListener("load", (e) => {
     console.log("loaded");
     let lastMousePosition;
-    document.addEventListener("mousemove", (e3) => {
-      const y3 = e3.y < 20 ? 20 : e3.y;
+    document.addEventListener("mousemove", (e2) => {
+      const y = e2.y < 20 ? 20 : e2.y;
       lastMousePosition = {
         width: 10,
         height: 10,
-        x: e3.x,
-        y: y3,
-        left: e3.x,
-        top: y3,
-        right: e3.x + 10,
-        bottom: y3 + 10
+        x: e2.x,
+        y,
+        left: e2.x,
+        top: y,
+        right: e2.x + 10,
+        bottom: y + 10
       };
     });
-    document.querySelector("#demo-button")?.addEventListener("click", (e3) => {
+    document.querySelector("#demo-button")?.addEventListener("click", (e2) => {
       console.log("clicked demo");
       previewr.handleMessage({
         application: "floating-calculator",
