@@ -74,13 +74,13 @@
     }
   ],
   "background": {
-    "service_worker": "background-script/background.js",
-    "__firefox__persistent": "false"
+    "__chrome__service_worker": "background-script/background.js",
+    "__firefox__scripts": ["background-script/background.js"]
   },
   "__firefox__key": "",
   "__firefox__browser_specific_settings": {
     "gecko": {
-      "id": "no-reply@justiceo.com"
+      "id": "scientific-calc@essentialkit.org"
     }
   }
 }
