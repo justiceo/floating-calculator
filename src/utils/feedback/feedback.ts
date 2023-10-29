@@ -6,7 +6,7 @@ import Analytics from "../analytics";
 import Storage from "../storage";
 import { FEEDBACK_DATA_KEY } from "../storage";
 import { FeedbackData } from "../../background-script/feedback-checker";
-import { Logger } from "../../logger";
+import { Logger } from "../utils/logger";
 
 /* A simple inline form that supports three sizes: inline, small and medium.
 

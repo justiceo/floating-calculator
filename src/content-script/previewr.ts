@@ -1,4 +1,4 @@
-import { Logger } from "../logger";
+import { Logger } from "../utils/logger";
 import { WinBox } from "../utils/winbox/winbox";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";

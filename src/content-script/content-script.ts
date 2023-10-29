@@ -1,4 +1,4 @@
-import { Logger } from "../logger";
+import { Logger } from "../utils/logger";
 import { Previewr } from "./previewr";
 import "./content-script.css";
 

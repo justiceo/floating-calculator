@@ -1,4 +1,4 @@
-import { Logger } from "../logger";
+import { Logger } from "./logger";
 import * as enMessage from "../_locales/en/messages.json";
 
 const logger = new Logger("i18n");

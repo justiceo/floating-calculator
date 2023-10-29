@@ -1,6 +1,6 @@
 import Storage from "../utils/storage";
 import { FEEDBACK_DATA_KEY, INSTALL_TIME_MS,SUCCESSFUL_INTERACTIONS } from "../utils/storage";
-import { Logger } from "../logger";
+import { Logger } from "../utils/logger";
 
 export type FeedbackData = {
   status: "honored" | "ignored" | "eligible" | "ineligible" | undefined;
