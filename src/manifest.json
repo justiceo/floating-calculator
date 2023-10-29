@@ -10,7 +10,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",
-  "permissions": ["contextMenus"],
+  "permissions": ["contextMenus", "storage", "cookies"],
   "host_permissions": ["*://*/*"],
   "action": {
     "default_icon": {
@@ -44,10 +44,6 @@
     },
     {
       "resources": ["content-script/calculator.css"],
-      "matches": ["<all_urls>"]
-    },
-    {
-      "resources": ["assets/logo-24x24.png"],
       "matches": ["<all_urls>"]
     },
     {
