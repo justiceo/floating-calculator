@@ -1,3 +1,4 @@
+import Analytics from "../utils/analytics";
 /*
  * Set up context menu (right-click menu) for different conexts.
  * See reference https://developer.chrome.com/docs/extensions/reference/contextMenus/#method-create.
@@ -12,9 +13,10 @@ interface MenuItem {
 }
 
 /*
- * Prefer arrow method names -
+ * Prefer arrow method names here -
  * https://www.typescriptlang.org/docs/handbook/2/classes.html#arrow-functions.
  */
+declare var IS_DEV_BUILD: boolean;
 export class ContextMenu {
   RELOAD_ACTION: MenuItem = {
     menu: {
@@ -25,6 +27,18 @@ export class ContextMenu {
     },
     handler: (unusedInfo) => {
       chrome.runtime.reload();
+    },
+  };
+  CLEAR_STORAGE: MenuItem = {
+    menu: {
+      id: 'clear-storage',
+      title: 'Clear Storage',
+      visible: true,
+      contexts: ['action'],
+    },
+    handler: (unusedInfo) => {
+      chrome.storage.sync.clear();
+      chrome.storage.local.clear();
     },
   };
   POPUP_WINDOW_ACTION: MenuItem = {
@@ -70,10 +84,14 @@ export class ContextMenu {
   browserActionContextMenu: MenuItem[] = [
     this.POPUP_WINDOW_ACTION,
     this.NEW_TAB_ACTION,
-    this.RELOAD_ACTION,
   ];
 
   init = () => {
+    // Maybe add dev-only actions.
+    if(IS_DEV_BUILD) {
+      this.browserActionContextMenu.push(this.RELOAD_ACTION, this.CLEAR_STORAGE);
+    }
+
     // Check if we can access context menus.
     if (!chrome || !chrome.contextMenus) {
       console.warn("No access to chrome.contextMenus");
@@ -112,3 +130,4 @@ export class ContextMenu {
     });
   }
 }
+new ContextMenu().init();
