@@ -1,12 +1,14 @@
 import "@webcomponents/custom-elements";
+// @ts-ignore: This HTML is loaded as plain text.
 import markup from "./feedback.txt.html";
+// @ts-ignore: This CSS is loaded as plain text.
 import css from "./feedback.txt.css";
 import { i18n } from "../i18n";
 import Analytics from "../analytics";
 import Storage from "../storage";
 import { FEEDBACK_DATA_KEY } from "../storage";
 import { FeedbackData } from "../../background-script/feedback-checker";
-import { Logger } from "../utils/logger";
+import { Logger } from "../logger";
 
 /* A simple inline form that supports three sizes: inline, small and medium.
 
@@ -60,7 +62,7 @@ class FeedbackForm extends HTMLElement {
     const app = elem.getAttribute("app-name") ?? i18n("appName");
     const logo =
       elem.getAttribute("logo-url") ??
-      chrome.runtime.getURL("assets/logo-128x128.png");
+      chrome.runtime.getURL("assets/logo-24x24.png");
     const storeLink =
       elem.getAttribute("store-link") ??
       "https://chrome.google.com/webstore/detail/" + i18n("@@extension_id");
@@ -162,7 +164,7 @@ class FeedbackForm extends HTMLElement {
         // Auto-close at the end.
         if (currentStep == 4) {
           setTimeout(() => {
-            multiStepForm.style.display = "none";
+            this.dispatchEvent(new CustomEvent("feedback-form-completed", {bubbles: true, composed: true}));
           }, 1300);
         }
       })

@@ -18,6 +18,8 @@ template.innerHTML = (
 
         '<div class=wb-body></div>' +
 
+        '<div class=wb-footer><feedback-form size="inline"></feedback-form></div>' +
+
         '<div class=wb-n></div>' +
         '<div class=wb-s></div>' +
         '<div class=wb-w></div>' +
@@ -81,6 +83,18 @@ export const winboxcss = `
     margin-top: 0 !important;
     contain: strict;
     z-index: 0;
+  }
+  .wb-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: none;
+  }
+  .winbox.show-footer .wb-body {
+    bottom: 50px; /* height of footer */
+  }
+  .winbox.show-footer .wb-footer {
+    display: block;
   }
   body > .wb-body {
     position: relative;

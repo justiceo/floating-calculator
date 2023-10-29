@@ -2,6 +2,10 @@ import { Logger } from "../utils/logger";
 import { WinBox } from "../utils/winbox/winbox";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 import "./previewr.css";
+import "../utils/feedback/feedback";
+import { FeedbackData } from "../background-script/feedback-checker";
+import { FEEDBACK_DATA_KEY } from "../utils/storage";
+import Storage from "../utils/storage";
 
 const iframeName = "essentialkit_calc_frame";
 const apis = {
@@ -134,7 +138,22 @@ export class Previewr {
       );
     }
 
+    await this.registerFeedbackUI();
     this.dialog?.show();
+  }
+
+  async registerFeedbackUI() {
+    const feedbackData: FeedbackData = await Storage.get(FEEDBACK_DATA_KEY);
+    const shouldShow = feedbackData.status === "eligible";
+    if(shouldShow) {
+      this.dialog?.addClass("show-footer");
+    }
+
+    // Listen for completion event.
+    const ff = this.dialog?.dom.querySelector("feedback-form");
+    ff.addEventListener("feedback-form-completed", () => {
+      this.dialog?.removeClass("show-footer");
+    });
   }
 
   async getWinboxOptions(url: URL, point?: DOMRect) {
