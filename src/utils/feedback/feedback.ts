@@ -151,7 +151,13 @@ class FeedbackForm extends HTMLElement {
         // Auto-close at the end.
         if (currentStep == 4) {
           setTimeout(() => {
-            this.dispatchEvent(new CustomEvent("feedback-form-completed", {bubbles: true, composed: true, detail: data}));
+            this.dispatchEvent(
+              new CustomEvent("feedback-form-completed", {
+                bubbles: true,
+                composed: true,
+                detail: data,
+              })
+            );
           }, 1300);
         }
       })

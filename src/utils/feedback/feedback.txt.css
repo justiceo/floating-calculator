@@ -139,3 +139,7 @@ button {
 p {
   font-size: 12px
 }
+
+div[data-step="2"] {
+  white-space: nowrap;
+}
