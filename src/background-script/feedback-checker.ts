@@ -12,9 +12,6 @@ export type FeedbackData = {
 // It marks this determination by setting feedback_status="is_eligible_for_feedback" in the Storage area.
 // Considerations: call #shouldRequestFeedback directly from feedback form: FeedbackForm maybe embedded in page context, which has no access to some Chrome APIs
 // Ideally, feedback should be shown after one of many successful interactions, to a long-term user, who is not in Incognito.
-// TODO:
-// - Add logging for successful interaction.
-// - Add check for how long since last prompt.
 class FeedbackChecker {
   DAY_MS = 86_400_000;
   logger = new Logger(this);

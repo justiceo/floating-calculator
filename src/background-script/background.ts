@@ -3,6 +3,8 @@ import "./context-menus";
 import "./icon-updater";
 import "./feedback-checker";
 import { getOrCreateSessionId } from "./session-id";
+import Storage from '../utils/storage';
+import {SUCCESSFUL_INTERACTIONS} from '../utils/storage';
 
 const onMessage = (
   message: any,
@@ -65,5 +67,19 @@ chrome.action.onClicked.addListener((tab:chrome.tabs.Tab) => {
 
   chrome.tabs.sendMessage(tab.id, {action: "toggle-calculator"}, (response) => {
       console.log("BG: received", response);
+
+      // Log successful invocation.
+      Storage.getAndUpdate(SUCCESSFUL_INTERACTIONS, (records) => {
+        if (!records) {
+          records = [];
+        }
+
+        records.push({
+          interaction: "invocation",
+          timestamp: Date.now(),
+        });
+
+        return records;
+      })
     });
 });
