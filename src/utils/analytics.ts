@@ -36,7 +36,7 @@ export class Analytics {
         console.log("sessionId", sessionId);
         resolve(sessionId);
       });
-    })
+    });
   }
 
   // Fires an event with optional params. Event names must only include letters and underscores.

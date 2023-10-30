@@ -14,10 +14,11 @@ const apis = {
     i18n: chrome?.i18n?.getMessage,
     link: chrome?.runtime?.getURL,
   },
-  demo: { // welcome page demo.
-    i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
+  demo: {
+    // welcome page demo.
+    i18n: (x, y) => (x === "appName" ? "Floating Calculator" : x),
     link: (path) => {
-      if(window.location.protocol === 'chrome-extension:') {
+      if (window.location.protocol === "chrome-extension:") {
         return chrome.runtime.getURL(path);
       } else if (window.location.host === "127.0.0.1:3000") {
         return "http://127.0.0.1:3000/build/chrome-dev/" + path;
@@ -27,7 +28,7 @@ const apis = {
     },
   },
   ghPage: {
-    i18n: (x, y) => x === "appName" ? "Floating Calculator" : x,
+    i18n: (x, y) => (x === "appName" ? "Floating Calculator" : x),
     link: (path) => {
       if (window.location.host === "127.0.0.1:3000") {
         return "http://127.0.0.1:3000/website/GENERATED_" + path;
@@ -145,8 +146,8 @@ export class Previewr {
 
   async registerFeedbackUI() {
     const feedbackData: FeedbackData = await Storage.get(FEEDBACK_DATA_KEY);
-        const shouldShow = feedbackData.status === "eligible";
-    if(shouldShow) {
+    const shouldShow = feedbackData.status === "eligible";
+    if (shouldShow) {
       this.dialog?.addClass("show-footer");
     }
 
@@ -157,10 +158,9 @@ export class Previewr {
       const feedbackUpdate: FeedbackData = {
         status: "honored",
         timestamp: Date.now(),
-        rating: e.detail
-      }
+        rating: e.detail,
+      };
       Storage.put(FEEDBACK_DATA_KEY, feedbackUpdate);
-
 
       Analytics.fireEvent("user_feedback", {
         action: "rate_experience",
