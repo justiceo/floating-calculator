@@ -2,13 +2,28 @@ import "./post-install";
 import "./context-menus";
 import "./icon-updater";
 import "./feedback-checker";
+import { getOrCreateSessionId } from "./session-id";
 
 const onMessage = (
   message: any,
   sender: chrome.runtime.MessageSender,
   callback: (response?: any) => void
 ) => {
-  console.log('Received message: ', message, ' from: ', sender);
+
+  // Check if the message is from this extension.
+  if (!sender.id || sender.id !== chrome.i18n.getMessage("@@extension_id")) {
+    console.warn("Ignoring message from unknown sender", sender);
+    return;
+  }
+  console.log("Received message: ", message, " from: ", sender);
+
+  if (message === "get_or_create_session_id") {
+    getOrCreateSessionId().then((sessionId) => {
+      console.log("Sending session Id", sessionId);
+      callback(sessionId);
+    });
+    return true; // Important! Return true to indicate you want to send a response asynchronously
+  }
 
   // For now, bounce-back message to the content script.
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -37,18 +52,18 @@ chrome.action.onClicked.addListener((tab:chrome.tabs.Tab) => {
     url.startsWith("chrome-extension://") ||
     url.startsWith("chrome://") ||
     url.startsWith("https://chrome.google.com/webstore")) {
-      chrome.tabs.create({
+    chrome.tabs.create({
         url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id"
-          )}/standalone/calc.html?unsupportedHost`,
+          "@@extension_id"
+        )}/standalone/calc.html?unsupportedHost`,
         active: true,
       }, () => {
         console.log("successfully created Floating Calculator tab for unsupported host.");
       });
-      return;
-    }
+    return;
+  }
 
   chrome.tabs.sendMessage(tab.id, {action: "toggle-calculator"}, (response) => {
-    console.log("BG: received", response);
-  });
+      console.log("BG: received", response);
+    });
 });

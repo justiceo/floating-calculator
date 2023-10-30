@@ -27,6 +27,9 @@ class Listener {
     this.previewr.init();
 
     chrome.runtime.onMessage.addListener((request, sender, callback) => {
+      if(typeof request === 'string') { // Message is for other parts of application.
+        return;
+      }
       this.logger.debug("Re-posting message for DOM: ", request);
       if (!request.point) {
         request.point = this.lastMousePosition;

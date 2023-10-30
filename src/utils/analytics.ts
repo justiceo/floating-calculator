@@ -5,12 +5,9 @@ const GA_ENDPOINT = "https://www.google-analytics.com/mp/collect";
 const GA_DEBUG_ENDPOINT = "https://www.google-analytics.com/debug/mp/collect";
 
 // Get via https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
-const MEASUREMENT_ID = "TODO";
-const API_SECRET = "TODO";
+const MEASUREMENT_ID = "G-ZCZLZLYH36";
+const API_SECRET = "UIXmDH2iRxaZPMd1S_UUww";
 const DEFAULT_ENGAGEMENT_TIME_MSEC = 100;
-
-// Duration of inactivity after which a new session is created
-const SESSION_EXPIRATION_IN_MIN = 30;
 
 declare var IS_DEV_BUILD: boolean;
 export class Analytics {
@@ -33,32 +30,13 @@ export class Analytics {
   // Returns the current session id, or creates a new one if one doesn't exist or
   // the previous one has expired.
   async getOrCreateSessionId() {
-    // TODO: Update to use storage.session because it is only in memory
-    let { sessionData } = await chrome.storage.sync.get("sessionData");
-    const currentTimeInMs = Date.now();
-    // Check if session exists and is still valid
-    if (sessionData && sessionData.timestamp) {
-      // Calculate how long ago the session was last updated
-      const durationInMin = (currentTimeInMs - sessionData.timestamp) / 60000;
-      // Check if last update lays past the session expiration threshold
-      if (durationInMin > SESSION_EXPIRATION_IN_MIN) {
-        // Clear old session id to start a new session
-        sessionData = null;
-      } else {
-        // Update timestamp to keep session alive
-        sessionData.timestamp = currentTimeInMs;
-        await chrome.storage.sync.set({ sessionData });
-      }
-    }
-    if (!sessionData) {
-      // Create and store a new session
-      sessionData = {
-        session_id: currentTimeInMs.toString(),
-        timestamp: currentTimeInMs.toString(),
-      };
-      await chrome.storage.sync.set({ sessionData });
-    }
-    return sessionData.session_id;
+    return new Promise((resolve) => {
+      chrome.runtime.sendMessage("get_or_create_session_id", (sessionId) => {
+        // service worker is sending this in the callback but somehow we don't see it.
+        console.log("sessionId", sessionId);
+        resolve(sessionId);
+      });
+    })
   }
 
   // Fires an event with optional params. Event names must only include letters and underscores.
@@ -67,6 +45,7 @@ export class Analytics {
     // https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
     if (!params.session_id) {
       params.session_id = await this.getOrCreateSessionId();
+      console.log("s-id", params.session_id, params);
     }
     if (!params.engagement_time_msec) {
       params.engagement_time_msec = DEFAULT_ENGAGEMENT_TIME_MSEC;

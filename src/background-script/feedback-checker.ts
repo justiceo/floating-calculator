@@ -32,7 +32,7 @@ class FeedbackChecker {
 
     // Reset to ineligible if already marked as eligible (otherwise it might be honored).
     const feedbackData = await Storage.get(FEEDBACK_DATA_KEY);
-    if(feedbackData.status == "eligible") {
+    if(feedbackData?.status == "eligible") {
       const newFeedbackStatus: FeedbackData = {
         status: "ineligible",
         timestamp: Date.now(),
