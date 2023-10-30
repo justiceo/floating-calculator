@@ -91,7 +91,7 @@ export const winboxcss = `
     display: none;
   }
   .winbox.show-footer .wb-body {
-    bottom: 50px; /* height of footer */
+    bottom: 35px; /* height of footer */
   }
   .winbox.show-footer .wb-footer {
     display: block;
