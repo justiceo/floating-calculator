@@ -6,6 +6,7 @@ import "../utils/feedback/feedback";
 import { FeedbackData } from "../background-script/feedback-checker";
 import { FEEDBACK_DATA_KEY } from "../utils/storage";
 import Storage from "../utils/storage";
+import Analytics from "../utils/analytics";
 
 const iframeName = "essentialkit_calc_frame";
 const apis = {
@@ -144,15 +145,34 @@ export class Previewr {
 
   async registerFeedbackUI() {
     const feedbackData: FeedbackData = await Storage.get(FEEDBACK_DATA_KEY);
-    const shouldShow = feedbackData.status === "eligible";
+        const shouldShow = feedbackData.status === "eligible";
     if(shouldShow) {
       this.dialog?.addClass("show-footer");
     }
 
-    // Listen for completion event.
+    // Listen for component events.
     const ff = this.dialog?.dom.querySelector("feedback-form");
-    ff.addEventListener("feedback-form-completed", () => {
+    ff.addEventListener("feedback-form-started", (e) => {
+      this.logger.log("started: this", this, chrome?.storage?.sync);
+      const feedbackUpdate: FeedbackData = {
+        status: "honored",
+        timestamp: Date.now(),
+        rating: e.detail
+      }
+      Storage.put(FEEDBACK_DATA_KEY, feedbackUpdate);
+
+
+      Analytics.fireEvent("user_feedback", {
+        action: "rate_experience",
+        star_rating: e.detail,
+      });
+    });
+    ff.addEventListener("feedback-form-completed", (e) => {
       this.dialog?.removeClass("show-footer");
+      Analytics.fireEvent("user_feedback", {
+        action: "submit_feedback",
+        feedback_text: e.detail,
+      });
     });
   }
 
