@@ -33,8 +33,8 @@ export class Analytics {
   // Returns the current session id, or creates a new one if one doesn't exist or
   // the previous one has expired.
   async getOrCreateSessionId() {
-    // Use storage.session because it is only in memory
-    let { sessionData } = await chrome.storage.session.get("sessionData");
+    // TODO: Update to use storage.session because it is only in memory
+    let { sessionData } = await chrome.storage.sync.get("sessionData");
     const currentTimeInMs = Date.now();
     // Check if session exists and is still valid
     if (sessionData && sessionData.timestamp) {
@@ -47,7 +47,7 @@ export class Analytics {
       } else {
         // Update timestamp to keep session alive
         sessionData.timestamp = currentTimeInMs;
-        await chrome.storage.session.set({ sessionData });
+        await chrome.storage.sync.set({ sessionData });
       }
     }
     if (!sessionData) {
@@ -56,7 +56,7 @@ export class Analytics {
         session_id: currentTimeInMs.toString(),
         timestamp: currentTimeInMs.toString(),
       };
-      await chrome.storage.session.set({ sessionData });
+      await chrome.storage.sync.set({ sessionData });
     }
     return sessionData.session_id;
   }
