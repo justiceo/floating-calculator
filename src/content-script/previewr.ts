@@ -153,26 +153,29 @@ export class Previewr {
 
     // Listen for component events.
     const ff = this.dialog?.dom.querySelector("feedback-form");
-    ff.addEventListener("feedback-form-started", (e) => {
-      this.logger.log("started: this", this, chrome?.storage?.sync);
-      const feedbackUpdate: FeedbackData = {
-        status: "honored",
-        timestamp: Date.now(),
-        rating: e.detail,
-      };
-      Storage.put(FEEDBACK_DATA_KEY, feedbackUpdate);
+    ff.setProgressHandler((status, data) => {
+      if (status === "started") {
+        this.logger.log("started: this", this, chrome?.storage?.sync);
+        const feedbackUpdate: FeedbackData = {
+          status: "honored",
+          timestamp: Date.now(),
+          rating: data,
+        };
+        Storage.put(FEEDBACK_DATA_KEY, feedbackUpdate);
 
-      Analytics.fireEvent("user_feedback", {
-        action: "rate_experience",
-        star_rating: e.detail,
-      });
-    });
-    ff.addEventListener("feedback-form-completed", (e) => {
-      this.dialog?.removeClass("show-footer");
-      Analytics.fireEvent("user_feedback", {
-        action: "submit_feedback",
-        feedback_text: e.detail,
-      });
+        Analytics.fireEvent("user_feedback", {
+          action: "rate_experience",
+          star_rating: data,
+        });
+      }
+
+      if (status === "completed") {
+        this.dialog?.removeClass("show-footer");
+        Analytics.fireEvent("user_feedback", {
+          action: "submit_feedback",
+          feedback_text: data,
+        });
+      }
     });
   }
 

@@ -20,11 +20,16 @@ Usage:
 */
 class FeedbackForm extends HTMLElement {
   logger = new Logger("feedback-form");
+  progressHandler;
   constructor() {
     super();
 
     // Create a shadow root
     this.attachShadow({ mode: "open" }); // sets and returns 'this.shadowRoot'
+  }
+
+  setProgressHandler(fn) {
+    this.progressHandler = fn;
   }
 
   static get observedAttributes() {
@@ -98,13 +103,9 @@ class FeedbackForm extends HTMLElement {
 
       const handleStarClick = (event) => {
         const starIndex = event.target.getAttribute("data-star-index");
-        this.dispatchEvent(
-          new CustomEvent("feedback-form-started", {
-            bubbles: true,
-            composed: true,
-            detail: starIndex,
-          })
-        );
+        if (this.progressHandler) {
+          this.progressHandler("started", starIndex);
+        }
 
         currentStep = starIndex < 5 ? 3 : 2;
 
@@ -151,13 +152,9 @@ class FeedbackForm extends HTMLElement {
         // Auto-close at the end.
         if (currentStep == 4) {
           setTimeout(() => {
-            this.dispatchEvent(
-              new CustomEvent("feedback-form-completed", {
-                bubbles: true,
-                composed: true,
-                detail: data,
-              })
-            );
+            if (this.progressHandler) {
+              this.progressHandler("completed", data);
+            }
           }, 1300);
         }
       })

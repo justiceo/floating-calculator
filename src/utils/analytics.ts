@@ -32,8 +32,6 @@ export class Analytics {
   async getOrCreateSessionId() {
     return new Promise((resolve) => {
       chrome.runtime.sendMessage("get_or_create_session_id", (sessionId) => {
-        // service worker is sending this in the callback but somehow we don't see it.
-        console.log("sessionId", sessionId);
         resolve(sessionId);
       });
     });
@@ -45,7 +43,6 @@ export class Analytics {
     // https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
     if (!params.session_id) {
       params.session_id = await this.getOrCreateSessionId();
-      console.log("s-id", params.session_id, params);
     }
     if (!params.engagement_time_msec) {
       params.engagement_time_msec = DEFAULT_ENGAGEMENT_TIME_MSEC;
