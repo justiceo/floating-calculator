@@ -116,6 +116,7 @@ export class ContextMenu {
       (item) => item.menu.id === info.menuItemId
     );
     if (menuItem) {
+      Analytics.fireEvent("context_menu_click", {menu_id: info.menuItemId});
       menuItem.handler(info, tab);
     } else {
       console.error("Unable to find menu item: ", info);
