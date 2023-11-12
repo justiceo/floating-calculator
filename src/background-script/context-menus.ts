@@ -1,4 +1,6 @@
 import Analytics from "../utils/analytics";
+import { Logger } from "../utils/logger";
+import Storage from "../utils/storage";
 /*
  * Set up context menu (right-click menu) for different conexts.
  * See reference https://developer.chrome.com/docs/extensions/reference/contextMenus/#method-create.
@@ -18,6 +20,8 @@ interface MenuItem {
  */
 declare var IS_DEV_BUILD: boolean;
 export class ContextMenu {
+  logger = new Logger(this);
+
   RELOAD_ACTION: MenuItem = {
     menu: {
       id: "reload-extension",
