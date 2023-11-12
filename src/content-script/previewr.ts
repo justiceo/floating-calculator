@@ -53,7 +53,7 @@ export class Previewr {
     if (this.inIframe()) {
       this.logger.debug(
         "Not inserting previewr in iframe: ",
-        window.location.href
+        window.location.href,
       );
       return;
     }
@@ -136,7 +136,7 @@ export class Previewr {
       this.dialog.move(
         winboxOptions.x,
         winboxOptions.y,
-        /* skipUpdate= */ false
+        /* skipUpdate= */ false,
       );
     }
 
@@ -145,8 +145,9 @@ export class Previewr {
   }
 
   async registerFeedbackUI() {
-    const feedbackData: FeedbackData = await Storage.get(FEEDBACK_DATA_KEY);
-    const shouldShow = feedbackData.status === "eligible";
+    const feedbackData: FeedbackData | null =
+      await Storage.get(FEEDBACK_DATA_KEY);
+    const shouldShow = feedbackData?.status === "eligible";
     if (shouldShow) {
       this.dialog?.addClass("show-footer");
     }
@@ -226,9 +227,9 @@ export class Previewr {
     return new Promise((resolve: (arg0: number) => void) => {
       const z = Math.max(
         ...Array.from(document.querySelectorAll("body *"), (el) =>
-          parseFloat(window.getComputedStyle(el).zIndex)
+          parseFloat(window.getComputedStyle(el).zIndex),
         ).filter((zIndex) => !Number.isNaN(zIndex)),
-        0
+        0,
       );
       resolve(z);
     });
