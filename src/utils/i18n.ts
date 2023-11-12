@@ -1,7 +1,7 @@
 import { Logger } from "./logger";
 import * as enMessage from "../_locales/en/messages.json";
 
-const logger = new Logger("i18n");
+export const logger = new Logger("i18n"); // exported for testing.
 
 /**
  * Gets the localized string for the specific message.
@@ -13,13 +13,15 @@ const logger = new Logger("i18n");
 export const i18n = (key: string): string => {
   if (!key) {
     logger.error("A valid key is required for i18n, got", key);
+    return key;
   }
 
-  if (chrome?.i18n) {
+  // chrome.i18n may not be available in page context and returns "" for missing keys.
+  if (chrome?.i18n && chrome.i18n.getMessage(key) !== "") {
     return chrome.i18n.getMessage(key);
   }
   logger.warn(
-    "chrome.i18n is not available in the current context, falling back to en-US"
+    "chrome.i18n is not available in the current context, falling back to en-US",
   );
 
   Object.keys(enMessage).forEach((k) => {});
@@ -29,6 +31,6 @@ export const i18n = (key: string): string => {
     }
   }
 
-  logger.error("No translation available for key", key);
+  logger.error("No translation available for key:", key);
   return key;
 };

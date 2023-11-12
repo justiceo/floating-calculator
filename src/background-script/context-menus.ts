@@ -8,7 +8,7 @@ interface MenuItem {
   menu: chrome.contextMenus.CreateProperties;
   handler: (
     info: chrome.contextMenus.OnClickData,
-    tab?: chrome.tabs.Tab
+    tab?: chrome.tabs.Tab,
   ) => void;
 }
 
@@ -31,14 +31,26 @@ export class ContextMenu {
   };
   CLEAR_STORAGE: MenuItem = {
     menu: {
-      id: 'clear-storage',
-      title: 'Clear Storage',
+      id: "clear-storage",
+      title: "Clear Storage",
       visible: true,
-      contexts: ['action'],
+      contexts: ["action"],
     },
     handler: (unusedInfo) => {
       chrome.storage.sync.clear();
       chrome.storage.local.clear();
+    },
+  };
+
+  PRINT_STORAGE: MenuItem = {
+    menu: {
+      id: "print-storage",
+      title: "Print Storage",
+      visible: true,
+      contexts: ["action"],
+    },
+    handler: async (unusedInfo) => {
+      this.logger.log("Storage contents:", await Storage.getAll());
     },
   };
   POPUP_WINDOW_ACTION: MenuItem = {
@@ -52,13 +64,13 @@ export class ContextMenu {
       chrome.windows.create(
         {
           url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id"
+            "@@extension_id",
           )}/standalone/calc.html`,
           type: "popup",
           width: 440,
           height: 360,
         },
-        function (window) {}
+        function (window) {},
       );
     },
   };
@@ -70,14 +82,17 @@ export class ContextMenu {
       contexts: ["action"],
     },
     handler: (data: chrome.contextMenus.OnClickData) => {
-      chrome.tabs.create({
-        url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id"
+      chrome.tabs.create(
+        {
+          url: `chrome-extension://${chrome.i18n.getMessage(
+            "@@extension_id",
           )}/standalone/calc.html`,
-        active: true,
-      }, () => {
-        console.log("successfully created Floating Calculator tab");
-      })
+          active: true,
+        },
+        () => {
+          console.log("successfully created Floating Calculator tab");
+        },
+      );
     },
   };
 
@@ -88,8 +103,12 @@ export class ContextMenu {
 
   init = () => {
     // Maybe add dev-only actions.
-    if(IS_DEV_BUILD) {
-      this.browserActionContextMenu.push(this.RELOAD_ACTION, this.CLEAR_STORAGE);
+    if (IS_DEV_BUILD) {
+      this.browserActionContextMenu.push(
+        this.RELOAD_ACTION,
+        this.CLEAR_STORAGE,
+        this.PRINT_STORAGE,
+      );
     }
 
     // Check if we can access context menus.
@@ -102,7 +121,7 @@ export class ContextMenu {
     chrome.contextMenus.removeAll();
     // Add menu items.
     this.browserActionContextMenu.forEach((item) =>
-      chrome.contextMenus.create(item.menu)
+      chrome.contextMenus.create(item.menu),
     );
     /*
      * When onClick is fired, execute the handler associated
@@ -113,10 +132,10 @@ export class ContextMenu {
 
   onClick = (info: chrome.contextMenus.OnClickData, tab?: chrome.tabs.Tab) => {
     const menuItem = this.browserActionContextMenu.find(
-      (item) => item.menu.id === info.menuItemId
+      (item) => item.menu.id === info.menuItemId,
     );
     if (menuItem) {
-      Analytics.fireEvent("context_menu_click", {menu_id: info.menuItemId});
+      Analytics.fireEvent("context_menu_click", { menu_id: info.menuItemId });
       menuItem.handler(info, tab);
     } else {
       console.error("Unable to find menu item: ", info);

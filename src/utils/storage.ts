@@ -11,7 +11,7 @@ class Storage {
 
   // Puts arbitrary value in map for key, overwriting any existing value.
   put(key: string, value: any): Promise<void> {
-    if (!value) {
+    if (value === null || value === undefined) {
       return Promise.reject("Attempting to save a null value");
     }
 
@@ -33,9 +33,12 @@ class Storage {
     return this.storageService.get(null);
   }
 
-  async getAndUpdate(key: string, updateFn): Promise<void> {
+  async getAndUpdate(
+    key: string,
+    updateFn: (val) => Promise<any>,
+  ): Promise<void> {
     const data = await this.get(key);
-    return this.put(key, updateFn(data));
+    return this.put(key, await updateFn(data));
   }
 }
 export default new Storage();
