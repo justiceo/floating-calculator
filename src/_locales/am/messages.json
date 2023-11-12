@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "ካልኩሌተር",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "በሚያስፈልግዎት ቦታ ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "ካልኩሌተር",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "ካልኩሌተር",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "በሚያስፈልግዎት ቦታ ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "ካልኩሌተር",
+    "description": "The search query cue for calculator"
+  }
 }

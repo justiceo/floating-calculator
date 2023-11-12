@@ -1,121 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
     <title translate-key="appName">Welcome - Floating Calculator</title>
-    <link rel="stylesheet" href="../utils/bootstrap5.css">
+    <link rel="stylesheet" href="../utils/bootstrap5.css" />
     <script src="../utils/bootstrap.bundle.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Calculator is not showing
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p><em>You spoke:</em>
-                            <span class="badge bg-secondary">never loaded</span>
-                            <span class="badge bg-secondary">it cannot open</span>
-                            <span class="badge bg-secondary">Calculator not appearing</span>
-                            <span class="badge bg-secondary">It doesn't work when I click on it</span>
-                            <span class="badge bg-secondary">wouldn't open</span>
-                            <span class="badge bg-secondary">just didn't even load man</span>
-                            <span class="badge bg-secondary">even though I press it does not work</span>
-                        </p>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Calculator is not showing
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <p>
+                <em>You spoke:</em>
+                <span class="badge bg-secondary">never loaded</span>
+                <span class="badge bg-secondary">it cannot open</span>
+                <span class="badge bg-secondary">Calculator not appearing</span>
+                <span class="badge bg-secondary"
+                  >It doesn't work when I click on it</span
+                >
+                <span class="badge bg-secondary">wouldn't open</span>
+                <span class="badge bg-secondary"
+                  >just didn't even load man</span
+                >
+                <span class="badge bg-secondary"
+                  >even though I press it does not work</span
+                >
+              </p>
 
-                        <p>There are many reasons why the calculator popup may not appear after you have summoned it and
-                            I
-                            have addressed most of them.
-                            A popular one was a dependence on <a href="#">Google's calculator</a>, so if you don't have
-                            internet, or the internet is slow or Google does not serve the calculator mini app in your
-                            region, the extension would appear broken.
-                            I fixed this by implementing the calculator UI and functions from scratch.</p>
+              <p>
+                There are many reasons why the calculator popup may not appear
+                after you have summoned it and I have addressed most of them. A
+                popular one was a dependence on
+                <a href="#">Google's calculator</a>, so if you don't have
+                internet, or the internet is slow or Google does not serve the
+                calculator mini app in your region, the extension would appear
+                broken. I fixed this by implementing the calculator UI and
+                functions from scratch.
+              </p>
 
-                        <p>Moreover, there are web pages that chrome would not let extensions modify for
-                            security/privacy reasons.
-                            These include the chrome webstore pages, browser pages like bookmark, and other extension's
-                            pages.
-                            The extension feels broken when a user attempts to use it on these pages.
-                            Some organizations that use Chrome Enterprise can prevent extensions from modifying certain
-                            webpages as well.
-                            Now the extension checks if the user is on any such page, and opens in a new tab with a
-                            notice instead.
-                            It may also happen if the webpage has not been reloaded after the extension was update (due
-                            to an invalidated extension context). Simply reload the page and try again</p>
-                        <img src="../assets/pin-extension.gif" class="rounded img-thumbnail" />
-                        <p>Fixed in <a href="#">#23g3232</a></p>
-                    </div>
-                </div>
+              <p>
+                Moreover, there are web pages that chrome would not let
+                extensions modify for security/privacy reasons. These include
+                the chrome webstore pages, browser pages like bookmark, and
+                other extension's pages. The extension feels broken when a user
+                attempts to use it on these pages. Some organizations that use
+                Chrome Enterprise can prevent extensions from modifying certain
+                webpages as well. Now the extension checks if the user is on any
+                such page, and opens in a new tab with a notice instead. It may
+                also happen if the webpage has not been reloaded after the
+                extension was update (due to an invalidated extension context).
+                Simply reload the page and try again
+              </p>
+              <img
+                src="../assets/pin-extension.gif"
+                class="rounded img-thumbnail"
+              />
+              <p>Fixed in <a href="#">#23g3232</a></p>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        The UI is too big
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p><em>You spoke:</em>
-                            <span class="badge bg-secondary">it's too big. Resizing crops out important
-                                functions...</span>
-                            <span class="badge bg-secondary">too invasive and not in my control</span>
-                            <span class="badge bg-secondary">size is big no short</span>
-                            <span class="badge bg-secondary">Not optimized for very old computers</span>
-                        </p>
-                        <p>This one was hard for me to notice as I'm typically on large displays.
-                            After extensive UI restructuring, the minimum width of the extension has gone from 695px to
-                            only
-                            100px!</p>
-                        <p>The biggest change was a shift to flexbox sizing that is responsive across both the main and
-                            cross axis.
-                            The fonts were update to get smaller as the size of the calculator shrank (independent of
-                            the size of the containing page or viewport).
-                            To support basic yet persistent calculator use-cases, the scientific functions are hidden
-                            when the calculator approaches the smallest of display widths. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        I want to type with my keyboard
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p><em>You spoke:</em>
-                            <span class="badge bg-secondary">my keyboard keypad is not being allowed to be used with the
-                                calculator</span>
-                            <span class="badge bg-secondary">... CANNOT USE KEYBOARD TO TYPE IN NUMBERS. HAD TO USE
-                                MOUSE.</span>
-                            <span class="badge bg-secondary">keybord number pad should work with calci</span>
-                            <span class="badge bg-secondary">Instacalc can handle numbers pasted in... e.g.
-                                $1,250,000</span>
-                        </p>
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
-                        collapse plugin adds the appropriate classes that we use to style each element. These classes
-                        control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                        modify any of this with custom CSS or overriding our default variables. It's also worth noting
-                        that just about any HTML can go within the <code>.accordion-body</code>, though the transition
-                        does limit overflow.
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              The UI is too big
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <p>
+                <em>You spoke:</em>
+                <span class="badge bg-secondary"
+                  >it's too big. Resizing crops out important functions...</span
+                >
+                <span class="badge bg-secondary"
+                  >too invasive and not in my control</span
+                >
+                <span class="badge bg-secondary">size is big no short</span>
+                <span class="badge bg-secondary"
+                  >Not optimized for very old computers</span
+                >
+              </p>
+              <p>
+                This one was hard for me to notice as I'm typically on large
+                displays. After extensive UI restructuring, the minimum width of
+                the extension has gone from 695px to only 100px!
+              </p>
+              <p>
+                The biggest change was a shift to flexbox sizing that is
+                responsive across both the main and cross axis. The fonts were
+                update to get smaller as the size of the calculator shrank
+                (independent of the size of the containing page or viewport). To
+                support basic yet persistent calculator use-cases, the
+                scientific functions are hidden when the calculator approaches
+                the smallest of display widths.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              I want to type with my keyboard
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <p>
+                <em>You spoke:</em>
+                <span class="badge bg-secondary"
+                  >my keyboard keypad is not being allowed to be used with the
+                  calculator</span
+                >
+                <span class="badge bg-secondary"
+                  >... CANNOT USE KEYBOARD TO TYPE IN NUMBERS. HAD TO USE
+                  MOUSE.</span
+                >
+                <span class="badge bg-secondary"
+                  >keybord number pad should work with calci</span
+                >
+                <span class="badge bg-secondary"
+                  >Instacalc can handle numbers pasted in... e.g.
+                  $1,250,000</span
+                >
+              </p>
+              <strong>This is the third item's accordion body.</strong> It is
+              hidden by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

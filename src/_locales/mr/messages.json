@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "फ्लोटिंग वैज्ञानिक कॅल्क्युलेटर",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "कॅल्क्युलेटर",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "आपल्याला कोठेही आवश्यक असेल तेथे एक तरंगणारे वैज्ञानिक कॅल्क्युलेटर",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "कॅल्क्युलेटर",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "फ्लोटिंग वैज्ञानिक कॅल्क्युलेटर",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "कॅल्क्युलेटर",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "आपल्याला कोठेही आवश्यक असेल तेथे एक तरंगणारे वैज्ञानिक कॅल्क्युलेटर",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "कॅल्क्युलेटर",
+    "description": "The search query cue for calculator"
+  }
 }

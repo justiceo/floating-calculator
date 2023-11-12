@@ -7,6 +7,7 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 ![Screenshot](src/assets/screenshot.JPEG "Screenshot")
 
 ## Downloads
+
 <table cellspacing="0" cellpadding="0">
   <tr style="text-align: center">
     <td valign="center">
@@ -44,11 +45,11 @@ Logo inspo - https://www.veryicon.com/icons/business/colorful-office-icons/book-
 
 ## Features
 
-* Insert a floating calculator on any webpage.
-* Using the most advanced math library under-the-hood, you can do more than the keypad allows.
-* Works for all URLs now, including file URLs (if you've granted the file permission).
-* Works offline and is extremely fast, no more dependence on Google Calculator.
-* Go beyond the keypad, the display supports direct input of expressions, symbols and operators not available on the keypad.
+- Insert a floating calculator on any webpage.
+- Using the most advanced math library under-the-hood, you can do more than the keypad allows.
+- Works for all URLs now, including file URLs (if you've granted the file permission).
+- Works offline and is extremely fast, no more dependence on Google Calculator.
+- Go beyond the keypad, the display supports direct input of expressions, symbols and operators not available on the keypad.
 
 ## Project setup
 
@@ -67,10 +68,10 @@ node tools/esbuild translate
 
 # Start an instance of Chromium with extension installed (using puppeteer)
 # For Firefox, pass --browser=firefox as argument.
-node tools/esbuild start 
+node tools/esbuild start
 
 # Build and package extension into a store-ready upload
-node tools/esbuild --prod 
+node tools/esbuild --prod
 
 # Create extension package for Firefox/Opera/Edge by specifying --browser argument
 node tools/esbuild --prod --browser=firefox
@@ -82,21 +83,23 @@ node tools/esbuild test
 ### Install Locally
 
 #### Chrome
+
 1. Open chrome and navigate to extensions page using this URL: chrome://extensions.
 2. Enable the "Developer mode".
 3. Click "Load unpacked extension" button, browse the `build/chrome-dev` directory and select it.
 
 ### Firefox
+
 1. Open firefox and navigate to `about:debugging#/runtime/this-firefox`.
 2. Click the "Load Temporary Add-on" button.
 3. Browse the `build/firefox-dev` directory and select the `manifest.json` file.
 
-
 ### Other considerations
-* No options page, see context menus for options.
 
+- No options page, see context menus for options.
 
 ### MVP release notes
+
 - remove window.postMessage <DONE>
 - integrate insect.js <DONE>
 - add inv controls. <DONE>
@@ -109,6 +112,7 @@ node tools/esbuild test
 - add demo to welcome page <DONE>
 
 ### MVP fast follow
+
 - history - handle scrolling contents.
 - history - handle too long expression.
 - text-input - handle too long input.
@@ -118,6 +122,7 @@ node tools/esbuild test
 - add integration tests.
 
 ### Post-MVP release
+
 - format the display with mathjax or mathjs
 - switch to typescript
 - add options tab
@@ -126,11 +131,11 @@ node tools/esbuild test
   - precision of results
   - mode (simple, advanced, rocket-science)
 - add unit convertion tab or button.
-- smart inputs 
+- smart inputs
   - validating input to certain functions
 - add error notification bar.
 - add turbo mode, a row on top and another on the left.
-  - shink x2/sqrt, rad/deg, 
+  - shink x2/sqrt, rad/deg,
   - creates room for 5 + 6 + 2 = 13 more buttons.
 - add i18n support.
 - Change AC to delete with long-press to clear.
@@ -148,4 +153,3 @@ node tools/esbuild test
   - Weird number
   - Number theory.
 - Different skins and themes like https://codepen.io/ykadosh/details/OJNNQOz
-

@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "الحاسبة العلمية العائمة",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "آلة حاسبة",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "آلة حاسبة علمية عائمة في أي مكان تحتاجه",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "آلة حاسبة",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "الحاسبة العلمية العائمة",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "آلة حاسبة",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "آلة حاسبة علمية عائمة في أي مكان تحتاجه",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "آلة حاسبة",
+    "description": "The search query cue for calculator"
+  }
 }

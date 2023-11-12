@@ -1,6 +1,6 @@
 import * as puppeteer from "puppeteer";
 
-const outDir=process.env.XTENSION_OUTPUT_DIR;
+const outDir = process.env.XTENSION_OUTPUT_DIR;
 
 describe("Browser test suite", () => {
   let browser: puppeteer.Browser;
@@ -30,7 +30,9 @@ describe("Browser test suite", () => {
   describe("Standalone page test", () => {
     it("should have a title", async () => {
       const page = await browser.newPage();
-      await page.goto("chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html");
+      await page.goto(
+        "chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html",
+      );
       expect(await page.title()).toBe("Floating Calculator");
       await page.close();
     });
@@ -41,7 +43,9 @@ describe("Browser test suite", () => {
      */
     it("should leave a screenshot for me to inspect", async () => {
       const page = await browser.newPage();
-      await page.goto("chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html");
+      await page.goto(
+        "chrome-extension://gpckamigfegdnbmenncpafkmaeonhode/standalone/calc.html",
+      );
       await page.screenshot({ path: "src/assets/screenshot.png" });
       await page.close();
     });

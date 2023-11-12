@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Plovoucí vědecká kalkulačka",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulačka",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulačka",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Plovoucí vědecká kalkulačka",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulačka",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulačka",
+    "description": "The search query cue for calculator"
+  }
 }

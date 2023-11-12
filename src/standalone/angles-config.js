@@ -1,7 +1,7 @@
 // source - https://mathjs.org/examples/browser/angle_configuration.html.html
 
 let replacements = {};
-window.angle = "deg"
+window.angle = "deg";
 math.config({
   predictable: true,
 });

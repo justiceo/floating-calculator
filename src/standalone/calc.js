@@ -37,7 +37,7 @@ function addToHistory(time, expression, result) {
   template.querySelectorAll("button").forEach((b) =>
     b.addEventListener("click", (e) => {
       document.querySelector("input#text-input").value = e.target.innerText;
-    })
+    }),
   );
   parent.prepend(template);
 }
@@ -81,7 +81,7 @@ function handleClick(text) {
           result: ans,
         });
         pretext.innerText = input.value + " =";
-        setInput(input, ans)
+        setInput(input, ans);
         lastAns = ans;
         input.classList.remove("border-danger");
       } else {
@@ -172,7 +172,9 @@ function setInput(input, text) {
   input.value = text;
   input.focus({ focusVisible: true });
   // Hack to force caret at the end of input.
-  setTimeout(() => { input.selectionStart = input.selectionEnd = 10000; }, 0);
+  setTimeout(() => {
+    input.selectionStart = input.selectionEnd = 10000;
+  }, 0);
 }
 
 function showNotification(text, duration = 1500) {
@@ -201,7 +203,7 @@ function checkDocumentFocus() {
     // TODO: Consider reducing the opacity as well.
     showNotification(
       "Inactive: click anywhere in calculator to activate",
-      3000
+      3000,
     );
   }
 }
@@ -268,7 +270,7 @@ document.querySelector(".btn.open-popup").addEventListener("click", (e) => {
   chrome.windows.create(
     {
       url: `chrome-extension://${chrome.i18n.getMessage(
-        "@@extension_id"
+        "@@extension_id",
       )}/standalone/calc.html`,
       type: "popup",
       width: 655,
@@ -276,7 +278,7 @@ document.querySelector(".btn.open-popup").addEventListener("click", (e) => {
     },
     function (window) {
       console.log("opened Floating Calculator in popup window.");
-    }
+    },
   );
   window.close();
 });

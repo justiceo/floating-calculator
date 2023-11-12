@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Peldošs zinātnisks kalkulators",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulators",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Peldošs zinātnisks kalkulators visur, kur tas jums nepieciešams",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulators",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Peldošs zinātnisks kalkulators",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulators",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Peldošs zinātnisks kalkulators visur, kur tas jums nepieciešams",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulators",
+    "description": "The search query cue for calculator"
+  }
 }
