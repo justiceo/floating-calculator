@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "フローティング科学計算機",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "電卓",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "あなたがそれを必要とするどこでも浮かぶ科学的計算機",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "電卓",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "フローティング科学計算機",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "電卓",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "あなたがそれを必要とするどこでも浮かぶ科学的計算機",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "電卓",
+    "description": "The search query cue for calculator"
+  }
 }

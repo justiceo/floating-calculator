@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "கால்குலேட்டர்",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "கால்குலேட்டர்",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "கால்குலேட்டர்",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "கால்குலேட்டர்",
+    "description": "The search query cue for calculator"
+  }
 }

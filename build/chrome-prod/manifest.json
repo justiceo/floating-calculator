@@ -3,12 +3,15 @@
     "description": "__MSG_appDesc__",
     "short_name": "__MSG_appShortName_",
     "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
-    "version": "23.9.18",
+    "version": "23.11.11",
     "manifest_version": 3,
     "default_locale": "en",
     "author": "Justice Ogbonna",
     "permissions": [
-        "contextMenus"
+        "contextMenus",
+        "storage",
+        "cookies",
+        "activeTab"
     ],
     "host_permissions": [
         "*://*/*"
@@ -55,14 +58,6 @@
         {
             "resources": [
                 "content-script/calculator.css"
-            ],
-            "matches": [
-                "<all_urls>"
-            ]
-        },
-        {
-            "resources": [
-                "assets/logo-24x24.png"
             ],
             "matches": [
                 "<all_urls>"

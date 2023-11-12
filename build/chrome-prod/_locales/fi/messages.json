@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Kelluva tieteellinen laskin",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Laskin",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Kelluva tieteellinen laskin missä tahansa tarvitset sitä",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "laskin",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Kelluva tieteellinen laskin",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Laskin",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Kelluva tieteellinen laskin missä tahansa tarvitset sitä",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "laskin",
+    "description": "The search query cue for calculator"
+  }
 }

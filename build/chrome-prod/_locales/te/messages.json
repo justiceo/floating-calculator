@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "కాలిక్యులేటర్",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్ మీకు ఎక్కడైనా అవసరం",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "కాలిక్యులేటర్",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "కాలిక్యులేటర్",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్ మీకు ఎక్కడైనా అవసరం",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "కాలిక్యులేటర్",
+    "description": "The search query cue for calculator"
+  }
 }

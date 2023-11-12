@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "浮动科学计算器",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "计算器",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "您需要的任何地方的浮动科学计算器",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "计算器",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "浮动科学计算器",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "计算器",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "您需要的任何地方的浮动科学计算器",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "计算器",
+    "description": "The search query cue for calculator"
+  }
 }

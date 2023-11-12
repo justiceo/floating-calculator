@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Pływający kalkulator naukowy",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulator",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Pływający kalkulator naukowy w dowolnym miejscu",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulator",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Pływający kalkulator naukowy",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulator",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Pływający kalkulator naukowy w dowolnym miejscu",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulator",
+    "description": "The search query cue for calculator"
+  }
 }

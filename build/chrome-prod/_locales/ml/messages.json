@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "കണക്കുകൂട്ടല് യന്തം",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "കണക്കുകൂട്ടല് യന്തം",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "കണക്കുകൂട്ടല് യന്തം",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "കണക്കുകൂട്ടല് യന്തം",
+    "description": "The search query cue for calculator"
+  }
 }

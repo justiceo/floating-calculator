@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Kalkulator saintifik terapung",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulator",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Kalkulator saintifik terapung di mana sahaja anda memerlukannya",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulator",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Kalkulator saintifik terapung",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulator",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Kalkulator saintifik terapung di mana sahaja anda memerlukannya",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulator",
+    "description": "The search query cue for calculator"
+  }
 }

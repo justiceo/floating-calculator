@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Yüzen bilimsel hesap makinesi",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Hesap makinesi",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "İhtiyacınız olan her yerde yüzen bir bilimsel hesap makinesi",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "hesap makinesi",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Yüzen bilimsel hesap makinesi",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Hesap makinesi",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "İhtiyacınız olan her yerde yüzen bir bilimsel hesap makinesi",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "hesap makinesi",
+    "description": "The search query cue for calculator"
+  }
 }

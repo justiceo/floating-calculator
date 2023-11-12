@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Πλωτή επιστημονική αριθμομηχανή",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Αριθμομηχανή",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Μια πλωτή επιστημονική αριθμομηχανή οπουδήποτε το χρειάζεστε",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "αριθμομηχανή",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Πλωτή επιστημονική αριθμομηχανή",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Αριθμομηχανή",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Μια πλωτή επιστημονική αριθμομηχανή οπουδήποτε το χρειάζεστε",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "αριθμομηχανή",
+    "description": "The search query cue for calculator"
+  }
 }

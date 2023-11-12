@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Plutajući znanstveni kalkulator",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulator",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Plutajući znanstveni kalkulator bilo gdje vam zatreba",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulator",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Plutajući znanstveni kalkulator",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulator",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Plutajući znanstveni kalkulator bilo gdje vam zatreba",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulator",
+    "description": "The search query cue for calculator"
+  }
 }

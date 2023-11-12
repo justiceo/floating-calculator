@@ -1,18 +1,18 @@
 {
-    "appName": {
-        "message": "Ujuv teaduslik kalkulaator",
-        "description": "The name of the extension"
-    },
-    "appShortName": {
-        "message": "Kalkulaator",
-        "description": "The short-version name of the extension name"
-    },
-    "appDesc": {
-        "message": "Ujuv teaduslik kalkulaator kõikjal, kus seda vajate",
-        "description": "The description of your extension"
-    },
-    "calculator_cue": {
-        "message": "kalkulaator",
-        "description": "The search query cue for calculator"
-    }
+  "appName": {
+    "message": "Ujuv teaduslik kalkulaator",
+    "description": "The name of the extension"
+  },
+  "appShortName": {
+    "message": "Kalkulaator",
+    "description": "The short-version name of the extension name"
+  },
+  "appDesc": {
+    "message": "Ujuv teaduslik kalkulaator kõikjal, kus seda vajate",
+    "description": "The description of your extension"
+  },
+  "calculator_cue": {
+    "message": "kalkulaator",
+    "description": "The search query cue for calculator"
+  }
 }
