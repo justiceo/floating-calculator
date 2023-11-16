@@ -33,6 +33,7 @@ export class ContextMenu {
       chrome.runtime.reload();
     },
   };
+
   CLEAR_STORAGE: MenuItem = {
     menu: {
       id: "clear-storage",
@@ -57,6 +58,7 @@ export class ContextMenu {
       this.logger.log("Storage contents:", await Storage.getAll());
     },
   };
+
   POPUP_WINDOW_ACTION: MenuItem = {
     menu: {
       id: "popup-calculator",
@@ -78,6 +80,7 @@ export class ContextMenu {
       );
     },
   };
+
   NEW_TAB_ACTION: MenuItem = {
     menu: {
       id: "newtab-calculator",
@@ -94,7 +97,7 @@ export class ContextMenu {
           active: true,
         },
         () => {
-          console.log("successfully created Floating Calculator tab");
+          this.logger.log("successfully created Floating Calculator tab");
         },
       );
     },
@@ -117,7 +120,7 @@ export class ContextMenu {
 
     // Check if we can access context menus.
     if (!chrome || !chrome.contextMenus) {
-      console.warn("No access to chrome.contextMenus");
+      this.logger.warn("No access to chrome.contextMenus");
       return;
     }
 
@@ -142,14 +145,14 @@ export class ContextMenu {
       Analytics.fireEvent("context_menu_click", { menu_id: info.menuItemId });
       menuItem.handler(info, tab);
     } else {
-      console.error("Unable to find menu item: ", info);
+      this.logger.error("Unable to find menu item: ", info);
     }
   };
 
   sendMessage(message: any): void {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id!, message, (response) => {
-        console.debug("ack:", response);
+        this.logger.debug("ack:", response);
       });
     });
   }

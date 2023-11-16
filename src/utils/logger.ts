@@ -15,7 +15,7 @@ enum LogLevel {
   DEBUG,
 }
 declare var IS_DEV_BUILD: boolean;
-const EXTENSION_NAME = manifest.__package_name__;
+const EXTENSION_NAME = manifest.__package_name;
 
 export class Logger {
   tag = "";
@@ -34,7 +34,7 @@ export class Logger {
 
   initSentry() {
     Sentry.init({
-      dsn: manifest.__sentry_dsn__,
+      dsn: manifest.__sentry_dsn,
       tracesSampleRate: 0.1,
       release: EXTENSION_NAME + "@" + manifest.version,
       environment: "PROD",
@@ -42,7 +42,7 @@ export class Logger {
   }
 
   listenForBgLogs() {
-    chrome?.runtime.onMessage.addListener((message, sender) => {
+    chrome?.runtime?.onMessage.addListener((message, sender) => {
       if (sender.id !== chrome.runtime.id || message.action != "log") {
         return;
       }

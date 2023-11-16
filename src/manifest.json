@@ -2,11 +2,11 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appShortName_",
-  "__package_name__": "floating-calculator",
+  "__package_name": "floating-calculator",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
-  "__comment:version__": "Firefox does not support leading zeros in versions",
+  "__comment:version": "Firefox does not support leading zeros in versions",
   "version": "23.11.11",
-  "__sentry_dsn__": "https://11fa19323b3a48d5882f26d3a98c1864@o526305.ingest.sentry.io/4504743091699712",
+  "__sentry_dsn": "https://11fa19323b3a48d5882f26d3a98c1864@o526305.ingest.sentry.io/4504743091699712",
   "__measurement_id": "G-ZCZLZLYH36",
   "__ga_api_secret": "UIXmDH2iRxaZPMd1S_UUww",
   "manifest_version": 3,
@@ -21,7 +21,7 @@
       "32": "assets/logo-32x32.png"
     },
     "default_title": "__MSG_appName__",
-    "__default_popup__": "popup/popup.html"
+    "__default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
