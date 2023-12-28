@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
+  - name: Chrome Extension Support
+    url: https://chromewebstore.google.com/detail/mbfnbhfjnjeedaknilkfegfnnmmmmpmn/support
+    about: To request new features or report issues with the Chrome Extension, prefer the Chrome Web Store support hub.
   - name: GitHub Community Support
     url: https://github.com/orgs/community/discussions
     about: For help on using Github, please ask questions here.
-  - name: Chrome Extensions Support
-    url: https://developer.chrome.com/docs/extensions/support-feedback/getHelp/
-    about: For general browser extensions help, see the chrome support page.
