@@ -13,6 +13,7 @@ const apis = {
   default: {
     i18n: chrome?.i18n?.getMessage,
     link: chrome?.runtime?.getURL,
+    standaloneLink: () => chrome?.runtime?.getURL("standalone/calc.html"),
   },
   demo: {
     // welcome page demo.
@@ -26,14 +27,14 @@ const apis = {
       console.error("Invalid path");
       return "";
     },
-  },
-  ghPage: {
-    i18n: (x, y) => (x === "appName" ? "Floating Calculator" : x),
-    link: (path) => {
-      if (window.location.host === "127.0.0.1:3000") {
-        return "http://127.0.0.1:3000/website/GENERATED_" + path;
-      } else if (window.location.host === "floatingcalc.com") {
-        return "https://floatingcalc.com/GENERATED_" + path;
+    standaloneLink: () => {
+      if (window.location.protocol === "chrome-extension:") {
+        return chrome.runtime.getURL("standalone/calc.html");
+      } else if (
+        window.location.hostname === "127.0.0.1" ||
+        window.location.hostname === "essentialkit.org"
+      ) {
+        return window.location.origin + "/assets/demos/calculator/calc.html";
       }
       console.error("Invalid path");
       return "";
@@ -91,7 +92,7 @@ export class Previewr {
   async handleMessage(message) {
     this.logger.debug("#handleMessage: ", message);
     this.api = apis.default;
-    const mode = message.data?.mode;
+    const mode = message.mode;
     if (mode === "demo") {
       this.api = apis.demo;
     } else if (mode === "ghPage") {
@@ -100,7 +101,7 @@ export class Previewr {
     switch (message.action) {
       case "toggle-calculator":
         try {
-          let link = this.api.link("standalone/calc.html");
+          let link = this.api.standaloneLink();
           console.log("creatign url", link);
           let newUrl = new URL(link);
           if (newUrl.href === this.url?.href) {

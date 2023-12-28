@@ -3,10 +3,10 @@ export const FEEDBACK_DATA_KEY = "feedback_data";
 export const INSTALL_TIME_MS = "install_time_ms";
 export const SUCCESSFUL_INTERACTIONS = "successful_interactions";
 class Storage {
-  storageService: chrome.storage.SyncStorageArea;
+  storageService: chrome.storage.SyncStorageArea | Window["localStorage"];
   constructor() {
     // Works like chrome.storage.local if syncing is disabled. Max holding of 100Kb.
-    this.storageService = chrome.storage.sync;
+    this.storageService = chrome?.storage?.sync ?? window.localStorage;
   }
 
   // Puts arbitrary value in map for key, overwriting any existing value.
@@ -19,12 +19,22 @@ class Storage {
       return Promise.reject("Attempting to use a null key");
     }
 
+    // localStorage fall-back.
+    if (!chrome?.storage?.sync) {
+      return this.storageService.setItem(key, JSON.stringify(value));
+    }
+
     const data: any = {};
     data[key] = value;
     return this.storageService.set(data);
   }
 
   async get(key: string): Promise<any> {
+    // localStorage fall-back.
+    if (!chrome?.storage?.sync) {
+      return JSON.parse(this.storageService.getItem(key));
+    }
+
     const response = await this.storageService.get(key);
     return response[key];
   }

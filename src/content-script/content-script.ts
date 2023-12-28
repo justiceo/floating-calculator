@@ -9,6 +9,13 @@ class Listener {
   previewr = new Previewr();
 
   start() {
+    this.previewr.init();
+    this.trackMousePosition();
+    this.listenForWindowMessages();
+    this.listenForBgMessage();
+  }
+
+  trackMousePosition() {
     document.addEventListener("mousemove", (e) => {
       // Make top space for popup.
       const y = e.y < 20 ? 20 : e.y;
@@ -23,10 +30,10 @@ class Listener {
         bottom: y + 10,
       } as DOMRect;
     });
+  }
 
-    this.previewr.init();
-
-    chrome.runtime.onMessage.addListener((request, sender, callback) => {
+  listenForBgMessage() {
+    chrome?.runtime?.onMessage?.addListener((request, sender, callback) => {
       if (typeof request === "string") {
         // Message is for other parts of application.
         return;
@@ -44,12 +51,37 @@ class Listener {
     });
   }
 
-  handleMessage(action: string, data: any, point: any) {
+  listenForWindowMessages() {
+    window.addEventListener(
+      "message",
+      (event) => {
+        if (event.origin !== window.location.origin) {
+          this.logger.debug(
+            "Ignoring message from different origin",
+            event.origin,
+            event.data,
+          );
+          return;
+        }
+
+        if (event.data.application !== "floating-calculator") {
+          this.logger.debug(
+            "Ignoring origin messsage not initiated by Floating Calculator",
+          );
+          return;
+        }
+
+        this.logger.log("#WindowMessage: ", event, "/ndata", event.data);
+        this.handleMessage(event.data);
+      },
+      false,
+    );
+  }
+
+  handleMessage(data: { [key: string]: any }) {
     const mssg = {
       application: "floating-calculator",
-      action: action,
-      data: data,
-      point: point,
+      ...data,
     };
     this.previewr.handleMessage(mssg);
   }
