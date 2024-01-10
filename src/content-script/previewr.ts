@@ -10,35 +10,31 @@ import Analytics from "../utils/analytics";
 import { i18n } from "../utils/i18n";
 
 const iframeName = "essentialkit_calc_frame";
-const apis = {
-  default: {
-    link: chrome?.runtime?.getURL,
-    standaloneLink: () => chrome?.runtime?.getURL("standalone/calc.html"),
-  },
-  demo: {
-    // welcome page demo.
-    link: (path) => {
-      if (window.location.protocol === "chrome-extension:") {
-        return chrome.runtime.getURL(path);
-      } else if (window.location.host === "127.0.0.1:3000") {
-        return "http://127.0.0.1:3000/build/chrome-dev/" + path;
-      }
-      console.error("Invalid path");
-      return "";
-    },
-    standaloneLink: () => {
-      if (window.location.protocol === "chrome-extension:") {
-        return chrome.runtime.getURL("standalone/calc.html");
-      } else if (
-        window.location.hostname === "127.0.0.1" ||
-        window.location.hostname === "essentialkit.org"
-      ) {
-        return window.location.origin + "/assets/demos/calculator/calc.html";
-      }
-      console.error("Invalid path");
-      return "";
-    },
-  },
+
+// A wrapper for chrome-compatible file access outside of the chrome context.
+const getURL = (path: string, mode?: string) => {
+  if (!mode || mode === "default") {
+    return chrome?.runtime?.getURL(path);
+  }
+
+  if (mode === "demo") {
+    // for post-install welcome page demo.
+    if (window.location.protocol === "chrome-extension:") {
+      return chrome.runtime.getURL(path);
+    }
+    // for essentialkit (demo & prod) demo
+    else if (
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "essentialkit.org"
+    ) {
+      return (
+        window.location.origin + "/assets/demos/calculator/standalone/calc.html"
+      );
+    }
+  }
+
+  console.error("Invalid mode to getURL", path);
+  return "";
 };
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
@@ -46,7 +42,7 @@ export class Previewr {
   logger = new Logger("previewr");
   dialog?: WinBox;
   url?: URL;
-  api = apis.default;
+  mode = "default";
 
   /* This function inserts an Angular custom element (web component) into the DOM. */
   init() {
@@ -90,15 +86,14 @@ export class Previewr {
 
   async handleMessage(message) {
     this.logger.debug("#handleMessage: ", message);
-    this.api = apis.default;
     const mode = message.mode;
     if (mode === "demo") {
-      this.api = apis.demo;
+      this.mode = "demo";
     }
     switch (message.action) {
       case "toggle-calculator":
         try {
-          let link = this.api.standaloneLink();
+          let link = getURL("standalone/calc.html", this.mode);
           console.log("creatign url", link);
           let newUrl = new URL(link);
           if (newUrl.href === this.url?.href) {
@@ -184,7 +179,7 @@ export class Previewr {
       pos = await this.getPos(point!);
     }
     return {
-      icon: this.api.link("assets/logo-24x24.png"),
+      icon: getURL("assets/logo-24x24.png", this.mode),
       x: pos.x,
       y: pos.y,
       width: "440px",
