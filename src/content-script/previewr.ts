@@ -7,17 +7,16 @@ import { FeedbackData } from "../background-script/feedback-checker";
 import { FEEDBACK_DATA_KEY } from "../utils/storage";
 import Storage from "../utils/storage";
 import Analytics from "../utils/analytics";
+import { i18n } from "../utils/i18n";
 
 const iframeName = "essentialkit_calc_frame";
 const apis = {
   default: {
-    i18n: chrome?.i18n?.getMessage,
     link: chrome?.runtime?.getURL,
     standaloneLink: () => chrome?.runtime?.getURL("standalone/calc.html"),
   },
   demo: {
     // welcome page demo.
-    i18n: (x, y) => (x === "appName" ? "Floating Calculator" : x),
     link: (path) => {
       if (window.location.protocol === "chrome-extension:") {
         return chrome.runtime.getURL(path);
@@ -95,8 +94,6 @@ export class Previewr {
     const mode = message.mode;
     if (mode === "demo") {
       this.api = apis.demo;
-    } else if (mode === "ghPage") {
-      this.api = apis.ghPage;
     }
     switch (message.action) {
       case "toggle-calculator":
@@ -130,7 +127,7 @@ export class Previewr {
 
     if (!this.dialog) {
       this.logger.debug("creating new dialog with options", winboxOptions);
-      this.dialog = new WinBox(this.api.i18n("appName"), winboxOptions);
+      this.dialog = new WinBox(i18n("appName"), winboxOptions);
     } else {
       this.logger.debug("restoring dialog");
       this.dialog.setUrl(url.href);
