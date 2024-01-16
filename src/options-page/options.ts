@@ -1,15 +1,17 @@
-import "../content-script/content-script"; // For demo.
 import { SettingsUI } from "../utils/settings/settings";
 import "./options.css";
 import "../utils/feedback/feedback";
-import { configOptions, packageName } from "../config";
+import { configOptions } from "../config";
 import { appDescription, appName, i18n } from "../utils/i18n";
 import { Logger } from "../utils/logger";
+import { ContentScript } from "../content-script/content-script";
 
 class Options {
   logger = new Logger(this);
+  contentScript = new ContentScript();
 
   init() {
+    this.contentScript.init();
     this.renderSettingsUI();
     this.setI18nText();
     this.registerDemoClickHandler();
@@ -32,10 +34,7 @@ class Options {
   registerDemoClickHandler() {
     document.querySelector("#show-preview")?.addEventListener("click", () => {
       this.logger.debug("Handling demo click");
-      window.postMessage(
-        { application: packageName, action: "show-demo" },
-        window.location.origin
-      );
+      this.contentScript.showDemo();
     });
   }
 }

@@ -1,18 +1,17 @@
 import { Logger } from "../utils/logger";
-import { Previewr } from "./previewr";
+import Storage from "../utils/storage";
+import { WinboxRenderer } from "./winbox-renderer";
 import { packageName } from "../config";
 import "./content-script.css";
 
-class Listener {
-  showTimeout?: number;
+export class ContentScript {
   logger = new Logger("content-script");
   lastMousePosition?: DOMRect;
-  previewr = new Previewr();
+  winboxRenderer = new WinboxRenderer();
 
-  start() {
-    this.previewr.init();
+  init() {
+    this.winboxRenderer.init();
     this.trackMousePosition();
-    this.listenForWindowMessages();
     this.listenForBgMessage();
   }
 
@@ -39,7 +38,7 @@ class Listener {
         // Message is for other parts of application.
         return;
       }
-      this.logger.debug("Re-posting message for DOM: ", request);
+      this.logger.debug("#onMessage: ", request);
       if (!request.point) {
         request.point = this.lastMousePosition;
       }
@@ -52,6 +51,7 @@ class Listener {
     });
   }
 
+  // The welcome pages and demo pages use window messages for triggering.
   listenForWindowMessages() {
     window.addEventListener(
       "message",
@@ -84,11 +84,23 @@ class Listener {
       { application: packageName, action: action, point: point },
       data
     );
-    this.previewr.handleMessage(mssg);
+    this.winboxRenderer.handleMessage(mssg);
+  }
+
+  showDemo() {
+    this.logger.debug("#showDemo");
+    this.winboxRenderer.handleMessage({
+      application: packageName,
+      action: "toggle-calculator",
+      data: { mode: "demo" },
+      point: this.lastMousePosition,
+    });
   }
 }
 
-if (self === top) {
-  // only execute in the top frame.
-  new Listener().start();
-}
+Storage.isCurrentSiteBlocked().then((isBlocked) => {
+  const isTopFrame = window.self === window.top;
+  if (!isBlocked && isTopFrame) {
+    new ContentScript().init();
+  }
+});

@@ -132,6 +132,7 @@ class Build {
           "src/content-script/content-script.ts",
           "src/options-page/options.ts",
           "src/popup/popup.ts",
+          "src/welcome/welcome.ts",
           ...config["additionalEntryPoints"],
         ],
         bundle: true,

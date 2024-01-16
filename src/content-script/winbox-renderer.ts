@@ -1,55 +1,29 @@
 import { Logger } from "../utils/logger";
 import { WinBox } from "../utils/winbox/winbox";
 import { computePosition, flip, offset, shift } from "@floating-ui/dom";
-import "./previewr.css";
+import "./winbox-extended.css";
 import "../utils/feedback/feedback";
 import { FeedbackData } from "../background-script/feedback-checker";
 import { FEEDBACK_DATA_KEY } from "../utils/storage";
 import Storage from "../utils/storage";
 import Analytics from "../utils/analytics";
 import { i18n } from "../utils/i18n";
-
-const iframeName = "essentialkit_calc_frame";
-
-// A wrapper for chrome-compatible file access outside of the chrome context.
-const getURL = (path: string, mode?: string) => {
-  if (!mode || mode === "default") {
-    return chrome?.runtime?.getURL(path);
-  }
-
-  if (mode === "demo") {
-    // for post-install welcome page demo.
-    if (window.location.protocol === "chrome-extension:") {
-      return chrome.runtime.getURL(path);
-    }
-    // for essentialkit (demo & prod) demo
-    else if (
-      window.location.hostname === "127.0.0.1" ||
-      window.location.hostname === "essentialkit.org"
-    ) {
-      return (
-        window.location.origin + "/assets/demos/calculator/standalone/calc.html"
-      );
-    }
-  }
-
-  console.error("Invalid mode to getURL", path);
-  return "";
-};
+import { getURL } from "../utils/get-url";
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
-export class Previewr {
-  logger = new Logger("previewr");
+export class WinboxRenderer {
+  logger = new Logger(this);
   dialog?: WinBox;
   url?: URL;
   mode = "default";
+  iframeName = "essentialkit_calc_frame";
 
   /* This function inserts an Angular custom element (web component) into the DOM. */
   init() {
     if (this.inIframe()) {
       this.logger.debug(
         "Not inserting previewr in iframe: ",
-        window.location.href,
+        window.location.href
       );
       return;
     }
@@ -60,7 +34,7 @@ export class Previewr {
 
   listenForCspError() {
     document.addEventListener("securitypolicyviolation", (e) => {
-      if (window.name !== iframeName) {
+      if (window.name !== this.iframeName) {
         return;
       }
       this.logger.error("CSP error", e, e.blockedURI);
@@ -79,7 +53,7 @@ export class Previewr {
       this.handleMessage({
         action: "escape",
         href: document.location.href,
-        sourceFrame: iframeName,
+        sourceFrame: this.iframeName,
       });
     }
   };
@@ -129,7 +103,7 @@ export class Previewr {
       this.dialog.move(
         winboxOptions.x,
         winboxOptions.y,
-        /* skipUpdate= */ false,
+        /* skipUpdate= */ false
       );
     }
 
@@ -188,11 +162,11 @@ export class Previewr {
       class: ["no-max", "no-full", "no-min", "no-move"],
       index: await this.getMaxZIndex(),
       // Simply updating the url without changing the iframe, means the content-script doesn't get re-inserted into the frame, even though it's now out of context.
-      html: `<iframe name="${iframeName}" src="${url}"></iframe>`,
+      html: `<iframe name="${this.iframeName}" src="${url}"></iframe>`,
       // url: url.href, // Update restore when you update this.
       hidden: true,
       shadowel: "floating-calculator-preview-window",
-      framename: iframeName,
+      framename: this.iframeName,
 
       onclose: () => {
         this.url = undefined;
@@ -220,9 +194,9 @@ export class Previewr {
     return new Promise((resolve: (arg0: number) => void) => {
       const z = Math.max(
         ...Array.from(document.querySelectorAll("body *"), (el) =>
-          parseFloat(window.getComputedStyle(el).zIndex),
+          parseFloat(window.getComputedStyle(el).zIndex)
         ).filter((zIndex) => !Number.isNaN(zIndex)),
-        0,
+        0
       );
       resolve(z);
     });

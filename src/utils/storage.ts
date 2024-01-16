@@ -49,5 +49,19 @@ class Storage {
     const data = await this.get(key);
     return this.put(key, await updateFn(data));
   }
+
+  async isCurrentSiteBlocked(): Promise<boolean> {
+    const blockedSites = await this.get("blocked-sites");
+
+    // window.location.hostname is nil for file URIs.
+    if (
+      blockedSites &&
+      window.location.hostname &&
+      blockedSites.includes(window.location.hostname)
+    ) {
+      return true;
+    }
+    return false;
+  }
 }
 export default new Storage();
