@@ -51,5 +51,53 @@
   },
   "optionBlockedSitesDesc": {
     "message": "Extension will not run on these sites. Enter one site per line."
+  },
+  "optionDefaultWidth": {
+    "message": "Default width"
+  },
+  "optionDefaultWidthDesc": {
+    "message": "The width of the calculator when it launches."
+  },
+  "optionDefaultHeight": {
+    "message": "Default height"
+  },
+  "optionDefaultHeightDesc": {
+    "message": "The height of the calculator when it launches."
+  },
+  "optionEnableFractions": {
+    "message": "Display result in fractions"
+  },
+  "optionEnableFractionsDesc": {
+    "message": "Where possible, renders the result as a fraction instead of decimal."
+  },
+  "optionAnswerPrecision": {
+    "message": "Answer precision"
+  },
+  "optionAnswerPrecisionDesc": {
+    "message": "The number of decimal places that answers are round up to."
+  },
+  "optionDefaultToBasic": {
+    "message": "Default to basic mode"
+  },
+  "optionDefaultToBasicDesc": {
+    "message": "Launch calculator in basic mode (no trignometric functions)."
+  },
+  "optionEnableMinimize": {
+    "message": "Enable minimize"
+  },
+  "optionEnableMinimizeDesc": {
+    "message": "Displays a control (in the header) for minimizing the calculator"
+  },
+  "optionEnableDarkMode": {
+    "message": "Enable dark mode"
+  },
+  "optionEnableDarkModeDesc": {
+    "message": "Give the interface a dark look."
+  },
+  "optionUseCommaForDecimals": {
+    "message": "Use comma (,) for decimals"
+  },
+  "optionUseCommaForDecimalsDesc": {
+    "message": "Display 20.000,00 instead of 20,000.00"
   }
 }
