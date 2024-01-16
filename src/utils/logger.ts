@@ -1,6 +1,7 @@
 /// <reference types="chrome"/>
 import * as Sentry from "@sentry/browser";
 import manifest from "../manifest.json";
+import { packageName, sentryDsn } from "../config";
 
 /**
  * Simple util for logging to console.
@@ -15,7 +16,7 @@ enum LogLevel {
   DEBUG,
 }
 declare var IS_DEV_BUILD: boolean;
-const EXTENSION_NAME = manifest.__package_name;
+const EXTENSION_NAME = packageName;
 
 export class Logger {
   tag = "";
@@ -34,7 +35,7 @@ export class Logger {
 
   initSentry() {
     Sentry.init({
-      dsn: manifest.__sentry_dsn,
+      dsn: sentryDsn,
       tracesSampleRate: 0.1,
       release: EXTENSION_NAME + "@" + manifest.version,
       environment: "PROD",
@@ -49,7 +50,7 @@ export class Logger {
       this.internalLogTagOverride(
         message.data.level,
         message.data.tag,
-        ...message.data.messages,
+        ...message.data.messages
       );
     });
   }

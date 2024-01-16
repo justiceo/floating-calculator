@@ -64,7 +64,7 @@ class FeedbackChecker {
       isSignedIn: ${isSignedIn}, 
       isAgedInstallation: ${isAgedInstallation}, 
       hasSufficientSuccessfulInteractions: ${hasSufficientSuccessfulInteractions}, 
-      isEligibleForReissue: ${isEligibleForReissue}`,
+      isEligibleForReissue: ${isEligibleForReissue}`
     );
 
     return isEligible;
@@ -99,7 +99,7 @@ class FeedbackChecker {
           } else {
             resolve(false);
           }
-        },
+        }
       );
     });
   }

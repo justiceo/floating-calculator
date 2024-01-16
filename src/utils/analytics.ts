@@ -1,14 +1,14 @@
 // Code below imported from https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/functional-samples/tutorial.google-analytics/scripts/google-analytics.js
 // https://developer.chrome.com/docs/extensions/mv3/tut_analytics/
-import manifest from "../manifest.json";
+import { gaApiSecret, measurementId } from "../config";
 import { getOrCreateSessionId } from "./session-id";
 
 const GA_ENDPOINT = "https://www.google-analytics.com/mp/collect";
 const GA_DEBUG_ENDPOINT = "https://www.google-analytics.com/debug/mp/collect";
 
 // Get via https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
-const MEASUREMENT_ID = manifest.__measurement_id;
-const API_SECRET = manifest.__ga_api_secret;
+const MEASUREMENT_ID = measurementId;
+const API_SECRET = gaApiSecret;
 const DEFAULT_ENGAGEMENT_TIME_MSEC = 100;
 
 declare var IS_DEV_BUILD: boolean;
@@ -71,7 +71,7 @@ export class Analytics {
               },
             ],
           }),
-        },
+        }
       );
       if (!this.debug) {
         return;

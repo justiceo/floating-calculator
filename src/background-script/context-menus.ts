@@ -1,26 +1,21 @@
 import Analytics from "../utils/analytics";
-import { Logger } from "../utils/logger";
+import { RemoteLogger } from "../utils/logger";
 import Storage from "../utils/storage";
+import { contextMenus } from "../config";
+import { MenuItem } from "../types";
 /*
  * Set up context menu (right-click menu) for different conexts.
  * See reference https://developer.chrome.com/docs/extensions/reference/contextMenus/#method-create.
  * Max number of browser_action menu items: 6 - https://developer.chrome.com/docs/extensions/reference/contextMenus/#property-ACTION_MENU_TOP_LEVEL_LIMIT
  */
-interface MenuItem {
-  menu: chrome.contextMenus.CreateProperties;
-  handler: (
-    info: chrome.contextMenus.OnClickData,
-    tab?: chrome.tabs.Tab,
-  ) => void;
-}
 
 /*
  * Prefer arrow method names here -
  * https://www.typescriptlang.org/docs/handbook/2/classes.html#arrow-functions.
  */
 declare var IS_DEV_BUILD: boolean;
-export class ContextMenu {
-  logger = new Logger(this);
+class ContextMenu {
+  logger = new RemoteLogger(this);
 
   RELOAD_ACTION: MenuItem = {
     menu: {
@@ -59,53 +54,43 @@ export class ContextMenu {
     },
   };
 
-  POPUP_WINDOW_ACTION: MenuItem = {
+  DISABLE_ON_SITE: MenuItem = {
     menu: {
-      id: "popup-calculator",
-      title: "Open as Popup Window",
+      id: "disable-on-site",
+      title: "Disable on this site",
       visible: true,
       contexts: ["action"],
     },
-    handler: (data: chrome.contextMenus.OnClickData) => {
-      chrome.windows.create(
-        {
-          url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id",
-          )}/standalone/calc.html`,
-          type: "popup",
-          width: 440,
-          height: 360,
-        },
-        function (window) {},
-      );
-    },
-  };
+    handler: (unusedInfo) => {
+      Storage.getAndUpdate("blocked-sites", async (sites: string) => {
+        let url;
 
-  NEW_TAB_ACTION: MenuItem = {
-    menu: {
-      id: "newtab-calculator",
-      title: "Open as New Tab",
-      visible: true,
-      contexts: ["action"],
-    },
-    handler: (data: chrome.contextMenus.OnClickData) => {
-      chrome.tabs.create(
-        {
-          url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id",
-          )}/standalone/calc.html`,
-          active: true,
-        },
-        () => {
-          this.logger.log("successfully created Floating Calculator tab");
-        },
-      );
+        try {
+          const tabs = await chrome.tabs.query({
+            active: true,
+            currentWindow: true,
+          });
+          const pageUrl = tabs[0].url ?? "";
+          url = new URL(pageUrl);
+        } catch (e) {
+          this.logger.debug("Unable to parse url:", e);
+          return sites;
+        }
+        if (!url) {
+          this.logger.debug("URL is null");
+          return sites;
+        }
+
+        // TODO: File urls do not have hostname.
+        const newSites = sites ? sites + "\n" + url.hostname : url.hostname;
+        return newSites;
+      });
     },
   };
 
   browserActionContextMenu: MenuItem[] = [
-    this.POPUP_WINDOW_ACTION,
-    this.NEW_TAB_ACTION,
+    this.DISABLE_ON_SITE,
+    ...contextMenus,
   ];
 
   init = () => {
@@ -114,10 +99,9 @@ export class ContextMenu {
       this.browserActionContextMenu.push(
         this.RELOAD_ACTION,
         this.CLEAR_STORAGE,
-        this.PRINT_STORAGE,
+        this.PRINT_STORAGE
       );
     }
-
     // Check if we can access context menus.
     if (!chrome || !chrome.contextMenus) {
       this.logger.warn("No access to chrome.contextMenus");
@@ -128,7 +112,7 @@ export class ContextMenu {
     chrome.contextMenus.removeAll();
     // Add menu items.
     this.browserActionContextMenu.forEach((item) =>
-      chrome.contextMenus.create(item.menu),
+      chrome.contextMenus.create(item.menu)
     );
     /*
      * When onClick is fired, execute the handler associated
@@ -139,7 +123,7 @@ export class ContextMenu {
 
   onClick = (info: chrome.contextMenus.OnClickData, tab?: chrome.tabs.Tab) => {
     const menuItem = this.browserActionContextMenu.find(
-      (item) => item.menu.id === info.menuItemId,
+      (item) => item.menu.id === info.menuItemId
     );
     if (menuItem) {
       Analytics.fireEvent("context_menu_click", { menu_id: info.menuItemId });
@@ -157,4 +141,5 @@ export class ContextMenu {
     });
   }
 }
+
 new ContextMenu().init();

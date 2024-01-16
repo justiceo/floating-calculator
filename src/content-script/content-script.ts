@@ -1,5 +1,6 @@
 import { Logger } from "../utils/logger";
 import { Previewr } from "./previewr";
+import { packageName } from "../config";
 import "./content-script.css";
 
 class Listener {
@@ -59,14 +60,14 @@ class Listener {
           this.logger.debug(
             "Ignoring message from different origin",
             event.origin,
-            event.data,
+            event.data
           );
           return;
         }
 
-        if (event.data.application !== "floating-calculator") {
+        if (event.data.application !== packageName) {
           this.logger.debug(
-            "Ignoring origin messsage not initiated by Floating Calculator",
+            "Ignoring origin messsage not initiated by Floating Calculator"
           );
           return;
         }
@@ -74,15 +75,15 @@ class Listener {
         this.logger.log("#WindowMessage: ", event, "/ndata", event.data);
         this.handleMessage(event.data);
       },
-      false,
+      false
     );
   }
 
-  handleMessage(data: { [key: string]: any }) {
-    const mssg = {
-      application: "floating-calculator",
-      ...data,
-    };
+  handleMessage(action: string, data: { [key: string]: any }, point) {
+    const mssg = Object.assign(
+      { application: packageName, action: action, point: point },
+      data
+    );
     this.previewr.handleMessage(mssg);
   }
 }

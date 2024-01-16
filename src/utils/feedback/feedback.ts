@@ -48,6 +48,20 @@ class FeedbackForm extends HTMLElement {
     this.logger.debug("Feedback form moved to new page.");
   }
 
+  setI18nText(elem) {
+    elem.querySelector("p[data-step='1']").innerHTML =
+      i18n("fdbkHowAreWeDoing");
+    elem.querySelector("p[data-step='2']").innerHTML = i18n("fdbkCareToShare");
+    elem
+      .querySelector("input[data-step='3']")
+      .setAttribute("placeholder", i18n("fdbkHowCanWeImprove"));
+    elem.querySelector("p[data-step='4']").innerHTML = i18n("fdbkThanks");
+    elem.querySelector("#rate-on-store").innerHTML = i18n("fdbkRateOnWebstore");
+    elem.querySelector("#decline-rate-on-store").innerHTML =
+      i18n("fdbkNoResponse");
+    elem.querySelector("#submit-form").innerHTML = i18n("fdbkSumbit");
+  }
+
   updateStyle(elem) {
     const style = document.createElement("style");
     style.textContent = css;
@@ -60,7 +74,7 @@ class FeedbackForm extends HTMLElement {
     shadow.append(style, documentFragment);
 
     const size = elem.getAttribute("size") ?? "inline";
-    const app = elem.getAttribute("app-name") ?? i18n("appName");
+    const appName = elem.getAttribute("app-name") ?? i18n("appName");
     const logo =
       elem.getAttribute("logo-url") ??
       chrome.runtime.getURL("assets/logo-24x24.png");
@@ -69,14 +83,15 @@ class FeedbackForm extends HTMLElement {
       "https://chrome.google.com/webstore/detail/" + i18n("@@extension_id");
     const formLink =
       elem.getAttribute("form-link") ?? "https://formspree.io/f/mayzdndj";
-    this.logger.debug(`Attributes: size=${size}, app=${app}, logo=${logo}`);
+    this.logger.debug(`Attributes: size=${size}, app=${appName}, logo=${logo}`);
 
     const multiStepForm = shadow.querySelector("[data-multi-step]");
     multiStepForm.classList.remove("inline", "small", "medium");
     multiStepForm.classList.add(size);
+    this.setI18nText(multiStepForm);
 
     multiStepForm.querySelector("img").src = logo;
-    multiStepForm.querySelector(".logo p").innerHTML = app;
+    multiStepForm.querySelector(".logo p").innerHTML = appName;
 
     let currentStep = multiStepForm.getAttribute("data-current-step");
 
@@ -97,7 +112,7 @@ class FeedbackForm extends HTMLElement {
         resetStarsClass();
 
         stars.forEach((star, index) =>
-          index < starIndex ? star.classList.add("full") : null,
+          index < starIndex ? star.classList.add("full") : null
         );
       };
 
@@ -113,7 +128,7 @@ class FeedbackForm extends HTMLElement {
       };
 
       stars.forEach((star) =>
-        star.addEventListener("mouseover", handleMouseOver),
+        star.addEventListener("mouseover", handleMouseOver)
       );
       stars.forEach((star) => star.addEventListener("click", handleStarClick));
       multiStepForm.addEventListener("mouseleave", resetStarsClass);
@@ -132,7 +147,7 @@ class FeedbackForm extends HTMLElement {
         // TODO: Fix this section to send comprehensive and correct data.
         const data = {
           feedback: multiStepForm.querySelector("input").value,
-          appName: app,
+          appName: appName,
         };
 
         // Handle feedback submission.
@@ -157,7 +172,7 @@ class FeedbackForm extends HTMLElement {
             }
           }, 1300);
         }
-      }),
+      })
     );
   }
 }

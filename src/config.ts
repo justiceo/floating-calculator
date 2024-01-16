@@ -1,4 +1,4 @@
-import { Config, MenuItem } from "./extension";
+import { Config, MenuItem } from "./types";
 
 export const packageName = "floating-calculator";
 export const applicationId =
@@ -22,13 +22,13 @@ export const contextMenus: MenuItem[] = [
       chrome.windows.create(
         {
           url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id",
+            "@@extension_id"
           )}/standalone/calc.html`,
           type: "popup",
           width: 440,
           height: 360,
         },
-        function (window) {},
+        function (window) {}
       );
     },
   },
@@ -43,11 +43,11 @@ export const contextMenus: MenuItem[] = [
       chrome.tabs.create(
         {
           url: `chrome-extension://${chrome.i18n.getMessage(
-            "@@extension_id",
+            "@@extension_id"
           )}/standalone/calc.html`,
           active: true,
         },
-        () => {},
+        () => {}
       );
     },
   },

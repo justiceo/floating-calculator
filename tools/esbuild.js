@@ -4,6 +4,7 @@ const esbuild = require("esbuild");
 const Jimp = require("jimp");
 const Jasmine = require("jasmine");
 const puppeteer = require("puppeteer");
+const config = require("./config.json");
 
 class Build {
   outputBase = "build";
@@ -55,9 +56,6 @@ class Build {
         break;
       case "build":
         this.packageExtension().then((out) => console.log(out));
-        break;
-      case "gh-page":
-        this.buildGhPage();
         break;
       default:
         console.error("Unknown task", this.maybeTask);
@@ -130,10 +128,11 @@ class Build {
     return esbuild
       .build({
         entryPoints: [
-          "src/background-script/background.ts",
+          "src/background-script/service-worker.ts",
           "src/content-script/content-script.ts",
+          "src/options-page/options.ts",
           "src/popup/popup.ts",
-          "src/welcome/welcome.ts",
+          ...config["additionalEntryPoints"],
         ],
         bundle: true,
         minify: this.isProd,
@@ -141,6 +140,8 @@ class Build {
         loader: {
           ".txt.html": "text",
           ".txt.css": "text",
+          ".file.css": "file",
+          ".woff2": "dataurl",
         },
         banner: {
           js: `var IS_DEV_BUILD=${!this.isProd};`,
@@ -153,41 +154,10 @@ class Build {
       });
   }
 
-  buildGhPage() {
-    fs.cp(
-      "src/standalone",
-      "website/GENERATED_standalone",
-      { force: true, recursive: true },
-      (err) => {
-        console.error("Error copying standalone: ", err);
-      },
-    );
-    return esbuild
-      .build({
-        entryPoints: ["website/website.ts"],
-        bundle: true,
-        minify: false,
-        sourcemap: false,
-        loader: {
-          ".txt.html": "text",
-          ".txt.css": "text",
-        },
-        banner: {
-          js: `var IS_DEV_BUILD=${!this.isProd};`,
-        },
-        outdir: "website",
-        target: ["chrome107"], // https://en.wikipedia.org/wiki/Google_Chrome_version_history
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
   async watch() {
     const buildAndCatchError = async (event, filename) => {
       try {
         await this.buildExtension();
-        // TODO: Fire event to reload browser.
 
         const timeString = new Date().toLocaleTimeString("en-US", {
           hour12: false, // Use 24-hour format
@@ -197,7 +167,7 @@ class Build {
         });
         console.log(
           timeString,
-          `Successfully rebuilt extension due to: ${event} on ${filename}`,
+          `Successfully rebuilt extension due to: ${event} on ${filename}`
         );
       } catch (e) {
         console.error("Error building extension: ", e);
@@ -270,84 +240,39 @@ class Build {
 
     return new Promise((resolve, reject) => {
       Jimp.read(src, (err, icon) => {
-        if (err) {
-          reject();
+        if (err || !icon) {
+          reject("Error reading icon: " + err);
         }
 
-        if (!icon) {
-          console.error("Error reading icon: ", src);
-        }
-
+        // Generate logos of different sizes and use-cases.
         if (this.args.icons) {
           [16, 24, 32, 48, 128].forEach((size) => {
-            icon
-              .clone()
-              .resize(size, size)
-              .write(`src/assets/logo-${size}x${size}.png`);
-            icon
-              .clone()
-              .resize(size, size)
+            const resized = icon.clone().resize(size, size);
+            resized.write(`src/assets/logo-${size}x${size}.png`);
+            resized
               .greyscale()
               .write(`src/assets/logo-gray-${size}x${size}.png`);
+            ``;
+            // TODO: Add paused overlay.
           });
         }
 
+        let clone = icon.clone();
+        let newName = "";
+        const alignBits =
+          Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER;
         if (this.args.screenshot) {
-          // save as JPEG to avoid alpha worries.
-          icon
-            .clone()
-            .contain(
-              1280,
-              800,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/screenshot-contain-1280x800.JPEG`);
-          icon
-            .clone()
-            .cover(
-              1280,
-              800,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/screenshot-cover-1280x800.JPEG`);
+          newName = "screenshot-1280x800-" + src.split("/").pop().split(".")[0];
+          clone = clone.cover(1280, 800, alignBits);
+        } else if (this.args.tile) {
+          newName = "tile-440x280-" + src.split("/").pop().split(".")[0];
+          clone = clone.cover(440, 280, alignBits);
+        } else if (this.args.marquee) {
+          newName = "marquee-1400x560-" + src.split("/").pop().split(".")[0];
+          clone = clone.cover(1400, 560, alignBits);
         }
-
-        if (this.args.tile) {
-          icon
-            .clone()
-            .contain(
-              440,
-              280,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/tile-contain-440x280.JPEG`);
-          icon
-            .clone()
-            .cover(
-              440,
-              280,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/tile-cover-440x280.JPEG`);
-        }
-
-        if (this.args.marquee) {
-          icon
-            .clone()
-            .contain(
-              1400,
-              560,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/marquee-contain-1400x560.JPEG`);
-          icon
-            .clone()
-            .cover(
-              1400,
-              560,
-              Jimp.VERTICAL_ALIGN_MIDDLE | Jimp.HORIZONTAL_ALIGN_CENTER,
-            )
-            .write(`src/assets/marquee-cover-1400x560.JPEG`);
+        if (newName) {
+          clone.write(`src/assets/${newName}.png`);
         }
 
         resolve();
@@ -362,8 +287,9 @@ class Build {
       "src/assets/": "assets",
       "src/_locales": "_locales",
       "src/popup/popup.html": "popup/popup.html",
+      "src/options-page/options.html": "options-page/options.html",
       "src/welcome": "welcome",
-      "src/standalone": "standalone",
+      ...config.additionalAssetsToCopy,
     };
 
     return new Promise((resolve, reject) => {
@@ -385,7 +311,7 @@ class Build {
                 resolve();
               }
             }
-          },
+          }
         );
       }
     });

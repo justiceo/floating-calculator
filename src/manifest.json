@@ -2,13 +2,10 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appShortName_",
-  "__package_name": "floating-calculator",
+  "__comment:homepage_url": "This should be the webstore link, __MSG_@@extension_id__ is not allowed",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version": "Firefox does not support leading zeros in versions",
   "version": "23.11.15",
-  "__sentry_dsn": "https://11fa19323b3a48d5882f26d3a98c1864@o526305.ingest.sentry.io/4504743091699712",
-  "__measurement_id": "G-ZCZLZLYH36",
-  "__ga_api_secret": "UIXmDH2iRxaZPMd1S_UUww",
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",
@@ -74,8 +71,8 @@
     }
   ],
   "background": {
-    "__chrome__service_worker": "background-script/background.js",
-    "__firefox__scripts": ["background-script/background.js"]
+    "__chrome__service_worker": "background-script/service-worker.js",
+    "__firefox__scripts": ["background-script/service-worker.js"]
   },
   "__firefox__key": "",
   "__firefox__browser_specific_settings": {

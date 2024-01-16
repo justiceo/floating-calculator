@@ -1,0 +1,6 @@
+{
+  "additionalEntryPoints": [],
+  "additionalAssetsToCopy": {
+    "src/standalone": "standalone"
+  }
+}
