@@ -112,7 +112,7 @@ export class SettingsUI extends HTMLElement {
     if (config.type === "select") {
       config.options?.forEach((o) => {
         (actualInput as unknown as HTMLSelectElement).add(
-          new Option(o.text, o.id, o.id === config.value)
+          new Option(i18n(o.text), o.id, o.id === config.value)
         );
       });
       (actualInput as unknown as HTMLSelectElement).selectedIndex =
