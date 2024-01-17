@@ -133,6 +133,7 @@ class Build {
           "src/options-page/options.ts",
           "src/popup/popup.ts",
           "src/welcome/welcome.ts",
+          "src/utils/settings/settings.ts",
           ...config["additionalEntryPoints"],
         ],
         bundle: true,
