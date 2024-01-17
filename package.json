@@ -47,10 +47,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.2.0",
     "@sentry/browser": "^7.36.0",
-    "@sentry/tracing": "^7.37.1",
     "@webcomponents/custom-elements": "^1.5.1",
-    "@webcomponents/webcomponentsjs": "^2.7.0",
-    "lit": "^2.6.0",
-    "winbox": "github:justiceo/winbox"
+    "bootstrap": "^5.3.2"
   }
 }
