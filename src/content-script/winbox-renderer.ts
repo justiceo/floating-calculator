@@ -112,8 +112,9 @@ export class WinboxRenderer {
   }
 
   async registerFeedbackUI() {
-    const feedbackData: FeedbackData | null =
-      await Storage.get(FEEDBACK_DATA_KEY);
+    const feedbackData: FeedbackData | null = await Storage.get(
+      FEEDBACK_DATA_KEY
+    );
     const shouldShow = feedbackData?.status === "eligible";
     if (shouldShow) {
       this.dialog?.addClass("show-footer");
@@ -148,18 +149,23 @@ export class WinboxRenderer {
   }
 
   async getWinboxOptions(url: URL, point?: DOMRect) {
+    // Set width and height from options if present.
+    let width = (await Storage.getConfig("default-width")) + "%";
+    let height = (await Storage.getConfig("default-height")) + "%";
+    let enableMinimize = await Storage.getConfig("enable-minimize");
+
     let pos = { x: 0, y: 0, placement: "top" };
     if (point) {
-      pos = await this.getPos(point!);
+      pos = await this.getPos(point!, width, height);
     }
     return {
       icon: getURL("assets/logo-24x24.png", this.mode),
       x: pos.x,
       y: pos.y,
-      width: "440px",
-      height: "360px",
+      width: width,
+      height: height,
       autosize: false,
-      class: ["no-max", "no-full", "no-min", "no-move"],
+      class: ["no-max", "no-full", enableMinimize ? "" : "no-min", "no-move"],
       index: await this.getMaxZIndex(),
       // Simply updating the url without changing the iframe, means the content-script doesn't get re-inserted into the frame, even though it's now out of context.
       html: `<iframe name="${this.iframeName}" src="${url}"></iframe>`,
@@ -202,7 +208,7 @@ export class WinboxRenderer {
     });
   }
 
-  async getPos(rect: DOMRect) {
+  async getPos(rect: DOMRect, width, height) {
     const virtualEl = {
       getBoundingClientRect() {
         return rect;
@@ -210,8 +216,8 @@ export class WinboxRenderer {
     };
     const div = document.createElement("div");
     // These dimensions need to match that of the dialog precisely.
-    div.style.width = "655px";
-    div.style.height = "360px";
+    div.style.width = width;
+    div.style.height = height;
     div.style.position = "fixed";
     div.style.visibility = "hidden";
     document.body.appendChild(div);
