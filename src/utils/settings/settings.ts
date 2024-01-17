@@ -1,6 +1,5 @@
 import "@webcomponents/custom-elements";
 import { Toast } from "bootstrap";
-import "./settings.css";
 import formHtml from "./settings.txt.html";
 import Storage from "../storage.js";
 import { Logger } from "../logger.js";
