@@ -33,6 +33,7 @@ export function markup(tpl) {
 
 // The CSS below is used as text.
 // Hence it should not contain properties like @import or url that needs parsing.
+// TODO: Harden the CSS below by applying `all: initial` to all elements first.
 export const winboxcss = `
   .winbox {
     position: fixed;

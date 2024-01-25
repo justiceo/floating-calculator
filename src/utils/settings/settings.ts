@@ -59,6 +59,7 @@ export class SettingsUI extends HTMLElement {
     // Generate the form from template.
     const output = document.createElement("ul");
     output.className = "list-group";
+    output.setAttribute("data-bs-theme", "light");
     options.forEach((o) => output.appendChild(this.cloneInput(o)));
     this.shadowRoot?.append(output);
   }

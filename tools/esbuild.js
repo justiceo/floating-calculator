@@ -375,9 +375,9 @@ class Build {
 
   async buildExtension() {
     await this.clean(this.outDir);
+    await this.copyAssets();
     await this.bundleScripts();
     await this.generateManifest();
-    await this.copyAssets();
   }
 
   async launchBrowser() {
