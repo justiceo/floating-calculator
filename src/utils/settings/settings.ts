@@ -6,6 +6,7 @@ import { Logger } from "../logger.js";
 import { i18n } from "../i18n.js";
 import { Config } from "../../types.js";
 
+declare var IS_DEV_BUILD: boolean;
 export class SettingsUI extends HTMLElement {
   configItems: Config[];
   template = new DOMParser().parseFromString(formHtml, "text/html");
@@ -60,7 +61,9 @@ export class SettingsUI extends HTMLElement {
     const output = document.createElement("ul");
     output.className = "list-group";
     output.setAttribute("data-bs-theme", "light");
-    options.forEach((o) => output.appendChild(this.cloneInput(o)));
+    options
+      .filter((o) => !o.dev_only || (o.dev_only && IS_DEV_BUILD))
+      .forEach((o) => output.appendChild(this.cloneInput(o)));
     this.shadowRoot?.append(output);
   }
 

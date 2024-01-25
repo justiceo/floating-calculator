@@ -203,6 +203,10 @@ class Build {
       let rawdata = fs.readFileSync("src/manifest.json");
       let manifest = JSON.parse(rawdata);
 
+      if (!this.isProd) {
+        manifest.name = "[DEV] " + manifest.name;
+      }
+
       const browserManifest = this.removeBrowserPrefixesForManifest(manifest);
 
       const formattedJson = JSON.stringify(browserManifest, null, 4);

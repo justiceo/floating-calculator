@@ -2,7 +2,7 @@ export interface MenuItem {
   menu: chrome.contextMenus.CreateProperties;
   handler: (
     info: chrome.contextMenus.OnClickData,
-    tab?: chrome.tabs.Tab,
+    tab?: chrome.tabs.Tab
   ) => void;
 }
 export interface SelectOption {
@@ -21,4 +21,6 @@ export interface Config {
   min?: string;
   max?: string;
   step?: string;
+
+  dev_only?: boolean;
 }

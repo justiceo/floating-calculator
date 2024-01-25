@@ -22,6 +22,7 @@ export const configOptions: Config[] = [
       { id: "newTab", text: "optionDefaultAction_newTab" },
       { id: "newWindow", text: "optionDefaultAction_newWindow" },
     ],
+    dev_only: true,
   },
   {
     id: "default-width",
@@ -54,6 +55,7 @@ export const configOptions: Config[] = [
     title: "optionEnableFractions",
     description: "optionEnableFractionsDesc",
     default_value: false,
+    dev_only: true,
   },
   {
     id: "answer-precision",
@@ -63,6 +65,7 @@ export const configOptions: Config[] = [
     default_value: 6,
     min: "1",
     max: "10",
+    dev_only: true,
   },
   {
     id: "default-to-basic",
@@ -70,6 +73,7 @@ export const configOptions: Config[] = [
     title: "optionDefaultToBasic",
     description: "optionDefaultToBasicDesc",
     default_value: false,
+    dev_only: true,
   },
   {
     id: "enable-minimize",
@@ -84,6 +88,7 @@ export const configOptions: Config[] = [
     title: "optionEnableDarkMode",
     description: "optionEnableDarkModeDesc",
     default_value: false,
+    dev_only: true,
   },
   {
     id: "use-comma-decimals",
@@ -91,6 +96,7 @@ export const configOptions: Config[] = [
     title: "optionUseCommaForDecimals",
     description: "optionUseCommaForDecimalsDesc",
     default_value: false,
+    dev_only: true,
   },
 ];
 
