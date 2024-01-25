@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "擴展將不會在這些站點上運行。 每行進入一個站點。"
     },
+    "optionDefaultAction": {
+        "message": "默認打開操作"
+    },
+    "optionDefaultActionDesc": {
+        "message": "打開頁面或側板或獨立窗口內的計算器。"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "浮在頁面上"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "作為擴展彈出窗口打開"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "在側面板上顯示"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "在新標籤中打開"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "在新窗口中打開"
+    },
     "optionDefaultWidth": {
         "message": "默認寬度"
     },

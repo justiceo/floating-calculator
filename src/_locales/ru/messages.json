@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Расширение не будет работать на этих сайтах. Введите один сайт на строку."
     },
+    "optionDefaultAction": {
+        "message": "Открытое действие по умолчанию"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Откройте калькулятор внутри страницы или боковой панели или отдельного окна."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Плавать на странице"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Открыт как всплывающее окно расширения"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Отображение на боковой панели"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Открыто в новой вкладке"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Открыть в новом окне"
+    },
     "optionDefaultWidth": {
         "message": "Ширина по умолчанию"
     },

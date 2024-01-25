@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "L'extension ne fonctionnera pas sur ces sites. Entrez un site par ligne."
     },
+    "optionDefaultAction": {
+        "message": "Action ouverte par défaut"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Ouvrez la calculatrice à l'intérieur d'une page ou d'une fenêtre Sidepanel ou autonome."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flotter sur la page"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Ouvert en tant que popup d'extension"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Affichage dans le panneau latéral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Ouvrir dans un nouvel onglet"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Ouvrir dans une nouvelle fenêtre"
+    },
     "optionDefaultWidth": {
         "message": "Largeur par défaut"
     },

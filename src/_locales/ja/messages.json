@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "これらのサイトでは拡張機能が実行されません。 1行ごとに1つのサイトを入力します。"
     },
+    "optionDefaultAction": {
+        "message": "デフォルトのオープンアクション"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ページ内またはサイドパネルまたはスタンドアロンウィンドウ内の電卓を開きます。"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ページに浮かぶ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "拡張ポップアップとして開きます"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "サイドパネルに表示します"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "新しいタブで開きます"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "新しいウィンドウで開きます"
+    },
     "optionDefaultWidth": {
         "message": "デフォルト幅"
     },

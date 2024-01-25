@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "A extensão não será executada nesses sites. Digite um site por linha."
     },
+    "optionDefaultAction": {
+        "message": "Ação aberta padrão"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Abra a calculadora dentro de uma página ou uma janela lateral ou independente."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flutuar na página"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Aberto como pop -up de extensão"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Exibir em painel lateral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Abrir na nova guia"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Aberto em nova janela"
+    },
     "optionDefaultWidth": {
         "message": "Largura padrão"
     },

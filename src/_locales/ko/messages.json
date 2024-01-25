@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "이 사이트에서 확장이 실행되지 않습니다. 줄 당 한 사이트를 입력하십시오."
     },
+    "optionDefaultAction": {
+        "message": "기본 공개 작업"
+    },
+    "optionDefaultActionDesc": {
+        "message": "페이지 또는 사이드 패널 또는 독립형 창 내부의 계산기를 엽니 다."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "페이지에 떠 다니십시오"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "확장 팝업으로 열립니다"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "측면 패널에 표시됩니다"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "새 탭에서 열립니다"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "새 창에서 열립니다"
+    },
     "optionDefaultWidth": {
         "message": "기본 너비"
     },

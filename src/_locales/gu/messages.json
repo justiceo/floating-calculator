@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "આ સાઇટ્સ પર એક્સ્ટેંશન ચાલશે નહીં. લાઇન દીઠ એક સાઇટ દાખલ કરો."
     },
+    "optionDefaultAction": {
+        "message": "ડિફોલ્ટ ખુલ્લી ક્રિયા"
+    },
+    "optionDefaultActionDesc": {
+        "message": "પૃષ્ઠ અથવા સાઇડપેનલ અથવા એકલ વિંડોની અંદર કેલ્ક્યુલેટર ખોલો."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "પૃષ્ઠ પર ફ્લોટ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "એક્સ્ટેંશન પ pop પઅપ તરીકે ખોલો"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "સાઇડ પેનલમાં પ્રદર્શિત કરો"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "નવા ટેબમાં ખોલો"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "નવી વિંડોમાં ખોલો"
+    },
     "optionDefaultWidth": {
         "message": "કણપહ"
     },

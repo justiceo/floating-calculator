@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "L’extensió no s’executarà en aquests llocs. Introduïu un lloc per línia."
     },
+    "optionDefaultAction": {
+        "message": "Acció oberta per defecte"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Obriu la calculadora dins d’una pàgina o una finestra lateral o autònoma."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float a la pàgina"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Obriu com a emergent d'extensió"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Mostra al tauler lateral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Obert a la pestanya nova"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Obre a la finestra nova"
+    },
     "optionDefaultWidth": {
         "message": "Amplada per defecte"
     },

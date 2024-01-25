@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Laajennus ei toimi näillä sivustoilla. Kirjoita yksi sivusto riviä kohti."
     },
+    "optionDefaultAction": {
+        "message": "Oletuksena avoin toiminto"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Avaa laskin sivun tai sivupanaelin tai erillisen ikkunan sisällä."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Kellua sivulla"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Avaa laajennusponnahdusikkuna"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Näyttö sivupaneelissa"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Avaa uudessa välilehdessä"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Avaa uudessa ikkunassa"
+    },
     "optionDefaultWidth": {
         "message": "Oletusleveys"
     },

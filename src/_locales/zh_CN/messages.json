@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "扩展将不会在这些站点上运行。 每行进入一个站点。"
     },
+    "optionDefaultAction": {
+        "message": "默认打开操作"
+    },
+    "optionDefaultActionDesc": {
+        "message": "打开页面或侧板或独立窗口内的计算器。"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "浮在页面上"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "作为扩展弹出窗口打开"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "在侧面板上显示"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "在新标签中打开"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "在新窗口中打开"
+    },
     "optionDefaultWidth": {
         "message": "默认宽度"
     },

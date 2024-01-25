@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Rozszerzenie nie będzie działać na tych stronach. Wprowadź jedną witrynę na wiersz."
     },
+    "optionDefaultAction": {
+        "message": "Domyślna otwarta akcja"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otwórz kalkulator wewnątrz strony, SidePanel lub samodzielne okno."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Pływaj na stronie"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otwórz jako wyskakujące wyskakujące okienko"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Wyświetl w panelu bocznym"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otwórz w nowej karcie"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otworzyć w nowym oknie"
+    },
     "optionDefaultWidth": {
         "message": "Domyślna szerokość"
     },

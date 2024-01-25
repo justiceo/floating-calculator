@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "پسوند در این سایت ها اجرا نمی شود. در هر خط یک سایت را وارد کنید."
     },
+    "optionDefaultAction": {
+        "message": "پیش فرض عمل باز"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ماشین حساب را درون یک صفحه یا یک پنجره جانبی یا پنجره مستقل باز کنید."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "شناور در صفحه"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "به عنوان بازشو باز کنید"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "نمایش در صفحه جانبی"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "در برگه جدیدی باز کن"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "در پنجره جدید باز کنید"
+    },
     "optionDefaultWidth": {
         "message": "عرض پیش فرض"
     },

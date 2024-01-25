@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "এই সাইটগুলিতে এক্সটেনশন চলবে না। প্রতি লাইনে একটি সাইট লিখুন।"
     },
+    "optionDefaultAction": {
+        "message": "ডিফল্ট ওপেন অ্যাকশন"
+    },
+    "optionDefaultActionDesc": {
+        "message": "কোনও পৃষ্ঠা বা সাইডপ্যানেল বা স্ট্যান্ডেলোন উইন্ডোর ভিতরে ক্যালকুলেটরটি খুলুন।"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "পৃষ্ঠায় ভাসমান"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "এক্সটেনশন পপআপ হিসাবে খুলুন"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "পাশের প্যানেলে প্রদর্শন করুন"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "নতুন ট্যাবে খুলুন"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "নতুন উইন্ডোতে খুলুন"
+    },
     "optionDefaultWidth": {
         "message": "ডিফল্ট প্রস্থ"
     },

@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Paplašinājums šajās vietnēs nedarbosies. Ievadiet vienu vietni vienā rindā."
     },
+    "optionDefaultAction": {
+        "message": "Noklusējuma atvērtā darbība"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Atveriet kalkulatoru lapā vai sānos vai patstāvīgā logā."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Peldēt lapā"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Atvērts kā uznirstošais logs"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Parādīt sānu panelī"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Atveriet jauno cilni"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Atveriet jauno logu"
+    },
     "optionDefaultWidth": {
         "message": "Noklusējuma platums"
     },

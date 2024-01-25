@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ఈ సైట్లలో పొడిగింపు అమలు చేయదు. ప్రతి పంక్తికి ఒక సైట్‌ను నమోదు చేయండి."
     },
+    "optionDefaultAction": {
+        "message": "డిఫాల్ట్ ఓపెన్ చర్య"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ఒక పేజీ లేదా సైడ్‌ప్యానెల్ లేదా స్వతంత్ర విండో లోపల కాలిక్యులేటర్‌ను తెరవండి."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "పేజీలో తేలుతుంది"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "పొడిగింపు పాపప్ వలె తెరవండి"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "సైడ్ ప్యానెల్‌లో ప్రదర్శించండి"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "క్రొత్త టాబ్‌లో తెరవండి"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "క్రొత్త విండోలో తెరవండి"
+    },
     "optionDefaultWidth": {
         "message": "డిఫాల్ట్ వెడల్పు"
     },

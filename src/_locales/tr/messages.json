@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Uzatma bu sitelerde çalışmaz. Satır başına bir site girin."
     },
+    "optionDefaultAction": {
+        "message": "Varsayılan açık eylem"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Hesap makinesini bir sayfa veya bir kenar planı veya bağımsız pencerenin içinde açın."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Sayfada şamandıra"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Uzatma açılır penceresi olarak açık"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Yan panelde görüntüleme"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Yeni sekmede aç"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Yeni pencerede aç"
+    },
     "optionDefaultWidth": {
         "message": "Varsayılan genişlik"
     },

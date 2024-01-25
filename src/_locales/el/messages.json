@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Η επέκταση δεν θα εκτελεστεί σε αυτούς τους ιστότοπους. Εισαγάγετε έναν ιστότοπο ανά γραμμή."
     },
+    "optionDefaultAction": {
+        "message": "Προεπιλεγμένη ανοιχτή δράση"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Ανοίξτε την αριθμομηχανή μέσα σε μια σελίδα ή ένα sidepanel ή αυτόνομο παράθυρο."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Επιπλέει στη σελίδα"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Ανοίξτε ως αναδυόμενο παράθυρο επέκτασης"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Εμφάνιση στο πλαϊνό πίνακα"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Ανοίξτε σε νέα καρτέλα"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Ανοιξε σε νέο παράθυρο"
+    },
     "optionDefaultWidth": {
         "message": "Προεπιλεγμένο πλάτος"
     },

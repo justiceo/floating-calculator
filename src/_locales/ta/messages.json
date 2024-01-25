@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "இந்த தளங்களில் நீட்டிப்பு இயங்காது. ஒரு வரிக்கு ஒரு தளத்தை உள்ளிடவும்."
     },
+    "optionDefaultAction": {
+        "message": "இயல்புநிலை திறந்த செயல்"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ஒரு பக்கம் அல்லது ஒரு பக்கப்பட்டி அல்லது முழுமையான சாளரத்திற்குள் கால்குலேட்டரைத் திறக்கவும்."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "பக்கத்தில் மிதக்கவும்"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "நீட்டிப்பு பாப்அப்பாக திறக்கவும்"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "பக்க பேனலில் காண்பி"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "புதிய தாவலில் திறக்கவும்"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "புதிய சாளரத்தில் திறக்கவும்"
+    },
     "optionDefaultWidth": {
         "message": "இயல்புநிலை அகலம்"
     },

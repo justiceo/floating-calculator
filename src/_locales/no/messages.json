@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Utvidelse kjøres ikke på disse nettstedene. Skriv inn ett nettsted per linje."
     },
+    "optionDefaultAction": {
+        "message": "Standard åpen handling"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Åpne kalkulatoren på en side eller et sidepanel eller frittstående vindu."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyte på side"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Åpne som utvidelsesoppopup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Vis i sidepanelet"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Åpne i ny fane"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Åpne i nytt vindu"
+    },
     "optionDefaultWidth": {
         "message": "Standardbredde"
     },

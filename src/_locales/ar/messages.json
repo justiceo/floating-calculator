@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "التمديد لن يعمل على هذه المواقع. أدخل موقع واحد لكل سطر."
     },
+    "optionDefaultAction": {
+        "message": "الإجراء المفتوح الافتراضي"
+    },
+    "optionDefaultActionDesc": {
+        "message": "افتح الآلة الحاسبة داخل صفحة أو نافذة جانبية أو نافذة مستقلة."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "تعويم على الصفحة"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "افتح كملحق منبثق"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "عرض في اللوحة الجانبية"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "فتح في علامة تبويب جديدة"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "افتح في نافذة جديدة"
+    },
     "optionDefaultWidth": {
         "message": "العرض الافتراضي"
     },

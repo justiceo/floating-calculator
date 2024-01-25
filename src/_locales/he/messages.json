@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ההרחבה לא תפעל באתרים אלה. הזן אתר אחד בשורה."
     },
+    "optionDefaultAction": {
+        "message": "ברירת מחדל של פעולה פתוחה"
+    },
+    "optionDefaultActionDesc": {
+        "message": "פתח את המחשבון בתוך דף או חלון SidePanel או חלון עצמאי."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "צף בעמוד"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "פתוח כקופץ של סיומת"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "תצוגה בלוח הצדדי"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "פתח בכרטיסייה חדשה"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "פתח בחלון חדש"
+    },
     "optionDefaultWidth": {
         "message": "רוחב ברירת המחדל"
     },

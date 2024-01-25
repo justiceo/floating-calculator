@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Die Erweiterung wird auf diesen Websites nicht ausgeführt. Geben Sie eine Stelle pro Zeile ein."
     },
+    "optionDefaultAction": {
+        "message": "Standard -Open -Aktion"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Öffnen Sie den Taschenrechner in einer Seite oder einem Sidepanel- oder Standalone -Fenster."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Auf Seite schweben"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Offen als Erweiterung Popup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Anzeige im Seitenfeld"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Offen in neuer Registerkarte"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "In einem neuen Fenster öffnen"
+    },
     "optionDefaultWidth": {
         "message": "Standardbreite"
     },

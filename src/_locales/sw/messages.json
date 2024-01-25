@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Ugani hautaendesha kwenye tovuti hizi. Ingiza tovuti moja kwa kila mstari."
     },
+    "optionDefaultAction": {
+        "message": "Hatua ya wazi ya wazi"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Fungua Calculator ndani ya ukurasa au Sidepanel au Dirisha la Side pekee."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Kuelea kwenye ukurasa"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Fungua kama kidukizo cha ugani"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Onyesha kwenye jopo la upande"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Fungua kwenye kichupo kipya"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Fungua kwenye dirisha mpya"
+    },
     "optionDefaultWidth": {
         "message": "Upana chaguo -msingi"
     },

@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Proširenje se neće pokrenuti na tim web lokacijama. Unesite jedno mjesto po liniji."
     },
+    "optionDefaultAction": {
+        "message": "Zadana otvorena akcija"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otvorite kalkulator unutar stranice ili prozora za bočni ili samostalni prozor."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Plutati na stranici"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otvoren kao produženi skočni prozor"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Prikaz na bočnoj ploči"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otvoreno na novoj kartici"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otvoreno u novom prozoru"
+    },
     "optionDefaultWidth": {
         "message": "Zadana širina"
     },

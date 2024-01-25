@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ಈ ಸೈಟ್‌ಗಳಲ್ಲಿ ವಿಸ್ತರಣೆ ಚಲಿಸುವುದಿಲ್ಲ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಸೈಟ್ ನಮೂದಿಸಿ."
     },
+    "optionDefaultAction": {
+        "message": "ಡೀಫಾಲ್ಟ್ ಓಪನ್ ಆಕ್ಷನ್"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ಪುಟ ಅಥವಾ ಸೈಡ್‌ಪನೆಲ್ ಅಥವಾ ಸ್ವತಂತ್ರ ವಿಂಡೋ ಒಳಗೆ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ತೆರೆಯಿರಿ."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ಪುಟದಲ್ಲಿ ಫ್ಲೋಟ್"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "ವಿಸ್ತರಣೆಯ ಪಾಪ್ಅಪ್ ಆಗಿ ತೆರೆಯಿರಿ"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "ಸೈಡ್ ಪ್ಯಾನೆಲ್‌ನಲ್ಲಿ ಪ್ರದರ್ಶಿಸಿ"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "ಹೊಸ ವಿಂಡೋದಲ್ಲಿ ತೆರೆಯಿರಿ"
+    },
     "optionDefaultWidth": {
         "message": "ಡೀಫಾಲ್ಟ್ ಅಗಲ"
     },

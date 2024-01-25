@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Udvidelse kører ikke på disse websteder. Indtast et sted pr. Linje."
     },
+    "optionDefaultAction": {
+        "message": "Standard åben handling"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Åbn lommeregneren inde i en side eller en sidepanel eller et standalone -vindue."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyd på side"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Åben som udvidelsespopup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Vis i sidepanelet"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Åben i ny fane"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Åben i nyt vindue"
+    },
     "optionDefaultWidth": {
         "message": "Standardbredde"
     },

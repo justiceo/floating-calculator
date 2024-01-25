@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Розширення не буде працювати на цих сайтах. Введіть один сайт на рядок."
     },
+    "optionDefaultAction": {
+        "message": "Відкрита дія за замовчуванням"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Відкрийте калькулятор всередині сторінки або бічне панель або автономне вікно."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Пливе на сторінці"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Відкрито як розширення спливаючого вікна"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Відображення на бічній панелі"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Відкрийте на вкладці Нова"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Відкрити в новому вікні"
+    },
     "optionDefaultWidth": {
         "message": "Ширина за замовчуванням"
     },

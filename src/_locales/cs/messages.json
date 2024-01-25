@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Prodloužení nebude na těchto stránkách spuštěno. Zadejte jeden web na řádek."
     },
+    "optionDefaultAction": {
+        "message": "Výchozí otevřená akce"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otevřete kalkulačku uvnitř stránky nebo sidepanelu nebo samostatného okna."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Vznášejte na stránce"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otevřeno jako rozšiřující se vyskakovací okno"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Zobrazit v bočním panelu"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otevřete se na nové kartě"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otevři v novém okně"
+    },
     "optionDefaultWidth": {
         "message": "Výchozí šířka"
     },

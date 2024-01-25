@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Ekstensi tidak akan berjalan di situs -situs ini. Masukkan satu situs per baris."
     },
+    "optionDefaultAction": {
+        "message": "Tindakan terbuka default"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Buka kalkulator di dalam halaman atau jendela sidepanel atau mandiri."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Mengapung di halaman"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Buka sebagai popup ekstensi"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Tampilan di panel samping"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Buka di tab baru"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Buka di jendela baru"
+    },
     "optionDefaultWidth": {
         "message": "Lebar default"
     },

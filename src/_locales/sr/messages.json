@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Проширење неће покренути на овим веб локацијама. Унесите једну локацију по линији."
     },
+    "optionDefaultAction": {
+        "message": "Подразумевана Отворена акција"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Отворите калкулатор унутар странице или бочног стана или самосталног прозора."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Флоат на страници"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Отворено као скочни прозор за проширење"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Прикажите на бочној плочи"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Отвори на новој картици"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Отвори у новом прозору"
+    },
     "optionDefaultWidth": {
         "message": "Подразумевана ширина"
     },

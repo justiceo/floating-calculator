@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "A kiterjesztés nem fog futni ezeken a webhelyeken. Írjon be egy helyenként egy webhelyet."
     },
+    "optionDefaultAction": {
+        "message": "Alapértelmezett nyitott művelet"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Nyissa meg a számológépet egy oldalon, egy oldalsó vagy önálló ablakon belül."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Úszni az oldalon"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Nyissa meg a kiterjesztés felbukkanását"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Kijelzés az oldalsó panelen"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Nyissa meg az új lapon"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Megnyitás új ablakban"
+    },
     "optionDefaultWidth": {
         "message": "Alapértelmezett szélesség"
     },

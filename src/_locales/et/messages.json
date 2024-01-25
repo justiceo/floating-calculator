@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Pikendus nendel saitidel ei tööta. Sisestage üks sait rea kohta."
     },
+    "optionDefaultAction": {
+        "message": "Vaikimisi avatud toiming"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Avage kaltsulaator lehe sees või külg- või eraldiseisva akna sees."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Ujuda lehel"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Avatud pikenduse hüpikina"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Kuva külgpaneelil"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Avage uuel vahekaardil"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Avatud uues aknas"
+    },
     "optionDefaultWidth": {
         "message": "Vaikimisi laius"
     },

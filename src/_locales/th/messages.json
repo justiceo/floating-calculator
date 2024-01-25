@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ส่วนขยายจะไม่ทำงานบนเว็บไซต์เหล่านี้ ป้อนหนึ่งไซต์ต่อบรรทัด"
     },
+    "optionDefaultAction": {
+        "message": "การดำเนินการเปิดเริ่มต้น"
+    },
+    "optionDefaultActionDesc": {
+        "message": "เปิดเครื่องคิดเลขภายในหน้าหรือหน้าต่างด้านข้างหรือหน้าต่างแบบสแตนด์อโลน"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ลอยอยู่บนหน้า"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "เปิดเป็นส่วนขยายป๊อปอัพ"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "แสดงในแผงด้านข้าง"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "เปิดในแท็บใหม่"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "เปิดหน้าต่างใหม่"
+    },
     "optionDefaultWidth": {
         "message": "ความกว้างเริ่มต้น"
     },

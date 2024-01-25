@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Pratęsimas šiose svetainėse nebus vykdomas. Įveskite vieną svetainę vienoje eilutėje."
     },
+    "optionDefaultAction": {
+        "message": "Numatytasis atviras veiksmas"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Atidarykite skaičiuoklę puslapio viduje, šoniniu ar autonominiu langu."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Plūdurias puslapyje"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Atidarykite kaip pratęsimo iššokantis langas"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Ekranas šoniniame skydelyje"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Atidarykite naujame skirtuke"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Atidarykite naujame lange"
+    },
     "optionDefaultWidth": {
         "message": "Numatytasis plotis"
     },

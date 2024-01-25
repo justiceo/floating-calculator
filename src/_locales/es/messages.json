@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "La extensión no se ejecutará en estos sitios. Ingrese un sitio por línea."
     },
+    "optionDefaultAction": {
+        "message": "Acción abierta predeterminada"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Abra la calculadora dentro de una página o una ventana lateral o de una ventana independiente."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flotar en la página"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Abierto como ventana emergente de extensión"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Pantalla en el panel lateral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Abrir en una pestaña nueva"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Abrir en Nueva ventana"
+    },
     "optionDefaultWidth": {
         "message": "Ancho predeterminado"
     },

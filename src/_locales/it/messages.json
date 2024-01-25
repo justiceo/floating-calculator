@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "L'estensione non verrà eseguita su questi siti. Immettere un sito per riga."
     },
+    "optionDefaultAction": {
+        "message": "Azione aperta predefinita"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Aprire il calcolatore all'interno di una pagina o una finestra laterale o autonoma."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float a pagina"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Aperto come popup di estensione"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Visualizza nel pannello laterale"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Apri in una nuova scheda"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Apri in una nuova finestra"
+    },
     "optionDefaultWidth": {
         "message": "Larghezza predefinita"
     },

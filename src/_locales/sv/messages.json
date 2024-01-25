@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Förlängningen körs inte på dessa webbplatser. Ange en webbplats per rad."
     },
+    "optionDefaultAction": {
+        "message": "Standardöppning"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Öppna räknaren inuti en sida eller ett sidopanel- eller fristående fönster."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyta på sidan"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Öppet som PLEATH -popup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Visning i sidopanelen"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Öppet i ny flik"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Öppna i nytt fönster"
+    },
     "optionDefaultWidth": {
         "message": "Standardbredd"
     },

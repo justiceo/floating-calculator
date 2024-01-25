@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Разширението няма да работи на тези сайтове. Въведете един сайт на ред."
     },
+    "optionDefaultAction": {
+        "message": "Отворено действие по подразбиране"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Отворете калкулатора вътре в страница или SidePanel или самостоятелен прозорец."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Плува на страница"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Отворено като изскачащо изскачане"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Показване на страничния панел"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Отворен в нов раздел"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Отвори в нов прозорец"
+    },
     "optionDefaultWidth": {
         "message": "Ширина по подразбиране"
     },

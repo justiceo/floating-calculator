@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "इन साइटों पर एक्सटेंशन नहीं चलेगा। प्रति पंक्ति एक साइट दर्ज करें।"
     },
+    "optionDefaultAction": {
+        "message": "डिफ़ॉल्ट खुला कार्रवाई"
+    },
+    "optionDefaultActionDesc": {
+        "message": "किसी पृष्ठ या एक साइडपैनल या स्टैंडअलोन विंडो के अंदर कैलकुलेटर खोलें।"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "पेज पर फ्लोट"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "एक्सटेंशन पॉपअप के रूप में खुला"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "साइड पैनल में प्रदर्शित करें"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "वेब टेब में खोलें"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "नई विंडो में खोलें"
+    },
     "optionDefaultWidth": {
         "message": "डिफ़ॉल्ट चौड़ाई"
     },

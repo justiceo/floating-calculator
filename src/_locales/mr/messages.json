@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "या साइटवर विस्तार चालू होणार नाही. प्रति लाइन एक साइट प्रविष्ट करा."
     },
+    "optionDefaultAction": {
+        "message": "डीफॉल्ट ओपन अ‍ॅक्शन"
+    },
+    "optionDefaultActionDesc": {
+        "message": "पृष्ठ किंवा साइडपॅनल किंवा स्टँडअलोन विंडोच्या आत कॅल्क्युलेटर उघडा."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "पृष्ठावर फ्लोट"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "विस्तार पॉपअप म्हणून उघडा"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "साइड पॅनेलमध्ये प्रदर्शन"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "नवीन टॅब मध्ये उघडा"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "नवीन विंडोमध्ये उघडा"
+    },
     "optionDefaultWidth": {
         "message": "डीफॉल्ट रुंदी"
     },

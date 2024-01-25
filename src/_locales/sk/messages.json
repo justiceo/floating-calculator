@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Rozšírenie nebude bežať na týchto stránkach. Zadajte jednu stránku na riadok."
     },
+    "optionDefaultAction": {
+        "message": "Predvolená akcia"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otvorte kalkulačku vo vnútri stránky alebo v bočnom alebo samostatnom okne."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Plávať na stránke"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otvorené ako rozbaľovacie okno"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Zobrazovať na bočnom paneli"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otvorte na novej karte"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otvorte v novom okne"
+    },
     "optionDefaultWidth": {
         "message": "Predvolená šírka"
     },

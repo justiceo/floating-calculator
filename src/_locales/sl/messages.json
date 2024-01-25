@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Na teh spletnih mestih se ne bo izvajalo razširitev. Vnesite eno spletno mesto na vrstico."
     },
+    "optionDefaultAction": {
+        "message": "Privzeto odprto dejanje"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Odprite kalkulator znotraj strani ali sidepanel ali samostojnega okna."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Plavajo na strani"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Odpri kot razširitveno pojavno okno"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Zaslon na stranski plošči"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Odprto v zavihku"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Odprite v novem oknu"
+    },
     "optionDefaultWidth": {
         "message": "Privzeta širina"
     },

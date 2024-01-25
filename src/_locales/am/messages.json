@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ቅጥያ በእነዚህ ጣቢያዎች ላይ አይሰራም. በአንድ መስመር አንድ ጣቢያ ያስገቡ."
     },
+    "optionDefaultAction": {
+        "message": "ነባሪ ክፍት እርምጃ"
+    },
+    "optionDefaultActionDesc": {
+        "message": "በአንድ ገጽ ውስጥ ወይም በጎን ወይም የጎርፍ ቦታ ወይም የ Sonvelone መስኮት ውስጥ በማስመሰል ላይ ያለውን ካልኩሌተር ይክፈቱ."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "በገጽ ላይ ተንሳፈፈ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "እንደ ማራዘሚያ ብቅ-ባይ ክፈት"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "በአጎን ፓነል ውስጥ አሳይ"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "በአዲስ ትር ክፈት"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "በአዲስ መስኮት ውስጥ ይክፈቱ"
+    },
     "optionDefaultWidth": {
         "message": "ነባሪ ስፋት"
     },

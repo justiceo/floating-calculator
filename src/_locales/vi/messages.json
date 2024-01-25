@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Tiện ích mở rộng sẽ không chạy trên các trang web này. Nhập một trang web trên mỗi dòng."
     },
+    "optionDefaultAction": {
+        "message": "Hành động mở mặc định"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Mở máy tính bên trong một trang hoặc cửa sổ bên hoặc cửa sổ độc lập."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float trên trang"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Mở khi bật lên mở rộng"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Hiển thị trong bảng điều khiển bên"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Mở ra trong trang mới"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Mở trong cửa sổ mới"
+    },
     "optionDefaultWidth": {
         "message": "Chiều rộng mặc định"
     },

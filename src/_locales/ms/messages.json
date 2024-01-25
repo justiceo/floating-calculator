@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "Pelanjutan tidak akan berjalan di laman web ini. Masukkan satu tapak setiap baris."
     },
+    "optionDefaultAction": {
+        "message": "Tindakan terbuka lalai"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Buka kalkulator di dalam halaman atau tetingkap sidpanel atau mandiri."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Terapung di halaman"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Buka sebagai Popup Pelanjutan"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Paparkan di panel sebelah"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Buka dalam tab Baru"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Buka di tetingkap baru"
+    },
     "optionDefaultWidth": {
         "message": "Lebar lalai"
     },

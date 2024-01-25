@@ -49,6 +49,27 @@
     "optionBlockedSitesDesc": {
         "message": "ഈ സൈറ്റുകളിൽ വിപുലീകരണം പ്രവർത്തിക്കില്ല. ഒരു വരിയിൽ ഒരു സൈറ്റ് നൽകുക."
     },
+    "optionDefaultAction": {
+        "message": "സ്ഥിരസ്ഥിതി ഓപ്പൺ പ്രവർത്തനം"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ഒരു പേജിലോ ഒരു സൈഡ്പാനൽ അല്ലെങ്കിൽ സ്റ്റാൻലോൺ വിൻഡോയ്ക്കുള്ളിൽ കാൽക്കുലേറ്റർ തുറക്കുക."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "പേജിൽ ഫ്ലോട്ട് ചെയ്യുക"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "വിപുലീകരണ പോപ്പ്അപ്പ് ആയി തുറക്കുക"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "സൈഡ് പാനലിൽ പ്രദർശിപ്പിക്കുക"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "പുതിയ ടാബിൽ തുറക്കുക"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "പുതിയ വിൻഡോയിൽ തുറക്കുക"
+    },
     "optionDefaultWidth": {
         "message": "സ്ഥിരസ്ഥിതി വീതി"
     },
