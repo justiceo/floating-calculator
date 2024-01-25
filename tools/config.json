@@ -1,5 +1,8 @@
 {
-  "additionalEntryPoints": [],
+  "additionalEntryPoints": [
+    "src/standalone/scientific-calc-component.ts",
+    "src/standalone/scientific-calc.css"
+  ],
   "additionalAssetsToCopy": {
     "src/standalone": "standalone"
   }

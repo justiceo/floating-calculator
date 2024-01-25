@@ -48,6 +48,7 @@
     "@floating-ui/dom": "^1.2.0",
     "@sentry/browser": "^7.36.0",
     "@webcomponents/custom-elements": "^1.5.1",
-    "bootstrap": "^5.3.2"
+    "bootstrap": "^5.3.2",
+    "mathjs": "^12.3.0"
   }
 }

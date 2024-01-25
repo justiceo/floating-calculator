@@ -9,6 +9,7 @@ import Storage from "../utils/storage";
 import Analytics from "../utils/analytics";
 import { i18n } from "../utils/i18n";
 import { getURL } from "../utils/get-url";
+import "../standalone/scientific-calc-component";
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
 export class WinboxRenderer {
@@ -67,7 +68,10 @@ export class WinboxRenderer {
     switch (message.action) {
       case "toggle-calculator":
         try {
-          let link = getURL("standalone/calc.html", this.mode);
+          let link = getURL(
+            "standalone/scientific-calc-component.js",
+            this.mode
+          );
           console.log("creatign url", link);
           let newUrl = new URL(link);
           if (newUrl.href === this.url?.href) {
@@ -168,7 +172,7 @@ export class WinboxRenderer {
       class: ["no-max", "no-full", enableMinimize ? "" : "no-min", "no-move"],
       index: await this.getMaxZIndex(),
       // Simply updating the url without changing the iframe, means the content-script doesn't get re-inserted into the frame, even though it's now out of context.
-      html: `<iframe name="${this.iframeName}" src="${url}"></iframe>`,
+      html: `<scientific-calc></scientific-calc> <script src="${url}"></script>`,
       // url: url.href, // Update restore when you update this.
       hidden: true,
       shadowel: "floating-calculator-preview-window",

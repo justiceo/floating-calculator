@@ -75,6 +75,10 @@
     {
       "resources": ["assets/icon-full.svg"],
       "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["standalone/scientific-calc.css"],
+      "matches": ["<all_urls>"]
     }
   ],
   "background": {
