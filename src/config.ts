@@ -10,6 +10,20 @@ export const gaApiSecret = "UIXmDH2iRxaZPMd1S_UUww";
 export const uninstallUrl = "https://forms.gle/iE1DgamFFEy2g2fDA";
 export const configOptions: Config[] = [
   {
+    id: "default-action",
+    type: "select",
+    title: "optionDefaultAction",
+    description: "optionDefaultActionDesc",
+    default_value: "float",
+    options: [
+      { id: "float", text: "optionDefaultAction_floatOnPage" },
+      { id: "extensionPopup", text: "optionDefaultAction_extensionPopup" },
+      { id: "sidePanel", text: "optionDefaultAction_sidePanel" },
+      { id: "newTab", text: "optionDefaultAction_newTab" },
+      { id: "newWindow", text: "optionDefaultAction_newWindow" },
+    ],
+  },
+  {
     id: "default-width",
     type: "range",
     title: "optionDefaultWidth",
