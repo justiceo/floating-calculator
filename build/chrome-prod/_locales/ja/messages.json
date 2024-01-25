@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "フローティング科学計算機",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "電卓",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "あなたがそれを必要とするどこでも浮かぶ科学的計算機",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "電卓",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "フローティング科学計算機",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "電卓",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "あなたがそれを必要とするどこでも浮かぶ科学的計算機",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "私たちはどのようにやっています？"
+    },
+    "fdbkCareToShare": {
+        "message": "気に入ってくれてうれしいです！ ❤️を共有するのを手伝ってもらえますか？"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "どうすれば改善できますか？"
+    },
+    "fdbkThanks": {
+        "message": "フィードバックをお寄せいただきありがとうございます！"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Webstoreのレート"
+    },
+    "fdbkNoResponse": {
+        "message": "いいえ"
+    },
+    "fdbkSumbit": {
+        "message": "提出する"
+    },
+    "reportAnIssue": {
+        "message": "問題を報告する",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "デモを表示します",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "正常に更新された設定"
+    },
+    "optionBlockedSites": {
+        "message": "Webサイトで無効になっています"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "これらのサイトでは拡張機能が実行されません。 1行ごとに1つのサイトを入力します。"
+    },
+    "optionDefaultAction": {
+        "message": "デフォルトのオープンアクション"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ページ内またはサイドパネルまたはスタンドアロンウィンドウ内の電卓を開きます。"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ページに浮かぶ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "拡張ポップアップとして開きます"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "サイドパネルに表示します"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "新しいタブで開きます"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "新しいウィンドウで開きます"
+    },
+    "optionDefaultWidth": {
+        "message": "デフォルト幅"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "発売時の計算機の幅。"
+    },
+    "optionDefaultHeight": {
+        "message": "デフォルトの高さ"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "発売時の計算機の高さ。"
+    },
+    "optionEnableFractions": {
+        "message": "ディスプレイの結果は分数になります"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "可能であれば、結果を小数ではなく分数としてレンダリングします。"
+    },
+    "optionAnswerPrecision": {
+        "message": "回答精度"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "回答の小数点以下の場所の数はまとめられています。"
+    },
+    "optionDefaultToBasic": {
+        "message": "デフォルトの基本モードになります"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "基本モードで計算機を起動します（トリグネメトリック関数なし）。"
+    },
+    "optionEnableMinimize": {
+        "message": "最小化を有効にします"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "計算機を最小化するために（ヘッダー内）コントロールを表示します"
+    },
+    "optionEnableDarkMode": {
+        "message": "ダークモードを有効にします"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "インターフェイスに暗い外観を与えます。"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "小数にコンマ（、）を使用します"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00ではなく20.000,00を表示します"
+    }
 }

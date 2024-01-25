@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Flytande vetenskaplig kalkylator",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkylator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "En flytande vetenskaplig räknare var du än behöver den",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkylator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Flytande vetenskaplig kalkylator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkylator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "En flytande vetenskaplig räknare var du än behöver den",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Hur går det för oss?"
+    },
+    "fdbkCareToShare": {
+        "message": "Glad att du gillar det! Kan du hjälpa oss att dela ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Hur kan vi förbättra?"
+    },
+    "fdbkThanks": {
+        "message": "Tack för feedbacken!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Hastighet på webbutiken"
+    },
+    "fdbkNoResponse": {
+        "message": "Nej"
+    },
+    "fdbkSumbit": {
+        "message": "Skicka in"
+    },
+    "reportAnIssue": {
+        "message": "Rapportera ett problem",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Visa demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Framgångsrikt uppdaterade inställningar"
+    },
+    "optionBlockedSites": {
+        "message": "Inaktiverad på webbplatser"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Förlängningen körs inte på dessa webbplatser. Ange en webbplats per rad."
+    },
+    "optionDefaultAction": {
+        "message": "Standardöppning"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Öppna räknaren inuti en sida eller ett sidopanel- eller fristående fönster."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyta på sidan"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Öppet som PLEATH -popup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Visning i sidopanelen"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Öppet i ny flik"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Öppna i nytt fönster"
+    },
+    "optionDefaultWidth": {
+        "message": "Standardbredd"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Bredden på kalkylatorn när den startar."
+    },
+    "optionDefaultHeight": {
+        "message": "Standardhöjd"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Kalkylatorns höjd när den startar."
+    },
+    "optionEnableFractions": {
+        "message": "Visningsresultat i fraktioner"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Om det är möjligt gör resultatet som en bråkdel istället för decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Svara precision"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Antalet decimalplatser som svar är runda upp till."
+    },
+    "optionDefaultToBasic": {
+        "message": "Standard till grundläggande läge"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Starta kalkylatorn i grundläggande läge (inga trignometriska funktioner)."
+    },
+    "optionEnableMinimize": {
+        "message": "Aktivera minimera"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Visar en kontroll (i rubriken) för att minimera kalkylatorn"
+    },
+    "optionEnableDarkMode": {
+        "message": "Aktivera mörkt läge"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Ge gränssnittet ett mörkt utseende."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Använd komma (,) för decimaler"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Visa 20.000,00 istället för 20 000,00"
+    }
 }

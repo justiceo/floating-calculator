@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Plovoucí vědecká kalkulačka",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulačka",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulačka",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Plovoucí vědecká kalkulačka",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulačka",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Jak se máme?"
+    },
+    "fdbkCareToShare": {
+        "message": "Jsem rád že se ti líbí! Můžete nám pomoci sdílet ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Jak se můžeme zlepšit?"
+    },
+    "fdbkThanks": {
+        "message": "Děkuji za zpětnou vazbu!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Sazba na webovémstore"
+    },
+    "fdbkNoResponse": {
+        "message": "Ne"
+    },
+    "fdbkSumbit": {
+        "message": "Předložit"
+    },
+    "reportAnIssue": {
+        "message": "Nahlásit problém",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Zobrazit demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Úspěšně aktualizovaná nastavení"
+    },
+    "optionBlockedSites": {
+        "message": "Zakázáno na webových stránkách"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Prodloužení nebude na těchto stránkách spuštěno. Zadejte jeden web na řádek."
+    },
+    "optionDefaultAction": {
+        "message": "Výchozí otevřená akce"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otevřete kalkulačku uvnitř stránky nebo sidepanelu nebo samostatného okna."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Vznášejte na stránce"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otevřeno jako rozšiřující se vyskakovací okno"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Zobrazit v bočním panelu"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otevřete se na nové kartě"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otevři v novém okně"
+    },
+    "optionDefaultWidth": {
+        "message": "Výchozí šířka"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Šířka kalkulačky při spuštění."
+    },
+    "optionDefaultHeight": {
+        "message": "Výchozí výška"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Výška kalkulačky při spuštění."
+    },
+    "optionEnableFractions": {
+        "message": "Výsledek zobrazení k zlomkům"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Pokud je to možné, vykresluje výsledek jako zlomek místo desetinného pole."
+    },
+    "optionAnswerPrecision": {
+        "message": "Přesnost odpovědi"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Počet desetinných míst, na která odpovídá."
+    },
+    "optionDefaultToBasic": {
+        "message": "Výchozí do základního režimu"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Spusťte kalkulačku v základním režimu (žádné trignometrické funkce)."
+    },
+    "optionEnableMinimize": {
+        "message": "Povolit minimalizaci"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Zobrazuje ovládací prvek (v záhlaví) pro minimalizaci kalkulačky"
+    },
+    "optionEnableDarkMode": {
+        "message": "Povolte tmavý režim"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Dejte rozhraní tmavý vzhled."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Použijte čárku (,) pro desetinné paměti"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Zobrazit 20 000,00 místo 20 000,00"
+    }
 }

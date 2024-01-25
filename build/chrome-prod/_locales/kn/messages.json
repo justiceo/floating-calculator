@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "ನಿಮಗೆ ಬೇಕಾದ ಎಲ್ಲಿಯಾದರೂ ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "ನಿಮಗೆ ಬೇಕಾದ ಎಲ್ಲಿಯಾದರೂ ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "ನಾವು ಹೇಗೆ ಮಾಡುತ್ತಿದ್ದೇವೆ?"
+    },
+    "fdbkCareToShare": {
+        "message": "ನೀವು ಇಷ್ಟಪಟ್ಟಿದ್ದಕ್ಕಾಗಿ ಸಂತೋಷ! The ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದೇ?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "ನಾವು ಹೇಗೆ ಸುಧಾರಿಸಬಹುದು?"
+    },
+    "fdbkThanks": {
+        "message": "ಪ್ರತಿಕ್ರಿಯೆಗಾಗಿ ಧನ್ಯವಾದಗಳು!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "ವೆಬ್‌ಸ್ಟೋರ್‌ನಲ್ಲಿ ದರ"
+    },
+    "fdbkNoResponse": {
+        "message": "ಇಲ್ಲ"
+    },
+    "fdbkSumbit": {
+        "message": "ಸಲ್ಲಿಸು"
+    },
+    "reportAnIssue": {
+        "message": "ಸಮಸ್ಯೆಯನ್ನು ವರದಿ ಮಾಡಿ",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "ಡೆಮೊ ತೋರಿಸಿ",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಿದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+    },
+    "optionBlockedSites": {
+        "message": "ವೆಬ್‌ಸೈಟ್‌ಗಳಲ್ಲಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ಈ ಸೈಟ್‌ಗಳಲ್ಲಿ ವಿಸ್ತರಣೆ ಚಲಿಸುವುದಿಲ್ಲ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಸೈಟ್ ನಮೂದಿಸಿ."
+    },
+    "optionDefaultAction": {
+        "message": "ಡೀಫಾಲ್ಟ್ ಓಪನ್ ಆಕ್ಷನ್"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ಪುಟ ಅಥವಾ ಸೈಡ್‌ಪನೆಲ್ ಅಥವಾ ಸ್ವತಂತ್ರ ವಿಂಡೋ ಒಳಗೆ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ತೆರೆಯಿರಿ."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ಪುಟದಲ್ಲಿ ಫ್ಲೋಟ್"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "ವಿಸ್ತರಣೆಯ ಪಾಪ್ಅಪ್ ಆಗಿ ತೆರೆಯಿರಿ"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "ಸೈಡ್ ಪ್ಯಾನೆಲ್‌ನಲ್ಲಿ ಪ್ರದರ್ಶಿಸಿ"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "ಹೊಸ ವಿಂಡೋದಲ್ಲಿ ತೆರೆಯಿರಿ"
+    },
+    "optionDefaultWidth": {
+        "message": "ಡೀಫಾಲ್ಟ್ ಅಗಲ"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿದಾಗ ಅಗಲ."
+    },
+    "optionDefaultHeight": {
+        "message": "ಡೀಫಾಲ್ಟ್ ಎತ್ತರ"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "ಅದು ಪ್ರಾರಂಭಿಸಿದಾಗ ಕ್ಯಾಲ್ಕುಲೇಟರ್ನ ಎತ್ತರ."
+    },
+    "optionEnableFractions": {
+        "message": "ಭಿನ್ನರಾಶಿಗಳಲ್ಲಿ ಫಲಿತಾಂಶವನ್ನು ಪ್ರದರ್ಶಿಸಿ"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "ಸಾಧ್ಯವಾದರೆ, ಫಲಿತಾಂಶವನ್ನು ದಶಮಾಂಶದ ಬದಲು ಒಂದು ಭಾಗವಾಗಿ ನಿರೂಪಿಸುತ್ತದೆ."
+    },
+    "optionAnswerPrecision": {
+        "message": "ಉತ್ತರ ನಿಖರತೆ"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "ಉತ್ತರಿಸುವ ದಶಮಾಂಶ ಸ್ಥಳಗಳ ಸಂಖ್ಯೆ."
+    },
+    "optionDefaultToBasic": {
+        "message": "ಡೀಫಾಲ್ಟ್ ಮೂಲ ಮೋಡ್‌ಗೆ"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "ಮೂಲ ಮೋಡ್‌ನಲ್ಲಿ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ (ಟ್ರಿಗ್ನೊಮೆಟ್ರಿಕ್ ಕಾರ್ಯಗಳಿಲ್ಲ)."
+    },
+    "optionEnableMinimize": {
+        "message": "ಕಡಿಮೆ ಮಾಡಿ ಸಕ್ರಿಯಗೊಳಿಸಿ"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಕಡಿಮೆ ಮಾಡಲು ನಿಯಂತ್ರಣವನ್ನು (ಹೆಡರ್ನಲ್ಲಿ) ಪ್ರದರ್ಶಿಸುತ್ತದೆ"
+    },
+    "optionEnableDarkMode": {
+        "message": "ಡಾರ್ಕ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ಇಂಟರ್ಫೇಸ್ ಅನ್ನು ಡಾರ್ಕ್ ಲುಕ್ ನೀಡಿ."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "ದಶಮಾಂಶಗಳಿಗಾಗಿ ಅಲ್ಪವಿರಾಮ (,) ಬಳಸಿ"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 ಬದಲಿಗೆ 20.000,00 ಪ್ರದರ್ಶಿಸಿ"
+    }
 }

@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Плаващ научен калкулатор",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Калкулатор",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Плаващ научен калкулатор навсякъде, където се нуждаете",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "калкулатор",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Плаващ научен калкулатор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Калкулатор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плаващ научен калкулатор навсякъде, където се нуждаете",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Как сме?"
+    },
+    "fdbkCareToShare": {
+        "message": "Радвам се, че ти харесва! Можете ли да ни помогнете да споделим ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Как можем да се подобрим?"
+    },
+    "fdbkThanks": {
+        "message": "Благодаря за обратната връзка!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Оценете на WebStore"
+    },
+    "fdbkNoResponse": {
+        "message": "Не"
+    },
+    "fdbkSumbit": {
+        "message": "Изпращане"
+    },
+    "reportAnIssue": {
+        "message": "Докладвайте проблем",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Покажи демонстрация",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Успешно актуализирани настройки"
+    },
+    "optionBlockedSites": {
+        "message": "Деактивирани на уебсайтове"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Разширението няма да работи на тези сайтове. Въведете един сайт на ред."
+    },
+    "optionDefaultAction": {
+        "message": "Отворено действие по подразбиране"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Отворете калкулатора вътре в страница или SidePanel или самостоятелен прозорец."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Плува на страница"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Отворено като изскачащо изскачане"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Показване на страничния панел"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Отворен в нов раздел"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Отвори в нов прозорец"
+    },
+    "optionDefaultWidth": {
+        "message": "Ширина по подразбиране"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Ширината на калкулатора при стартиране."
+    },
+    "optionDefaultHeight": {
+        "message": "Височина по подразбиране"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Височината на калкулатора при стартиране."
+    },
+    "optionEnableFractions": {
+        "message": "Показване на резултатите от фракции"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Където е възможно, прави резултата като фракция вместо десетична."
+    },
+    "optionAnswerPrecision": {
+        "message": "Отговор Прецизност"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Броят на десетичните знаци, на които отговаря отговорите."
+    },
+    "optionDefaultToBasic": {
+        "message": "По подразбиране към основен режим"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Стартирайте калкулатор в основен режим (без трикометрични функции)."
+    },
+    "optionEnableMinimize": {
+        "message": "Активирайте минимизиране"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Показва контрол (в заглавката) за минимизиране на калкулатора"
+    },
+    "optionEnableDarkMode": {
+        "message": "Активирайте тъмен режим"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Дайте на интерфейса тъмен вид."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Използвайте запетая (,) за десетични знаци"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Показване на 20 000,00 вместо 20 000,00"
+    }
 }

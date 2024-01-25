@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "플로팅 과학 계산기",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "계산자",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "당신이 필요로하는 어디서나 떠 다니는 과학 계산기",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "계산자",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "플로팅 과학 계산기",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "계산자",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "당신이 필요로하는 어디서나 떠 다니는 과학 계산기",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "일은 잘되고 있니?"
+    },
+    "fdbkCareToShare": {
+        "message": "당신이 그것을 좋아해서 다행입니다! 우리가 us️를 공유하도록 도와 줄 수 있습니까?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "우리는 어떻게 개선 할 수 있습니까?"
+    },
+    "fdbkThanks": {
+        "message": "의견을 보내 주셔서 감사합니다!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Webstore의 요금"
+    },
+    "fdbkNoResponse": {
+        "message": "아니요"
+    },
+    "fdbkSumbit": {
+        "message": "제출하다"
+    },
+    "reportAnIssue": {
+        "message": "문제를보고하십시오",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "데모를 보여주십시오",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "설정을 성공적으로 업데이트했습니다"
+    },
+    "optionBlockedSites": {
+        "message": "웹 사이트에서 비활성화"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "이 사이트에서 확장이 실행되지 않습니다. 줄 당 한 사이트를 입력하십시오."
+    },
+    "optionDefaultAction": {
+        "message": "기본 공개 작업"
+    },
+    "optionDefaultActionDesc": {
+        "message": "페이지 또는 사이드 패널 또는 독립형 창 내부의 계산기를 엽니 다."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "페이지에 떠 다니십시오"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "확장 팝업으로 열립니다"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "측면 패널에 표시됩니다"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "새 탭에서 열립니다"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "새 창에서 열립니다"
+    },
+    "optionDefaultWidth": {
+        "message": "기본 너비"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "계산기가 시작될 때의 너비."
+    },
+    "optionDefaultHeight": {
+        "message": "기본 높이"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "계산기가 시작될 때 계산기의 높이."
+    },
+    "optionEnableFractions": {
+        "message": "디스플레이 결과 분수"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "가능하면 결과를 소수점 대신 분수로 렌더링합니다."
+    },
+    "optionAnswerPrecision": {
+        "message": "정밀한 답변"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "대답하는 소수점 자리의 수는 반올림됩니다."
+    },
+    "optionDefaultToBasic": {
+        "message": "기본 모드로 기본값"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "기본 모드에서 계산기를 시작합니다 (삼각형 기능 없음)."
+    },
+    "optionEnableMinimize": {
+        "message": "최소화를 활성화하십시오"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "계산기를 최소화하기 위해 컨트롤 (헤더)을 표시합니다."
+    },
+    "optionEnableDarkMode": {
+        "message": "다크 모드를 활성화합니다"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "인터페이스에 어두운 모양을 제공하십시오."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "소수성에는 쉼표 (,)를 사용하십시오"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 대신 20.000,00을 표시하십시오"
+    }
 }

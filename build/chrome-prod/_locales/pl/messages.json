@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Pływający kalkulator naukowy",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Pływający kalkulator naukowy w dowolnym miejscu",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Pływający kalkulator naukowy",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Pływający kalkulator naukowy w dowolnym miejscu",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Jak nam idzie?"
+    },
+    "fdbkCareToShare": {
+        "message": "Cieszę się że to lubisz! Czy możesz nam pomóc w udostępnieniu ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Jak możemy poprawić?"
+    },
+    "fdbkThanks": {
+        "message": "Dzięki za opinie!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Oceń w Webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "NIE"
+    },
+    "fdbkSumbit": {
+        "message": "Składać"
+    },
+    "reportAnIssue": {
+        "message": "Zgłoś problem",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Pokazuj demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Pomyślnie zaktualizowane ustawienia"
+    },
+    "optionBlockedSites": {
+        "message": "Wyłączone na stronach internetowych"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Rozszerzenie nie będzie działać na tych stronach. Wprowadź jedną witrynę na wiersz."
+    },
+    "optionDefaultAction": {
+        "message": "Domyślna otwarta akcja"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Otwórz kalkulator wewnątrz strony, SidePanel lub samodzielne okno."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Pływaj na stronie"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Otwórz jako wyskakujące wyskakujące okienko"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Wyświetl w panelu bocznym"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Otwórz w nowej karcie"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Otworzyć w nowym oknie"
+    },
+    "optionDefaultWidth": {
+        "message": "Domyślna szerokość"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Szerokość kalkulatora podczas uruchamiania."
+    },
+    "optionDefaultHeight": {
+        "message": "Wysokość domyślna"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Wysokość kalkulatora podczas uruchamiania."
+    },
+    "optionEnableFractions": {
+        "message": "Wyświetl wynik frakcji"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Tam, gdzie to możliwe, renderuje wynik jako ułamek zamiast dziesiętnego."
+    },
+    "optionAnswerPrecision": {
+        "message": "Odpowiedź precyzja"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Liczba miejsc dziesiętnych, do których odpowiedzi jest zaokrąglona."
+    },
+    "optionDefaultToBasic": {
+        "message": "Domyślnie w trybie podstawowym"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Uruchom kalkulator w trybie podstawowym (brak funkcji trignometrycznych)."
+    },
+    "optionEnableMinimize": {
+        "message": "Włącz minimalizację"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Wyświetla kontrolę (w nagłówku) w celu zminimalizowania kalkulatora"
+    },
+    "optionEnableDarkMode": {
+        "message": "Włącz tryb ciemny"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Nadaj interfejsie ciemny wygląd."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Użyj przecinka (,) do dziesiętnych"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Wyświetl 20 000 000 zamiast 20 000,00"
+    }
 }

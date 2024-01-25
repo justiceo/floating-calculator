@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Calcolatore scientifico galleggiante",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calcolatrice",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Un calcolatore scientifico galleggiante ovunque ne abbia bisogno",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "calcolatrice",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Calcolatore scientifico galleggiante",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calcolatrice",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Un calcolatore scientifico galleggiante ovunque ne abbia bisogno",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Come stiamo andando?"
+    },
+    "fdbkCareToShare": {
+        "message": "Contento che ti piaccia! Puoi aiutarci a condividere il ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Come possiamo migliorare?"
+    },
+    "fdbkThanks": {
+        "message": "Grazie per il feedback!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Valuta su webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "NO"
+    },
+    "fdbkSumbit": {
+        "message": "Invia"
+    },
+    "reportAnIssue": {
+        "message": "Segnala un problema",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Mostra demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Impostazioni aggiornate correttamente"
+    },
+    "optionBlockedSites": {
+        "message": "Disabilitato sui siti Web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "L'estensione non verrà eseguita su questi siti. Immettere un sito per riga."
+    },
+    "optionDefaultAction": {
+        "message": "Azione aperta predefinita"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Aprire il calcolatore all'interno di una pagina o una finestra laterale o autonoma."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float a pagina"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Aperto come popup di estensione"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Visualizza nel pannello laterale"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Apri in una nuova scheda"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Apri in una nuova finestra"
+    },
+    "optionDefaultWidth": {
+        "message": "Larghezza predefinita"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "La larghezza del calcolatore quando viene lanciato."
+    },
+    "optionDefaultHeight": {
+        "message": "Altezza predefinita"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "L'altezza del calcolatore quando viene lanciato."
+    },
+    "optionEnableFractions": {
+        "message": "Visualizza il risultato in frazioni"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Ove possibile, rende il risultato come una frazione anziché come decimale."
+    },
+    "optionAnswerPrecision": {
+        "message": "Risposta Precisione"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Il numero di luoghi decimali a cui le risposte sono arrotondate."
+    },
+    "optionDefaultToBasic": {
+        "message": "Predefinito alla modalità di base"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Avvia il calcolatore in modalità base (nessuna funzione trignometrica)."
+    },
+    "optionEnableMinimize": {
+        "message": "Abilita minimizzare"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Visualizza un controllo (nell'intestazione) per ridurre al minimo il calcolatore"
+    },
+    "optionEnableDarkMode": {
+        "message": "Abilita la modalità oscura"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Dai all'interfaccia un aspetto oscuro."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Usa la virgola (,) per i decimali"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Visualizza 20.000,00 anziché 20.000,00"
+    }
 }

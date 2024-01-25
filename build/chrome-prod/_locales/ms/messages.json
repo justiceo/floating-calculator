@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Kalkulator saintifik terapung",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Kalkulator saintifik terapung di mana sahaja anda memerlukannya",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Kalkulator saintifik terapung",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Kalkulator saintifik terapung di mana sahaja anda memerlukannya",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Bagaimana keadaan kita?"
+    },
+    "fdbkCareToShare": {
+        "message": "Gembira anda menyukainya! Bolehkah anda membantu kami berkongsi ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Bagaimana kita dapat memperbaiki?"
+    },
+    "fdbkThanks": {
+        "message": "Terima kasih atas maklum balas!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Kadar di WebStore"
+    },
+    "fdbkNoResponse": {
+        "message": "Tidak"
+    },
+    "fdbkSumbit": {
+        "message": "Hantar"
+    },
+    "reportAnIssue": {
+        "message": "Melaporkan isu",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Tunjukkan demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Tetapan yang berjaya dikemas kini"
+    },
+    "optionBlockedSites": {
+        "message": "Dilumpuhkan di laman web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Pelanjutan tidak akan berjalan di laman web ini. Masukkan satu tapak setiap baris."
+    },
+    "optionDefaultAction": {
+        "message": "Tindakan terbuka lalai"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Buka kalkulator di dalam halaman atau tetingkap sidpanel atau mandiri."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Terapung di halaman"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Buka sebagai Popup Pelanjutan"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Paparkan di panel sebelah"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Buka dalam tab Baru"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Buka di tetingkap baru"
+    },
+    "optionDefaultWidth": {
+        "message": "Lebar lalai"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Lebar kalkulator apabila ia dilancarkan."
+    },
+    "optionDefaultHeight": {
+        "message": "Ketinggian lalai"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Ketinggian kalkulator apabila ia dilancarkan."
+    },
+    "optionEnableFractions": {
+        "message": "Hasil paparan pecahan"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Jika mungkin, menjadikan hasilnya sebagai pecahan dan bukan perpuluhan."
+    },
+    "optionAnswerPrecision": {
+        "message": "Jawab ketepatan"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Bilangan tempat perpuluhan yang jawapannya dibundarkan."
+    },
+    "optionDefaultToBasic": {
+        "message": "Lalai ke mod asas"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Pelancaran kalkulator dalam mod asas (tiada fungsi trignometrik)."
+    },
+    "optionEnableMinimize": {
+        "message": "Dayakan Minimize"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Memaparkan kawalan (dalam tajuk) untuk meminimumkan kalkulator"
+    },
+    "optionEnableDarkMode": {
+        "message": "Dayakan mod gelap"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Berikan antara muka yang gelap."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Gunakan koma (,) untuk perpuluhan"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Paparan 20.000,00 bukannya 20,000.00"
+    }
 }

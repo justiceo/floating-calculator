@@ -1,7 +1,7 @@
-import { Previewr } from "../content-script/previewr";
+import { ContentScript } from "../content-script/content-script";
 
-const previewr = new Previewr();
-previewr.init();
+const contentScript = new ContentScript();
+contentScript.init();
 
 window.addEventListener("load", (e) => {
   let lastMousePosition;
@@ -21,11 +21,6 @@ window.addEventListener("load", (e) => {
   });
 
   document.querySelector("#demo-button")?.addEventListener("click", (e) => {
-    previewr.handleMessage({
-      application: "floating-calculator",
-      action: "toggle-calculator",
-      data: { mode: "demo" },
-      point: lastMousePosition,
-    });
+    contentScript.showDemo();
   });
 });

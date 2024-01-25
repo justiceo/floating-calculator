@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "浮动科学计算器",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "计算器",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "您需要的任何地方的浮动科学计算器",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "计算器",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "浮动科学计算器",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "计算器",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "您需要的任何地方的浮动科学计算器",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "我们好吗？"
+    },
+    "fdbkCareToShare": {
+        "message": "很高兴你喜欢它！ 您能帮我们分享❤️吗？"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "我们如何改进？"
+    },
+    "fdbkThanks": {
+        "message": "感谢您的反馈！"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "网上商店的费率"
+    },
+    "fdbkNoResponse": {
+        "message": "不"
+    },
+    "fdbkSumbit": {
+        "message": "提交"
+    },
+    "reportAnIssue": {
+        "message": "报告一个问题",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "展示演示",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "成功更新了设置"
+    },
+    "optionBlockedSites": {
+        "message": "在网站上禁用"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "扩展将不会在这些站点上运行。 每行进入一个站点。"
+    },
+    "optionDefaultAction": {
+        "message": "默认打开操作"
+    },
+    "optionDefaultActionDesc": {
+        "message": "打开页面或侧板或独立窗口内的计算器。"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "浮在页面上"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "作为扩展弹出窗口打开"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "在侧面板上显示"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "在新标签中打开"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "在新窗口中打开"
+    },
+    "optionDefaultWidth": {
+        "message": "默认宽度"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "计算器启动时的宽度。"
+    },
+    "optionDefaultHeight": {
+        "message": "默认高度"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "计算器启动时的高度。"
+    },
+    "optionEnableFractions": {
+        "message": "显示部分分数"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "在可能的情况下，将结果作为分数而不是十进制。"
+    },
+    "optionAnswerPrecision": {
+        "message": "回答精度"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "答案的小数位数是围绕的。"
+    },
+    "optionDefaultToBasic": {
+        "message": "默认为基本模式"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "在基本模式下启动计算器（无trignmetric函数）。"
+    },
+    "optionEnableMinimize": {
+        "message": "启用最小化"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "显示控件（在标题中）以最小化计算器"
+    },
+    "optionEnableDarkMode": {
+        "message": "启用黑暗模式"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "给界面一个黑暗的外观。"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "使用逗号（，）进行小数"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "显示20.000,00而不是20,000.00"
+    }
 }

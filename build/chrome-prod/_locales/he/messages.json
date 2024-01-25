@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "מחשבון מדעי צף",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "מַחשְׁבוֹן",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "מחשבון מדעי צף בכל מקום שאתה זקוק לו",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "מַחשְׁבוֹן",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "מחשבון מדעי צף",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "מַחשְׁבוֹן",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "מחשבון מדעי צף בכל מקום שאתה זקוק לו",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "מה שלומנו?"
+    },
+    "fdbkCareToShare": {
+        "message": "שמח שאתה אוהב את זה! אתה יכול לעזור לנו לשתף את ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "איך אנחנו יכולים להשתפר?"
+    },
+    "fdbkThanks": {
+        "message": "תודה על המשוב!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "דרג בחנות האינטרנט"
+    },
+    "fdbkNoResponse": {
+        "message": "לא"
+    },
+    "fdbkSumbit": {
+        "message": "שלח"
+    },
+    "reportAnIssue": {
+        "message": "דווח על בעיה",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "להראות הדגמה",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "הגדרות מעודכנות בהצלחה"
+    },
+    "optionBlockedSites": {
+        "message": "מושבת באתרים"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ההרחבה לא תפעל באתרים אלה. הזן אתר אחד בשורה."
+    },
+    "optionDefaultAction": {
+        "message": "ברירת מחדל של פעולה פתוחה"
+    },
+    "optionDefaultActionDesc": {
+        "message": "פתח את המחשבון בתוך דף או חלון SidePanel או חלון עצמאי."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "צף בעמוד"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "פתוח כקופץ של סיומת"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "תצוגה בלוח הצדדי"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "פתח בכרטיסייה חדשה"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "פתח בחלון חדש"
+    },
+    "optionDefaultWidth": {
+        "message": "רוחב ברירת המחדל"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "רוחב המחשבון כשהוא משגר."
+    },
+    "optionDefaultHeight": {
+        "message": "גובה ברירת המחדל"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "גובה המחשבון כאשר הוא משגר."
+    },
+    "optionEnableFractions": {
+        "message": "התוצאה של התוצאה בשברים"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "במידת האפשר, הופך את התוצאה כשבר במקום עשרוני."
+    },
+    "optionAnswerPrecision": {
+        "message": "ענה על דיוק"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "מספר המקומות העשרוניים שהתשובות מתבצעות."
+    },
+    "optionDefaultToBasic": {
+        "message": "ברירת מחדל למצב בסיסי"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "הפעל מחשבון במצב בסיסי (ללא פונקציות Trignometric)."
+    },
+    "optionEnableMinimize": {
+        "message": "אפשר למזער"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "מציג שליטה (בכותרת) למזעור המחשבון"
+    },
+    "optionEnableDarkMode": {
+        "message": "אפשר מצב אפל"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "תן לממשק מראה אפל."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "השתמש בפסיק (,) לצורך עשרונים"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "להציג 20.000,00 במקום 20,000.00"
+    }
 }

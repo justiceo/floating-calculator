@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Schwimmender wissenschaftlicher Taschenrechner",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Taschenrechner",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Ein schwebender wissenschaftlicher Taschenrechner überall, wo Sie es brauchen",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "Taschenrechner",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Schwimmender wissenschaftlicher Taschenrechner",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Taschenrechner",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Ein schwebender wissenschaftlicher Taschenrechner überall, wo Sie es brauchen",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Wie machen wir uns?"
+    },
+    "fdbkCareToShare": {
+        "message": "Froh, dass Sie es mögen! Können Sie uns helfen, die ❤️ zu teilen?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Wie können wir uns verbessern?"
+    },
+    "fdbkThanks": {
+        "message": "Danke für die Rückmeldung!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Rate auf Webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "NEIN"
+    },
+    "fdbkSumbit": {
+        "message": "Einreichen"
+    },
+    "reportAnIssue": {
+        "message": "Ein Problem melden",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Demo zeigen",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Erfolgreich aktualisierte Einstellungen"
+    },
+    "optionBlockedSites": {
+        "message": "Auf Websites deaktiviert"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Die Erweiterung wird auf diesen Websites nicht ausgeführt. Geben Sie eine Stelle pro Zeile ein."
+    },
+    "optionDefaultAction": {
+        "message": "Standard -Open -Aktion"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Öffnen Sie den Taschenrechner in einer Seite oder einem Sidepanel- oder Standalone -Fenster."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Auf Seite schweben"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Offen als Erweiterung Popup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Anzeige im Seitenfeld"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Offen in neuer Registerkarte"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "In einem neuen Fenster öffnen"
+    },
+    "optionDefaultWidth": {
+        "message": "Standardbreite"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Die Breite des Taschenrechners beim Start."
+    },
+    "optionDefaultHeight": {
+        "message": "Standardhöhe"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Die Höhe des Taschenrechners beim Start."
+    },
+    "optionEnableFractions": {
+        "message": "Anzeigeergebnis zu Brüchen"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Wenn möglich, macht das Ergebnis als Bruch anstelle von Dezimalzahl."
+    },
+    "optionAnswerPrecision": {
+        "message": "Präzision beantworten"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Die Anzahl der Dezimalstellen, an die die Antworten abgerundet werden."
+    },
+    "optionDefaultToBasic": {
+        "message": "Standard im Basismodus"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Startrechner im Basismodus (keine trignometrischen Funktionen)."
+    },
+    "optionEnableMinimize": {
+        "message": "Minimieren Sie minimieren"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Zeigt eine Steuerung (im Header) zur Minimierung des Taschenrechners an"
+    },
+    "optionEnableDarkMode": {
+        "message": "Dunkle Modus aktivieren"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Geben Sie der Schnittstelle einen dunklen Look."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Verwenden Sie Comma (,) für Dezimalstellen"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Zeigen Sie 20.000,00 anstelle von 20.000,00 an"
+    }
 }

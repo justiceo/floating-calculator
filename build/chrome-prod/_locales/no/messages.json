@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Flytende vitenskapelig kalkulator",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "En flytende vitenskapelig kalkulator hvor som helst du trenger den",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Flytende vitenskapelig kalkulator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "En flytende vitenskapelig kalkulator hvor som helst du trenger den",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Hvordan har vi det?"
+    },
+    "fdbkCareToShare": {
+        "message": "Glad du likte det! Kan du hjelpe oss med å dele ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Hvordan kan vi forbedre oss?"
+    },
+    "fdbkThanks": {
+        "message": "Takk for tilbakemeldingen!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Priser på nettbutikken"
+    },
+    "fdbkNoResponse": {
+        "message": "Nei"
+    },
+    "fdbkSumbit": {
+        "message": "Sende inn"
+    },
+    "reportAnIssue": {
+        "message": "Rapporter et problem",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Vis demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Vellykket oppdaterte innstillinger"
+    },
+    "optionBlockedSites": {
+        "message": "Deaktivert på nettsteder"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Utvidelse kjøres ikke på disse nettstedene. Skriv inn ett nettsted per linje."
+    },
+    "optionDefaultAction": {
+        "message": "Standard åpen handling"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Åpne kalkulatoren på en side eller et sidepanel eller frittstående vindu."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyte på side"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Åpne som utvidelsesoppopup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Vis i sidepanelet"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Åpne i ny fane"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Åpne i nytt vindu"
+    },
+    "optionDefaultWidth": {
+        "message": "Standardbredde"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Bredden på kalkulatoren når den lanseres."
+    },
+    "optionDefaultHeight": {
+        "message": "Standardhøyde"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Høyden på kalkulatoren når den lanseres."
+    },
+    "optionEnableFractions": {
+        "message": "Display Resultat i brøk"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Der det er mulig, gjør resultatet som en brøkdel i stedet for desimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Svar presisjon"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Antall desimaler som svarene er runde opp til."
+    },
+    "optionDefaultToBasic": {
+        "message": "Standard for grunnleggende modus"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Start kalkulator i grunnleggende modus (ingen trignometriske funksjoner)."
+    },
+    "optionEnableMinimize": {
+        "message": "Aktiver minimer"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Viser en kontroll (i overskriften) for å minimere kalkulatoren"
+    },
+    "optionEnableDarkMode": {
+        "message": "Aktiver mørk modus"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Gi grensesnittet et mørkt utseende."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Bruk komma (,) for desimaler"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Vis 20.000,00 i stedet for 20 000,00"
+    }
 }

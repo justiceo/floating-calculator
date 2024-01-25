@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Kalkulator Ilmiah Mengambang",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Kalkulator ilmiah mengambang di mana pun Anda membutuhkannya",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "Kalkulator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Kalkulator Ilmiah Mengambang",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Kalkulator ilmiah mengambang di mana pun Anda membutuhkannya",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Bagaimana kabar kita?"
+    },
+    "fdbkCareToShare": {
+        "message": "Senang kamu menyukainya! Bisakah Anda membantu kami membagikan ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Bagaimana kita bisa meningkatkan?"
+    },
+    "fdbkThanks": {
+        "message": "Terima kasih untuk umpan baliknya!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Nilai di Webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "TIDAK"
+    },
+    "fdbkSumbit": {
+        "message": "Kirim"
+    },
+    "reportAnIssue": {
+        "message": "Melaporkan masalah",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Tampilkan demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Pengaturan yang berhasil diperbarui"
+    },
+    "optionBlockedSites": {
+        "message": "Dinonaktifkan di situs web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Ekstensi tidak akan berjalan di situs -situs ini. Masukkan satu situs per baris."
+    },
+    "optionDefaultAction": {
+        "message": "Tindakan terbuka default"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Buka kalkulator di dalam halaman atau jendela sidepanel atau mandiri."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Mengapung di halaman"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Buka sebagai popup ekstensi"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Tampilan di panel samping"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Buka di tab baru"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Buka di jendela baru"
+    },
+    "optionDefaultWidth": {
+        "message": "Lebar default"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Lebar kalkulator saat diluncurkan."
+    },
+    "optionDefaultHeight": {
+        "message": "Tinggi default"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Ketinggian kalkulator saat diluncurkan."
+    },
+    "optionEnableFractions": {
+        "message": "Tampilkan hasil dalam pecahan"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Jika memungkinkan, menjadikan hasilnya sebagai fraksi, bukan desimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Jawab Presisi"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Jumlah tempat desimal yang jawabannya dibulatkan."
+    },
+    "optionDefaultToBasic": {
+        "message": "Default ke mode dasar"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Luncurkan kalkulator dalam mode dasar (tidak ada fungsi trignometrik)."
+    },
+    "optionEnableMinimize": {
+        "message": "Aktifkan meminimalkan"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Menampilkan kontrol (di header) untuk meminimalkan kalkulator"
+    },
+    "optionEnableDarkMode": {
+        "message": "Aktifkan mode gelap"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Berikan antarmuka tampilan gelap."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Gunakan koma (,) untuk desimal"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Tampilkan 20.000,00, bukan 20.000.00"
+    }
 }

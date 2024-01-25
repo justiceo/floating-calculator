@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "కాలిక్యులేటర్",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్ మీకు ఎక్కడైనా అవసరం",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "కాలిక్యులేటర్",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "కాలిక్యులేటర్",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "ఫ్లోటింగ్ సైంటిఫిక్ కాలిక్యులేటర్ మీకు ఎక్కడైనా అవసరం",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "మేము ఎలా చేస్తున్నాము?"
+    },
+    "fdbkCareToShare": {
+        "message": "నీకు నచ్చినందుకు సంతోషం! మీరు ❤ భాగస్వామ్యం చేయడానికి మాకు సహాయం చేయగలరా?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "మేము ఎలా మెరుగుపరచగలం?"
+    },
+    "fdbkThanks": {
+        "message": "అభిప్రాయము తెలిపినందుకు ధన్యవాదములు!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "వెబ్‌స్టోర్‌లో రేటు"
+    },
+    "fdbkNoResponse": {
+        "message": "లేదు"
+    },
+    "fdbkSumbit": {
+        "message": "సమర్పించండి"
+    },
+    "reportAnIssue": {
+        "message": "ఒక సమస్యను నివేదించండి",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "డెమో షో",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "విజయవంతంగా నవీకరించబడిన సెట్టింగులు"
+    },
+    "optionBlockedSites": {
+        "message": "వెబ్‌సైట్లలో నిలిపివేయబడింది"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ఈ సైట్లలో పొడిగింపు అమలు చేయదు. ప్రతి పంక్తికి ఒక సైట్‌ను నమోదు చేయండి."
+    },
+    "optionDefaultAction": {
+        "message": "డిఫాల్ట్ ఓపెన్ చర్య"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ఒక పేజీ లేదా సైడ్‌ప్యానెల్ లేదా స్వతంత్ర విండో లోపల కాలిక్యులేటర్‌ను తెరవండి."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "పేజీలో తేలుతుంది"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "పొడిగింపు పాపప్ వలె తెరవండి"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "సైడ్ ప్యానెల్‌లో ప్రదర్శించండి"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "క్రొత్త టాబ్‌లో తెరవండి"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "క్రొత్త విండోలో తెరవండి"
+    },
+    "optionDefaultWidth": {
+        "message": "డిఫాల్ట్ వెడల్పు"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "కాలిక్యులేటర్ యొక్క వెడల్పు అది ప్రారంభించినప్పుడు."
+    },
+    "optionDefaultHeight": {
+        "message": "డిఫాల్ట్ ఎత్తు"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "కాలిక్యులేటర్ ప్రారంభమైనప్పుడు అది ఎత్తు."
+    },
+    "optionEnableFractions": {
+        "message": "భిన్నాలలో ప్రదర్శన ఫలితం"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "సాధ్యమైన చోట, ఫలితాన్ని దశాంశానికి బదులుగా భిన్నం చేస్తుంది."
+    },
+    "optionAnswerPrecision": {
+        "message": "సమాధానం ఖచ్చితత్వానికి"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "సమాధానమిచ్చే దశాంశ స్థానాల సంఖ్య వరకు ఉంటుంది."
+    },
+    "optionDefaultToBasic": {
+        "message": "బేసిక్ మోడ్‌కు డిఫాల్ట్"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "బేసిక్ మోడ్‌లో కాలిక్యులేటర్‌ను ప్రారంభించండి (ట్రిగ్నోమెట్రిక్ విధులు లేవు)."
+    },
+    "optionEnableMinimize": {
+        "message": "కనిష్టీకరించండి"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "కాలిక్యులేటర్‌ను తగ్గించడానికి నియంత్రణను (శీర్షికలో) ప్రదర్శిస్తుంది"
+    },
+    "optionEnableDarkMode": {
+        "message": "చీకటి మోడ్‌ను ప్రారంభించండి"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ఇంటర్‌ఫేస్‌కు చీకటి రూపాన్ని ఇవ్వండి."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "దశాంశాల కోసం కామా (,) ఉపయోగించండి"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 కు బదులుగా 20.000,00 ప్రదర్శించండి"
+    }
 }

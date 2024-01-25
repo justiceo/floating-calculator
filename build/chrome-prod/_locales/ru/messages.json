@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Плавающий научный калькулятор",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Калькулятор",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Плавающий научный калькулятор везде, где он вам нужен",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "калькулятор",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Плавающий научный калькулятор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Калькулятор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плавающий научный калькулятор везде, где он вам нужен",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Как у нас дела?"
+    },
+    "fdbkCareToShare": {
+        "message": "Рад, что вам это нравится! Вы можете помочь нам поделиться ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Как мы можем улучшить?"
+    },
+    "fdbkThanks": {
+        "message": "Спасибо за ответ!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Оценка в веб -магазине"
+    },
+    "fdbkNoResponse": {
+        "message": "Нет"
+    },
+    "fdbkSumbit": {
+        "message": "Представлять на рассмотрение"
+    },
+    "reportAnIssue": {
+        "message": "Сообщить о проблеме",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Показать демонстрацию",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Успешно обновленные настройки"
+    },
+    "optionBlockedSites": {
+        "message": "Отключено на веб -сайтах"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Расширение не будет работать на этих сайтах. Введите один сайт на строку."
+    },
+    "optionDefaultAction": {
+        "message": "Открытое действие по умолчанию"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Откройте калькулятор внутри страницы или боковой панели или отдельного окна."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Плавать на странице"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Открыт как всплывающее окно расширения"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Отображение на боковой панели"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Открыто в новой вкладке"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Открыть в новом окне"
+    },
+    "optionDefaultWidth": {
+        "message": "Ширина по умолчанию"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Ширина калькулятора при запуске."
+    },
+    "optionDefaultHeight": {
+        "message": "Высота по умолчанию"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Высота калькулятора при запуске."
+    },
+    "optionEnableFractions": {
+        "message": "Отображать результат к фракциям"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Там, где это возможно, отдает результат как фракцию вместо десятичного десятичного."
+    },
+    "optionAnswerPrecision": {
+        "message": "Ответ точность"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Количество десятичных знаков, которые отвечают на."
+    },
+    "optionDefaultToBasic": {
+        "message": "По умолчанию в базовый режим"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Запустить калькулятор в базовом режиме (без тригнтометрических функций)."
+    },
+    "optionEnableMinimize": {
+        "message": "Включить минимизировать"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Отображает элемент управления (в заголовке) для минимизации калькулятора"
+    },
+    "optionEnableDarkMode": {
+        "message": "Включить темный режим"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Придайте интерфейсу темный вид."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Используйте запятую (,) для десятичных актов"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Дисплей 20.000,00 вместо 20 000,00"
+    }
 }

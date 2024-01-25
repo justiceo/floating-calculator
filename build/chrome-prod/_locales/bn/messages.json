@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "ক্যালকুলেটর",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "আপনার যে কোনও জায়গায় ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "ক্যালকুলেটর",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ক্যালকুলেটর",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "আপনার যে কোনও জায়গায় ভাসমান বৈজ্ঞানিক ক্যালকুলেটর",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "আমরা কেমন করছি?"
+    },
+    "fdbkCareToShare": {
+        "message": "আমি খুশি তুমি এটা পছন্দ করেছো! আপনি কি আমাদের ❤ ভাগ করতে সহায়তা করতে পারেন?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "আমরা কিভাবে উন্নত করতে পারি?"
+    },
+    "fdbkThanks": {
+        "message": "সাহায্য করার জন্য ধন্যবাদ!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "ওয়েবস্টোরে হার"
+    },
+    "fdbkNoResponse": {
+        "message": "না"
+    },
+    "fdbkSumbit": {
+        "message": "জমা দিন"
+    },
+    "reportAnIssue": {
+        "message": "একটি সমস্যা রিপোর্ট",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "ডেমো দেখান",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "সফলভাবে আপডেট করা সেটিংস"
+    },
+    "optionBlockedSites": {
+        "message": "ওয়েবসাইটে অক্ষম"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "এই সাইটগুলিতে এক্সটেনশন চলবে না। প্রতি লাইনে একটি সাইট লিখুন।"
+    },
+    "optionDefaultAction": {
+        "message": "ডিফল্ট ওপেন অ্যাকশন"
+    },
+    "optionDefaultActionDesc": {
+        "message": "কোনও পৃষ্ঠা বা সাইডপ্যানেল বা স্ট্যান্ডেলোন উইন্ডোর ভিতরে ক্যালকুলেটরটি খুলুন।"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "পৃষ্ঠায় ভাসমান"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "এক্সটেনশন পপআপ হিসাবে খুলুন"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "পাশের প্যানেলে প্রদর্শন করুন"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "নতুন ট্যাবে খুলুন"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "নতুন উইন্ডোতে খুলুন"
+    },
+    "optionDefaultWidth": {
+        "message": "ডিফল্ট প্রস্থ"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "ক্যালকুলেটরের প্রস্থটি যখন এটি চালু হয়।"
+    },
+    "optionDefaultHeight": {
+        "message": "ডিফল্ট উচ্চতা"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "ক্যালকুলেটরের উচ্চতা যখন এটি চালু হয়।"
+    },
+    "optionEnableFractions": {
+        "message": "ভগ্নাংশ প্রদর্শন ফলাফল"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "যেখানে সম্ভব, ফলাফলটি দশমিকের পরিবর্তে ভগ্নাংশ হিসাবে উপস্থাপন করে।"
+    },
+    "optionAnswerPrecision": {
+        "message": "উত্তর নির্ভুলতা"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "উত্তরগুলি যে দশমিক স্থানগুলির সংখ্যা রয়েছে।"
+    },
+    "optionDefaultToBasic": {
+        "message": "বেসিক মোডে ডিফল্ট"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "বেসিক মোডে ক্যালকুলেটর চালু করুন (কোনও ট্রিগনোমেট্রিক ফাংশন নেই)।"
+    },
+    "optionEnableMinimize": {
+        "message": "মিনিমাইজ সক্ষম করুন"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "ক্যালকুলেটরটি হ্রাস করার জন্য একটি নিয়ন্ত্রণ (শিরোনামে) প্রদর্শন করে"
+    },
+    "optionEnableDarkMode": {
+        "message": "অন্ধকার মোড সক্ষম করুন"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ইন্টারফেসটিকে একটি অন্ধকার চেহারা দিন।"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "দশমিক জন্য কমা (,) ব্যবহার করুন"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 এর পরিবর্তে 20.000,00 প্রদর্শন করুন"
+    }
 }

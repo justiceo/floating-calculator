@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "เครื่องคิดเลขวิทยาศาสตร์ลอย",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "เครื่องคิดเลข",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "เครื่องคิดเลขทางวิทยาศาสตร์ลอยได้ทุกที่ที่คุณต้องการ",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "เครื่องคิดเลข",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "เครื่องคิดเลขวิทยาศาสตร์ลอย",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "เครื่องคิดเลข",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "เครื่องคิดเลขทางวิทยาศาสตร์ลอยได้ทุกที่ที่คุณต้องการ",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "เราเป็นอย่างไรบ้าง?"
+    },
+    "fdbkCareToShare": {
+        "message": "ดีใจที่คุณชอบ! คุณสามารถช่วยเราแบ่งปัน❤ได้หรือไม่?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "เราจะปรับปรุงได้อย่างไร?"
+    },
+    "fdbkThanks": {
+        "message": "ขอบคุณสำหรับความคิดเห็น!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "ให้คะแนนบนเว็บสโตร์"
+    },
+    "fdbkNoResponse": {
+        "message": "เลขที่"
+    },
+    "fdbkSumbit": {
+        "message": "ส่ง"
+    },
+    "reportAnIssue": {
+        "message": "รายงานปัญหา",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "แสดงตัวอย่าง",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "อัปเดตการตั้งค่าสำเร็จ"
+    },
+    "optionBlockedSites": {
+        "message": "ปิดใช้งานบนเว็บไซต์"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ส่วนขยายจะไม่ทำงานบนเว็บไซต์เหล่านี้ ป้อนหนึ่งไซต์ต่อบรรทัด"
+    },
+    "optionDefaultAction": {
+        "message": "การดำเนินการเปิดเริ่มต้น"
+    },
+    "optionDefaultActionDesc": {
+        "message": "เปิดเครื่องคิดเลขภายในหน้าหรือหน้าต่างด้านข้างหรือหน้าต่างแบบสแตนด์อโลน"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "ลอยอยู่บนหน้า"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "เปิดเป็นส่วนขยายป๊อปอัพ"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "แสดงในแผงด้านข้าง"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "เปิดในแท็บใหม่"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "เปิดหน้าต่างใหม่"
+    },
+    "optionDefaultWidth": {
+        "message": "ความกว้างเริ่มต้น"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "ความกว้างของเครื่องคิดเลขเมื่อเปิดตัว"
+    },
+    "optionDefaultHeight": {
+        "message": "ความสูงเริ่มต้น"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "ความสูงของเครื่องคิดเลขเมื่อเปิดตัว"
+    },
+    "optionEnableFractions": {
+        "message": "แสดงผลในเศษส่วน"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "หากเป็นไปได้จะแสดงผลเป็นเศษส่วนแทนที่จะเป็นทศนิยม"
+    },
+    "optionAnswerPrecision": {
+        "message": "ตอบความแม่นยำ"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "จำนวนทศนิยมที่คำตอบอยู่รอบ ๆ"
+    },
+    "optionDefaultToBasic": {
+        "message": "เริ่มต้นเป็นโหมดพื้นฐาน"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "เปิดเครื่องคิดเลขในโหมดพื้นฐาน (ไม่มีฟังก์ชั่น trignometric)"
+    },
+    "optionEnableMinimize": {
+        "message": "เปิดใช้งานให้น้อยที่สุด"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "แสดงตัวควบคุม (ในส่วนหัว) เพื่อลดเครื่องคิดเลขให้น้อยที่สุด"
+    },
+    "optionEnableDarkMode": {
+        "message": "เปิดใช้งานโหมดมืด"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ให้อินเทอร์เฟซดูมืด"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "ใช้เครื่องหมายจุลภาค (,) สำหรับทศนิยม"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "แสดง 20.000,00 แทน 20,000.00"
+    }
 }

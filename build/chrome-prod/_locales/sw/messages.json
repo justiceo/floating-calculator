@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Calculator ya kisayansi inayoelea",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calculator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Calculator ya kisayansi inayoelea mahali popote unahitaji",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "Calculator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Calculator ya kisayansi",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Calculator ya kisayansi inayoelea mahali popote unahitaji",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Tunaendeleaje?"
+    },
+    "fdbkCareToShare": {
+        "message": "Nimefurahi kuipenda! Je! Unaweza kutusaidia kushiriki ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Tunawezaje kuboresha?"
+    },
+    "fdbkThanks": {
+        "message": "Asante kwa maoni!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Kiwango kwenye duka la wavuti"
+    },
+    "fdbkNoResponse": {
+        "message": "Hapana"
+    },
+    "fdbkSumbit": {
+        "message": "Wasilisha"
+    },
+    "reportAnIssue": {
+        "message": "Ripoti suala",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Onyesha demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Mipangilio iliyosasishwa kwa mafanikio"
+    },
+    "optionBlockedSites": {
+        "message": "Walemavu kwenye wavuti"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Ugani hautaendesha kwenye tovuti hizi. Ingiza tovuti moja kwa kila mstari."
+    },
+    "optionDefaultAction": {
+        "message": "Hatua ya wazi ya wazi"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Fungua Calculator ndani ya ukurasa au Sidepanel au Dirisha la Side pekee."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Kuelea kwenye ukurasa"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Fungua kama kidukizo cha ugani"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Onyesha kwenye jopo la upande"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Fungua kwenye kichupo kipya"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Fungua kwenye dirisha mpya"
+    },
+    "optionDefaultWidth": {
+        "message": "Upana chaguo -msingi"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Upana wa Calculator wakati unazindua."
+    },
+    "optionDefaultHeight": {
+        "message": "Urefu wa chaguo -msingi"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Urefu wa Calculator wakati unazindua."
+    },
+    "optionEnableFractions": {
+        "message": "Onyesha matokeo ya vipande"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Ikiwezekana, hutoa matokeo kama sehemu badala ya decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Jibu usahihi"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Idadi ya maeneo ya decimal ambayo majibu yanazunguka."
+    },
+    "optionDefaultToBasic": {
+        "message": "Chaguo -msingi kwa hali ya msingi"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Uzinduzi wa Calculator katika hali ya msingi (hakuna kazi za trignometric)."
+    },
+    "optionEnableMinimize": {
+        "message": "Wezesha kupunguza"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Inaonyesha udhibiti (katika kichwa) kwa kupunguza Calculator"
+    },
+    "optionEnableDarkMode": {
+        "message": "Wezesha hali ya giza"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Toa interface sura ya giza."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Tumia comma (,) kwa decimals"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Onyesha 20.000,00 badala ya 20,000.00"
+    }
 }

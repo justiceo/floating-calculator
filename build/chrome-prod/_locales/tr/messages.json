@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Yüzen bilimsel hesap makinesi",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Hesap makinesi",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "İhtiyacınız olan her yerde yüzen bir bilimsel hesap makinesi",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "hesap makinesi",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Yüzen bilimsel hesap makinesi",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Hesap makinesi",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "İhtiyacınız olan her yerde yüzen bir bilimsel hesap makinesi",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Nasıl yapıyoruz?"
+    },
+    "fdbkCareToShare": {
+        "message": "Beğendiğine sevindim! ❤ood paylaşmamıza yardım edebilir misiniz?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Nasıl gelişebiliriz?"
+    },
+    "fdbkThanks": {
+        "message": "Geri dönüşünüz için teşekkür ederiz!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Web Store'da oran"
+    },
+    "fdbkNoResponse": {
+        "message": "HAYIR"
+    },
+    "fdbkSumbit": {
+        "message": "Göndermek"
+    },
+    "reportAnIssue": {
+        "message": "Bir Sorun Bildirin",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Demoyu Göster",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Başarılı bir şekilde güncellenen ayarlar"
+    },
+    "optionBlockedSites": {
+        "message": "Web sitelerinde devre dışı"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Uzatma bu sitelerde çalışmaz. Satır başına bir site girin."
+    },
+    "optionDefaultAction": {
+        "message": "Varsayılan açık eylem"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Hesap makinesini bir sayfa veya bir kenar planı veya bağımsız pencerenin içinde açın."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Sayfada şamandıra"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Uzatma açılır penceresi olarak açık"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Yan panelde görüntüleme"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Yeni sekmede aç"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Yeni pencerede aç"
+    },
+    "optionDefaultWidth": {
+        "message": "Varsayılan genişlik"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Hesap makinesinin açıldığında genişliği."
+    },
+    "optionDefaultHeight": {
+        "message": "Varsayılan Yükseklik"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Hesap makinesinin başlatıldığında yüksekliği."
+    },
+    "optionEnableFractions": {
+        "message": "Kesirlerle sonuçlanan sonuç"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Mümkün olduğunda, sonucu ondalık yerine bir kesir olarak gösterir."
+    },
+    "optionAnswerPrecision": {
+        "message": "Cevap Hassasiyeti"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Cevapların ondalık yerlerinin sayısı yuvarlanıyor."
+    },
+    "optionDefaultToBasic": {
+        "message": "Temel moda varsayılan"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Temel modda hesap makinesini başlatın (trignometrik işlev yok)."
+    },
+    "optionEnableMinimize": {
+        "message": "En aza indirmeyi etkinleştir"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Hesap makinesini en aza indirmek için bir kontrol (başlıkta) görüntüler"
+    },
+    "optionEnableDarkMode": {
+        "message": "Karanlık Modu Etkinleştir"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Arayüze karanlık bir görünüm verin."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Ondalık sayılar için virgül (,) kullanın"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20.000,00 yerine 20.000,00 göster"
+    }
 }

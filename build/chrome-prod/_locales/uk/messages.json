@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Плаваючий науковий калькулятор",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Калькулятор",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Плаваючий науковий калькулятор де завгодно",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "калькулятор",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Плаваючий науковий калькулятор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Калькулятор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плаваючий науковий калькулятор де завгодно",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Як у нас справи?"
+    },
+    "fdbkCareToShare": {
+        "message": "Радий, що тобі подобається! Чи можете ви допомогти нам поділитися ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Як ми можемо вдосконалитись?"
+    },
+    "fdbkThanks": {
+        "message": "Дякую за відгук!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Оцініть на веб -магазині"
+    },
+    "fdbkNoResponse": {
+        "message": "Немає"
+    },
+    "fdbkSumbit": {
+        "message": "Подавати"
+    },
+    "reportAnIssue": {
+        "message": "Повідомте про проблему",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Показати демонстрацію",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Успішно оновлені налаштування"
+    },
+    "optionBlockedSites": {
+        "message": "Відключено на веб -сайтах"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Розширення не буде працювати на цих сайтах. Введіть один сайт на рядок."
+    },
+    "optionDefaultAction": {
+        "message": "Відкрита дія за замовчуванням"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Відкрийте калькулятор всередині сторінки або бічне панель або автономне вікно."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Пливе на сторінці"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Відкрито як розширення спливаючого вікна"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Відображення на бічній панелі"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Відкрийте на вкладці Нова"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Відкрити в новому вікні"
+    },
+    "optionDefaultWidth": {
+        "message": "Ширина за замовчуванням"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Ширина калькулятора при запуску."
+    },
+    "optionDefaultHeight": {
+        "message": "Висота за замовчуванням"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Висота калькулятора при запуску."
+    },
+    "optionEnableFractions": {
+        "message": "Показувати результат у фракціях"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Там, де це можливо, робить результат як частку замість десяткової."
+    },
+    "optionAnswerPrecision": {
+        "message": "Відповідь точності"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Кількість десяткових місць, які відповідають, завершуються."
+    },
+    "optionDefaultToBasic": {
+        "message": "За замовчуванням в базовий режим"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Калькулятор запуску в базовому режимі (немає тригрометричних функцій)."
+    },
+    "optionEnableMinimize": {
+        "message": "Увімкнути мінімізувати"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Відображає управління (у заголовку) для мінімізації калькулятора"
+    },
+    "optionEnableDarkMode": {
+        "message": "Увімкнути темний режим"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Надайте інтерфейсу темний вигляд."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Використовуйте кома (,) для десятків"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Відображення 20 000,00 замість 20 000,00"
+    }
 }

@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "अस्थायी वैज्ञानिक कैलकुलेटर",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "कैलकुलेटर",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "एक फ्लोटिंग वैज्ञानिक कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "कैलकुलेटर",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "अस्थायी वैज्ञानिक कैलकुलेटर",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "कैलकुलेटर",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "एक फ्लोटिंग वैज्ञानिक कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "हम कैसे हैं?"
+    },
+    "fdbkCareToShare": {
+        "message": "खुशी है कि यह आपको पसंद है! क्या आप हमें ❤ साझा करने में मदद कर सकते हैं?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "हम कैसे सुधार सकते हैं?"
+    },
+    "fdbkThanks": {
+        "message": "प्रतिक्रिया के लिए धन्यवाद!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "वेबस्टोर पर दर"
+    },
+    "fdbkNoResponse": {
+        "message": "नहीं"
+    },
+    "fdbkSumbit": {
+        "message": "जमा करना"
+    },
+    "reportAnIssue": {
+        "message": "मामले की रिपोर्ट करें",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "डेमो दिखाओ",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "सफलतापूर्वक अद्यतन सेटिंग्स"
+    },
+    "optionBlockedSites": {
+        "message": "वेबसाइटों पर अक्षम"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "इन साइटों पर एक्सटेंशन नहीं चलेगा। प्रति पंक्ति एक साइट दर्ज करें।"
+    },
+    "optionDefaultAction": {
+        "message": "डिफ़ॉल्ट खुला कार्रवाई"
+    },
+    "optionDefaultActionDesc": {
+        "message": "किसी पृष्ठ या एक साइडपैनल या स्टैंडअलोन विंडो के अंदर कैलकुलेटर खोलें।"
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "पेज पर फ्लोट"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "एक्सटेंशन पॉपअप के रूप में खुला"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "साइड पैनल में प्रदर्शित करें"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "वेब टेब में खोलें"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "नई विंडो में खोलें"
+    },
+    "optionDefaultWidth": {
+        "message": "डिफ़ॉल्ट चौड़ाई"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "कैलकुलेटर की चौड़ाई जब यह लॉन्च होती है।"
+    },
+    "optionDefaultHeight": {
+        "message": "डिफ़ॉल्ट ऊंचाई"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "जब यह लॉन्च होता है तो कैलकुलेटर की ऊंचाई।"
+    },
+    "optionEnableFractions": {
+        "message": "अंशों में परिणाम प्रदर्शित करें"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "जहां संभव हो, परिणाम को दशमलव के बजाय एक अंश के रूप में प्रस्तुत करता है।"
+    },
+    "optionAnswerPrecision": {
+        "message": "उत्तर परिशुद्धता"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "उत्तर देने वाले दशमलव स्थानों की संख्या गोल हो जाती है।"
+    },
+    "optionDefaultToBasic": {
+        "message": "बेसिक मोड के लिए डिफ़ॉल्ट"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "मूल मोड में कैलकुलेटर लॉन्च करें (कोई ट्रिग्नोमेट्रिक फ़ंक्शन नहीं)।"
+    },
+    "optionEnableMinimize": {
+        "message": "कम से कम सक्षम करें"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "कैलकुलेटर को कम करने के लिए एक नियंत्रण (हेडर में) प्रदर्शित करता है"
+    },
+    "optionEnableDarkMode": {
+        "message": "डार्क मोड सक्षम करें"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "इंटरफ़ेस को एक डार्क लुक दें।"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "दशमलव के लिए अल्पविराम (,) का उपयोग करें"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 के बजाय 20.000,00 प्रदर्शित करें"
+    }
 }

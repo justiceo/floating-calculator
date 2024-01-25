@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "കണക്കുകൂട്ടല് യന്തം",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "കണക്കുകൂട്ടല് യന്തം",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "കണക്കുകൂട്ടല് യന്തം",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "നിങ്ങൾക്ക് ആവശ്യമുള്ള എവിടെയെങ്കിലും ഒരു ഫ്ലോട്ടിംഗ് സയന്റിഫിക് കാൽക്കുലേറ്റർ",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "ഞങ്ങൾ എങ്ങനെ ചെയ്യുന്നു?"
+    },
+    "fdbkCareToShare": {
+        "message": "നിങ്ങൾ ഇത് ഇഷ്ടപ്പെട്ടതിൽ സന്തോഷം! ❤️ പങ്കിടാൻ ഞങ്ങളെ സഹായിക്കാമോ?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "നമുക്ക് എങ്ങനെ മെച്ചപ്പെടുത്താൻ കഴിയും?"
+    },
+    "fdbkThanks": {
+        "message": "ഫീഡ്ബാക്കിന് നന്ദി!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "വെബ്സ്റ്ററിലെ നിരക്ക്"
+    },
+    "fdbkNoResponse": {
+        "message": "ഇല്ല"
+    },
+    "fdbkSumbit": {
+        "message": "കീഴടങ്ങുക"
+    },
+    "reportAnIssue": {
+        "message": "ഒരു പ്രശ്നം റിപ്പോർട്ടുചെയ്യുക",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "ഡെമോ കാണിക്കുക",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "ക്രമീകരണങ്ങൾ വിജയകരമായി അപ്ഡേറ്റുചെയ്തു"
+    },
+    "optionBlockedSites": {
+        "message": "വെബ്സൈറ്റുകളിൽ അപ്രാപ്തമാക്കി"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ഈ സൈറ്റുകളിൽ വിപുലീകരണം പ്രവർത്തിക്കില്ല. ഒരു വരിയിൽ ഒരു സൈറ്റ് നൽകുക."
+    },
+    "optionDefaultAction": {
+        "message": "സ്ഥിരസ്ഥിതി ഓപ്പൺ പ്രവർത്തനം"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ഒരു പേജിലോ ഒരു സൈഡ്പാനൽ അല്ലെങ്കിൽ സ്റ്റാൻലോൺ വിൻഡോയ്ക്കുള്ളിൽ കാൽക്കുലേറ്റർ തുറക്കുക."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "പേജിൽ ഫ്ലോട്ട് ചെയ്യുക"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "വിപുലീകരണ പോപ്പ്അപ്പ് ആയി തുറക്കുക"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "സൈഡ് പാനലിൽ പ്രദർശിപ്പിക്കുക"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "പുതിയ ടാബിൽ തുറക്കുക"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "പുതിയ വിൻഡോയിൽ തുറക്കുക"
+    },
+    "optionDefaultWidth": {
+        "message": "സ്ഥിരസ്ഥിതി വീതി"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "ഇത് സമാരംഭിക്കുമ്പോൾ കാൽക്കുലേറ്ററിന്റെ വീതി."
+    },
+    "optionDefaultHeight": {
+        "message": "സ്ഥിരസ്ഥിതി ഉയരം"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "സമാരംഭിക്കുമ്പോൾ കാൽക്കുലേറ്ററിന്റെ ഉയരം."
+    },
+    "optionEnableFractions": {
+        "message": "ഭിന്നസംഖ്യകളുടെ ഫലം പ്രദർശിപ്പിക്കുക"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "സാധ്യമാകുന്നിടത്ത്, ദശാംശത്തിന് പകരം അതിന്റെ ഫലത്തെ ഒരു ഭിന്നസംഖ്യയായി റെൻഡർ ചെയ്യുന്നു."
+    },
+    "optionAnswerPrecision": {
+        "message": "ഉത്തരം കൃത്യത"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "ഉത്തരം ലഭിക്കുന്ന ദശാംശ സ്ഥലങ്ങളുടെ എണ്ണം."
+    },
+    "optionDefaultToBasic": {
+        "message": "സ്ഥിരസ്ഥിതി മോഡിലേക്കുള്ള സ്ഥിരസ്ഥിതി"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "അടിസ്ഥാന മോഡിൽ കാൽക്കുലേറ്റർ സമാരംഭിക്കുക (ട്രിഗ്നോമെട്രിക് ഫംഗ്ഷനുകളൊന്നുമില്ല)."
+    },
+    "optionEnableMinimize": {
+        "message": "ചെറുതാക്കുക പ്രവർത്തനക്ഷമമാക്കുക"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "കാൽക്കുലേറ്റർ കുറയ്ക്കുന്നതിന് ഒരു നിയന്ത്രണം (തലക്കെട്ടിൽ) പ്രദർശിപ്പിക്കുന്നു"
+    },
+    "optionEnableDarkMode": {
+        "message": "ഇരുണ്ട മോഡ് പ്രാപ്തമാക്കുക"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ഇന്റർഫേസ് ഒരു ഇരുണ്ട രൂപം നൽകുക."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "ദശാംശത്തിനായി കോമ (,) ഉപയോഗിക്കുക"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 ന് പകരം 20.000,00 പ്രദർശിപ്പിക്കുക"
+    }
 }

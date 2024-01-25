@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "તરતી વૈજ્ .ાનિક કેલ્ક્યુલેટર",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "ગણક",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "તમને ગમે ત્યાં ફ્લોટિંગ વૈજ્ .ાનિક કેલ્ક્યુલેટર",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "ગણક",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "તરતી વૈજ્ .ાનિક કેલ્ક્યુલેટર",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ગણક",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "તમને ગમે ત્યાં ફ્લોટિંગ વૈજ્ .ાનિક કેલ્ક્યુલેટર",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "આપણે કેવી રીતે કરી રહ્યા છીએ?"
+    },
+    "fdbkCareToShare": {
+        "message": "તમને ગમ્યું એના થી હું પ્રસન્ન છું! તમે અમને શેર કરવામાં મદદ કરી શકો છો?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "આપણે કેવી રીતે સુધારી શકીએ?"
+    },
+    "fdbkThanks": {
+        "message": "પ્રતિસાદ માટે આભાર!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "વેબ સ્ટોર પર દર"
+    },
+    "fdbkNoResponse": {
+        "message": "કોઈ"
+    },
+    "fdbkSumbit": {
+        "message": "રજૂ કરવું"
+    },
+    "reportAnIssue": {
+        "message": "એક મુદ્દો જાણ કરો",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "ડેમો બતાવો",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "સફળતાપૂર્વક અપડેટ સેટિંગ્સ"
+    },
+    "optionBlockedSites": {
+        "message": "વેબસાઇટ્સ પર અક્ષમ"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "આ સાઇટ્સ પર એક્સ્ટેંશન ચાલશે નહીં. લાઇન દીઠ એક સાઇટ દાખલ કરો."
+    },
+    "optionDefaultAction": {
+        "message": "ડિફોલ્ટ ખુલ્લી ક્રિયા"
+    },
+    "optionDefaultActionDesc": {
+        "message": "પૃષ્ઠ અથવા સાઇડપેનલ અથવા એકલ વિંડોની અંદર કેલ્ક્યુલેટર ખોલો."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "પૃષ્ઠ પર ફ્લોટ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "એક્સ્ટેંશન પ pop પઅપ તરીકે ખોલો"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "સાઇડ પેનલમાં પ્રદર્શિત કરો"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "નવા ટેબમાં ખોલો"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "નવી વિંડોમાં ખોલો"
+    },
+    "optionDefaultWidth": {
+        "message": "કણપહ"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "કેલ્ક્યુલેટરની પહોળાઈ જ્યારે તે શરૂ થાય છે."
+    },
+    "optionDefaultHeight": {
+        "message": "પરવાનગી"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "કેલ્ક્યુલેટરની height ંચાઇ જ્યારે તે શરૂ થાય છે."
+    },
+    "optionEnableFractions": {
+        "message": "અપૂર્ણાંકમાં પરિણામ પ્રદર્શિત કરો"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "જ્યાં શક્ય હોય ત્યાં પરિણામને દશાંશને બદલે અપૂર્ણાંક તરીકે આપે છે."
+    },
+    "optionAnswerPrecision": {
+        "message": "જવાબ ચોકસાઇ"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "દશાંશ સ્થાનોની સંખ્યા કે જે જવાબો છે."
+    },
+    "optionDefaultToBasic": {
+        "message": "મૂળભૂત મોડ પર ડિફોલ્ટ"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "મૂળભૂત મોડમાં કેલ્ક્યુલેટર લોંચ કરો (કોઈ ત્રિનોમેટ્રિક કાર્યો નહીં)."
+    },
+    "optionEnableMinimize": {
+        "message": "ઘટાડવું"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "કેલ્ક્યુલેટરને ઘટાડવા માટે નિયંત્રણ (હેડરમાં) પ્રદર્શિત કરે છે"
+    },
+    "optionEnableDarkMode": {
+        "message": "ડાર્ક મોડને સક્ષમ કરો"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "ઇન્ટરફેસને ઘેરો દેખાવ આપો."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "દશાંશ માટે અલ્પવિરામનો ઉપયોગ કરો"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 ને બદલે 20.000,00 પ્રદર્શિત કરો"
+    }
 }

@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Calculadora científica flotant",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calculadora",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Una calculadora científica flotant en qualsevol lloc que necessiteu",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "calculadora",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Calculadora científica flotant",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculadora",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Una calculadora científica flotant en qualsevol lloc que necessiteu",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Com estem?"
+    },
+    "fdbkCareToShare": {
+        "message": "Encantat de que t'agradi! Ens podeu ajudar a compartir el ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Com podem millorar?"
+    },
+    "fdbkThanks": {
+        "message": "Gràcies pels comentaris!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Valora a la botiga web"
+    },
+    "fdbkNoResponse": {
+        "message": "No"
+    },
+    "fdbkSumbit": {
+        "message": "Presentar"
+    },
+    "reportAnIssue": {
+        "message": "Informeu d’un problema",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Demostració d'espectacle",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Configuració actualitzada amb èxit"
+    },
+    "optionBlockedSites": {
+        "message": "Desactivat en llocs web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "L’extensió no s’executarà en aquests llocs. Introduïu un lloc per línia."
+    },
+    "optionDefaultAction": {
+        "message": "Acció oberta per defecte"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Obriu la calculadora dins d’una pàgina o una finestra lateral o autònoma."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float a la pàgina"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Obriu com a emergent d'extensió"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Mostra al tauler lateral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Obert a la pestanya nova"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Obre a la finestra nova"
+    },
+    "optionDefaultWidth": {
+        "message": "Amplada per defecte"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "L'amplada de la calculadora quan es llança."
+    },
+    "optionDefaultHeight": {
+        "message": "Alçada per defecte"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "L’alçada de la calculadora quan es llança."
+    },
+    "optionEnableFractions": {
+        "message": "El resultat de la visualització en fraccions"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Sempre que sigui possible, fa que el resultat sigui una fracció en lloc de decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Resposta Precisió"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "El nombre de llocs decimals que les respostes són arrodonides."
+    },
+    "optionDefaultToBasic": {
+        "message": "Per defecte al mode bàsic"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Inicieu la calculadora en mode bàsic (sense funcions trignomètriques)."
+    },
+    "optionEnableMinimize": {
+        "message": "Activa Minimitzar"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Mostra un control (a la capçalera) per minimitzar la calculadora"
+    },
+    "optionEnableDarkMode": {
+        "message": "Activa el mode fosc"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Doneu a la interfície un aspecte fosc."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Utilitzeu comes (,) per a decimals"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Mostra 20.000,00 en lloc de 20.000,00"
+    }
 }

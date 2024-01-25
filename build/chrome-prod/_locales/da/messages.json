@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Flydende videnskabelig lommeregner",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Lommeregner",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "En flydende videnskabelig lommeregner hvor som helst du har brug for det",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "lommeregner",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Flydende videnskabelig lommeregner",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Lommeregner",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "En flydende videnskabelig lommeregner hvor som helst du har brug for det",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Hvordan har vi det?"
+    },
+    "fdbkCareToShare": {
+        "message": "Glad for at du kunne lide det! Kan du hjælpe os med at dele ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Hvordan kan vi forbedre os?"
+    },
+    "fdbkThanks": {
+        "message": "Tak for tilbagemeldingen!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Bedøm på webshop"
+    },
+    "fdbkNoResponse": {
+        "message": "Ingen"
+    },
+    "fdbkSumbit": {
+        "message": "Indsend"
+    },
+    "reportAnIssue": {
+        "message": "Rapporter et problem",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Vis demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Med succes opdaterede indstillinger"
+    },
+    "optionBlockedSites": {
+        "message": "Handicappet på websteder"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Udvidelse kører ikke på disse websteder. Indtast et sted pr. Linje."
+    },
+    "optionDefaultAction": {
+        "message": "Standard åben handling"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Åbn lommeregneren inde i en side eller en sidepanel eller et standalone -vindue."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Flyd på side"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Åben som udvidelsespopup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Vis i sidepanelet"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Åben i ny fane"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Åben i nyt vindue"
+    },
+    "optionDefaultWidth": {
+        "message": "Standardbredde"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Kalkulatorens bredde, når den lanceres."
+    },
+    "optionDefaultHeight": {
+        "message": "Standardhøjde"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Lommeregnerens højde, når den lanceres."
+    },
+    "optionEnableFractions": {
+        "message": "Visningsresultat i fraktioner"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Hvor det er muligt, gør resultatet som en brøkdel i stedet for decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Svar præcision"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Antallet af decimaler, som svarene runde op til."
+    },
+    "optionDefaultToBasic": {
+        "message": "Standard til grundlæggende tilstand"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Start lommeregner i grundlæggende tilstand (ingen trignometriske funktioner)."
+    },
+    "optionEnableMinimize": {
+        "message": "Aktivér minimering"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Viser en kontrol (i overskriften) for at minimere lommeregneren"
+    },
+    "optionEnableDarkMode": {
+        "message": "Aktivér mørk tilstand"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Giv grænsefladen et mørkt look."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Brug komma (,) til decimaler"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Vis 20.000,00 i stedet for 20.000,00"
+    }
 }

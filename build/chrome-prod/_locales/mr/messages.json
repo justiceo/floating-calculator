@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "फ्लोटिंग वैज्ञानिक कॅल्क्युलेटर",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "कॅल्क्युलेटर",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "आपल्याला कोठेही आवश्यक असेल तेथे एक तरंगणारे वैज्ञानिक कॅल्क्युलेटर",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "कॅल्क्युलेटर",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "फ्लोटिंग वैज्ञानिक कॅल्क्युलेटर",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "कॅल्क्युलेटर",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "आपल्याला कोठेही आवश्यक असेल तेथे एक तरंगणारे वैज्ञानिक कॅल्क्युलेटर",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "आम्ही कसे करीत आहोत?"
+    },
+    "fdbkCareToShare": {
+        "message": "आपल्याला हे आवडले याचा आनंद! आपण आम्हाला सामायिक करण्यात मदत करू शकता ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "आपण कसे सुधारू शकतो?"
+    },
+    "fdbkThanks": {
+        "message": "आपल्या अभिप्रायाबद्दल धन्यवाद!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "वेबस्टोअरवर दर"
+    },
+    "fdbkNoResponse": {
+        "message": "नाही"
+    },
+    "fdbkSumbit": {
+        "message": "प्रस्तुत करणे"
+    },
+    "reportAnIssue": {
+        "message": "एखाद्या समस्येचा अहवाल द्या",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "डेमो दर्शवा",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "यशस्वीरित्या अद्यतनित सेटिंग्ज"
+    },
+    "optionBlockedSites": {
+        "message": "वेबसाइटवर अक्षम"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "या साइटवर विस्तार चालू होणार नाही. प्रति लाइन एक साइट प्रविष्ट करा."
+    },
+    "optionDefaultAction": {
+        "message": "डीफॉल्ट ओपन अ‍ॅक्शन"
+    },
+    "optionDefaultActionDesc": {
+        "message": "पृष्ठ किंवा साइडपॅनल किंवा स्टँडअलोन विंडोच्या आत कॅल्क्युलेटर उघडा."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "पृष्ठावर फ्लोट"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "विस्तार पॉपअप म्हणून उघडा"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "साइड पॅनेलमध्ये प्रदर्शन"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "नवीन टॅब मध्ये उघडा"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "नवीन विंडोमध्ये उघडा"
+    },
+    "optionDefaultWidth": {
+        "message": "डीफॉल्ट रुंदी"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "कॅल्क्युलेटरची रुंदी जेव्हा ती सुरू होते."
+    },
+    "optionDefaultHeight": {
+        "message": "डीफॉल्ट उंची"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "कॅल्क्युलेटर जेव्हा ते सुरू होते तेव्हा उंची."
+    },
+    "optionEnableFractions": {
+        "message": "अपूर्णांक मध्ये परिणाम प्रदर्शन करा"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "जेथे शक्य असेल तेथे दशांशऐवजी अंश म्हणून निकाल देते."
+    },
+    "optionAnswerPrecision": {
+        "message": "उत्तर अचूकता"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "उत्तर देणा ch ्या दशांश ठिकाणांची संख्या."
+    },
+    "optionDefaultToBasic": {
+        "message": "मूलभूत मोडमध्ये डीफॉल्ट"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "बेसिक मोडमध्ये कॅल्क्युलेटर लाँच करा (ट्रिग्नोमेट्रिक फंक्शन्स नाहीत)."
+    },
+    "optionEnableMinimize": {
+        "message": "कमीतकमी सक्षम करा"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "कॅल्क्युलेटर कमी करण्यासाठी एक नियंत्रण (शीर्षलेखात) दर्शवितो"
+    },
+    "optionEnableDarkMode": {
+        "message": "गडद मोड सक्षम करा"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "इंटरफेसला एक गडद देखावा द्या."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "दशांशांसाठी स्वल्पविराम (,) वापरा"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 ऐवजी 20.000,00 प्रदर्शन करा"
+    }
 }

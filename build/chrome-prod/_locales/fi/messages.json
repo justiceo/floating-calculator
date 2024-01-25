@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Kelluva tieteellinen laskin",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Laskin",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Kelluva tieteellinen laskin missä tahansa tarvitset sitä",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "laskin",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Kelluva tieteellinen laskin",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Laskin",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Kelluva tieteellinen laskin missä tahansa tarvitset sitä",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Kuinka me voimme?"
+    },
+    "fdbkCareToShare": {
+        "message": "Iloinen, että pidät siitä! Voitko auttaa meitä jakamaan ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Kuinka voimme parantaa?"
+    },
+    "fdbkThanks": {
+        "message": "Kiitos palautteesta!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Arvostelu verkkokaupassa"
+    },
+    "fdbkNoResponse": {
+        "message": "Ei"
+    },
+    "fdbkSumbit": {
+        "message": "Lähetä"
+    },
+    "reportAnIssue": {
+        "message": "Ilmoita ongelma",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Näytä esittely",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Päivitetyt asetukset onnistuneesti"
+    },
+    "optionBlockedSites": {
+        "message": "Vammaiset verkkosivustoilla"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Laajennus ei toimi näillä sivustoilla. Kirjoita yksi sivusto riviä kohti."
+    },
+    "optionDefaultAction": {
+        "message": "Oletuksena avoin toiminto"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Avaa laskin sivun tai sivupanaelin tai erillisen ikkunan sisällä."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Kellua sivulla"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Avaa laajennusponnahdusikkuna"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Näyttö sivupaneelissa"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Avaa uudessa välilehdessä"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Avaa uudessa ikkunassa"
+    },
+    "optionDefaultWidth": {
+        "message": "Oletusleveys"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Laskimen leveys, kun se käynnistyy."
+    },
+    "optionDefaultHeight": {
+        "message": "Oletuksena oleva korkeus"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Laskimen korkeus, kun se lanseerataan."
+    },
+    "optionEnableFractions": {
+        "message": "Näyttö johtaa fraktioihin"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Antaa mahdollisuuksien mukaan tuloksen murto -osaksi desimaalin sijaan."
+    },
+    "optionAnswerPrecision": {
+        "message": "Vastaa tarkkuus"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Desimaalien lukumäärä, jotka vastaukset ovat pyöristettyjä."
+    },
+    "optionDefaultToBasic": {
+        "message": "Oletus perustilaan"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Käynnistä laskin perustilassa (ei trignometrisiä toimintoja)."
+    },
+    "optionEnableMinimize": {
+        "message": "Mahdollistaa minimoida"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Näyttää ohjauksen (otsikossa) laskimen minimoimiseksi"
+    },
+    "optionEnableDarkMode": {
+        "message": "Ota pimeä tila käyttöön"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Anna käyttöliittymälle tumma ilme."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Käytä pilkkua (,) desimaaleille"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Näytä 20 000,00 20 000,00: n sijasta"
+    }
 }

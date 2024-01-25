@@ -1,9 +1,9 @@
 {
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "short_name": "__MSG_appShortName_",
+    "short_name": "__MSG_appShortName__",
     "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
-    "version": "23.11.15",
+    "version": "24.1.25",
     "manifest_version": 3,
     "default_locale": "en",
     "author": "Justice Ogbonna",
@@ -11,7 +11,8 @@
         "contextMenus",
         "storage",
         "cookies",
-        "activeTab"
+        "activeTab",
+        "sidePanel"
     ],
     "host_permissions": [
         "*://*/*"
@@ -46,6 +47,7 @@
         "48": "assets/logo-48x48.png",
         "128": "assets/logo-128x128.png"
     },
+    "options_page": "options-page/options.html",
     "web_accessible_resources": [
         {
             "resources": [
@@ -110,9 +112,20 @@
             "matches": [
                 "<all_urls>"
             ]
+        },
+        {
+            "resources": [
+                "standalone/scientific-calc.css"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
         }
     ],
     "background": {
-        "service_worker": "background-script/background.js"
+        "service_worker": "background-script/service-worker.js"
+    },
+    "side_panel": {
+        "default_path": "standalone/calc.html"
     }
 }

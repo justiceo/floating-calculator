@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Calculator științific flotant",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calculator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Un calculator științific plutitor oriunde ai nevoie",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "calculator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Calculator științific flotant",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Un calculator științific plutitor oriunde ai nevoie",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Ce mai facem?"
+    },
+    "fdbkCareToShare": {
+        "message": "Bucur că vă place! Ne puteți ajuta să împărtășim ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Cum ne putem îmbunătăți?"
+    },
+    "fdbkThanks": {
+        "message": "Multumesc pentru feedback!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Evaluarea pe magazinul web"
+    },
+    "fdbkNoResponse": {
+        "message": "Nu"
+    },
+    "fdbkSumbit": {
+        "message": "Trimite"
+    },
+    "reportAnIssue": {
+        "message": "Raportează o problemă",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Arată demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Setări actualizate cu succes"
+    },
+    "optionBlockedSites": {
+        "message": "Dezactivat pe site -uri web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Extensia nu va rula pe aceste site -uri. Introduceți un site pe linie."
+    },
+    "optionDefaultAction": {
+        "message": "Acțiune deschisă implicită"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Deschideți calculatorul în interiorul unei pagini sau a unei ferestre SidePanel sau Standalone."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Plutesc pe pagină"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Deschis ca pop -up de extensie"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Afișare în panoul lateral"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Deschideți în fila nouă"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Deschide într-o fereastră nouă"
+    },
+    "optionDefaultWidth": {
+        "message": "Lățime implicită"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Lățimea calculatorului când se lansează."
+    },
+    "optionDefaultHeight": {
+        "message": "Înălțime implicită"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Înălțimea calculatorului când se lansează."
+    },
+    "optionEnableFractions": {
+        "message": "Afișare rezultă în fracții"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Acolo unde este posibil, face rezultatul ca fracție în loc de zecimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Răspuns precizie"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Numărul de zecimale de care răspunsurile sunt rotunde."
+    },
+    "optionDefaultToBasic": {
+        "message": "Implicit la modul de bază"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Calculator de lansare în modul de bază (fără funcții trignometrice)."
+    },
+    "optionEnableMinimize": {
+        "message": "Activați minimizarea"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Afișează un control (în antet) pentru minimizarea calculatorului"
+    },
+    "optionEnableDarkMode": {
+        "message": "Activați modul întunecat"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Dă interfeței un aspect întunecat."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Folosiți virgulă (,) pentru zecimale"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Afișați 20.000,00 în loc de 20.000,00"
+    }
 }

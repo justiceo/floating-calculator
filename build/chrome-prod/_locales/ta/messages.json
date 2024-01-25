@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "கால்குலேட்டர்",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "கால்குலேட்டர்",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "கால்குலேட்டர்",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "நாங்கள் எப்படி இருக்கிறோம்?"
+    },
+    "fdbkCareToShare": {
+        "message": "நீங்கள் விரும்பியதில் மகிழ்ச்சி! ❤❤ ஐப் பகிர எங்களுக்கு உதவ முடியுமா?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "நாம் எவ்வாறு மேம்படுத்த முடியும்?"
+    },
+    "fdbkThanks": {
+        "message": "தங்கள் கருத்துகளுக்கு நன்றி!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "வெப்ஸ்டோரில் விகிதம்"
+    },
+    "fdbkNoResponse": {
+        "message": "இல்லை"
+    },
+    "fdbkSumbit": {
+        "message": "சமர்ப்பிக்கவும்"
+    },
+    "reportAnIssue": {
+        "message": "ஒரு சிக்கலைப் புகாரளிக்கவும்",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "டெமோவைக் காட்டு",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "வெற்றிகரமாக புதுப்பிக்கப்பட்ட அமைப்புகள்"
+    },
+    "optionBlockedSites": {
+        "message": "வலைத்தளங்களில் முடக்கப்பட்டது"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "இந்த தளங்களில் நீட்டிப்பு இயங்காது. ஒரு வரிக்கு ஒரு தளத்தை உள்ளிடவும்."
+    },
+    "optionDefaultAction": {
+        "message": "இயல்புநிலை திறந்த செயல்"
+    },
+    "optionDefaultActionDesc": {
+        "message": "ஒரு பக்கம் அல்லது ஒரு பக்கப்பட்டி அல்லது முழுமையான சாளரத்திற்குள் கால்குலேட்டரைத் திறக்கவும்."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "பக்கத்தில் மிதக்கவும்"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "நீட்டிப்பு பாப்அப்பாக திறக்கவும்"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "பக்க பேனலில் காண்பி"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "புதிய தாவலில் திறக்கவும்"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "புதிய சாளரத்தில் திறக்கவும்"
+    },
+    "optionDefaultWidth": {
+        "message": "இயல்புநிலை அகலம்"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "கால்குலேட்டரின் அகலம் தொடங்கும் போது."
+    },
+    "optionDefaultHeight": {
+        "message": "இயல்புநிலை உயரம்"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "கால்குலேட்டரின் உயரம் தொடங்கும் போது."
+    },
+    "optionEnableFractions": {
+        "message": "பின்னங்கள் காட்சி"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "சாத்தியமான இடங்களில், முடிவை தசமத்திற்கு பதிலாக ஒரு பகுதியாக வழங்குகிறது."
+    },
+    "optionAnswerPrecision": {
+        "message": "பதில் துல்லியம்"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "பதில்களைச் சுற்றியுள்ள தசம இடங்களின் எண்ணிக்கை."
+    },
+    "optionDefaultToBasic": {
+        "message": "அடிப்படை பயன்முறைக்கு இயல்புநிலை"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "அடிப்படை பயன்முறையில் கால்குலேட்டரைத் தொடங்கவும் (டிரிக்மோமெட்ரிக் செயல்பாடுகள் இல்லை)."
+    },
+    "optionEnableMinimize": {
+        "message": "குறைக்கவும்"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "கால்குலேட்டரைக் குறைப்பதற்கான ஒரு கட்டுப்பாட்டை (தலைப்பில்) காட்டுகிறது"
+    },
+    "optionEnableDarkMode": {
+        "message": "இருண்ட பயன்முறையை இயக்கவும்"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "இடைமுகத்திற்கு இருண்ட தோற்றத்தைக் கொடுங்கள்."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "தசமங்களுக்கு கமா (,) ஐப் பயன்படுத்தவும்"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "20,000.00 க்கு பதிலாக 20.000,00 காண்பி"
+    }
 }

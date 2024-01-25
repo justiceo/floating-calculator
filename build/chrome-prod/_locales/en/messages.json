@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "Floating Scientific Calculator",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calculator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "A floating scientific calculator anywhere you need it",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "calculator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Floating Scientific Calculator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "A floating scientific calculator anywhere you need it",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "How are we doing?"
+    },
+    "fdbkCareToShare": {
+        "message": "Glad you like it! Can you help us share the ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "How can we improve?"
+    },
+    "fdbkThanks": {
+        "message": "Thanks for the feedback!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Rate on Webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "No"
+    },
+    "fdbkSumbit": {
+        "message": "Submit"
+    },
+    "reportAnIssue": {
+        "message": "Report an issue",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Show demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Successfully updated settings"
+    },
+    "optionBlockedSites": {
+        "message": "Disabled on Websites"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Extension will not run on these sites. Enter one site per line."
+    },
+    "optionDefaultAction": {
+        "message": "Default open action"
+    },
+    "optionDefaultActionDesc": {
+        "message": "Open the calculator inside a page or a sidepanel or standalone window."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "Float on page"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "Open as extension popup"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "Display in side panel"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "Open in new tab"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "Open in new window"
+    },
+    "optionDefaultWidth": {
+        "message": "Default width"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "The width of the calculator when it launches."
+    },
+    "optionDefaultHeight": {
+        "message": "Default height"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "The height of the calculator when it launches."
+    },
+    "optionEnableFractions": {
+        "message": "Display result in fractions"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Where possible, renders the result as a fraction instead of decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Answer precision"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "The number of decimal places that answers are round up to."
+    },
+    "optionDefaultToBasic": {
+        "message": "Default to basic mode"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Launch calculator in basic mode (no trignometric functions)."
+    },
+    "optionEnableMinimize": {
+        "message": "Enable minimize"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Displays a control (in the header) for minimizing the calculator"
+    },
+    "optionEnableDarkMode": {
+        "message": "Enable dark mode"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Give the interface a dark look."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Use comma (,) for decimals"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Display 20.000,00 instead of 20,000.00"
+    }
 }

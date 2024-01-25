@@ -1,18 +1,121 @@
 {
-  "appName": {
-    "message": "ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "ካልኩሌተር",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "በሚያስፈልግዎት ቦታ ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "ካልኩሌተር",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ካልኩሌተር",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "በሚያስፈልግዎት ቦታ ተንሳፋፊ ሳይንሳዊ ካልኩሌተር",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "እንዴት እየሰራን ነው?"
+    },
+    "fdbkCareToShare": {
+        "message": "ደስ እንደሰኛቸው ደስ ብሎኛል! ❤️ እንድንካፈል ሊረዱን ይችላሉ?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "እንዴት ማሻሻል እንችላለን?"
+    },
+    "fdbkThanks": {
+        "message": "ስለ ግብረመልሱ አመሰግናለሁ!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "በደረጃዎች ላይ ይስጡ"
+    },
+    "fdbkNoResponse": {
+        "message": "አይ"
+    },
+    "fdbkSumbit": {
+        "message": "ያስገቡ"
+    },
+    "reportAnIssue": {
+        "message": "አንድ ጉዳይ ሪፖርት ያድርጉ",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "ማሳያ ማሳያ",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "በተሳካ ሁኔታ ወቅታዊ ቅንብሮች"
+    },
+    "optionBlockedSites": {
+        "message": "ድርጣቢያዎች ላይ ተሰናክሏል"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "ቅጥያ በእነዚህ ጣቢያዎች ላይ አይሰራም. በአንድ መስመር አንድ ጣቢያ ያስገቡ."
+    },
+    "optionDefaultAction": {
+        "message": "ነባሪ ክፍት እርምጃ"
+    },
+    "optionDefaultActionDesc": {
+        "message": "በአንድ ገጽ ውስጥ ወይም በጎን ወይም የጎርፍ ቦታ ወይም የ Sonvelone መስኮት ውስጥ በማስመሰል ላይ ያለውን ካልኩሌተር ይክፈቱ."
+    },
+    "optionDefaultAction_floatOnPage": {
+        "message": "በገጽ ላይ ተንሳፈፈ"
+    },
+    "optionDefaultAction_extensionPopup": {
+        "message": "እንደ ማራዘሚያ ብቅ-ባይ ክፈት"
+    },
+    "optionDefaultAction_sidePanel": {
+        "message": "በአጎን ፓነል ውስጥ አሳይ"
+    },
+    "optionDefaultAction_newTab": {
+        "message": "በአዲስ ትር ክፈት"
+    },
+    "optionDefaultAction_newWindow": {
+        "message": "በአዲስ መስኮት ውስጥ ይክፈቱ"
+    },
+    "optionDefaultWidth": {
+        "message": "ነባሪ ስፋት"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "የሒሳብ ሰፋቱ በሚጀምርበት ጊዜ."
+    },
+    "optionDefaultHeight": {
+        "message": "ነባሪ ቁመት"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "የካልኩለቱ ቁመት በሚጀምርበት ጊዜ."
+    },
+    "optionEnableFractions": {
+        "message": "ክፍልፋዮች ማሳያ"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "የሚቻል ከሆነ, አስርዮር ይልቅ ውጤት እንደ አንድ ክፍልፋዮች አድርጓል."
+    },
+    "optionAnswerPrecision": {
+        "message": "መልስ መልስ ይስጡ"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "መልስ የሚሰጡ የአስርዮሽ ቦታዎች ብዛት እስከ"
+    },
+    "optionDefaultToBasic": {
+        "message": "ነባሪ ወደ መሰረታዊ ሁኔታ"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "በመሠረታዊ ሁኔታ ማስለያን ያስጀምሩ (ምንም ትራፒቭሜትሪክ ተግባራት የሉም)."
+    },
+    "optionEnableMinimize": {
+        "message": "አሳንስ አንቃ"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "ካልኩሌተርን ለመቀነስ መቆጣጠሪያ (በርዕሱ) ያሳያል"
+    },
+    "optionEnableDarkMode": {
+        "message": "የጨለማ ሁነታን አንቃ"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "በይነገጽ ጠቆር ያለ እይታ ይስጡ."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "ለአስርዮሽ ኮማ (,)"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "ከ 20,000.00 ይልቅ 20.000,00 ያሳዩ"
+    }
 }
