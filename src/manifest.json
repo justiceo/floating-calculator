@@ -1,7 +1,7 @@
 {
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
-  "short_name": "__MSG_appShortName_",
+  "short_name": "__MSG_appShortName__",
   "__comment:homepage_url": "This should be the webstore link, __MSG_@@extension_id__ is not allowed",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version": "Firefox does not support leading zeros in versions",
@@ -9,7 +9,13 @@
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",
-  "permissions": ["contextMenus", "storage", "cookies", "activeTab"],
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "cookies",
+    "activeTab",
+    "sidePanel"
+  ],
   "host_permissions": ["*://*/*"],
   "action": {
     "default_icon": {
@@ -74,6 +80,9 @@
   "background": {
     "__chrome__service_worker": "background-script/service-worker.js",
     "__firefox__scripts": ["background-script/service-worker.js"]
+  },
+  "side_panel": {
+    "default_path": "standalone/calc.html"
   },
   "__firefox__key": "",
   "__firefox__browser_specific_settings": {

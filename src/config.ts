@@ -86,7 +86,7 @@ export const contextMenus: MenuItem[] = [
       id: "popup-calculator",
       title: "Open as Popup Window",
       visible: true,
-      contexts: ["action"],
+      contexts: ["all"],
     },
     handler: (data: chrome.contextMenus.OnClickData) => {
       chrome.windows.create(
@@ -107,7 +107,7 @@ export const contextMenus: MenuItem[] = [
       id: "newtab-calculator",
       title: "Open as New Tab",
       visible: true,
-      contexts: ["action"],
+      contexts: ["all"],
     },
     handler: (data: chrome.contextMenus.OnClickData) => {
       chrome.tabs.create(
@@ -119,6 +119,21 @@ export const contextMenus: MenuItem[] = [
         },
         () => {}
       );
+    },
+  },
+  {
+    menu: {
+      id: "open-in-sidepanel",
+      title: "Open in Side Panel",
+      visible: true,
+      contexts: ["all"],
+    },
+    handler: (data: chrome.contextMenus.OnClickData, tab) => {
+      // This will open the panel in all the pages on the current window.
+      // TODO: According the docs, it should only open in the current tab.
+      // Ref - https://developer.chrome.com/docs/extensions/reference/api/sidePanel#user-interaction
+      // TODO: Allow users to make browser action open in side panel.
+      chrome.sidePanel.open({ tabId: tab.id });
     },
   },
 ];
