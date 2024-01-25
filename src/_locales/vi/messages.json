@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Máy tính khoa học nổi",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Máy tính",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Một máy tính khoa học nổi ở bất cứ nơi nào bạn cần",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "máy tính",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Máy tính khoa học nổi",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Máy tính",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Một máy tính khoa học nổi ở bất cứ nơi nào bạn cần",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Chúng ta đang làm thế nào?"
+    },
+    "fdbkCareToShare": {
+        "message": "Vui vì bạn thích nó! Bạn có thể giúp chúng tôi chia sẻ ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Chúng ta có thể cải thiện như thế nào?"
+    },
+    "fdbkThanks": {
+        "message": "Cảm ơn vì bạn đã phản hồi!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Đánh giá trên ststore"
+    },
+    "fdbkNoResponse": {
+        "message": "KHÔNG"
+    },
+    "fdbkSumbit": {
+        "message": "Nộp"
+    },
+    "reportAnIssue": {
+        "message": "Báo cáo một vấn đề",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Đưa ra bản chạy thử",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Cập nhật cài đặt thành công"
+    },
+    "optionBlockedSites": {
+        "message": "Bị vô hiệu hóa trên các trang web"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Tiện ích mở rộng sẽ không chạy trên các trang web này. Nhập một trang web trên mỗi dòng."
+    },
+    "optionDefaultWidth": {
+        "message": "Chiều rộng mặc định"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Chiều rộng của máy tính khi nó khởi chạy."
+    },
+    "optionDefaultHeight": {
+        "message": "Chiều cao mặc định"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Chiều cao của máy tính khi nó khởi chạy."
+    },
+    "optionEnableFractions": {
+        "message": "Hiển thị kết quả trong phân số"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Nếu có thể, hãy hiển thị kết quả như một phân số thay vì thập phân."
+    },
+    "optionAnswerPrecision": {
+        "message": "Trả lời độ chính xác"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Số lượng các vị trí thập phân mà câu trả lời được làm tròn lên đến."
+    },
+    "optionDefaultToBasic": {
+        "message": "Mặc định chế độ cơ bản"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Khởi chạy máy tính ở chế độ cơ bản (không có hàm trignometric)."
+    },
+    "optionEnableMinimize": {
+        "message": "Cho phép giảm thiểu"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Hiển thị điều khiển (trong tiêu đề) để giảm thiểu máy tính"
+    },
+    "optionEnableDarkMode": {
+        "message": "Bật chế độ tối"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Cung cấp cho giao diện một cái nhìn tối."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Sử dụng dấu phẩy (,) cho số thập phân"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Hiển thị 20.000,00 thay vì 20.000,00"
+    }
 }

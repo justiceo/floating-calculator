@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Peldošs zinātnisks kalkulators",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulators",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Peldošs zinātnisks kalkulators visur, kur tas jums nepieciešams",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulators",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Peldošs zinātnisks kalkulators",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulators",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Peldošs zinātnisks kalkulators visur, kur tas jums nepieciešams",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Kā mums klājas?"
+    },
+    "fdbkCareToShare": {
+        "message": "Prieks ka tev patīk! Vai varat palīdzēt mums dalīties ar ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Kā mēs varam uzlabot?"
+    },
+    "fdbkThanks": {
+        "message": "Paldies par atsauksmēm!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Novērtējiet tīmekļa veikalā"
+    },
+    "fdbkNoResponse": {
+        "message": "Nē"
+    },
+    "fdbkSumbit": {
+        "message": "Iesniegt"
+    },
+    "reportAnIssue": {
+        "message": "Ziņot par jautājumu",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Parādīt demonstrāciju",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Veiksmīgi atjauninātie iestatījumi"
+    },
+    "optionBlockedSites": {
+        "message": "Vietnēs atspējots"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Paplašinājums šajās vietnēs nedarbosies. Ievadiet vienu vietni vienā rindā."
+    },
+    "optionDefaultWidth": {
+        "message": "Noklusējuma platums"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Kalkulatora platums, kad tas palaiž."
+    },
+    "optionDefaultHeight": {
+        "message": "Noklusējuma augstums"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Kalkulatora augstums, kad tas palaiž."
+    },
+    "optionEnableFractions": {
+        "message": "Parāda rezultātu frakcijās"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Ja iespējams, rezultātu padara par frakciju, nevis decimāldaļu."
+    },
+    "optionAnswerPrecision": {
+        "message": "Atbildes precizitāte"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Decimālo vietu skaits, uz kurām atbildes ir noapaļotas."
+    },
+    "optionDefaultToBasic": {
+        "message": "Noklusējuma pamata režīmā"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Palaidiet kalkulatoru pamata režīmā (bez trignometriskām funkcijām)."
+    },
+    "optionEnableMinimize": {
+        "message": "Iespējot līdz minimumam"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Parāda kontroli (galvenē), lai samazinātu kalkulatoru"
+    },
+    "optionEnableDarkMode": {
+        "message": "Iespējot tumšo režīmu"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Piešķiriet interfeisam tumšu izskatu."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Decimāldaļām izmantojiet komatu (,)"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Parādīt 20 000,00, nevis 20 000,00"
+    }
 }

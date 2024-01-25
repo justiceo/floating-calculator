@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Calculadora científica flutuante",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Calculadora",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Uma calculadora científica flutuante em qualquer lugar que você precisar",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "calculadora",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Calculadora científica flutuante",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Calculadora",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Uma calculadora científica flutuante em qualquer lugar que você precisar",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Como estamos indo?"
+    },
+    "fdbkCareToShare": {
+        "message": "Estou feliz por ter gostado! Você pode nos ajudar a compartilhar o ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Como podemos melhorar?"
+    },
+    "fdbkThanks": {
+        "message": "Obrigado pelo feedback!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Taxa na WebStore"
+    },
+    "fdbkNoResponse": {
+        "message": "Não"
+    },
+    "fdbkSumbit": {
+        "message": "Enviar"
+    },
+    "reportAnIssue": {
+        "message": "Relatar um problema",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Mostrar demonstração",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Configurações atualizadas com sucesso"
+    },
+    "optionBlockedSites": {
+        "message": "Desativado em sites"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "A extensão não será executada nesses sites. Digite um site por linha."
+    },
+    "optionDefaultWidth": {
+        "message": "Largura padrão"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "A largura da calculadora quando ele for lançada."
+    },
+    "optionDefaultHeight": {
+        "message": "Altura padrão"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "A altura da calculadora quando ele for lançada."
+    },
+    "optionEnableFractions": {
+        "message": "Exibir resultado em frações"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Sempre que possível, torna o resultado como uma fração em vez de decimal."
+    },
+    "optionAnswerPrecision": {
+        "message": "Responda a precisão"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "O número de lugares decimais que as respostas são arredondados."
+    },
+    "optionDefaultToBasic": {
+        "message": "Padrão para o modo básico"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Inicie a calculadora no modo básico (sem funções trignométricas)."
+    },
+    "optionEnableMinimize": {
+        "message": "Ativar minimize"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Exibe um controle (no cabeçalho) para minimizar a calculadora"
+    },
+    "optionEnableDarkMode": {
+        "message": "Ativar modo escuro"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Dê à interface uma aparência sombria."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Use vírgula (,) para decimais"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Exibir 20.000,00 em vez de 20.000,00"
+    }
 }

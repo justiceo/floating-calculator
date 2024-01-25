@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "ماشین حساب علمی شناور",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "ماشین حساب",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "یک ماشین حساب علمی شناور در هر جایی که به آن نیاز دارید",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "ماشین حساب",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "ماشین حساب علمی شناور",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "ماشین حساب",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "یک ماشین حساب علمی شناور در هر مکانی که به آن نیاز دارید",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "حال ما چطور است؟"
+    },
+    "fdbkCareToShare": {
+        "message": "خوشحالم که دوستش داشتی! آیا می توانید به ما در اشتراک گذاری ❤ کمک کنید؟"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "چگونه می توانیم پیشرفت کنیم؟"
+    },
+    "fdbkThanks": {
+        "message": "از نظر شما متشکریم!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "نرخ در WebStore"
+    },
+    "fdbkNoResponse": {
+        "message": "هیچ"
+    },
+    "fdbkSumbit": {
+        "message": "ارسال"
+    },
+    "reportAnIssue": {
+        "message": "گزارش یک موضوع",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "نمایش نسخه ی نمایشی",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "تنظیمات با موفقیت به روز شده"
+    },
+    "optionBlockedSites": {
+        "message": "غیرفعال در وب سایت ها"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "پسوند در این سایت ها اجرا نمی شود. در هر خط یک سایت را وارد کنید."
+    },
+    "optionDefaultWidth": {
+        "message": "عرض پیش فرض"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "عرض ماشین حساب هنگام راه اندازی."
+    },
+    "optionDefaultHeight": {
+        "message": "ارتفاع پیش فرض"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "ارتفاع ماشین حساب هنگام راه اندازی."
+    },
+    "optionEnableFractions": {
+        "message": "نمایش نتیجه در کسری"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "در صورت امکان ، نتیجه را به عنوان کسری به جای اعشاری ارائه می دهد."
+    },
+    "optionAnswerPrecision": {
+        "message": "پاسخ دقت"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "تعداد مکانهای اعشاری که پاسخ می دهند گرد است."
+    },
+    "optionDefaultToBasic": {
+        "message": "به طور پیش فرض به حالت اساسی"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "ماشین حساب را در حالت اساسی پرتاب کنید (بدون توابع trignometric)."
+    },
+    "optionEnableMinimize": {
+        "message": "Minimize را فعال کنید"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "برای به حداقل رساندن ماشین حساب یک کنترل (در هدر) را نشان می دهد"
+    },
+    "optionEnableDarkMode": {
+        "message": "حالت تاریک را فعال کنید"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "به رابط ظاهری تاریک بدهید."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "برای اعشار از کاما (،) استفاده کنید"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "به جای 20،000.00 20.000،00 نمایش دهید"
+    }
 }

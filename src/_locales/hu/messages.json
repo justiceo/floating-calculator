@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Úszó tudományos számológép",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Számológép",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Úszó tudományos számológép bárhol, ahol szüksége van rá",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "számológép",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Úszó tudományos számológép",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Számológép",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Úszó tudományos számológép bárhol, amire szüksége van rá",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Hogy vagyunk?"
+    },
+    "fdbkCareToShare": {
+        "message": "Örülök, hogy tetszik! Tudna segíteni nekünk a ❤️?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Hogyan javulhatunk?"
+    },
+    "fdbkThanks": {
+        "message": "Köszönöm a visszajelzést!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Értékeld a webáruházat"
+    },
+    "fdbkNoResponse": {
+        "message": "Nem"
+    },
+    "fdbkSumbit": {
+        "message": "Beküldés"
+    },
+    "reportAnIssue": {
+        "message": "Jelentsen egy problémát",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Bemutató bemutató",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Sikeresen frissített beállítások"
+    },
+    "optionBlockedSites": {
+        "message": "Letiltva a webhelyeken"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "A kiterjesztés nem fog futni ezeken a webhelyeken. Írjon be egy helyenként egy webhelyet."
+    },
+    "optionDefaultWidth": {
+        "message": "Alapértelmezett szélesség"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "A számológép szélessége, amikor elindul."
+    },
+    "optionDefaultHeight": {
+        "message": "Alapértelmezett magasság"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "A számológép magassága, amikor elindul."
+    },
+    "optionEnableFractions": {
+        "message": "A megjelenítési eredmény frakciókkal"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Ahol lehetséges, akkor az eredményt töredékként adja meg a tizedes helyett."
+    },
+    "optionAnswerPrecision": {
+        "message": "Válasz pontosság"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "A válaszok száma a válaszok száma."
+    },
+    "optionDefaultToBasic": {
+        "message": "Alapértelmezés az alap módra"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Indítsa el a számológépet alapvető módban (nincs trignometrikus függvény)."
+    },
+    "optionEnableMinimize": {
+        "message": "Engedélyezze a minimalizálást"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Megjeleníti a vezérlőt (a fejlécben) a számológép minimalizálásához"
+    },
+    "optionEnableDarkMode": {
+        "message": "Engedélyezze a sötét módot"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Adjon sötét megjelenést az interfésznek."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Használjon vesszőt (,) tizedesjegyekhez"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "A 20 000,00 -at jelenítse meg a 20 000,00 helyett"
+    }
 }

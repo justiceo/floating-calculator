@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Плутајући научни калкулатор",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Калкулатор",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Плутајући научни калкулатор било где, треба вам",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "калкулатор",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Плутајући научни калкулатор",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Калкулатор",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Плутајући научни калкулатор било где, треба вам",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Како нам иде?"
+    },
+    "fdbkCareToShare": {
+        "message": "Драго ми је да ти се свиђа! Можете ли нам помоћи да поделимо ❤?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Како се можемо побољшати?"
+    },
+    "fdbkThanks": {
+        "message": "Хвала за повратне информације!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Брзина на ВебСторе-у"
+    },
+    "fdbkNoResponse": {
+        "message": "Не"
+    },
+    "fdbkSumbit": {
+        "message": "прихвати"
+    },
+    "reportAnIssue": {
+        "message": "Пријавите проблем",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Показати демо",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Успешно ажурирана подешавања"
+    },
+    "optionBlockedSites": {
+        "message": "Онемогућено на веб локацијама"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Проширење неће покренути на овим веб локацијама. Унесите једну локацију по линији."
+    },
+    "optionDefaultWidth": {
+        "message": "Подразумевана ширина"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Ширина калкулатора када се покрене."
+    },
+    "optionDefaultHeight": {
+        "message": "Подразумевана висина"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Висина калкулатора када се покрене."
+    },
+    "optionEnableFractions": {
+        "message": "Резултат приказа у фракцијама"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Када је то могуће, резултира резултатима као делић уместо децималне."
+    },
+    "optionAnswerPrecision": {
+        "message": "Прецизност одговора"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Број децималних места које одговори су заокружени."
+    },
+    "optionDefaultToBasic": {
+        "message": "Подразумевано у основни режим"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Покрените калкулатор у основном режиму (без тригнометријске функције)."
+    },
+    "optionEnableMinimize": {
+        "message": "Омогућите минимизирање"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Приказује контролу (у заглављу) за минимизирање калкулатора"
+    },
+    "optionEnableDarkMode": {
+        "message": "Омогућите тамни режим"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Дајте интерфејсу мрачног изгледа."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Користите зарез (,) за децимале"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Приказ 20.000,00 уместо 20.000,00"
+    }
 }

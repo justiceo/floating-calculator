@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "浮動科學計算器",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "計算機",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "您需要的任何地方的浮動科學計算器",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "計算機",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "浮動科學計算器",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "計算機",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "您需要的任何地方的浮動科學計算器",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "我們好嗎？"
+    },
+    "fdbkCareToShare": {
+        "message": "很高興你喜歡它！ 您能幫我們分享❤️嗎？"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "我們如何改進？"
+    },
+    "fdbkThanks": {
+        "message": "感謝您的反饋！"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "網上商店的費率"
+    },
+    "fdbkNoResponse": {
+        "message": "不"
+    },
+    "fdbkSumbit": {
+        "message": "提交"
+    },
+    "reportAnIssue": {
+        "message": "報告一個問題",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "展示演示",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "成功更新了設置"
+    },
+    "optionBlockedSites": {
+        "message": "在網站上禁用"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "擴展將不會在這些站點上運行。 每行進入一個站點。"
+    },
+    "optionDefaultWidth": {
+        "message": "默認寬度"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "計算器啟動時的寬度。"
+    },
+    "optionDefaultHeight": {
+        "message": "默認高度"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "計算器啟動時的高度。"
+    },
+    "optionEnableFractions": {
+        "message": "顯示部分分數"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "在可能的情況下，將結果作為分數而不是十進制。"
+    },
+    "optionAnswerPrecision": {
+        "message": "回答精度"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "答案的小數位數是圍繞的。"
+    },
+    "optionDefaultToBasic": {
+        "message": "默認為基本模式"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "在基本模式下啟動計算器（無trignmetric函數）。"
+    },
+    "optionEnableMinimize": {
+        "message": "啟用最小化"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "顯示控件（在標題中）以最小化計算器"
+    },
+    "optionEnableDarkMode": {
+        "message": "啟用黑暗模式"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "給界面一個黑暗的外觀。"
+    },
+    "optionUseCommaForDecimals": {
+        "message": "使用逗號（，）進行小數"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "顯示20.000,00而不是20,000.00"
+    }
 }

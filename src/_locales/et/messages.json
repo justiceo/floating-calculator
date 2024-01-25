@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Ujuv teaduslik kalkulaator",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Kalkulaator",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Ujuv teaduslik kalkulaator kõikjal, kus seda vajate",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "kalkulaator",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Ujuv teaduslik kalkulaator",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Kalkulaator",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Ujuv teaduslik kalkulaator kõikjal, kus seda vajate",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "Kuidas meil läheb?"
+    },
+    "fdbkCareToShare": {
+        "message": "Tore, et see teile meeldib! Kas saate aidata meil ❤️ jagada?"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Kuidas saaksime parandada?"
+    },
+    "fdbkThanks": {
+        "message": "Aitäh tagasiside eest!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Hindus veebipoes"
+    },
+    "fdbkNoResponse": {
+        "message": "Mitte"
+    },
+    "fdbkSumbit": {
+        "message": "Esita"
+    },
+    "reportAnIssue": {
+        "message": "Emissioonist teatama",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Näita demo",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Edukalt värskendatud sätted"
+    },
+    "optionBlockedSites": {
+        "message": "Veebisaitidel puudega"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Pikendus nendel saitidel ei tööta. Sisestage üks sait rea kohta."
+    },
+    "optionDefaultWidth": {
+        "message": "Vaikimisi laius"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Kalkulaatori laius, kui see käivitub."
+    },
+    "optionDefaultHeight": {
+        "message": "Vaikekõrgus"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Kalkulaatori kõrgus, kui see käivitub."
+    },
+    "optionEnableFractions": {
+        "message": "Kuva tulemuseks on fraktsioonid"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Võimaluse korral muudab tulemuse kümnendkoha asemel murdosaks."
+    },
+    "optionAnswerPrecision": {
+        "message": "Vastus täpsus"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Kümnendkohtade arv, millele vastused ümardavad."
+    },
+    "optionDefaultToBasic": {
+        "message": "Vaikerežiim"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Käivitage kalkulaator põhirežiimis (trignomeetrilisi funktsioone pole)."
+    },
+    "optionEnableMinimize": {
+        "message": "Lubage minimeerida"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Kuvab kalkulaatori minimeerimiseks kontroll (päises)"
+    },
+    "optionEnableDarkMode": {
+        "message": "Luba tume režiim"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Andke liidesele tume välimus."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Kasutage kümnendkohtade jaoks koma (,)"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Kuva 20 000,00 asemel 20 000,00"
+    }
 }

@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "Πλωτή επιστημονική αριθμομηχανή",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "Αριθμομηχανή",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "Μια πλωτή επιστημονική αριθμομηχανή οπουδήποτε το χρειάζεστε",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "αριθμομηχανή",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "Πλωτός επιστημονικός υπολογιστής",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "Αριθμομηχανή",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "Μια πλωτή επιστημονική αριθμομηχανή οπουδήποτε το χρειάζεστε",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "ΠΩΣ ΤΑ ΠΑΜΕ?"
+    },
+    "fdbkCareToShare": {
+        "message": "Χαίρομαι που σου αρέσει! Μπορείτε να μας βοηθήσετε να μοιραστούμε το ❤्;"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "Πώς μπορούμε να βελτιώσουμε;"
+    },
+    "fdbkThanks": {
+        "message": "Ευχαριστώ για τα σχόλια!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "Βαθμολογία στο webstore"
+    },
+    "fdbkNoResponse": {
+        "message": "Οχι"
+    },
+    "fdbkSumbit": {
+        "message": "υποβάλλουν"
+    },
+    "reportAnIssue": {
+        "message": "Αναφέρετε ένα πρόβλημα",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "Επίδειξη επίδειξης",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "Ενημερωμένες ρυθμίσεις με επιτυχία"
+    },
+    "optionBlockedSites": {
+        "message": "Απενεργοποιημένη σε ιστότοπους"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "Η επέκταση δεν θα εκτελεστεί σε αυτούς τους ιστότοπους. Εισαγάγετε έναν ιστότοπο ανά γραμμή."
+    },
+    "optionDefaultWidth": {
+        "message": "Προεπιλεγμένο πλάτος"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "Το πλάτος της αριθμομηχανής κατά την εκκίνηση."
+    },
+    "optionDefaultHeight": {
+        "message": "Προεπιλεγμένο ύψος"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "Το ύψος της αριθμομηχανής όταν ξεκινά."
+    },
+    "optionEnableFractions": {
+        "message": "Αποτέλεσμα εμφάνισης σε κλάσματα"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "Όπου είναι δυνατόν, καθιστά το αποτέλεσμα ως κλάσμα αντί για δεκαδικό."
+    },
+    "optionAnswerPrecision": {
+        "message": "ΑΠΑΝΤΗΣΗ ΑΠΑΝΤΗΣΗ"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "Ο αριθμός των δεκαδικών τόπων που οι απαντήσεις είναι στρογγυλά μέχρι."
+    },
+    "optionDefaultToBasic": {
+        "message": "Προεπιλογή στη βασική λειτουργία"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "Λειτουργία αριθμομηχανής σε βασική λειτουργία (χωρίς τρισμετρικές λειτουργίες)."
+    },
+    "optionEnableMinimize": {
+        "message": "Ενεργοποίηση ελαχιστοποίησης"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "Εμφανίζει έναν έλεγχο (στην κεφαλίδα) για την ελαχιστοποίηση της αριθμομηχανής"
+    },
+    "optionEnableDarkMode": {
+        "message": "Ενεργοποίηση σκοτεινής λειτουργίας"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "Δώστε στη διεπαφή μια σκοτεινή εμφάνιση."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "Χρησιμοποιήστε κόμμα (,) για δεκαδικά ψηφία"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "Εμφάνιση 20.000,00 αντί 20.000,00"
+    }
 }

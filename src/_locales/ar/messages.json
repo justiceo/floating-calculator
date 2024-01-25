@@ -1,18 +1,100 @@
 {
-  "appName": {
-    "message": "الحاسبة العلمية العائمة",
-    "description": "The name of the extension"
-  },
-  "appShortName": {
-    "message": "آلة حاسبة",
-    "description": "The short-version name of the extension name"
-  },
-  "appDesc": {
-    "message": "آلة حاسبة علمية عائمة في أي مكان تحتاجه",
-    "description": "The description of your extension"
-  },
-  "calculator_cue": {
-    "message": "آلة حاسبة",
-    "description": "The search query cue for calculator"
-  }
+    "appName": {
+        "message": "الحاسبة العلمية العائمة",
+        "description": "The name of the extension"
+    },
+    "appShortName": {
+        "message": "آلة حاسبة",
+        "description": "The short-version name of the extension name"
+    },
+    "appDesc": {
+        "message": "آلة حاسبة علمية عائمة في أي مكان تحتاجه",
+        "description": "The description of your extension"
+    },
+    "fdbkHowAreWeDoing": {
+        "message": "كيف نفعل؟"
+    },
+    "fdbkCareToShare": {
+        "message": "سعيد انه اعجبك! هل يمكنك مساعدتنا في مشاركة ❤؟"
+    },
+    "fdbkHowCanWeImprove": {
+        "message": "كيف يمكن أن نتحسن؟"
+    },
+    "fdbkThanks": {
+        "message": "شكرا على ملاحظاتك!"
+    },
+    "fdbkRateOnWebstore": {
+        "message": "معدل على WebStore"
+    },
+    "fdbkNoResponse": {
+        "message": "لا"
+    },
+    "fdbkSumbit": {
+        "message": "يُقدِّم"
+    },
+    "reportAnIssue": {
+        "message": "بلغ عن خطأ",
+        "description": "Button text for reporting an issue"
+    },
+    "showDemo": {
+        "message": "عرض العرض التوضيحي",
+        "description": "Button text for showing demo"
+    },
+    "optionsSaveSuccess": {
+        "message": "الإعدادات التي تم تحديثها بنجاح"
+    },
+    "optionBlockedSites": {
+        "message": "معاق على مواقع الويب"
+    },
+    "optionBlockedSitesDesc": {
+        "message": "التمديد لن يعمل على هذه المواقع. أدخل موقع واحد لكل سطر."
+    },
+    "optionDefaultWidth": {
+        "message": "العرض الافتراضي"
+    },
+    "optionDefaultWidthDesc": {
+        "message": "عرض الآلة الحاسبة عند إطلاقه."
+    },
+    "optionDefaultHeight": {
+        "message": "الارتفاع الافتراضي"
+    },
+    "optionDefaultHeightDesc": {
+        "message": "ارتفاع الحاسبة عند إطلاقه."
+    },
+    "optionEnableFractions": {
+        "message": "العرض يؤدي إلى الكسور"
+    },
+    "optionEnableFractionsDesc": {
+        "message": "حيثما أمكن ، يجعل النتيجة ككسر بدلاً من عشري."
+    },
+    "optionAnswerPrecision": {
+        "message": "الإجابة الدقة"
+    },
+    "optionAnswerPrecisionDesc": {
+        "message": "عدد الأماكن العشرية التي تتمكن من الإجابات."
+    },
+    "optionDefaultToBasic": {
+        "message": "الافتراضي للوضع الأساسي"
+    },
+    "optionDefaultToBasicDesc": {
+        "message": "شن حاسبة في الوضع الأساسي (لا توجد وظائف trignometric)."
+    },
+    "optionEnableMinimize": {
+        "message": "تمكين التقليل"
+    },
+    "optionEnableMinimizeDesc": {
+        "message": "يعرض عنصر تحكم (في الرأس) لتقليل الآلة الحاسبة إلى أدنى حد"
+    },
+    "optionEnableDarkMode": {
+        "message": "تمكين الوضع المظلم"
+    },
+    "optionEnableDarkModeDesc": {
+        "message": "أعط الواجهة نظرة مظلمة."
+    },
+    "optionUseCommaForDecimals": {
+        "message": "استخدم الفاصلة (،)"
+    },
+    "optionUseCommaForDecimalsDesc": {
+        "message": "عرض 20.000،00 بدلاً من 20،000.00"
+    }
 }
