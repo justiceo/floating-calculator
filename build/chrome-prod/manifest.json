@@ -3,7 +3,7 @@
     "description": "__MSG_appDesc__",
     "short_name": "__MSG_appShortName__",
     "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
-    "version": "24.1.25",
+    "version": "24.2.19",
     "manifest_version": 3,
     "default_locale": "en",
     "author": "Justice Ogbonna",
