@@ -5,7 +5,7 @@
   "__comment:homepage_url": "This should be the webstore link, __MSG_@@extension_id__ is not allowed",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version": "Firefox does not support leading zeros in versions",
-  "version": "24.1.25",
+  "version": "24.2.19",
   "manifest_version": 3,
   "default_locale": "en",
   "author": "Justice Ogbonna",

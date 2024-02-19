@@ -7,6 +7,7 @@
   min-width: 100px;
   font-family: Arial, Helvetica, sans-serif;
   container-type: size;
+  container-name: scientific;
 }
 
 .main {
@@ -108,7 +109,7 @@ input.form-control {
   border-radius: 5px;
 }
 
-@media (max-width: 250px) {
+@container scientific  (max-width: 250px) {
   .input-panel.hstack .btn:not(.f1, .f2):nth-child(-n + 3),
   .input-panel.hstack .btn:is(.f1, .f2):nth-child(-n + 6) {
     display: none;
@@ -129,7 +130,7 @@ input.form-control {
   font-size: 14px;
 }
 
-@container (max-width: 350px) {
+@container scientific (max-width: 350px) {
   .main {
     font-size: 10px;
   } /* resets base 16px */
