@@ -1,5 +1,7 @@
 {
   "additionalEntryPoints": [
+    "src/standalone/ai-calc/ai-calc-component.ts",
+    "src/standalone/ai-calc/ai-calc.css",
     "src/standalone/scientific-calc-component.ts",
     "src/standalone/scientific-calc.css"
   ],

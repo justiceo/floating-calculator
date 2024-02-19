@@ -1,0 +1,155 @@
+@import url("../bootstrap5.css");
+@import url("../animate-css@4.1.1.css");
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  min-width: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  container-type: size;
+  container-name: aicalc;
+}
+
+.main {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  padding: 0.7em 0.5em 0.7em;
+}
+
+.dynamic-display,
+.meta-controls,
+.tab-content {
+  height: auto;
+  flex-basis: auto;
+}
+
+.dynamic-display {
+  position: relative;
+  flex: 1.5;
+}
+
+.meta-controls {
+  position: relative;
+  flex: 0;
+}
+
+.tab-content {
+  flex: 7;
+}
+
+.dynamic-display input,
+.tab-pane,
+.input-panel {
+  height: 100%;
+}
+
+.input-panel .hstack {
+  flex: 1;
+}
+
+.input-panel.hstack .btn {
+  width: calc(100% / 7);
+  height: 100%;
+  padding: 0;
+  line-height: 1;
+}
+
+.btn-light {
+  background-color: #f1f3f4;
+}
+.btn-light.fn {
+  background-color: #dadce0;
+}
+
+.meta-controls .notification {
+  border-radius: 5px;
+  padding: 0.15rem 0.5rem;
+  position: absolute;
+  right: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: slideInRight;
+  animation-duration: 0.3s;
+}
+
+input.form-control {
+  text-align: right;
+  line-height: 50px;
+  font-size: 38px;
+  resize: none;
+  margin-top: -5px;
+  padding-top: 30px;
+}
+
+#pretext {
+  text-align: right;
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+}
+
+.nav .nav-link {
+  padding: 0.15rem 0.5rem;
+}
+
+#history-content,
+#help-content {
+  background: #f1f1f1;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.history-item-template {
+  display: none;
+}
+
+.notice {
+  border-radius: 5px;
+}
+
+@container aicalc (max-width: 250px) {
+  .input-panel.hstack .btn:not(.f1, .f2):nth-child(-n + 3),
+  .input-panel.hstack .btn:is(.f1, .f2):nth-child(-n + 6) {
+    display: none;
+  }
+  .input-panel.hstack .btn {
+    width: calc(100% / 4);
+  }
+}
+
+/* Tracking font-sizes separately to monitor responsiveness */
+.main {
+  font-size: 12px;
+} /* resets base 16px */
+.form-check {
+  font-size: 14px;
+}
+.input-panel.hstack .btn {
+  font-size: 14px;
+}
+
+@container aicalc (max-width: 350px) {
+  .main {
+    font-size: 10px;
+  } /* resets base 16px */
+  .form-check {
+    font-size: 12px;
+  }
+  .input-panel.hstack .btn {
+    font-size: 12px;
+  }
+  .nav .nav-link {
+    padding: 0.15rem 0.5rem;
+  }
+
+  input.form-control {
+    text-align: right;
+    line-height: 40px;
+    font-size: 28px;
+    resize: none;
+    margin-top: -5px;
+    padding-top: 30px;
+  }
+}
