@@ -1,67 +1,56 @@
-<div class="container-fluid d-flex p-0 h-100" data-bs-theme="light">
-    <div class="wrapper">
-        <div class="unsupported-notice d-none mb-4 p-4 pb-1 bg-warning">
-            You tried to launch Floating Calculator on one of the following restricted
-            pages:
-            <ul>
-                <li>The Chrome Webstore - https://chrome.google.com/webstore</li>
-                <li>
-                    A browser page e.g. the new tab, settings, history or a page owned by
-                    another extension.
-                </li>
-                <li>A rendered blob e.g. opening an image in a browser tab.</li>
-            </ul>
-            <p style="text-align: right">
-                <button class="btn btn-primary open-popup">
-                    Open Calculator in Popup Window
-                </button>
-                <button class="btn btn-light close-notice">Close Notice</button>
-            </p>
+<!-- codepn for UI https://codepen.io/justiceo/pen/yLwrydg -->
+<div class="container-fluid p-3">
+    <div class="input-container">
+        <div class="input-box" style="position: relative">
+            <textarea class="form-control" id="ai-prompt" rows="5" style="resize: none"></textarea>
+            <button class="btn btn-primary rounded-3 material-symbols-outlined"
+                style="position: absolute; bottom: 10px; right: 10px; font-weight: 400;">send</textarea>
         </div>
-        <div class="vstack main gap-2">
-            <div class="dynamic-display">
-                <span id="pretext"></span>
-                <input id="text-input" class="form-control shadow-sm" rows="1" placeholder="Enter query here" />
-            </div>
-            <div class="hstack gap-5 meta-controls">
-                <button id="send-query" class="btn btn-primary">Send</button>
-            </div>
+        <div class="input-controls mt-1">
+            <button type="button" class="btn">
+                <span class="material-symbols-outlined  me-1">screenshot_region</span>
+                Screenshot</button>
+            <button type="button" class="btn">
+                <span class="material-symbols-outlined me-1">image</span>
+                Image/PDF</button>
+            <button type="button" class="btn">
+                <span class="material-symbols-outlined me-1">keyboard_alt</span>
+                Keypad</button>
+            <span class="material-symbols-outlined btn">
+                more_horiz
+            </span>
+        </div>
+    </div>
+    <p class="bg-body-secondary p-3 m-0  mt-5">
+        <strong>Input:</strong>There are 49 dogs signed up to compete in the ...
+    </p>
+    <div class="output-container bg-light p-3">
+        <p class="solution">It would take <strong>42</strong> dogs to complete the race</p>
+        <div class="solution-controls  d-flex justify-content-between">
+            <button type="button" class="btn btn-primary">Explain it</button>
+            <span class="btn-group" role="group">
+                <span class="btn material-symbols-outlined">
+                    content_copy
+                </span>
+                <span class="btn material-symbols-outlined">
+                    thumb_up
+                </span> <span class="btn material-symbols-outlined">
+                    thumb_down
+                </span>
+            </span>
+        </div>
+        <div class="detailed-solution">
+            <h5 class="bg-primary p-2 m-0 mt-4 text-white"><span class="material-symbols-outlined me-1">
+                    list_alt
+                </span>Step by Step Solution</h5>
+            <p class="bg-primary p-2 bg-opacity-10">To find out the number of dogs competing, you first have to subtract
+                36 from 49 and then divide the resultant answer by 2.<br><br>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="keypad-content" role="tabpanel" aria-labelledby="keypad-tab"
-                    tabindex="0">
-                    <div class="hstack gap-1 input-panel">
-                        <div class="vstack gap-1">
-                            <textarea rows="10"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="history-content" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
-                    <div class="vstack gap-2 history-panel text-end">
-                        <div class="no-history">
-                            Your calculations and results appear here so that you can reuse
-                            them.
-                        </div>
-                        <div class="history-item-template">
-                            <span style="
-                        vertical-align: bottom;
-                        font-size: 12px;
-                        margin-right: 10px;
-                      ">timestamp</span>
-                            <button class="btn btn-light border border-secondary-subtle text-primary">
-                                expression
-                            </button>
-                            =
-                            <button class="btn btn-light border border-secondary-subtle text-primary">
-                                result
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="help-content" role="tabpanel" aria-labelledby="help-tab" tabindex="0">
-                    help content here.
-                </div>
-            </div>
+                That is 13 divided by 2 to get 6.5. 6.5 is the number of big dogs that signed up. No, this ain’t the
+                final answer yet. The next step is to add 6.5 to 36.<br><br>
+
+                The answer thus is 42.5, and since we all know that a half-dog can’t participate, so it is a
+                hypothetical question and we have to assume 42.5 as the answer.</p>
         </div>
     </div>
 </div>
