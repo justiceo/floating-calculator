@@ -1,7 +1,7 @@
 import "@webcomponents/custom-elements";
-import { Logger } from "../utils/logger";
+import { Logger } from "../../utils/logger";
 import componentHtml from "./scientific-calc.txt.html";
-import "../utils/feedback/feedback";
+import "../../utils/feedback/feedback";
 import { ScientificCalc } from "./scientific-calc";
 
 export class ScientificCalcComponent extends HTMLElement {

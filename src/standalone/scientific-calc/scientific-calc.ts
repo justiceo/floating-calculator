@@ -1,5 +1,5 @@
 import { evaluate } from "mathjs";
-import { Tab } from "./bootstrap5";
+import { Tab } from "../bootstrap5";
 
 export class ScientificCalc {
   lastAns = "";

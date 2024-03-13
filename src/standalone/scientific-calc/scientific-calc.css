@@ -1,5 +1,5 @@
-@import url("./bootstrap5.css");
-@import url("./animate-css@4.1.1.css");
+@import url("../bootstrap5.css");
+@import url("../animate-css@4.1.1.css");
 
 .wrapper {
   flex: 1;

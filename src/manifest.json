@@ -77,7 +77,7 @@
       "matches": ["<all_urls>"]
     },
     {
-      "resources": ["standalone/scientific-calc.css"],
+      "resources": ["standalone/scientific-calc/scientific-calc.css"],
       "matches": ["<all_urls>"]
     }
   ],

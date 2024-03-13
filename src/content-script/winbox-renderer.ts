@@ -9,7 +9,7 @@ import Storage from "../utils/storage";
 import Analytics from "../utils/analytics";
 import { i18n } from "../utils/i18n";
 import { getURL } from "../utils/get-url";
-import "../standalone/scientific-calc-component";
+import "../standalone/scientific-calc/scientific-calc-component";
 
 // This class is responsible to loading/reloading/unloading the angular app into the UI.
 export class WinboxRenderer {
@@ -69,7 +69,7 @@ export class WinboxRenderer {
       case "toggle-calculator":
         try {
           let link = getURL(
-            "standalone/scientific-calc-component.js",
+            "standalone/scientific-calc/scientific-calc-component.js",
             this.mode
           );
           console.log("creatign url", link);
