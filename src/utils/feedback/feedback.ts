@@ -19,7 +19,7 @@ Usage:
 </feedback-form>
 */
 class FeedbackForm extends HTMLElement {
-  logger = new Logger("feedback-form");
+  logger = new Logger(this);
   progressHandler;
   constructor() {
     super();
@@ -49,17 +49,9 @@ class FeedbackForm extends HTMLElement {
   }
 
   setI18nText(elem) {
-    elem.querySelector("p[data-step='1']").innerHTML =
-      i18n("fdbkHowAreWeDoing");
-    elem.querySelector("p[data-step='2']").innerHTML = i18n("fdbkCareToShare");
     elem
       .querySelector("input[data-step='3']")
-      .setAttribute("placeholder", i18n("fdbkHowCanWeImprove"));
-    elem.querySelector("p[data-step='4']").innerHTML = i18n("fdbkThanks");
-    elem.querySelector("#rate-on-store").innerHTML = i18n("fdbkRateOnWebstore");
-    elem.querySelector("#decline-rate-on-store").innerHTML =
-      i18n("fdbkNoResponse");
-    elem.querySelector("#submit-form").innerHTML = i18n("fdbkSumbit");
+      .setAttribute("placeholder", i18n("How can we improve?"));
   }
 
   updateStyle(elem) {
@@ -74,7 +66,7 @@ class FeedbackForm extends HTMLElement {
     shadow.append(style, documentFragment);
 
     const size = elem.getAttribute("size") ?? "inline";
-    const appName = elem.getAttribute("app-name") ?? i18n("appName");
+    const appName = elem.getAttribute("app-name") ?? i18n("@appName");
     const logo =
       elem.getAttribute("logo-url") ??
       chrome.runtime.getURL("assets/logo-24x24.png");

@@ -1,7 +1,7 @@
 import { Logger } from "../utils/logger";
 import Storage from "../utils/storage";
 import { WinboxRenderer } from "./winbox-renderer";
-import { packageName } from "../config";
+import { packageName } from "../const";
 import "./content-script.css";
 
 export class ContentScript {

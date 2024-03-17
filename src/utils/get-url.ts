@@ -1,4 +1,4 @@
-import { packageName } from "../config";
+import { packageName } from "../const";
 
 // A wrapper for chrome-compatible file access outside of the chrome context.
 export const getURL = (path: string, mode?: string) => {

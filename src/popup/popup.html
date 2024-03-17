@@ -1,21 +1,17 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title translate-key="appName">Floating Calculator</title>
-    <link rel="stylesheet" href="popup.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="popup.js"></script>
-  </head>
 
-  <body>
-    <iframe
-      name="rich-calc-frame"
-      width="440"
-      height="350"
-      frameborder="0"
-      src="https://example.com"
-    ></iframe>
-    <!-- script tags don't work in body for popup. -->
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title i18n="@appName">Floating Calculator</title>
+  <link rel="stylesheet" href="popup.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="popup.js"></script>
+</head>
+
+<body>
+  <iframe name="rich-calc-frame" width="440" height="350" frameborder="0" src="https://example.com"></iframe>
+  <!-- script tags don't work in body for popup. -->
+</body>
+
 </html>

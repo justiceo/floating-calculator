@@ -42,7 +42,9 @@ export class ScientificCalcComponent extends HTMLElement {
     // Add the stylesheet.
     const style = document.createElement("link");
     style.rel = "stylesheet";
-    style.href = chrome.runtime.getURL("standalone/scientific-calc.css");
+    style.href = chrome.runtime.getURL(
+      "standalone/scientific-calc/scientific-calc.css"
+    );
     this.shadowRoot?.append(style);
   }
 }

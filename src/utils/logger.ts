@@ -1,7 +1,7 @@
 /// <reference types="chrome"/>
 import * as Sentry from "@sentry/browser";
 import manifest from "../manifest.json";
-import { packageName, sentryDsn } from "../config";
+import { packageName, sentryDsn } from "../const";
 
 /**
  * Simple util for logging to console.

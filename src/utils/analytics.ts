@@ -1,6 +1,6 @@
 // Code below imported from https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/functional-samples/tutorial.google-analytics/scripts/google-analytics.js
 // https://developer.chrome.com/docs/extensions/mv3/tut_analytics/
-import { gaApiSecret, measurementId } from "../config";
+import { gaApiSecret, measurementId } from "../const";
 import { getOrCreateSessionId } from "./session-id";
 
 const GA_ENDPOINT = "https://www.google-analytics.com/mp/collect";

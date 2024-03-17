@@ -100,7 +100,7 @@ export class WinboxRenderer {
 
     if (!this.dialog) {
       this.logger.debug("creating new dialog with options", winboxOptions);
-      this.dialog = new WinBox(i18n("appName"), winboxOptions);
+      this.dialog = new WinBox(i18n("@appName"), winboxOptions);
     } else {
       this.logger.debug("restoring dialog");
       this.dialog.setUrl(url.href);

@@ -1,7 +1,7 @@
 {
-  "name": "__MSG_appName__",
-  "description": "__MSG_appDesc__",
-  "short_name": "__MSG_appShortName__",
+  "name": "__MSG_@appName__",
+  "description": "__MSG_@appDesc__",
+  "short_name": "__MSG_@appShortName__",
   "__comment:homepage_url": "This should be the webstore link, __MSG_@@extension_id__ is not allowed",
   "homepage_url": "https://chrome.google.com/webstore/detail/floating-calculator/mbfnbhfjnjeedaknilkfegfnnmmmmpmn",
   "__comment:version": "Firefox does not support leading zeros in versions",
@@ -23,7 +23,7 @@
       "24": "assets/logo-24x24.png",
       "32": "assets/logo-32x32.png"
     },
-    "default_title": "__MSG_appName__",
+    "default_title": "__MSG_@appName__",
     "__default_popup": "popup/popup.html"
   },
   "content_scripts": [
@@ -43,6 +43,19 @@
     "128": "assets/logo-128x128.png"
   },
   "options_page": "options-page/options.html",
+  "background": {
+    "__chrome__service_worker": "background-script/service-worker.js",
+    "__firefox__scripts": ["background-script/service-worker.js"]
+  },
+  "side_panel": {
+    "default_path": "standalone/calc.html"
+  },
+  "__firefox__key": "",
+  "__firefox__browser_specific_settings": {
+    "gecko": {
+      "id": "scientific-calc@essentialkit.org"
+    }
+  },
   "web_accessible_resources": [
     {
       "resources": ["assets/logo-24x24.png"],
@@ -80,18 +93,5 @@
       "resources": ["standalone/scientific-calc/scientific-calc.css"],
       "matches": ["<all_urls>"]
     }
-  ],
-  "background": {
-    "__chrome__service_worker": "background-script/service-worker.js",
-    "__firefox__scripts": ["background-script/service-worker.js"]
-  },
-  "side_panel": {
-    "default_path": "standalone/calc.html"
-  },
-  "__firefox__key": "",
-  "__firefox__browser_specific_settings": {
-    "gecko": {
-      "id": "scientific-calc@essentialkit.org"
-    }
-  }
+  ]
 }
