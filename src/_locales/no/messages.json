@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Flytende vitenskapelig kalkulator",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Kalkulator",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "En flytende vitenskapelig kalkulator hvor som helst du trenger den",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Hvordan har vi det?"
+    "@testMarkup": {
+        "message": "<div> <p> Hello World </p> Dette er <strong> språket </strong> på nettet </div>"
     },
-    "fdbkCareToShare": {
-        "message": "Glad du likte det! Kan du hjelpe oss med å dele ❤?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Hvordan kan vi forbedre oss?"
-    },
-    "fdbkThanks": {
-        "message": "Takk for tilbakemeldingen!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Priser på nettbutikken"
-    },
-    "fdbkNoResponse": {
-        "message": "Nei"
-    },
-    "fdbkSumbit": {
-        "message": "Sende inn"
-    },
-    "reportAnIssue": {
-        "message": "Rapporter et problem",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Vis demo",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Vellykket oppdaterte innstillinger"
-    },
-    "optionBlockedSites": {
-        "message": "Deaktivert på nettsteder"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "Utvidelse kjøres ikke på disse nettstedene. Skriv inn ett nettsted per linje."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Standard åpen handling"
     },
-    "optionDefaultActionDesc": {
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
         "message": "Åpne kalkulatoren på en side eller et sidepanel eller frittstående vindu."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Flyte på side"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Åpne som utvidelsesoppopup"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Vis i sidepanelet"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Åpne i ny fane"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Åpne i nytt vindu"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Standardbredde"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "Bredden på kalkulatoren når den lanseres."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Standardhøyde"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "Høyden på kalkulatoren når den lanseres."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Deaktivert på nettsteder"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "Utvidelse kjøres ikke på disse nettstedene. Skriv inn ett nettsted per linje."
+    },
+    "Display_result_in_fractions": {
         "message": "Display Resultat i brøk"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Der det er mulig, gjør resultatet som en brøkdel i stedet for desimal."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Svar presisjon"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "Antall desimaler som svarene er runde opp til."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Standard for grunnleggende modus"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Start kalkulator i grunnleggende modus (ingen trignometriske funksjoner)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Start kalkulator i grunnleggende modus (ingen trigonometriske funksjoner)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Aktiver minimer"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Viser en kontroll (i overskriften) for å minimere kalkulatoren"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Aktiver mørk modus"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Gi grensesnittet et mørkt utseende."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Bruk komma (,) for desimaler"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Vis 20.000,00 i stedet for 20 000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Åpne som popup -vindu"
+    },
+    "Open_as_New_Tab": {
+        "message": "Åpne som ny fane"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Åpne i sidepanel"
+    },
+    "Successfully_updated_settings": {
+        "message": "Vellykket oppdaterte innstillinger"
+    },
+    "How_can_we_improve_": {
+        "message": "Hvordan kan vi forbedre oss?"
+    },
+    "How_are_we_doing_": {
+        "message": "Hvordan har vi det?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Glad du likte det! Kan du hjelpe oss med å dele ❤?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Takk for tilbakemeldingen!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Rate på Chrome Web Store"
+    },
+    "No": {
+        "message": "Nei"
+    },
+    "Submit_Feedback": {
+        "message": "Send inn tilbakemelding"
     }
 }

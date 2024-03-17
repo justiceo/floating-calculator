@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "மிதக்கும் அறிவியல் கால்குலேட்டர்",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "கால்குலேட்டர்",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "உங்களுக்கு தேவையான எங்கும் மிதக்கும் அறிவியல் கால்குலேட்டர்",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "நாங்கள் எப்படி இருக்கிறோம்?"
+    "@testMarkup": {
+        "message": "<div> <p> ஹலோ வேர்ல்ட் </p> இது வலையின் <strong> மொழி </strong> ஆகும் </div>"
     },
-    "fdbkCareToShare": {
-        "message": "நீங்கள் விரும்பியதில் மகிழ்ச்சி! ❤❤ ஐப் பகிர எங்களுக்கு உதவ முடியுமா?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "நாம் எவ்வாறு மேம்படுத்த முடியும்?"
-    },
-    "fdbkThanks": {
-        "message": "தங்கள் கருத்துகளுக்கு நன்றி!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "வெப்ஸ்டோரில் விகிதம்"
-    },
-    "fdbkNoResponse": {
-        "message": "இல்லை"
-    },
-    "fdbkSumbit": {
-        "message": "சமர்ப்பிக்கவும்"
-    },
-    "reportAnIssue": {
-        "message": "ஒரு சிக்கலைப் புகாரளிக்கவும்",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "டெமோவைக் காட்டு",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "வெற்றிகரமாக புதுப்பிக்கப்பட்ட அமைப்புகள்"
-    },
-    "optionBlockedSites": {
-        "message": "வலைத்தளங்களில் முடக்கப்பட்டது"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "இந்த தளங்களில் நீட்டிப்பு இயங்காது. ஒரு வரிக்கு ஒரு தளத்தை உள்ளிடவும்."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "இயல்புநிலை திறந்த செயல்"
     },
-    "optionDefaultActionDesc": {
-        "message": "ஒரு பக்கம் அல்லது ஒரு பக்கப்பட்டி அல்லது முழுமையான சாளரத்திற்குள் கால்குலேட்டரைத் திறக்கவும்."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "ஒரு பக்கம் அல்லது ஒரு பக்க குழு அல்லது முழுமையான சாளரத்திற்குள் கால்குலேட்டரைத் திறக்கவும்."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "பக்கத்தில் மிதக்கவும்"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "நீட்டிப்பு பாப்அப்பாக திறக்கவும்"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "பக்க பேனலில் காண்பி"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "புதிய தாவலில் திறக்கவும்"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "புதிய சாளரத்தில் திறக்கவும்"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "இயல்புநிலை அகலம்"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "கால்குலேட்டரின் அகலம் தொடங்கும் போது."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "இயல்புநிலை உயரம்"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "கால்குலேட்டரின் உயரம் தொடங்கும் போது."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "வலைத்தளங்களில் முடக்கப்பட்டது"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "இந்த தளங்களில் நீட்டிப்பு இயங்காது. ஒரு வரிக்கு ஒரு தளத்தை உள்ளிடவும்."
+    },
+    "Display_result_in_fractions": {
         "message": "பின்னங்கள் காட்சி"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "சாத்தியமான இடங்களில், முடிவை தசமத்திற்கு பதிலாக ஒரு பகுதியாக வழங்குகிறது."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "பதில் துல்லியம்"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "பதில்களைச் சுற்றியுள்ள தசம இடங்களின் எண்ணிக்கை."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "அடிப்படை பயன்முறைக்கு இயல்புநிலை"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "அடிப்படை பயன்முறையில் கால்குலேட்டரைத் தொடங்கவும் (டிரிக்மோமெட்ரிக் செயல்பாடுகள் இல்லை)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "அடிப்படை பயன்முறையில் கால்குலேட்டரைத் தொடங்கவும் (முக்கோணவியல் செயல்பாடுகள் இல்லை)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "குறைக்கவும்"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "கால்குலேட்டரைக் குறைப்பதற்கான ஒரு கட்டுப்பாட்டை (தலைப்பில்) காட்டுகிறது"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "இருண்ட பயன்முறையை இயக்கவும்"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "இடைமுகத்திற்கு இருண்ட தோற்றத்தைக் கொடுங்கள்."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "தசமங்களுக்கு கமா (,) ஐப் பயன்படுத்தவும்"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "20,000.00 க்கு பதிலாக 20.000,00 காண்பி"
+    },
+    "Open_as_Popup_Window": {
+        "message": "பாப்அப் சாளரமாக திறக்கவும்"
+    },
+    "Open_as_New_Tab": {
+        "message": "புதிய தாவலாக திறக்கவும்"
+    },
+    "Open_in_Side_Panel": {
+        "message": "பக்க பேனலில் திறக்கவும்"
+    },
+    "Successfully_updated_settings": {
+        "message": "வெற்றிகரமாக புதுப்பிக்கப்பட்ட அமைப்புகள்"
+    },
+    "How_can_we_improve_": {
+        "message": "நாம் எவ்வாறு மேம்படுத்த முடியும்?"
+    },
+    "How_are_we_doing_": {
+        "message": "நாங்கள் எப்படி இருக்கிறோம்?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "நீங்கள் விரும்பியதில் மகிழ்ச்சி! ❤❤ ஐப் பகிர எங்களுக்கு உதவ முடியுமா?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "தங்கள் கருத்துகளுக்கு நன்றி!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Chrome வலை கடையில் விகிதம்"
+    },
+    "No": {
+        "message": "இல்லை"
+    },
+    "Submit_Feedback": {
+        "message": "கருத்துக்களை சமர்ப்பிக்கவும்"
     }
 }

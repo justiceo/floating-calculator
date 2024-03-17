@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Calculadora científica flutuante",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Calculadora",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Uma calculadora científica flutuante em qualquer lugar que você precisar",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Como estamos indo?"
+    "@testMarkup": {
+        "message": "<div> <p> Olá mundo </p> Esta é a linguagem <strong> </strong> da web </div>"
     },
-    "fdbkCareToShare": {
-        "message": "Estou feliz por ter gostado! Você pode nos ajudar a compartilhar o ❤️?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Como podemos melhorar?"
-    },
-    "fdbkThanks": {
-        "message": "Obrigado pelo feedback!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Taxa na WebStore"
-    },
-    "fdbkNoResponse": {
-        "message": "Não"
-    },
-    "fdbkSumbit": {
-        "message": "Enviar"
-    },
-    "reportAnIssue": {
-        "message": "Relatar um problema",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Mostrar demonstração",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Configurações atualizadas com sucesso"
-    },
-    "optionBlockedSites": {
-        "message": "Desativado em sites"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "A extensão não será executada nesses sites. Digite um site por linha."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Ação aberta padrão"
     },
-    "optionDefaultActionDesc": {
-        "message": "Abra a calculadora dentro de uma página ou uma janela lateral ou independente."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Abra a calculadora dentro de uma página ou painel lateral ou janela independente."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Flutuar na página"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Aberto como pop -up de extensão"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Exibir em painel lateral"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Abrir na nova guia"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Aberto em nova janela"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Largura padrão"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "A largura da calculadora quando ele for lançada."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Altura padrão"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "A altura da calculadora quando ele for lançada."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Desativado em sites"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "A extensão não será executada nesses sites. Digite um site por linha."
+    },
+    "Display_result_in_fractions": {
         "message": "Exibir resultado em frações"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Sempre que possível, torna o resultado como uma fração em vez de decimal."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Responda a precisão"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "O número de lugares decimais que as respostas são arredondados."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Padrão para o modo básico"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Inicie a calculadora no modo básico (sem funções trignométricas)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Inicie a calculadora no modo básico (sem funções trigonométricas)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Ativar minimize"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Exibe um controle (no cabeçalho) para minimizar a calculadora"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Ativar modo escuro"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Dê à interface uma aparência sombria."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Use vírgula (,) para decimais"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Exibir 20.000,00 em vez de 20.000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Aberto como janela pop -up"
+    },
+    "Open_as_New_Tab": {
+        "message": "Abrir como nova guia"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Aberto no painel lateral"
+    },
+    "Successfully_updated_settings": {
+        "message": "Configurações atualizadas com sucesso"
+    },
+    "How_can_we_improve_": {
+        "message": "Como podemos melhorar?"
+    },
+    "How_are_we_doing_": {
+        "message": "Como estamos indo?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Estou feliz por ter gostado! Você pode nos ajudar a compartilhar o ❤️?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Obrigado pelo feedback!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Taxa na Chrome Web Store"
+    },
+    "No": {
+        "message": "Não"
+    },
+    "Submit_Feedback": {
+        "message": "Enviar feedback"
     }
 }

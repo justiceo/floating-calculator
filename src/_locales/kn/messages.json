@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "ನಿಮಗೆ ಬೇಕಾದ ಎಲ್ಲಿಯಾದರೂ ತೇಲುವ ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "ನಾವು ಹೇಗೆ ಮಾಡುತ್ತಿದ್ದೇವೆ?"
+    "@testMarkup": {
+        "message": "<ಡಿವ್> <p> ಹಲೋ ವರ್ಲ್ಡ್ </p> ಇದು ವೆಬ್‌ನ <strong> ಭಾಷೆ </strong> </div>"
     },
-    "fdbkCareToShare": {
-        "message": "ನೀವು ಇಷ್ಟಪಟ್ಟಿದ್ದಕ್ಕಾಗಿ ಸಂತೋಷ! The ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದೇ?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "ನಾವು ಹೇಗೆ ಸುಧಾರಿಸಬಹುದು?"
-    },
-    "fdbkThanks": {
-        "message": "ಪ್ರತಿಕ್ರಿಯೆಗಾಗಿ ಧನ್ಯವಾದಗಳು!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "ವೆಬ್‌ಸ್ಟೋರ್‌ನಲ್ಲಿ ದರ"
-    },
-    "fdbkNoResponse": {
-        "message": "ಇಲ್ಲ"
-    },
-    "fdbkSumbit": {
-        "message": "ಸಲ್ಲಿಸು"
-    },
-    "reportAnIssue": {
-        "message": "ಸಮಸ್ಯೆಯನ್ನು ವರದಿ ಮಾಡಿ",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "ಡೆಮೊ ತೋರಿಸಿ",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಿದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
-    },
-    "optionBlockedSites": {
-        "message": "ವೆಬ್‌ಸೈಟ್‌ಗಳಲ್ಲಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "ಈ ಸೈಟ್‌ಗಳಲ್ಲಿ ವಿಸ್ತರಣೆ ಚಲಿಸುವುದಿಲ್ಲ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಸೈಟ್ ನಮೂದಿಸಿ."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "ಡೀಫಾಲ್ಟ್ ಓಪನ್ ಆಕ್ಷನ್"
     },
-    "optionDefaultActionDesc": {
-        "message": "ಪುಟ ಅಥವಾ ಸೈಡ್‌ಪನೆಲ್ ಅಥವಾ ಸ್ವತಂತ್ರ ವಿಂಡೋ ಒಳಗೆ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ತೆರೆಯಿರಿ."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "ಪುಟ ಅಥವಾ ಸೈಡ್ ಪ್ಯಾನಲ್ ಅಥವಾ ಸ್ವತಂತ್ರ ವಿಂಡೋ ಒಳಗೆ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ತೆರೆಯಿರಿ."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "ಪುಟದಲ್ಲಿ ಫ್ಲೋಟ್"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "ವಿಸ್ತರಣೆಯ ಪಾಪ್ಅಪ್ ಆಗಿ ತೆರೆಯಿರಿ"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "ಸೈಡ್ ಪ್ಯಾನೆಲ್‌ನಲ್ಲಿ ಪ್ರದರ್ಶಿಸಿ"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "ಹೊಸ ವಿಂಡೋದಲ್ಲಿ ತೆರೆಯಿರಿ"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "ಡೀಫಾಲ್ಟ್ ಅಗಲ"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿದಾಗ ಅಗಲ."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "ಡೀಫಾಲ್ಟ್ ಎತ್ತರ"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "ಅದು ಪ್ರಾರಂಭಿಸಿದಾಗ ಕ್ಯಾಲ್ಕುಲೇಟರ್ನ ಎತ್ತರ."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "ವೆಬ್‌ಸೈಟ್‌ಗಳಲ್ಲಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "ಈ ಸೈಟ್‌ಗಳಲ್ಲಿ ವಿಸ್ತರಣೆ ಚಲಿಸುವುದಿಲ್ಲ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಸೈಟ್ ನಮೂದಿಸಿ."
+    },
+    "Display_result_in_fractions": {
         "message": "ಭಿನ್ನರಾಶಿಗಳಲ್ಲಿ ಫಲಿತಾಂಶವನ್ನು ಪ್ರದರ್ಶಿಸಿ"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "ಸಾಧ್ಯವಾದರೆ, ಫಲಿತಾಂಶವನ್ನು ದಶಮಾಂಶದ ಬದಲು ಒಂದು ಭಾಗವಾಗಿ ನಿರೂಪಿಸುತ್ತದೆ."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "ಉತ್ತರ ನಿಖರತೆ"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "ಉತ್ತರಿಸುವ ದಶಮಾಂಶ ಸ್ಥಳಗಳ ಸಂಖ್ಯೆ."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "ಡೀಫಾಲ್ಟ್ ಮೂಲ ಮೋಡ್‌ಗೆ"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "ಮೂಲ ಮೋಡ್‌ನಲ್ಲಿ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ (ಟ್ರಿಗ್ನೊಮೆಟ್ರಿಕ್ ಕಾರ್ಯಗಳಿಲ್ಲ)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "ಮೂಲ ಮೋಡ್‌ನಲ್ಲಿ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ (ತ್ರಿಕೋನಮಿತಿಯ ಕಾರ್ಯಗಳಿಲ್ಲ)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "ಕಡಿಮೆ ಮಾಡಿ ಸಕ್ರಿಯಗೊಳಿಸಿ"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಅನ್ನು ಕಡಿಮೆ ಮಾಡಲು ನಿಯಂತ್ರಣವನ್ನು (ಹೆಡರ್ನಲ್ಲಿ) ಪ್ರದರ್ಶಿಸುತ್ತದೆ"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "ಡಾರ್ಕ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "ಇಂಟರ್ಫೇಸ್ ಅನ್ನು ಡಾರ್ಕ್ ಲುಕ್ ನೀಡಿ."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "ದಶಮಾಂಶಗಳಿಗಾಗಿ ಅಲ್ಪವಿರಾಮ (,) ಬಳಸಿ"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "20,000.00 ಬದಲಿಗೆ 20.000,00 ಪ್ರದರ್ಶಿಸಿ"
+    },
+    "Open_as_Popup_Window": {
+        "message": "ಪಾಪ್ಅಪ್ ವಿಂಡೋ ಆಗಿ ತೆರೆಯಿರಿ"
+    },
+    "Open_as_New_Tab": {
+        "message": "ಹೊಸ ಟ್ಯಾಬ್‌ನಂತೆ ತೆರೆಯಿರಿ"
+    },
+    "Open_in_Side_Panel": {
+        "message": "ಸೈಡ್ ಪ್ಯಾನೆಲ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ"
+    },
+    "Successfully_updated_settings": {
+        "message": "ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಿದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+    },
+    "How_can_we_improve_": {
+        "message": "ನಾವು ಹೇಗೆ ಸುಧಾರಿಸಬಹುದು?"
+    },
+    "How_are_we_doing_": {
+        "message": "ನಾವು ಹೇಗೆ ಮಾಡುತ್ತಿದ್ದೇವೆ?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "ನೀವು ಇಷ್ಟಪಟ್ಟಿದ್ದಕ್ಕಾಗಿ ಸಂತೋಷ! The ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದೇ?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "ಪ್ರತಿಕ್ರಿಯೆಗಾಗಿ ಧನ್ಯವಾದಗಳು!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "ಕ್ರೋಮ್ ವೆಬ್ ಅಂಗಡಿಯಲ್ಲಿ ದರ"
+    },
+    "No": {
+        "message": "ಇಲ್ಲ"
+    },
+    "Submit_Feedback": {
+        "message": "ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಸಲ್ಲಿಸಿ"
     }
 }

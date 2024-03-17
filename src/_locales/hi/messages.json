@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "अस्थायी वैज्ञानिक कैलकुलेटर",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "कैलकुलेटर",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "एक फ्लोटिंग वैज्ञानिक कैलकुलेटर कहीं भी आपको इसकी आवश्यकता है",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "हम कैसे हैं?"
+    "@testMarkup": {
+        "message": "<viv> <p> हैलो वर्ल्ड </p> यह वेब का <strong> भाषा </strong> है </div>"
     },
-    "fdbkCareToShare": {
-        "message": "खुशी है कि यह आपको पसंद है! क्या आप हमें ❤ साझा करने में मदद कर सकते हैं?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "हम कैसे सुधार सकते हैं?"
-    },
-    "fdbkThanks": {
-        "message": "प्रतिक्रिया के लिए धन्यवाद!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "वेबस्टोर पर दर"
-    },
-    "fdbkNoResponse": {
-        "message": "नहीं"
-    },
-    "fdbkSumbit": {
-        "message": "जमा करना"
-    },
-    "reportAnIssue": {
-        "message": "मामले की रिपोर्ट करें",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "डेमो दिखाओ",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "सफलतापूर्वक अद्यतन सेटिंग्स"
-    },
-    "optionBlockedSites": {
-        "message": "वेबसाइटों पर अक्षम"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "इन साइटों पर एक्सटेंशन नहीं चलेगा। प्रति पंक्ति एक साइट दर्ज करें।"
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "डिफ़ॉल्ट खुला कार्रवाई"
     },
-    "optionDefaultActionDesc": {
-        "message": "किसी पृष्ठ या एक साइडपैनल या स्टैंडअलोन विंडो के अंदर कैलकुलेटर खोलें।"
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "एक पृष्ठ या एक साइड पैनल या स्टैंडअलोन विंडो के अंदर कैलकुलेटर खोलें।"
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "पेज पर फ्लोट"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "एक्सटेंशन पॉपअप के रूप में खुला"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "साइड पैनल में प्रदर्शित करें"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "वेब टेब में खोलें"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "नई विंडो में खोलें"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "डिफ़ॉल्ट चौड़ाई"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "कैलकुलेटर की चौड़ाई जब यह लॉन्च होती है।"
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "डिफ़ॉल्ट ऊंचाई"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "जब यह लॉन्च होता है तो कैलकुलेटर की ऊंचाई।"
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "वेबसाइटों पर अक्षम"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "इन साइटों पर एक्सटेंशन नहीं चलेगा। प्रति पंक्ति एक साइट दर्ज करें।"
+    },
+    "Display_result_in_fractions": {
         "message": "अंशों में परिणाम प्रदर्शित करें"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "जहां संभव हो, परिणाम को दशमलव के बजाय एक अंश के रूप में प्रस्तुत करता है।"
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "उत्तर परिशुद्धता"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "उत्तर देने वाले दशमलव स्थानों की संख्या गोल हो जाती है।"
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "बेसिक मोड के लिए डिफ़ॉल्ट"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "मूल मोड में कैलकुलेटर लॉन्च करें (कोई ट्रिग्नोमेट्रिक फ़ंक्शन नहीं)।"
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "मूल मोड (कोई त्रिकोणमितीय कार्य नहीं) में कैलकुलेटर लॉन्च करें।"
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "कम से कम सक्षम करें"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "कैलकुलेटर को कम करने के लिए एक नियंत्रण (हेडर में) प्रदर्शित करता है"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "डार्क मोड सक्षम करें"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "इंटरफ़ेस को एक डार्क लुक दें।"
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "दशमलव के लिए अल्पविराम (,) का उपयोग करें"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "20,000.00 के बजाय 20.000,00 प्रदर्शित करें"
+    },
+    "Open_as_Popup_Window": {
+        "message": "पॉपअप विंडो के रूप में खोलें"
+    },
+    "Open_as_New_Tab": {
+        "message": "नए टैब के रूप में खोलें"
+    },
+    "Open_in_Side_Panel": {
+        "message": "साइड पैनल में खोलें"
+    },
+    "Successfully_updated_settings": {
+        "message": "सफलतापूर्वक अद्यतन सेटिंग्स"
+    },
+    "How_can_we_improve_": {
+        "message": "हम कैसे सुधार सकते हैं?"
+    },
+    "How_are_we_doing_": {
+        "message": "हम कैसे हैं?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "खुशी है कि यह आपको पसंद है! क्या आप हमें ❤ साझा करने में मदद कर सकते हैं?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "प्रतिक्रिया के लिए धन्यवाद!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "क्रोम वेब स्टोर पर दर"
+    },
+    "No": {
+        "message": "नहीं"
+    },
+    "Submit_Feedback": {
+        "message": "प्रतिपुष्टि दें"
     }
 }

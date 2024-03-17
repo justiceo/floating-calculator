@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Calculadora científica flotant",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Calculadora",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Una calculadora científica flotant en qualsevol lloc que necessiteu",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Com estem?"
+    "@testMarkup": {
+        "message": "<div> <p> Hola món </p> Aquest és el <strong> llenguatge </strong> del web </div>"
     },
-    "fdbkCareToShare": {
-        "message": "Encantat de que t'agradi! Ens podeu ajudar a compartir el ❤️?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Com podem millorar?"
-    },
-    "fdbkThanks": {
-        "message": "Gràcies pels comentaris!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Valora a la botiga web"
-    },
-    "fdbkNoResponse": {
-        "message": "No"
-    },
-    "fdbkSumbit": {
-        "message": "Presentar"
-    },
-    "reportAnIssue": {
-        "message": "Informeu d’un problema",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Demostració d'espectacle",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Configuració actualitzada amb èxit"
-    },
-    "optionBlockedSites": {
-        "message": "Desactivat en llocs web"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "L’extensió no s’executarà en aquests llocs. Introduïu un lloc per línia."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Acció oberta per defecte"
     },
-    "optionDefaultActionDesc": {
-        "message": "Obriu la calculadora dins d’una pàgina o una finestra lateral o autònoma."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Obriu la calculadora dins d’una pàgina o un panell lateral o una finestra autònoma."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Float a la pàgina"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Obriu com a emergent d'extensió"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Mostra al tauler lateral"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Obert a la pestanya nova"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Obre a la finestra nova"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Amplada per defecte"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "L'amplada de la calculadora quan es llança."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Alçada per defecte"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "L’alçada de la calculadora quan es llança."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Desactivat en llocs web"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "L’extensió no s’executarà en aquests llocs. Introduïu un lloc per línia."
+    },
+    "Display_result_in_fractions": {
         "message": "El resultat de la visualització en fraccions"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Sempre que sigui possible, fa que el resultat sigui una fracció en lloc de decimal."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Resposta Precisió"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "El nombre de llocs decimals que les respostes són arrodonides."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Per defecte al mode bàsic"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Inicieu la calculadora en mode bàsic (sense funcions trignomètriques)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Inicieu la calculadora en mode bàsic (sense funcions trigonomètriques)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Activa Minimitzar"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Mostra un control (a la capçalera) per minimitzar la calculadora"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Activa el mode fosc"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Doneu a la interfície un aspecte fosc."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Utilitzeu comes (,) per a decimals"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Mostra 20.000,00 en lloc de 20.000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Obre com a finestra emergent"
+    },
+    "Open_as_New_Tab": {
+        "message": "Obre com a nova pestanya"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Obre al tauler lateral"
+    },
+    "Successfully_updated_settings": {
+        "message": "Configuració actualitzada amb èxit"
+    },
+    "How_can_we_improve_": {
+        "message": "Com podem millorar?"
+    },
+    "How_are_we_doing_": {
+        "message": "Com estem?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Encantat de que t'agradi! Ens podeu ajudar a compartir el ❤️?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Gràcies pels comentaris!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Valoreu a la botiga web Chrome"
+    },
+    "No": {
+        "message": "No"
+    },
+    "Submit_Feedback": {
+        "message": "Envieu comentaris"
     }
 }

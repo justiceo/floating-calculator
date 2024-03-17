@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Ujuv teaduslik kalkulaator",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Kalkulaator",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Ujuv teaduslik kalkulaator kõikjal, kus seda vajate",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Kuidas meil läheb?"
+    "@testMarkup": {
+        "message": "<div> <p> Tere maailm </p> See on veebi </strong>"
     },
-    "fdbkCareToShare": {
-        "message": "Tore, et see teile meeldib! Kas saate aidata meil ❤️ jagada?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Kuidas saaksime parandada?"
-    },
-    "fdbkThanks": {
-        "message": "Aitäh tagasiside eest!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Hindus veebipoes"
-    },
-    "fdbkNoResponse": {
-        "message": "Mitte"
-    },
-    "fdbkSumbit": {
-        "message": "Esita"
-    },
-    "reportAnIssue": {
-        "message": "Emissioonist teatama",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Näita demo",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Edukalt värskendatud sätted"
-    },
-    "optionBlockedSites": {
-        "message": "Veebisaitidel puudega"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "Pikendus nendel saitidel ei tööta. Sisestage üks sait rea kohta."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Vaikimisi avatud toiming"
     },
-    "optionDefaultActionDesc": {
-        "message": "Avage kaltsulaator lehe sees või külg- või eraldiseisva akna sees."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Avage lehe või külgpaneeli või eraldiseisva akna sees kalkulaator."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Ujuda lehel"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Avatud pikenduse hüpikina"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Kuva külgpaneelil"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Avage uuel vahekaardil"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Avatud uues aknas"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Vaikimisi laius"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "Kalkulaatori laius, kui see käivitub."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Vaikekõrgus"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "Kalkulaatori kõrgus, kui see käivitub."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Veebisaitidel puudega"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "Pikendus nendel saitidel ei tööta. Sisestage üks sait rea kohta."
+    },
+    "Display_result_in_fractions": {
         "message": "Kuva tulemuseks on fraktsioonid"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Võimaluse korral muudab tulemuse kümnendkoha asemel murdosaks."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Vastus täpsus"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "Kümnendkohtade arv, millele vastused ümardavad."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Vaikerežiim"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Käivitage kalkulaator põhirežiimis (trignomeetrilisi funktsioone pole)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Käivitage kalkulaator põhirežiimis (trigonomeetrilisi funktsioone pole)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Lubage minimeerida"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Kuvab kalkulaatori minimeerimiseks kontroll (päises)"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Luba tume režiim"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Andke liidesele tume välimus."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Kasutage kümnendkohtade jaoks koma (,)"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Kuva 20 000,00 asemel 20 000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Avage hüpikakenina"
+    },
+    "Open_as_New_Tab": {
+        "message": "Avage uue vahekaartina"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Avage külgpaneelil"
+    },
+    "Successfully_updated_settings": {
+        "message": "Edukalt värskendatud sätted"
+    },
+    "How_can_we_improve_": {
+        "message": "Kuidas saaksime parandada?"
+    },
+    "How_are_we_doing_": {
+        "message": "Kuidas meil läheb?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Tore, et see teile meeldib! Kas saate aidata meil ❤️ jagada?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Aitäh tagasiside eest!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Kiirus Chrome'i veebipoes"
+    },
+    "No": {
+        "message": "Mitte"
+    },
+    "Submit_Feedback": {
+        "message": "Tagasisidet esitama"
     }
 }

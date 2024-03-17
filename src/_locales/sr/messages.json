@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Плутајући научни калкулатор",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Калкулатор",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Плутајући научни калкулатор било где, треба вам",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Како нам иде?"
+    "@testMarkup": {
+        "message": "<див> <п> Поздрав свијет </ п> Ово је <стронг> језик </ стронг> на веб </ див>"
     },
-    "fdbkCareToShare": {
-        "message": "Драго ми је да ти се свиђа! Можете ли нам помоћи да поделимо ❤?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Како се можемо побољшати?"
-    },
-    "fdbkThanks": {
-        "message": "Хвала за повратне информације!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Брзина на ВебСторе-у"
-    },
-    "fdbkNoResponse": {
-        "message": "Не"
-    },
-    "fdbkSumbit": {
-        "message": "прихвати"
-    },
-    "reportAnIssue": {
-        "message": "Пријавите проблем",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Показати демо",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Успешно ажурирана подешавања"
-    },
-    "optionBlockedSites": {
-        "message": "Онемогућено на веб локацијама"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "Проширење неће покренути на овим веб локацијама. Унесите једну локацију по линији."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Подразумевана Отворена акција"
     },
-    "optionDefaultActionDesc": {
-        "message": "Отворите калкулатор унутар странице или бочног стана или самосталног прозора."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Отворите калкулатор унутар странице или бочне плоче или самостално прозор."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Флоат на страници"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Отворено као скочни прозор за проширење"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Прикажите на бочној плочи"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Отвори на новој картици"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Отвори у новом прозору"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Подразумевана ширина"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "Ширина калкулатора када се покрене."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Подразумевана висина"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "Висина калкулатора када се покрене."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Онемогућено на веб локацијама"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "Проширење неће покренути на овим веб локацијама. Унесите једну локацију по линији."
+    },
+    "Display_result_in_fractions": {
         "message": "Резултат приказа у фракцијама"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Када је то могуће, резултира резултатима као делић уместо децималне."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Прецизност одговора"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "Број децималних места које одговори су заокружени."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Подразумевано у основни режим"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Покрените калкулатор у основном режиму (без тригнометријске функције)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Покрените калкулатор у основном режиму (без тригонометријских функција)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Омогућите минимизирање"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Приказује контролу (у заглављу) за минимизирање калкулатора"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Омогућите тамни режим"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Дајте интерфејсу мрачног изгледа."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Користите зарез (,) за децимале"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Приказ 20.000,00 уместо 20.000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Отворен као прозор скокова"
+    },
+    "Open_as_New_Tab": {
+        "message": "Отвори као Нова картица"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Отвори на бочној плочи"
+    },
+    "Successfully_updated_settings": {
+        "message": "Успешно ажурирана подешавања"
+    },
+    "How_can_we_improve_": {
+        "message": "Како се можемо побољшати?"
+    },
+    "How_are_we_doing_": {
+        "message": "Како нам иде?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Драго ми је да ти се свиђа! Можете ли нам помоћи да поделимо ❤?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Хвала за повратне информације!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Оцени на Цхроме Веб Сторе"
+    },
+    "No": {
+        "message": "Не"
+    },
+    "Submit_Feedback": {
+        "message": "Пошаљите повратне информације"
     }
 }

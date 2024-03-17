@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Úszó tudományos számológép",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Számológép",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Úszó tudományos számológép bárhol, amire szüksége van rá",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Hogy vagyunk?"
+    "@testMarkup": {
+        "message": "<div> <p> Hello World </p> Ez a web </strong> nyelv </strong> nyelv </div>"
     },
-    "fdbkCareToShare": {
-        "message": "Örülök, hogy tetszik! Tudna segíteni nekünk a ❤️?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Hogyan javulhatunk?"
-    },
-    "fdbkThanks": {
-        "message": "Köszönöm a visszajelzést!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Értékeld a webáruházat"
-    },
-    "fdbkNoResponse": {
-        "message": "Nem"
-    },
-    "fdbkSumbit": {
-        "message": "Beküldés"
-    },
-    "reportAnIssue": {
-        "message": "Jelentsen egy problémát",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Bemutató bemutató",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Sikeresen frissített beállítások"
-    },
-    "optionBlockedSites": {
-        "message": "Letiltva a webhelyeken"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "A kiterjesztés nem fog futni ezeken a webhelyeken. Írjon be egy helyenként egy webhelyet."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Alapértelmezett nyitott művelet"
     },
-    "optionDefaultActionDesc": {
-        "message": "Nyissa meg a számológépet egy oldalon, egy oldalsó vagy önálló ablakon belül."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Nyissa meg a számológépet egy oldalon vagy egy oldalsó vagy önálló ablakon belül."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Úszni az oldalon"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Nyissa meg a kiterjesztés felbukkanását"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Kijelzés az oldalsó panelen"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Nyissa meg az új lapon"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Megnyitás új ablakban"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Alapértelmezett szélesség"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "A számológép szélessége, amikor elindul."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Alapértelmezett magasság"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "A számológép magassága, amikor elindul."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Letiltva a webhelyeken"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "A kiterjesztés nem fog futni ezeken a webhelyeken. Írjon be egy helyenként egy webhelyet."
+    },
+    "Display_result_in_fractions": {
         "message": "A megjelenítési eredmény frakciókkal"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Ahol lehetséges, akkor az eredményt töredékként adja meg a tizedes helyett."
     },
-    "optionAnswerPrecision": {
+    "Answer_precision": {
         "message": "Válasz pontosság"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "A válaszok száma a válaszok száma."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Alapértelmezés az alap módra"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Indítsa el a számológépet alapvető módban (nincs trignometrikus függvény)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Indítsa el a számológépet alapvető módban (nincs trigonometrikus funkció)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Engedélyezze a minimalizálást"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Megjeleníti a vezérlőt (a fejlécben) a számológép minimalizálásához"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Engedélyezze a sötét módot"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Adjon sötét megjelenést az interfésznek."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Használjon vesszőt (,) tizedesjegyekhez"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "A 20 000,00 -at jelenítse meg a 20 000,00 helyett"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Nyissa meg a felbukkanó ablakot"
+    },
+    "Open_as_New_Tab": {
+        "message": "Nyissa meg az új fülként"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Nyissa meg az oldalsó panelen"
+    },
+    "Successfully_updated_settings": {
+        "message": "Sikeresen frissített beállítások"
+    },
+    "How_can_we_improve_": {
+        "message": "Hogyan javulhatunk?"
+    },
+    "How_are_we_doing_": {
+        "message": "Hogy vagyunk?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Örülök, hogy tetszik! Tudna segíteni nekünk a ❤️?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Köszönöm a visszajelzést!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Értékeld a Chrome Web Store -on"
+    },
+    "No": {
+        "message": "Nem"
+    },
+    "Submit_Feedback": {
+        "message": "Visszajelzés küldése"
     }
 }

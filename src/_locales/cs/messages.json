@@ -1,121 +1,125 @@
 {
-    "appName": {
+    "@appName": {
         "message": "Plovoucí vědecká kalkulačka",
         "description": "The name of the extension"
     },
-    "appShortName": {
+    "@appShortName": {
         "message": "Kalkulačka",
         "description": "The short-version name of the extension name"
     },
-    "appDesc": {
+    "@appDesc": {
         "message": "Plovoucí vědecká kalkulačka kdekoli ji potřebujete",
         "description": "The description of your extension"
     },
-    "fdbkHowAreWeDoing": {
-        "message": "Jak se máme?"
+    "@testMarkup": {
+        "message": "<div> <p> Hello World </p> Toto je <strong> jazyk </strong> webu </v div>"
     },
-    "fdbkCareToShare": {
-        "message": "Jsem rád že se ti líbí! Můžete nám pomoci sdílet ❤?"
-    },
-    "fdbkHowCanWeImprove": {
-        "message": "Jak se můžeme zlepšit?"
-    },
-    "fdbkThanks": {
-        "message": "Děkuji za zpětnou vazbu!"
-    },
-    "fdbkRateOnWebstore": {
-        "message": "Sazba na webovémstore"
-    },
-    "fdbkNoResponse": {
-        "message": "Ne"
-    },
-    "fdbkSumbit": {
-        "message": "Předložit"
-    },
-    "reportAnIssue": {
-        "message": "Nahlásit problém",
-        "description": "Button text for reporting an issue"
-    },
-    "showDemo": {
-        "message": "Zobrazit demo",
-        "description": "Button text for showing demo"
-    },
-    "optionsSaveSuccess": {
-        "message": "Úspěšně aktualizovaná nastavení"
-    },
-    "optionBlockedSites": {
-        "message": "Zakázáno na webových stránkách"
-    },
-    "optionBlockedSitesDesc": {
-        "message": "Prodloužení nebude na těchto stránkách spuštěno. Zadejte jeden web na řádek."
-    },
-    "optionDefaultAction": {
+    "Default_open_action": {
         "message": "Výchozí otevřená akce"
     },
-    "optionDefaultActionDesc": {
-        "message": "Otevřete kalkulačku uvnitř stránky nebo sidepanelu nebo samostatného okna."
+    "Open_the_calculator_inside_a_page_or_a_side_panel_or_standalone_window_": {
+        "message": "Otevřete kalkulačku uvnitř stránky nebo bočního panelu nebo samostatného okna."
     },
-    "optionDefaultAction_floatOnPage": {
+    "Float_on_page": {
         "message": "Vznášejte na stránce"
     },
-    "optionDefaultAction_extensionPopup": {
+    "Open_as_extension_popup": {
         "message": "Otevřeno jako rozšiřující se vyskakovací okno"
     },
-    "optionDefaultAction_sidePanel": {
+    "Display_in_side_panel": {
         "message": "Zobrazit v bočním panelu"
     },
-    "optionDefaultAction_newTab": {
+    "Open_in_new_tab": {
         "message": "Otevřete se na nové kartě"
     },
-    "optionDefaultAction_newWindow": {
+    "Open_in_new_window": {
         "message": "Otevři v novém okně"
     },
-    "optionDefaultWidth": {
+    "Default_width": {
         "message": "Výchozí šířka"
     },
-    "optionDefaultWidthDesc": {
+    "The_width_of_the_calculator_when_it_launches_": {
         "message": "Šířka kalkulačky při spuštění."
     },
-    "optionDefaultHeight": {
+    "Default_height": {
         "message": "Výchozí výška"
     },
-    "optionDefaultHeightDesc": {
+    "The_height_of_the_calculator_when_it_launches_": {
         "message": "Výška kalkulačky při spuštění."
     },
-    "optionEnableFractions": {
+    "Disabled_on_Websites": {
+        "message": "Zakázáno na webových stránkách"
+    },
+    "Extension_will_not_run_on_these_sites__Enter_one_site_per_line_": {
+        "message": "Prodloužení nebude na těchto stránkách spuštěno. Zadejte jeden web na řádek."
+    },
+    "Display_result_in_fractions": {
         "message": "Výsledek zobrazení k zlomkům"
     },
-    "optionEnableFractionsDesc": {
+    "Where_possible__renders_the_result_as_a_fraction_instead_of_decimal_": {
         "message": "Pokud je to možné, vykresluje výsledek jako zlomek místo desetinného pole."
     },
-    "optionAnswerPrecision": {
-        "message": "Přesnost odpovědi"
+    "Answer_precision": {
+        "message": "Odpověď přesnost"
     },
-    "optionAnswerPrecisionDesc": {
+    "The_number_of_decimal_places_that_answers_are_round_up_to_": {
         "message": "Počet desetinných míst, na která odpovídá."
     },
-    "optionDefaultToBasic": {
+    "Default_to_basic_mode": {
         "message": "Výchozí do základního režimu"
     },
-    "optionDefaultToBasicDesc": {
-        "message": "Spusťte kalkulačku v základním režimu (žádné trignometrické funkce)."
+    "Launch_calculator_in_basic_mode__no_trigonometric_functions__": {
+        "message": "Spuštění kalkulačky v základním režimu (žádné trigonometrické funkce)."
     },
-    "optionEnableMinimize": {
+    "Enable_minimize": {
         "message": "Povolit minimalizaci"
     },
-    "optionEnableMinimizeDesc": {
+    "Displays_a_control__in_the_header__for_minimizing_the_calculator": {
         "message": "Zobrazuje ovládací prvek (v záhlaví) pro minimalizaci kalkulačky"
     },
-    "optionEnableDarkMode": {
+    "Enable_dark_mode": {
         "message": "Povolte tmavý režim"
     },
-    "optionEnableDarkModeDesc": {
+    "Give_the_interface_a_dark_look_": {
         "message": "Dejte rozhraní tmavý vzhled."
     },
-    "optionUseCommaForDecimals": {
+    "Use_comma_____for_decimals": {
         "message": "Použijte čárku (,) pro desetinné paměti"
     },
-    "optionUseCommaForDecimalsDesc": {
+    "Display_20_000_00_instead_of_20_000_00": {
         "message": "Zobrazit 20 000,00 místo 20 000,00"
+    },
+    "Open_as_Popup_Window": {
+        "message": "Otevřeno jako vyskakovací okno"
+    },
+    "Open_as_New_Tab": {
+        "message": "Otevřete jako nová karta"
+    },
+    "Open_in_Side_Panel": {
+        "message": "Otevřeno v bočním panelu"
+    },
+    "Successfully_updated_settings": {
+        "message": "Úspěšně aktualizovaná nastavení"
+    },
+    "How_can_we_improve_": {
+        "message": "Jak se můžeme zlepšit?"
+    },
+    "How_are_we_doing_": {
+        "message": "Jak se máme?"
+    },
+    "Glad_you_like_it__Can_you_help_us_share_the____": {
+        "message": "Jsem rád že se ti líbí! Můžete nám pomoci sdílet ❤?"
+    },
+    "Thanks_for_the_feedback_": {
+        "message": "Děkuji za zpětnou vazbu!"
+    },
+    "Rate_on_Chrome_Web_Store": {
+        "message": "Ohodnoťte se na webovém obchodě Chrome"
+    },
+    "No": {
+        "message": "Ne"
+    },
+    "Submit_Feedback": {
+        "message": "Odeslat zpětnou vazbu"
     }
 }
